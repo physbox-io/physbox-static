@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>expt.in | High-Fidelity Open-Source Interactive Simulations</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Explore expt.in, a powerful suite of open-source, browser-based simulation tools. High-fidelity electronics, MuJoCo 3D physics, ecological models, cellular automata, and IoT nodes—all running 100% locally and free.">
+  <meta name="keywords" content="simulation, electronics simulator, WASM physics, MuJoCo, cellular automata, Runge Kutta, open source simulator, ngspice wasm, circuit sandbox">
+  <meta name="author" content="expt.in">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://expt.in/">
+  <meta property="og:title" content="expt.in | High-Fidelity Open-Source Interactive Simulations">
+  <meta property="og:description" content="A powerful suite of browser-based simulation tools. High-fidelity electronics, MuJoCo 3D physics, cellular automata, and IoT nodes—100% local, offline-capable, and completely free.">
+  <meta property="og:image" content="assets/physics_mockup.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://expt.in/">
+  <meta property="twitter:title" content="expt.in | High-Fidelity Open-Source Interactive Simulations">
+  <meta property="twitter:description" content="A powerful suite of browser-based simulation tools. High-fidelity electronics, MuJoCo 3D physics, cellular automata, and IoT nodes—100% local, offline-capable, and completely free.">
+  <meta property="twitter:image" content="assets/physics_mockup.png">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- FontAwesome for Premium Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- JSON-LD Structured Data for Scientific Software Suite (SEO Integration) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "expt.in Simulation Suite",
+    "operatingSystem": "All (Web Browser Platform)",
+    "applicationCategory": "EducationalApplication, ScientificApplication, BusinessApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "expt.in",
+      "url": "https://expt.in"
+    },
+    "description": "A high-fidelity open-source simulation suite running natively in WebAssembly. Features Circuit Expt (electronics + MCU with audio), Physics Expt (MuJoCo rigid body physics), and Process Expt (cellular automata, Runge-Kutta, and LLM nodes).",
+    "softwareVersion": "2.0.0",
+    "license": "https://opensource.org/licenses/MIT",
+    "downloadUrl": "https://github.com/boab"
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Interactive HTML5 Canvas Background -->
+  <canvas id="canvas-bg"></canvas>
+
+  <!-- Sleek Header Navigation -->
+  <header id="main-header">
+    <div class="container">
+      <a href="#" class="logo-link" id="nav-logo-link">
+        <img src="assets/expt_logo.png" alt="expt logo" class="logo-img">
+        <span class="logo-text">expt<span class="logo-dot">.</span>in</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#suite" id="nav-link-suite">Simulators</a></li>
+          <li><a href="#ai-models" id="nav-link-ai">AI Models</a></li>
+          <li><a href="#tech" id="nav-link-tech">Architecture</a></li>
+          <li><a href="#pledge" id="nav-link-pledge">Open Source</a></li>
+          <li><a href="https://github.com/boab" target="_blank" class="nav-cta" id="nav-btn-github"><i class="fab fa-github"></i> Star on Github</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge reveal">
+        <span class="dot"></span>
+        <span>Version 2.0 WebAssembly Engines Active</span>
+      </div>
+      <h1 class="hero-title reveal delay-100">
+        Scientific Simulation, <span class="gradient-text">Unbound.</span>
+      </h1>
+      <p class="hero-subtitle reveal delay-200">
+        Three hyper-realistic, open-source simulation engines running 100% in your browser. From microsecond electronics to multi-axis mechanical assemblies and adaptive ecosystem graphs—run instantly, locally, and completely free.
+      </p>
+      <div class="hero-ctas reveal delay-300">
+        <a href="#suite" class="btn btn-primary" id="hero-btn-launch"><i class="fas fa-play"></i> Launch Simulation Suite</a>
+        <a href="https://github.com/boab" target="_blank" class="btn btn-secondary" id="hero-btn-github"><i class="fab fa-github"></i> View Source Code</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Showcase Section -->
+  <section class="showcase" id="suite">
+    <div class="container">
+      
+      <div class="section-header reveal">
+        <span class="section-tag">Interactive Sandbox Suite</span>
+        <h2 class="section-title">Engines Purpose-Built for Exploratory Science</h2>
+        <p class="section-subtitle">A triad of specialized simulation tools designed to eliminate the boundary between raw physical mathematics and user-friendly visual interaction.</p>
+      </div>
+
+      <div class="sim-list">
+        
+        <!-- 1. Circuit Expt -->
+        <div class="sim-item circuit-item reveal">
+          <div class="sim-mockup-wrapper circuit-mockup-wrapper" id="wrapper-circuit">
+            <div class="mockup-header">
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+            </div>
+            <div class="mockup-toggle-badge" id="toggle-badge-circuit">
+              <span class="badge-option active" data-mode="stylized" id="toggle-opt-circuit-stylized">Stylized Mockup</span>
+              <span class="badge-option" data-mode="raw" id="toggle-opt-circuit-raw">Actual Screenshot</span>
+            </div>
+            <img src="assets/circuit_mockup.png" alt="Circuit Simulator Interface" class="sim-mockup" data-raw="assets/circuit_raw.png" data-stylized="assets/circuit_mockup.png" data-state="stylized" id="img-circuit">
+          </div>
+          <div class="sim-content">
+            <span class="sim-badge circuit-badge">Electronics & Signals</span>
+            <h3 class="sim-name">Circuit Expt</h3>
+            <p class="sim-desc">
+              A high-fidelity electronics playground powered by an optimized, custom-compiled <strong>Ngspice WebAssembly engine</strong>. Design, wire, and test complex electrical circuits with true physical waveforms rendered live in your browser.
+            </p>
+            <ul class="sim-features">
+              <li><strong>Integrated Audio Inputs & Outputs:</strong> Bind simulated microphone waves to input nodes, feed raw DAC outputs directly to your system speakers, and synthesize hardware filters in real-time.</li>
+              <li><strong>Visual React Flow Canvas:</strong> Build and modify circuit nets with a modular node-editor that synchronizes automatically with the SPICE engine.</li>
+              <li><strong>MCU Simulation Sandbox:</strong> Program microcontrollers inside the schematic, compiling firmware and simulating execution cycles alongside passive components.</li>
+            </ul>
+            <div class="sim-footer">
+              <a href="https://circuit.expt.in" class="btn btn-primary" id="btn-launch-circuit"><i class="fas fa-microchip"></i> Launch Circuit Sandbox</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Physics Expt -->
+        <div class="sim-item physics-item reveal">
+          <div class="sim-mockup-wrapper physics-mockup-wrapper" id="wrapper-physics">
+            <div class="mockup-header">
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+            </div>
+            <div class="mockup-toggle-badge" id="toggle-badge-physics">
+              <span class="badge-option active" data-mode="stylized" id="toggle-opt-physics-stylized">Stylized Mockup</span>
+              <span class="badge-option" data-mode="raw" id="toggle-opt-physics-raw">Actual Screenshot</span>
+            </div>
+            <img src="assets/physics_mockup.png" alt="Physics Simulator Interface" class="sim-mockup" data-raw="assets/physics_raw.png" data-stylized="assets/physics_mockup.png" data-state="stylized" id="img-physics">
+          </div>
+          <div class="sim-content">
+            <span class="sim-badge physics-badge">3D Multi-Axis Rigid Body</span>
+            <h3 class="sim-name">Physics Expt</h3>
+            <p class="sim-desc">
+              An advanced mechanical simulator powered by a custom-compiled <strong>MuJoCo WebAssembly engine</strong>. Designed around high structural realism, this playground ensures physical forces and joint constraints reflect reality without floating hacks.
+            </p>
+            <ul class="sim-features">
+              <li><strong>Proximity-Aware Mechanical Coupling:</strong> Solves pinion, gear, and rack behaviors on the fly, applying rigid mathematical joints dynamically when gears mesh or letting you bypass constraints to test pure colliding teeth friction.</li>
+              <li><strong>Complete DOF Control:</strong> Explicitly toggle body configurations between fixed welded points, 1D axial rotation (hinges), and unconstrained 6-DOF movement with true gravity vectors.</li>
+              <li><strong>Explicit Physics Reference Panel:</strong> Exposes advanced variables like sliding friction, collision contact types (`contype`/`conaffinity`), and joint equality parameters directly in the UI with interactive explanations.</li>
+            </ul>
+            <div class="sim-footer">
+              <a href="https://physics.expt.in" class="btn btn-primary" id="btn-launch-physics"><i class="fas fa-cubes"></i> Launch Physics Engine</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Process Expt -->
+        <div class="sim-item process-item reveal">
+          <div class="sim-mockup-wrapper process-mockup-wrapper" id="wrapper-process">
+            <div class="mockup-header">
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+            </div>
+            <div class="mockup-toggle-badge" id="toggle-badge-process">
+              <span class="badge-option active" data-mode="stylized" id="toggle-opt-process-stylized">Stylized Mockup</span>
+              <span class="badge-option" data-mode="raw" id="toggle-opt-process-raw">Actual Screenshot</span>
+            </div>
+            <img src="assets/process_mockup.png" alt="Process Simulator Interface" class="sim-mockup" data-raw="assets/process_raw.png" data-stylized="assets/process_mockup.png" data-state="stylized" id="img-process">
+          </div>
+          <div class="sim-content">
+            <span class="sim-badge process-badge">Hybrid Systems & CA</span>
+            <h3 class="sim-name">Process Expt</h3>
+            <p class="sim-desc">
+              A hybrid systems simulator engineered to model complex relationships, cellular events, and system cycles. Bridge the gap between deterministic calculus and stochastic environmental cellular grids.
+            </p>
+            <ul class="sim-features">
+              <li><strong>Runge-Kutta Differential Solver:</strong> Simulate multi-variable ecological balances, predator-prey dynamics, and process loops with extreme numerical stability.</li>
+              <li><strong>Wildfire Cellular Automata:</strong> Model pixel-by-pixel fire front spread, incorporating wind vectors, moisture, and response dispatch logic directly on an interactive 2D grid.</li>
+              <li><strong>General IoT & Smart Nodes:</strong> Read real-world telemetry via WebSocket inputs and fire outbound webhooks for physical actions, combined with a <strong>State-Gated LLM Copilot</strong> to build grids and write custom logic safely.</li>
+            </ul>
+            <div class="sim-footer">
+              <a href="https://process.expt.in" class="btn btn-primary" id="btn-launch-process"><i class="fas fa-network-wired"></i> Launch Process Expert</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- AI World Models Section -->
+  <section class="ai-agents" id="ai-models">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Agentic AI Tooling</span>
+        <h2 class="section-title">Empowering AI Agents with Actionable Tooling</h2>
+        <p class="section-subtitle">Bridging cognitive reasoning with physically and sociologically accurate environments. expt.in provides zero-latency local action spaces where agents can test layouts, solve physical problems, and safely interact with real-world systems.</p>
+      </div>
+      
+      <div class="ai-content-grid">
+        <div class="ai-column reveal">
+          <h3 class="ai-subheading"><i class="fas fa-toolbox"></i> Action Spaces Over Empty Logic</h3>
+          <p class="ai-paragraph">
+            Large Language Models are exceptional at writing code and reasoning through text, but they operate in a physical vacuum. Without realistic feedback, an AI agent cannot correctly optimize an audio amplifier circuit, balance an unstable mechanical linkage, or coordinate disaster dispatch resources. They need <strong>grounded world models</strong> to solve complex, multi-modal tasks.
+          </p>
+          <p class="ai-paragraph">
+            expt.in solves this by exposing simplified, highly accurate physical and sociological engines directly to AI agents. It provides a robust, local sandboxed sandbox where agents can explore bounds, isolate failure points, and solve complex problems they otherwise couldn't touch.
+          </p>
+          
+          <!-- Animated SVG Graphic representing Cognitive-to-Physical bridge -->
+          <div class="ai-graphic-wrapper">
+            <svg class="ai-svg-graphic" viewBox="0 0 400 150">
+              <defs>
+                <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#8b5cf6" />
+                  <stop offset="100%" stop-color="#06b6d4" />
+                </linearGradient>
+                <filter id="svgGlow">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+              </defs>
+              
+              <!-- Background Grid Lines -->
+              <path d="M 10,75 L 390,75 M 100,20 L 100,130 M 200,20 L 200,130 M 300,20 L 300,130" stroke="rgba(255,255,255,0.03)" stroke-width="1" stroke-dasharray="3,3" />
+              
+              <!-- Connection Bridge Path (Pulsing flow line) -->
+              <path d="M 110,75 L 290,75" stroke="url(#glowGrad)" stroke-width="2.5" stroke-dasharray="10,180" class="svg-flow-line" filter="url(#svgGlow)" />
+              <path d="M 110,75 L 290,75" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
+              
+              <!-- Cognitive Nodes (Left Side) -->
+              <g class="cog-node" transform="translate(80, 75)">
+                <circle r="25" fill="rgba(139,92,246,0.04)" stroke="rgba(139,92,246,0.5)" stroke-width="1.5" filter="url(#svgGlow)" />
+                <circle r="12" fill="rgba(139,92,246,0.15)" stroke="#8b5cf6" stroke-width="1" class="cog-inner-pulse" />
+                <text y="4" text-anchor="middle" fill="#f8fafc" font-size="8.5" font-family="var(--font-header)" font-weight="600">AI AGENT</text>
+              </g>
+              
+              <!-- Physical/Sociological Sandbox Node (Right Side) -->
+              <g class="phys-node" transform="translate(320, 75)">
+                <circle r="25" fill="rgba(6,182,212,0.04)" stroke="rgba(6,182,212,0.5)" stroke-width="1.5" filter="url(#svgGlow)" />
+                <rect x="-10" y="-10" width="20" height="20" fill="none" stroke="#06b6d4" stroke-width="1" class="svg-box-spin" />
+                <circle r="4" fill="#10b981" filter="url(#svgGlow)" class="cog-inner-pulse" />
+                <text y="4" text-anchor="middle" fill="#f8fafc" font-size="8.5" font-family="var(--font-header)" font-weight="600">SANDBOX</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="ai-column reveal delay-100">
+          <h3 class="ai-subheading"><i class="fas fa-circle-nodes"></i> Interactive Interfaces for Agents</h3>
+          <p class="ai-paragraph">
+            Built entirely on client-side WebAssembly, our simulators enable AI agents to bridge the gap between abstract reasoning and concrete execution. Agents can utilize browser automation (like Puppeteer or Playwright) or standard WebSockets to interact with simulations in real-time:
+          </p>
+          <ul class="ai-bullets">
+            <li><strong>Local Scientific Problem-Solving:</strong> Agents can dynamically wire schematics, tweak joint frictions, or balance cartpoles to solve numerical and structural goals.</li>
+            <li><strong>Real-World Physical Telemetry:</strong> Using websocket telemetry and general IoT webhooks, agents can read environment parameters and trigger outbound physical actions to interact with the real world.</li>
+            <li><strong>Iterative Design Self-Correction:</strong> While these sandboxes can support model training, their primary power lies in direct, zero-latency validation. Agents can run a layout, observe physical bounds at 60fps, and dynamically redesign the system until it succeeds.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Details / Architecture -->
+  <section class="tech-stack" id="tech">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Inside The Engine</span>
+        <h2 class="section-title">Zero-Server Web Architecture</h2>
+        <p class="section-subtitle">By compiling industry-standard C simulation libraries to WebAssembly, we deliver desktop-grade physics and electronics directly in the browser.</p>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-card reveal">
+          <span class="tech-icon"><i class="fas fa-bolt"></i></span>
+          <h3>WebAssembly Simulators</h3>
+          <p>Native C simulation cores like Ngspice and MuJoCo compiled directly to WebAssembly for native-level execution speeds and complete browser sandboxing.</p>
+        </div>
+        <div class="tech-card reveal delay-100">
+          <span class="tech-icon"><i class="fas fa-code-branch"></i></span>
+          <h3>React Flow Graphs</h3>
+          <p>State-of-the-art interactive node editors supporting complex schematic loops, properties sliders, and multi-node routing with custom Monaco Javascript blocks.</p>
+        </div>
+        <div class="tech-card reveal delay-200">
+          <span class="tech-icon"><i class="fas fa-project-diagram"></i></span>
+          <h3>State-Gated Yielding</h3>
+          <p>Asynchronous APIs (like LLM prompts or IoT webhook requests) are bridged gracefully into high-frequency 60fps simulation clocks using non-blocking state flags.</p>
+        </div>
+        <div class="tech-card reveal delay-300">
+          <span class="tech-icon"><i class="fas fa-wifi"></i></span>
+          <h3>Offline-First Stack</h3>
+          <p>Runs entirely client-side. The landing page, assets, and all three simulators operate smoothly with zero external database dependencies or subscription models.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open Source Pledge Section -->
+  <section class="open-source-pledge" id="pledge">
+    <div class="container">
+      <div class="pledge-card reveal">
+        <h2 class="pledge-title">Our Open-Source Pledge</h2>
+        <p class="pledge-desc">
+          We believe scientific and educational tools should be accessible to everyone, everywhere. expt.in is completely free to use, contains no hidden tiers, requires no account creation, and will remain open-source forever. You can clone the repositories and run them offline locally.
+        </p>
+        <div class="pledge-ctas">
+          <a href="https://github.com/boab" target="_blank" class="btn btn-primary" id="pledge-btn-clone"><i class="fas fa-code-fork"></i> Clone Repositories</a>
+          <a href="#suite" class="btn btn-secondary" id="pledge-btn-explore"><i class="fas fa-compass"></i> Explore Simulators</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">expt<span style="color: var(--primary);">.</span>in</div>
+          <p class="footer-desc">A premium scientific sandbox suite. Open-source, browser-based, high-fidelity simulators for engineers, students, and makers.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Simulators</h4>
+          <ul>
+            <li><a href="https://circuit.expt.in" id="footer-link-circuit">Circuit Expt</a></li>
+            <li><a href="https://physics.expt.in" id="footer-link-physics">Physics Expt</a></li>
+            <li><a href="https://process.expt.in" id="footer-link-process">Process Expt</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Developer</h4>
+          <ul>
+            <li><a href="https://github.com/boab" target="_blank" id="footer-link-github"><i class="fab fa-github"></i> GitHub</a></li>
+            <li><a href="#tech" id="footer-link-docs"><i class="fas fa-book"></i> Architecture</a></li>
+            <li><a href="#pledge" id="footer-link-license"><i class="fas fa-balance-scale"></i> MIT License</a></li>
+          </ul>
+        </div>
+        <div class="footer-newsletter">
+          <h4>Stay Updated</h4>
+          <p>Receive updates about new preset libraries and simulator components.</p>
+          <form class="newsletter-form" id="newsletter-form">
+            <input type="email" placeholder="Enter your email" class="newsletter-input" required id="newsletter-email">
+            <button type="submit" class="newsletter-btn" id="newsletter-submit"><i class="fas fa-arrow-right"></i></button>
+          </form>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 expt.in. Licensed under MIT. Built for the modern web.</p>
+        <div class="footer-social">
+          <a href="https://github.com/boab" target="_blank" class="social-link" id="social-link-github"><i class="fab fa-github"></i></a>
+          <a href="#" class="social-link" id="social-link-twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link" id="social-link-linkedin"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
