@@ -486,6 +486,7 @@ nav a:hover {
 
 .sim-footer {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
   align-items: center;
   margin-top: 1rem;
@@ -1051,5 +1052,202 @@ footer {
   animation: box-spin 10s linear infinite;
   transform-origin: center;
   transform-box: fill-box;
+}
+
+/* Premium Repository Modal Overlay styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 6, 8, 0.7);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-card {
+  background: linear-gradient(135deg, rgba(20, 22, 28, 0.95) 0%, rgba(10, 12, 16, 0.98) 100%);
+  border: 1px solid var(--border-color);
+  width: 90%;
+  max-width: 580px;
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  position: relative;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.active .modal-card {
+  transform: scale(1) translateY(0);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.75rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: var(--text-primary);
+}
+
+.modal-header {
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.modal-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.modal-repo-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.modal-repo-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.circuit-card-glow:hover {
+  border-color: rgba(16, 185, 129, 0.25);
+  box-shadow: 0 5px 20px rgba(16, 185, 129, 0.05);
+}
+
+.physics-card-glow:hover {
+  border-color: rgba(6, 182, 212, 0.25);
+  box-shadow: 0 5px 20px rgba(6, 182, 212, 0.05);
+}
+
+.process-card-glow:hover {
+  border-color: rgba(236, 72, 153, 0.25);
+  box-shadow: 0 5px 20px rgba(236, 72, 153, 0.05);
+}
+
+.repo-info {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.repo-icon {
+  font-size: 1.5rem;
+  padding-top: 0.2rem;
+}
+
+.repo-name {
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+  font-family: var(--font-header);
+}
+
+.repo-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.repo-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.clone-box {
+  display: flex;
+  flex: 1;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.clone-input {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  color: var(--text-secondary);
+  font-family: monospace;
+  font-size: 0.8rem;
+  outline: none;
+}
+
+.btn-copy {
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  border-left: 1px solid var(--border-color);
+  padding: 0 0.85rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-copy:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.btn-open-repo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.btn-open-repo:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+  box-shadow: 0 4px 10px var(--primary-glow);
 }
 

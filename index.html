@@ -51,7 +51,7 @@
     "description": "A high-fidelity open-source simulation suite running natively in WebAssembly. Features Circuit Expt (electronics + MCU with audio), Physics Expt (MuJoCo rigid body physics), and Process Expt (cellular automata, Runge-Kutta, and LLM nodes).",
     "softwareVersion": "2.0.0",
     "license": "https://opensource.org/licenses/MIT",
-    "downloadUrl": "https://github.com/boab"
+    "downloadUrl": "https://github.com/tomgrek"
   }
   </script>
 </head>
@@ -73,7 +73,7 @@
           <li><a href="#ai-models" id="nav-link-ai">AI Models</a></li>
           <li><a href="#tech" id="nav-link-tech">Architecture</a></li>
           <li><a href="#pledge" id="nav-link-pledge">Open Source</a></li>
-          <li><a href="https://github.com/boab" target="_blank" class="nav-cta" id="nav-btn-github"><i class="fab fa-github"></i> Star on Github</a></li>
+          <li><a href="https://github.com/tomgrek" target="_blank" class="nav-cta" id="nav-btn-github"><i class="fab fa-github"></i> Star on Github</a></li>
         </ul>
       </nav>
     </div>
@@ -94,7 +94,7 @@
       </p>
       <div class="hero-ctas reveal delay-300">
         <a href="#suite" class="btn btn-primary" id="hero-btn-launch"><i class="fas fa-play"></i> Launch Simulation Suite</a>
-        <a href="https://github.com/boab" target="_blank" class="btn btn-secondary" id="hero-btn-github"><i class="fab fa-github"></i> View Source Code</a>
+        <a href="https://github.com/tomgrek" target="_blank" class="btn btn-secondary" id="hero-btn-github"><i class="fab fa-github"></i> View Source Code</a>
       </div>
     </div>
   </section>
@@ -138,6 +138,7 @@
             </ul>
             <div class="sim-footer">
               <a href="https://circuit.expt.in" class="btn btn-primary" id="btn-launch-circuit"><i class="fas fa-microchip"></i> Launch Circuit Sandbox</a>
+              <a href="https://github.com/tomgrek/circuitsim" target="_blank" class="btn btn-secondary" id="btn-github-circuit"><i class="fab fa-github"></i> View Repository</a>
             </div>
           </div>
         </div>
@@ -169,6 +170,7 @@
             </ul>
             <div class="sim-footer">
               <a href="https://physics.expt.in" class="btn btn-primary" id="btn-launch-physics"><i class="fas fa-cubes"></i> Launch Physics Engine</a>
+              <a href="https://github.com/tomgrek/physicssim" target="_blank" class="btn btn-secondary" id="btn-github-physics"><i class="fab fa-github"></i> View Repository</a>
             </div>
           </div>
         </div>
@@ -200,6 +202,7 @@
             </ul>
             <div class="sim-footer">
               <a href="https://process.expt.in" class="btn btn-primary" id="btn-launch-process"><i class="fas fa-network-wired"></i> Launch Process Expert</a>
+              <a href="https://github.com/tomgrek/processsim" target="_blank" class="btn btn-secondary" id="btn-github-process"><i class="fab fa-github"></i> View Repository</a>
             </div>
           </div>
         </div>
@@ -324,7 +327,7 @@
           We believe scientific and educational tools should be accessible to everyone, everywhere. expt.in is completely free to use, contains no hidden tiers, requires no account creation, and will remain open-source forever. You can clone the repositories and run them offline locally.
         </p>
         <div class="pledge-ctas">
-          <a href="https://github.com/boab" target="_blank" class="btn btn-primary" id="pledge-btn-clone"><i class="fas fa-code-fork"></i> Clone Repositories</a>
+          <a href="https://github.com/tomgrek" target="_blank" class="btn btn-primary" id="pledge-btn-clone"><i class="fas fa-code-fork"></i> Clone Repositories</a>
           <a href="#suite" class="btn btn-secondary" id="pledge-btn-explore"><i class="fas fa-compass"></i> Explore Simulators</a>
         </div>
       </div>
@@ -350,7 +353,7 @@
         <div class="footer-links">
           <h4>Developer</h4>
           <ul>
-            <li><a href="https://github.com/boab" target="_blank" id="footer-link-github"><i class="fab fa-github"></i> GitHub</a></li>
+            <li><a href="https://github.com/tomgrek" target="_blank" id="footer-link-github"><i class="fab fa-github"></i> GitHub</a></li>
             <li><a href="#tech" id="footer-link-docs"><i class="fas fa-book"></i> Architecture</a></li>
             <li><a href="#pledge" id="footer-link-license"><i class="fas fa-balance-scale"></i> MIT License</a></li>
           </ul>
@@ -368,13 +371,81 @@
       <div class="footer-bottom">
         <p class="footer-copy">&copy; 2026 expt.in. Licensed under MIT. Built for the modern web.</p>
         <div class="footer-social">
-          <a href="https://github.com/boab" target="_blank" class="social-link" id="social-link-github"><i class="fab fa-github"></i></a>
+          <a href="https://github.com/tomgrek" target="_blank" class="social-link" id="social-link-github"><i class="fab fa-github"></i></a>
           <a href="#" class="social-link" id="social-link-twitter"><i class="fab fa-twitter"></i></a>
           <a href="#" class="social-link" id="social-link-linkedin"><i class="fab fa-linkedin"></i></a>
         </div>
       </div>
     </div>
   </footer>
+
+  <!-- Premium Repository Clone Modal Overlay -->
+  <div class="modal-overlay" id="repo-modal">
+    <div class="modal-card">
+      <button class="modal-close" id="modal-close-btn" aria-label="Close modal">&times;</button>
+      <div class="modal-header">
+        <h3 class="modal-title">Source Repositories</h3>
+        <p class="modal-subtitle">Direct access to the core WebAssembly simulator modules. Copy commands to clone locally or explore codebases.</p>
+      </div>
+      <div class="modal-body">
+        
+        <!-- Repo 1: Circuit Sim -->
+        <div class="modal-repo-card circuit-card-glow">
+          <div class="repo-info">
+            <span class="repo-icon circuit-badge"><i class="fas fa-microchip"></i></span>
+            <div>
+              <h4 class="repo-name">circuitsim</h4>
+              <p class="repo-desc">SPICE WASM solver & Web Audio active signal playground.</p>
+            </div>
+          </div>
+          <div class="repo-actions">
+            <div class="clone-box">
+              <input type="text" class="clone-input" readonly value="git clone https://github.com/tomgrek/circuitsim" id="clone-cmd-circuit">
+              <button class="btn-copy" data-target="clone-cmd-circuit" aria-label="Copy clone command"><i class="far fa-clipboard"></i></button>
+            </div>
+            <a href="https://github.com/tomgrek/circuitsim" target="_blank" class="btn-open-repo" aria-label="Open Repository"><i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <!-- Repo 2: Physics Sim -->
+        <div class="modal-repo-card physics-card-glow">
+          <div class="repo-info">
+            <span class="repo-icon physics-badge"><i class="fas fa-cubes"></i></span>
+            <div>
+              <h4 class="repo-name">physicssim</h4>
+              <p class="repo-desc">MuJoCo rigid body mechanics & kinematic friction sandbox.</p>
+            </div>
+          </div>
+          <div class="repo-actions">
+            <div class="clone-box">
+              <input type="text" class="clone-input" readonly value="git clone https://github.com/tomgrek/physicssim" id="clone-cmd-physics">
+              <button class="btn-copy" data-target="clone-cmd-physics" aria-label="Copy clone command"><i class="far fa-clipboard"></i></button>
+            </div>
+            <a href="https://github.com/tomgrek/physicssim" target="_blank" class="btn-open-repo" aria-label="Open Repository"><i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <!-- Repo 3: Process Sim -->
+        <div class="modal-repo-card process-card-glow">
+          <div class="repo-info">
+            <span class="repo-icon process-badge"><i class="fas fa-network-wired"></i></span>
+            <div>
+              <h4 class="repo-name">processsim</h4>
+              <p class="repo-desc">System dynamics modeling, Cellular Automata & IoT smart nodes.</p>
+            </div>
+          </div>
+          <div class="repo-actions">
+            <div class="clone-box">
+              <input type="text" class="clone-input" readonly value="git clone https://github.com/tomgrek/processsim" id="clone-cmd-process">
+              <button class="btn-copy" data-target="clone-cmd-process" aria-label="Copy clone command"><i class="far fa-clipboard"></i></button>
+            </div>
+            <a href="https://github.com/tomgrek/processsim" target="_blank" class="btn-open-repo" aria-label="Open Repository"><i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script src="app.js"></script>
