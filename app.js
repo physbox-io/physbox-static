@@ -1,5 +1,5 @@
 /* ==========================================================================
-   expt.in - Modern Landing Page Interactive Script
+   physbox.io - Modern Landing Page Interactive Script
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -652,7 +652,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       try {
         // Fire actual network request
-        await fetch('https://api.expt.in/subscribe', {
+        await fetch('https://api.physbox.io/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email })
