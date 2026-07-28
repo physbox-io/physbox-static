@@ -90,7 +90,7 @@
         Scientific Simulation, <span class="gradient-text">Unbound.</span>
       </h1>
       <p class="hero-subtitle reveal delay-200">
-        Three hyper-realistic, open-source simulation engines running 100% in your browser. From microsecond electronics to multi-axis mechanical assemblies and adaptive ecosystem graphs—run instantly, locally, and completely free.
+        Three hyper-realistic, open-source simulation engines running 100% in your browser. From real-time <strong>Hardware-In-The-Loop (HIL)</strong> microcontrollers and microsecond electronics to procedural <strong>OpenSCAD 3D printing</strong> and adaptive ecosystem graphs—run instantly, locally, and completely free.
       </p>
       <div class="hero-ctas reveal delay-300">
         <a href="#suite" class="btn btn-primary" id="hero-btn-launch"><i class="fas fa-play"></i> Launch Simulation Suite</a>
@@ -106,7 +106,7 @@
       <div class="section-header reveal">
         <span class="section-tag">Interactive Sandbox Suite</span>
         <h2 class="section-title">Engines Purpose-Built for Exploratory Science</h2>
-        <p class="section-subtitle">A triad of specialized simulation tools designed to eliminate the boundary between raw physical mathematics and user-friendly visual interaction.</p>
+        <p class="section-subtitle">A triad of specialized simulation tools designed to eliminate the boundary between raw physical mathematics, hardware-in-the-loop microcontrollers, and 3D procedural CAD.</p>
       </div>
 
       <div class="sim-list">
@@ -126,15 +126,18 @@
             <img src="assets/circuit_mockup.png" alt="Circuit Simulator Interface" class="sim-mockup" data-raw="assets/circuit_raw.png" data-stylized="assets/circuit_mockup.png" data-state="stylized" id="img-circuit">
           </div>
           <div class="sim-content">
-            <span class="sim-badge circuit-badge">Electronics & Signals</span>
+            <div class="sim-badges">
+              <span class="sim-badge circuit-badge">Electronics & Signals</span>
+              <span class="sim-badge badge-hil"><span class="pulse-dot"></span>⚡ Hardware-In-The-Loop (HIL)</span>
+            </div>
             <h3 class="sim-name">PhysBox: Volt</h3>
             <p class="sim-desc">
-              A high-fidelity electronics playground powered by an optimized, custom-compiled <strong>Ngspice WebAssembly engine</strong>. Design, wire, and test complex electrical circuits with true physical waveforms rendered live in your browser.
+              A high-fidelity electronics playground powered by an optimized, custom-compiled <strong>Ngspice WebAssembly engine</strong> with real-time <strong>Hardware-In-The-Loop (HIL) execution</strong>. Design, wire, and test complex electrical circuits with true physical waveforms synchronized directly with physical microcontrollers.
             </p>
             <ul class="sim-features">
+              <li><strong>Hardware-In-The-Loop (HIL) Microcontroller Bridge:</strong> Wire physical ESP32 & CYD microcontrollers directly into the WASM SPICE worker via high-speed UART (460800 baud) & WebSockets. Supports MicroPython & C++ native batching (`hil_batch`), sub-millisecond digital logic threshold derivation, and lookahead queue buffering (40ms steps / 240ms target) to eliminate hardware starvation.</li>
               <li><strong>Integrated Audio Inputs & Outputs:</strong> Bind real hardware microphone inputs to input nodes, feed raw DAC outputs directly to your system speakers, and synthesize hardware filters in real-time.</li>
-              <li><strong>Visual React Flow Canvas:</strong> Build and modify circuit nets with a modular node-editor that synchronizes automatically with the SPICE engine.</li>
-              <li><strong>MCU Simulation Sandbox:</strong> Program microcontrollers inside the schematic, compiling firmware and simulating execution cycles alongside passive components.</li>
+              <li><strong>Visual React Flow Canvas & MCU Sandbox:</strong> Build and modify circuit nets with a modular node-editor, program microcontrollers inside the schematic, and execute firmware cycles alongside passive components.</li>
             </ul>
             <div class="sim-footer">
               <a href="https://volt.physbox.io" class="btn btn-primary" id="btn-launch-circuit"><i class="fas fa-microchip"></i> Launch Volt Sandbox</a>
@@ -158,16 +161,19 @@
             <img src="assets/physics_mockup.png" alt="Physics Simulator Interface" class="sim-mockup" data-raw="assets/physics_raw.png" data-stylized="assets/physics_mockup.png" data-state="stylized" id="img-physics">
           </div>
           <div class="sim-content">
-            <span class="sim-badge physics-badge">The generative physics sandbox.</span>
+            <div class="sim-badges">
+              <span class="sim-badge physics-badge">Generative Physics</span>
+              <span class="sim-badge badge-scad"><span class="pulse-dot"></span>🛠️ OpenSCAD & 3D Printing</span>
+            </div>
             <h3 class="sim-name">PhysBox: Mesh</h3>
             <p class="sim-desc">
               <strong>Code. Simulate. Print. Powered by AI.</strong><br><br>
-              An advanced mechanical simulator powered by a custom-compiled <strong>MuJoCo WebAssembly engine</strong>. Designed around high structural realism, this playground ensures physical forces and joint constraints reflect reality without floating hacks.
+              An advanced mechanical simulator powered by a custom-compiled <strong>MuJoCo WebAssembly engine</strong> and an integrated <strong>WASM OpenSCAD compiler</strong>. Generate parametric procedural CAD models, test physical joint mechanics in real-time, and export 3D-print ready STL files.
             </p>
             <ul class="sim-features">
-              <li><strong>Proximity-Aware Mechanical Coupling:</strong> Solves pinion, gear, and rack behaviors on the fly, applying rigid mathematical joints dynamically when gears mesh or letting you bypass constraints to test pure colliding teeth friction.</li>
-              <li><strong>Complete DOF Control:</strong> Explicitly toggle body configurations between fixed welded points, 1D axial rotation (hinges), and unconstrained 6-DOF movement with true gravity vectors.</li>
-              <li><strong>Explicit Physics Reference Panel:</strong> Exposes advanced variables like sliding friction, collision contact types (`contype`/`conaffinity`), and joint equality parameters directly in the UI with interactive explanations.</li>
+              <li><strong>Procedural WASM OpenSCAD & Parametric Sliders:</strong> Write constructive solid geometry (CSG) code live inside the browser node inspector. Automatically compiles code and generates interactive UI sliders from annotations (`// [min:step:max]`) for instant parameter tuning.</li>
+              <li><strong>1-Click Z-Up STL Export for 3D Printing:</strong> Export individual procedural components or full mechanical assemblies directly to Z-up orientation STL files, formatted specifically for modern 3D printer slicers (PrusaSlicer, Bambu Studio, Cura).</li>
+              <li><strong>Proximity-Aware Coupling & Complete DOF Control:</strong> Solves pinion, gear, and rack behaviors on the fly using rigid mathematical joint constraints, or uncheck coupling to test pure colliding gear teeth friction across 6-DOF bodies.</li>
             </ul>
             <div class="sim-footer">
               <a href="https://mesh.physbox.io" class="btn btn-primary" id="btn-launch-physics"><i class="fas fa-cubes"></i> Launch Mesh Sandbox</a>
@@ -225,10 +231,10 @@
         <div class="ai-column reveal">
           <h3 class="ai-subheading"><i class="fas fa-toolbox"></i> Action Spaces Over Empty Logic</h3>
           <p class="ai-paragraph">
-            Large Language Models are exceptional at writing code and reasoning through text, but they operate in a physical vacuum. Without realistic feedback, an AI agent cannot correctly optimize an audio amplifier circuit, balance an unstable mechanical linkage, or coordinate disaster dispatch resources. They need <strong>grounded world models</strong> to solve complex, multi-modal tasks.
+            Large Language Models are exceptional at writing code and reasoning through text, but they operate in a physical vacuum. Without realistic feedback, an AI agent cannot correctly optimize an audio amplifier circuit, balance an unstable mechanical linkage, test a physical ESP32 HIL microcontroller loop, or generate printable 3D CAD parts. They need <strong>grounded world models</strong> to solve complex, multi-modal tasks.
           </p>
           <p class="ai-paragraph">
-            PhysBox solves this by exposing simplified, highly accurate physical and sociological engines directly to AI agents. It provides a robust, local sandboxed sandbox where agents can explore bounds, isolate failure points, and solve complex problems they otherwise couldn't touch.
+            PhysBox solves this by exposing simplified, highly accurate physical, hardware, and sociological engines directly to AI agents. It provides a robust, local sandbox where agents can explore bounds, isolate failure points, and solve complex problems they otherwise couldn't touch.
           </p>
           
           <!-- Animated SVG Graphic representing Cognitive-to-Physical bridge -->
@@ -273,12 +279,12 @@
         <div class="ai-column reveal delay-100">
           <h3 class="ai-subheading"><i class="fas fa-circle-nodes"></i> Interactive Interfaces for Agents</h3>
           <p class="ai-paragraph">
-            Built entirely on client-side WebAssembly, our simulators enable AI agents to bridge the gap between abstract reasoning and concrete execution. Agents can utilize browser automation (like Puppeteer or Playwright) or standard WebSockets to interact with simulations in real-time:
+            Built entirely on client-side WebAssembly, our simulators enable AI agents to bridge the gap between abstract reasoning and concrete physical execution. Agents can utilize browser automation (like Puppeteer or Playwright) or standard WebSockets to interact with simulations in real-time:
           </p>
           <ul class="ai-bullets">
-            <li><strong>Local Scientific Problem-Solving:</strong> Agents can dynamically wire schematics, tweak joint frictions, or balance cartpoles to solve numerical and structural goals.</li>
-            <li><strong>Real-World Physical Telemetry:</strong> Using websocket telemetry and general IoT webhooks, agents can read environment parameters and trigger outbound physical actions to interact with the real world.</li>
-            <li><strong>Iterative Design Self-Correction:</strong> While these sandboxes can support model training, their primary power lies in direct, zero-latency validation. Agents can run a layout, observe physical bounds at 60fps, and dynamically redesign the system until it succeeds.</li>
+            <li><strong>Procedural CAD & 3D Printing Generation:</strong> AI agents can write and refactor OpenSCAD code to create custom brackets, gears, and enclosures, test structural stability in MuJoCo, and output 3D-printable STL files.</li>
+            <li><strong>Real-World Hardware & Telemetry (HIL):</strong> Using websocket telemetry, serial HIL bridges, and general IoT webhooks, agents can stream hardware pin states, read sensor values, and drive physical microcontrollers directly.</li>
+            <li><strong>Iterative Design Self-Correction:</strong> Agents observe physical bounds and signal waveforms at 60fps, self-correcting schematic nets and CAD parameters until physical and functional requirements are met.</li>
           </ul>
         </div>
       </div>
@@ -291,7 +297,7 @@
       <div class="section-header reveal">
         <span class="section-tag">Inside The Engine</span>
         <h2 class="section-title">Zero-Server Web Architecture</h2>
-        <p class="section-subtitle">By compiling industry-standard C simulation libraries to WebAssembly, we deliver desktop-grade physics and electronics directly in the browser.</p>
+        <p class="section-subtitle">By compiling industry-standard C simulation engines and CAD compilers to WebAssembly, we deliver desktop-grade physics, HIL hardware, and 3D modeling directly in the browser.</p>
       </div>
 
       <div class="tech-grid">
@@ -301,14 +307,14 @@
           <p>Native C simulation cores like Ngspice and MuJoCo compiled directly to WebAssembly for native-level execution speeds and complete browser sandboxing.</p>
         </div>
         <div class="tech-card reveal delay-100">
-          <span class="tech-icon"><i class="fas fa-code-branch"></i></span>
-          <h3>React Flow Graphs</h3>
-          <p>State-of-the-art interactive node editors supporting complex schematic loops, properties sliders, and multi-node routing with custom Monaco Javascript blocks.</p>
+          <span class="tech-icon"><i class="fas fa-microchip"></i></span>
+          <h3>Hardware-In-The-Loop (HIL)</h3>
+          <p>High-speed UART (460800 baud) & WebSocket protocol linking WASM circuit solvers with MicroPython/C++ firmware running on physical ESP32/CYD microcontrollers.</p>
         </div>
         <div class="tech-card reveal delay-200">
-          <span class="tech-icon"><i class="fas fa-project-diagram"></i></span>
-          <h3>State-Gated Yielding</h3>
-          <p>Asynchronous APIs (like LLM prompts or IoT webhook requests) are bridged gracefully into high-frequency 60fps simulation clocks using non-blocking state flags.</p>
+          <span class="tech-icon"><i class="fas fa-cubes"></i></span>
+          <h3>WASM OpenSCAD & 3D Printing</h3>
+          <p>Integrated CSG geometry engine compiling OpenSCAD code to MuJoCo collision meshes in WASM with live parametric UI sliders and 1-click STL 3D-print export.</p>
         </div>
         <div class="tech-card reveal delay-300">
           <span class="tech-icon"><i class="fas fa-wifi"></i></span>
@@ -396,7 +402,7 @@
             <span class="repo-icon circuit-badge"><i class="fas fa-microchip"></i></span>
             <div>
               <h4 class="repo-name">circuitsim</h4>
-              <p class="repo-desc">SPICE WASM solver & Web Audio active signal playground.</p>
+              <p class="repo-desc">SPICE WASM solver, Web Audio playground & HIL MicroPython/C++ hardware bridge.</p>
             </div>
           </div>
           <div class="repo-actions">
@@ -414,7 +420,7 @@
             <span class="repo-icon physics-badge"><i class="fas fa-cubes"></i></span>
             <div>
               <h4 class="repo-name">physicssim</h4>
-              <p class="repo-desc">MuJoCo rigid body mechanics & kinematic friction sandbox.</p>
+              <p class="repo-desc">MuJoCo rigid body engine, OpenSCAD CSG WASM compiler & 3D-print STL exporter.</p>
             </div>
           </div>
           <div class="repo-actions">
