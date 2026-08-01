@@ -130,21 +130,31 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     
-    // B. Initialize Physics Swing Linkages (Teal/Cyan)
+    // B. Initialize Physics Double Pendulums (Teal/Cyan)
+    // These are genuinely integrated - see rk4Pendulum() below. State is
+    // [theta1, theta2, omega1, omega2]; lengths are in pixels, treated as metres
+    // scaled by GRAVITY so the motion reads well at screen scale.
     const linkCount = Math.floor(4 * scaleFactor);
     for (let i = 0; i < linkCount; i++) {
-      physicsLinks.push({
+      const link = {
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
         vx: (Math.random() - 0.5) * 0.2,
         vy: (Math.random() - 0.5) * 0.2,
-        angle1: Math.random() * Math.PI * 2,
-        angle2: Math.random() * Math.PI * 2,
+        // Start near the top so there is real potential energy to convert
+        state: [
+          Math.PI * (0.55 + Math.random() * 0.5),
+          Math.PI * (0.55 + Math.random() * 0.5),
+          0,
+          0
+        ],
         len1: Math.random() * 30 + 40,
         len2: Math.random() * 25 + 30,
-        speed1: (Math.random() * 0.01 + 0.004),
-        speed2: (Math.random() * 0.02 + 0.006)
-      });
+        m1: 1.0,
+        m2: 1.0
+      };
+      link.E0 = pendulumEnergy(link);
+      physicsLinks.push(link);
     }
     
     // C. Initialize Cellular Automata Forest Grid (Wildfire Spreader)
@@ -166,6 +176,129 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
   
+  // --------------------------------------------------------------------------
+  // Real solvers driving the background. Nothing here is faked: the pendulums
+  // obey the Lagrangian equations of motion and the RLC obeys Kirchhoff, both
+  // stepped with classical 4th-order Runge-Kutta.
+  // --------------------------------------------------------------------------
+
+  const GRAVITY = 320;           // px/s^2 - gravity at screen scale
+  const PENDULUM_DT = 0.004;     // 4 ms fixed step
+  const PENDULUM_SUBSTEPS = 4;   // ~16 ms of sim per animation frame
+  // 1.5 solver steps per frame (~5.6 s for the trace to cross the screen).
+  // Fractional, so an accumulator carries the remainder between frames rather
+  // than rounding the playback rate up to a whole step.
+  const RLC_STEPS_PER_FRAME = 1.5;
+  let rlcStepAccum = 0;
+
+  // Telemetry accumulators read by the hero readout
+  let energyDriftSum = 0;
+  let energyDriftCount = 0;
+  let fpsFrames = 0;
+  let fpsLast = performance.now();
+  let fpsValue = 0;
+
+  // Double pendulum equations of motion.
+  // y = [t1, t2, w1, w2] -> dy/dt. Standard Lagrangian derivation for two
+  // point masses on massless rods.
+  const pendulumDerivs = (link, y) => {
+    const [t1, t2, w1, w2] = y;
+    const { len1: L1, len2: L2, m1, m2 } = link;
+
+    const d = t1 - t2;
+    const sd = Math.sin(d);
+    const cd = Math.cos(d);
+    const denom = 2 * m1 + m2 - m2 * Math.cos(2 * d);
+
+    const a1 = (-GRAVITY * (2 * m1 + m2) * Math.sin(t1)
+      - m2 * GRAVITY * Math.sin(t1 - 2 * t2)
+      - 2 * sd * m2 * (w2 * w2 * L2 + w1 * w1 * L1 * cd)) / (L1 * denom);
+
+    const a2 = (2 * sd * (w1 * w1 * L1 * (m1 + m2)
+      + GRAVITY * (m1 + m2) * Math.cos(t1)
+      + w2 * w2 * L2 * m2 * cd)) / (L2 * denom);
+
+    return [w1, w2, a1, a2];
+  };
+
+  // Classical RK4 step
+  const rk4Pendulum = (link, dt) => {
+    const y = link.state;
+    const add = (a, b, s) => a.map((v, i) => v + b[i] * s);
+
+    const k1 = pendulumDerivs(link, y);
+    const k2 = pendulumDerivs(link, add(y, k1, dt / 2));
+    const k3 = pendulumDerivs(link, add(y, k2, dt / 2));
+    const k4 = pendulumDerivs(link, add(y, k3, dt));
+
+    for (let i = 0; i < 4; i++) {
+      y[i] += (dt / 6) * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]);
+    }
+  };
+
+  // Total mechanical energy (kinetic + potential). A good integrator keeps this
+  // near-constant; the drift we report is the real accumulated error.
+  const pendulumEnergy = (link) => {
+    const [t1, t2, w1, w2] = link.state;
+    const { len1: L1, len2: L2, m1, m2 } = link;
+
+    const T = 0.5 * m1 * L1 * L1 * w1 * w1
+      + 0.5 * m2 * (L1 * L1 * w1 * w1 + L2 * L2 * w2 * w2
+        + 2 * L1 * L2 * w1 * w2 * Math.cos(t1 - t2));
+    const V = -(m1 + m2) * GRAVITY * L1 * Math.cos(t1) - m2 * GRAVITY * L2 * Math.cos(t2);
+
+    return T + V;
+  };
+
+  // --- Series RLC transient (the same class of problem Volt hands to Ngspice) --
+  // L*di/dt = Vin - R*i - Vc  ;  C*dVc/dt = i
+  // Tuned for a calm, legible trace: f0 ~ 700 Hz, zeta ~ 0.35. Still clearly
+  // underdamped so each square-wave edge rings, but the ringing is broad
+  // (~29 samples per cycle) and settles rather than buzzing.
+  const rlc = {
+    R: 62,           // ohms
+    L: 0.02,         // henries
+    C: 2.585e-6,     // farads
+    vc: 0,           // capacitor voltage
+    i: 0,            // inductor current
+    t: 0,
+    dt: 1 / 20000,   // 50 us fixed step
+    trace: [],       // recent Vc samples for the scrolling waveform
+    maxTrace: 500    // 25 ms window at one sample per step
+  };
+
+  // Square-wave excitation, 60 Hz, 0-5V - the classic step-response test
+  const rlcSource = (t) => (Math.sin(2 * Math.PI * 60 * t) >= 0 ? 5 : 0);
+
+  const rlcDerivs = (t, vc, i) => [
+    (rlcSource(t) - rlc.R * i - vc) / rlc.L,  // di/dt
+    i / rlc.C                                  // dvc/dt
+  ];
+
+  const stepRLC = (steps) => {
+    const h = rlc.dt;
+    for (let n = 0; n < steps; n++) {
+      const { t, vc, i } = rlc;
+
+      const [di1, dv1] = rlcDerivs(t, vc, i);
+      const [di2, dv2] = rlcDerivs(t + h / 2, vc + dv1 * h / 2, i + di1 * h / 2);
+      const [di3, dv3] = rlcDerivs(t + h / 2, vc + dv2 * h / 2, i + di2 * h / 2);
+      const [di4, dv4] = rlcDerivs(t + h, vc + dv3 * h, i + di3 * h);
+
+      rlc.i += (h / 6) * (di1 + 2 * di2 + 2 * di3 + di4);
+      rlc.vc += (h / 6) * (dv1 + 2 * dv2 + 2 * dv3 + dv4);
+      rlc.t += h;
+
+      // One trace sample per solver step - at 700 Hz ringing that is ~29
+      // samples per cycle, so the waveform reads cleanly instead of aliasing.
+      rlc.trace.push(rlc.vc);
+    }
+
+    if (rlc.trace.length > rlc.maxTrace) {
+      rlc.trace.splice(0, rlc.trace.length - rlc.maxTrace);
+    }
+  };
+
   // Update Cellular Automata Grid rules (Process wildfires)
   const updateCellularAutomata = () => {
     let nextGrid = [];
@@ -222,12 +355,83 @@ document.addEventListener('DOMContentLoaded', () => {
     caGrid = nextGrid;
   };
   
+  // Draw the live RLC transient as a faint scrolling trace along the base of
+  // the viewport. This is the actual solver output, not a decorative sine.
+  const drawRLCTrace = () => {
+    if (rlc.trace.length < 2) return;
+
+    const h = window.innerHeight;
+    const w = window.innerWidth;
+    const baseY = h * 0.86;
+    const amp = Math.min(h * 0.09, 70);
+    const step = w / (rlc.maxTrace - 1);
+
+    ctx.save();
+    ctx.beginPath();
+    rlc.trace.forEach((v, idx) => {
+      // Vc swings roughly 0-7V on this square-wave drive; normalise about 2.5V
+      const x = idx * step;
+      const y = baseY - ((v - 2.5) / 5) * amp;
+      idx === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.strokeStyle = 'rgba(16, 185, 129, 0.22)';
+    ctx.lineWidth = 1.5;
+    ctx.shadowColor = 'rgba(16, 185, 129, 0.5)';
+    ctx.shadowBlur = 6;
+    ctx.stroke();
+
+    // Leading probe dot at the newest sample
+    const lastY = baseY - ((rlc.trace[rlc.trace.length - 1] - 2.5) / 5) * amp;
+    ctx.beginPath();
+    ctx.arc((rlc.trace.length - 1) * step, lastY, 2.5, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(16, 185, 129, 0.7)';
+    ctx.fill();
+    ctx.restore();
+  };
+
+  // Push solver state into the hero readout (throttled to ~4 Hz so the
+  // numbers stay legible rather than strobing)
+  const liveEnergyEl = document.getElementById('live-energy');
+  const liveVcEl = document.getElementById('live-vc');
+  const liveFpsEl = document.getElementById('live-fps');
+  let telemetryLast = 0;
+
+  const updateTelemetry = (now) => {
+    // Rolling FPS
+    fpsFrames++;
+    if (now - fpsLast >= 500) {
+      fpsValue = Math.round((fpsFrames * 1000) / (now - fpsLast));
+      fpsFrames = 0;
+      fpsLast = now;
+    }
+
+    if (now - telemetryLast < 250) return;
+    telemetryLast = now;
+
+    if (liveEnergyEl && energyDriftCount > 0) {
+      const drift = (energyDriftSum / energyDriftCount) * 100;
+      liveEnergyEl.textContent = `${drift < 0.01 ? '<0.01' : drift.toFixed(2)}%`;
+    }
+    if (liveVcEl) liveVcEl.textContent = `${rlc.vc.toFixed(2)} V`;
+    if (liveFpsEl && fpsValue) liveFpsEl.textContent = String(fpsValue);
+
+    energyDriftSum = 0;
+    energyDriftCount = 0;
+  };
+
   // Animation/Update loop
-  const animate = () => {
+  const animate = (now = performance.now()) => {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    
+
     const scaleFactor = isMobile ? 0.6 : 1.0;
-    
+
+    // Advance the circuit solver and draw its trace
+    rlcStepAccum += RLC_STEPS_PER_FRAME;
+    const rlcSteps = Math.floor(rlcStepAccum);
+    rlcStepAccum -= rlcSteps;
+    if (rlcSteps > 0) stepRLC(rlcSteps);
+    drawRLCTrace();
+
     // ----------------------------------------------------------------------
     // 1. Draw Process Grid (Cellular Automata Wildfires)
     // ----------------------------------------------------------------------
@@ -460,27 +664,36 @@ document.addEventListener('DOMContentLoaded', () => {
       if (link.y < -100) link.y = window.innerHeight + 100;
       if (link.y > window.innerHeight + 100) link.y = -100;
       
-      // Update pendulum dynamics
-      link.angle1 += link.speed1;
-      link.angle2 += link.speed2;
-      
-      // Calculate joints positions
-      const x1 = link.x + Math.sin(link.angle1) * link.len1 * scaleFactor;
-      const y1 = link.y + Math.cos(link.angle1) * link.len1 * scaleFactor;
-      const x2 = x1 + Math.sin(link.angle2) * link.len2 * scaleFactor;
-      const y2 = y1 + Math.cos(link.angle2) * link.len2 * scaleFactor;
-      
-      // Attraction of joint to cursor (Physics response!)
+      // Integrate the real equations of motion with fixed 4ms RK4 substeps
+      for (let s = 0; s < PENDULUM_SUBSTEPS; s++) {
+        rk4Pendulum(link, PENDULUM_DT);
+      }
+
+      // Accumulate energy drift for the hero telemetry readout
+      energyDriftSum += Math.abs((pendulumEnergy(link) - link.E0) / link.E0);
+      energyDriftCount++;
+
+      // Calculate joint positions
+      const x1 = link.x + Math.sin(link.state[0]) * link.len1 * scaleFactor;
+      const y1 = link.y + Math.cos(link.state[0]) * link.len1 * scaleFactor;
+      const x2 = x1 + Math.sin(link.state[1]) * link.len2 * scaleFactor;
+      const y2 = y1 + Math.cos(link.state[1]) * link.len2 * scaleFactor;
+
+      // Cursor nudges the outer bob by applying angular velocity - a real
+      // impulse into the state vector, which the solver then carries forward.
       if (mouse.x !== null && mouse.y !== null) {
         const dx = mouse.x - x2;
         const dy = mouse.y - y2;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < mouse.radius) {
+        if (dist < mouse.radius && dist > 0) {
           const force = (mouse.radius - dist) / mouse.radius;
-          link.angle2 += (dx / dist) * force * 0.05;
+          link.state[3] += (dx / dist) * force * 0.35;
+          // The nudge does work on the system, so re-baseline the reference
+          // energy - otherwise we would report user input as solver error.
+          link.E0 = pendulumEnergy(link);
         }
       }
-      
+
       // Draw Linkage Bars
       ctx.strokeStyle = 'rgba(6, 182, 212, 0.18)';
       ctx.lineWidth = 1.5;
@@ -506,7 +719,9 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.fill();
       ctx.shadowBlur = 0; // Reset
     });
-    
+
+    updateTelemetry(now);
+
     requestAnimationFrame(animate);
   };
   
@@ -574,10 +789,31 @@ document.addEventListener('DOMContentLoaded', () => {
     mouse.y = null;
   });
   
-  // Start scientific simulation canvas background
+  // Start scientific simulation canvas background.
+  // Visitors who ask for reduced motion get a static page - the canvas is
+  // hidden in CSS, so we skip the solver loop entirely rather than burn CPU
+  // rendering to an invisible surface. The telemetry readout is stepped once
+  // so it shows real values instead of em-dashes.
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
-  requestAnimationFrame(animate);
+
+  if (prefersReducedMotion) {
+    // Step far enough to leave the circuit mid-transient, so the readout shows
+    // a real solved value rather than the zero initial condition.
+    stepRLC(200);
+    physicsLinks.forEach(link => {
+      rk4Pendulum(link, PENDULUM_DT);
+      energyDriftSum += Math.abs((pendulumEnergy(link) - link.E0) / link.E0);
+      energyDriftCount++;
+    });
+    updateTelemetry(performance.now() + 1000);
+    const fpsEl = document.getElementById('live-fps');
+    if (fpsEl) fpsEl.textContent = 'paused';
+  } else {
+    requestAnimationFrame(animate);
+  }
 
   // 4. Interactive Simulator Screenshot Toggles (Stylized vs. Raw)
   const mockupWrappers = document.querySelectorAll('.sim-mockup-wrapper');
@@ -745,6 +981,30 @@ document.addEventListener('DOMContentLoaded', () => {
           console.error('Failed to copy: ', err);
         });
       }
+    });
+  });
+
+  // 8. Copy handlers for multi-line code blocks (MCP install & config)
+  const copyBlockBtns = document.querySelectorAll('.btn-copy-block');
+  copyBlockBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.getElementById(btn.getAttribute('data-copy-target'));
+      if (!target) return;
+
+      navigator.clipboard.writeText(target.textContent.trim()).then(() => {
+        const icon = btn.querySelector('i');
+        icon.className = 'fas fa-check';
+        btn.style.color = 'var(--circuit-color)';
+        btn.style.borderColor = 'var(--circuit-color)';
+
+        setTimeout(() => {
+          icon.className = 'far fa-clipboard';
+          btn.style.color = '';
+          btn.style.borderColor = '';
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+      });
     });
   });
 

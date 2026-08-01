@@ -9,9 +9,9 @@
   <!-- SEO Meta Tags -->
   <link rel="canonical" href="https://physbox.io/">
   <meta name="description"
-    content="Explore PhysBox, a powerful suite of open-source, browser-based simulation tools. High-fidelity electronics, MuJoCo 3D physics, ecological models, cellular automata, and IoT nodes—all running 100% locally and free.">
+    content="Explore PhysBox, a powerful suite of open-source, browser-based simulation tools. High-fidelity electronics, MuJoCo 3D physics, OpenSCAD 3D printing, and hardware-in-the-loop microcontrollers—plus 53 Model Context Protocol tools so AI agents can drive every simulator. 100% local and free.">
   <meta name="keywords"
-    content="simulation, electronics simulator, WASM physics, MuJoCo, cellular automata, Runge Kutta, open source simulator, ngspice wasm, circuit sandbox">
+    content="simulation, electronics simulator, WASM physics, MuJoCo, cellular automata, Runge Kutta, open source simulator, ngspice wasm, circuit sandbox, MCP server, Model Context Protocol, AI agent tools, world model, OpenSCAD, hardware in the loop">
   <meta name="author" content="physbox.io">
 
   <!-- Open Graph / Facebook -->
@@ -78,6 +78,7 @@
         <ul>
           <li><a href="#suite" id="nav-link-suite">Simulators</a></li>
           <li><a href="#ai-models" id="nav-link-ai">AI Models</a></li>
+          <li><a href="#mcp" id="nav-link-mcp">MCP</a></li>
           <li><a href="#tech" id="nav-link-tech">Architecture</a></li>
           <li><a href="#pledge" id="nav-link-pledge">Open Source</a></li>
           <li><a href="https://github.com/physbox-io" target="_blank" class="nav-cta" id="nav-btn-github"><i
@@ -107,6 +108,24 @@
           Suite</a>
         <a href="https://github.com/physbox-io" target="_blank" class="btn btn-secondary" id="hero-btn-github"><i
             class="fab fa-github"></i> View Source Code</a>
+      </div>
+
+      <!-- Live telemetry from the solvers actually running in the page background -->
+      <div class="hero-live reveal delay-400" id="hero-live">
+        <span class="hero-live-label"><span class="live-dot"></span> Solving behind this page, right now</span>
+        <div class="hero-live-metrics">
+          <span class="live-metric" title="Double pendulums integrated with 4th-order Runge-Kutta. Energy drift is the deviation from initial total energy — the honest measure of an integrator's accuracy.">
+            <i class="fas fa-cubes"></i> RK4 pendulums
+            <b id="live-energy">&mdash;</b> <em>energy drift</em>
+          </span>
+          <span class="live-metric" title="Series RLC transient, RK4-integrated at 20 kHz. This is the same class of problem Volt hands to Ngspice.">
+            <i class="fas fa-wave-square"></i> RLC transient
+            <b id="live-vc">&mdash;</b> <em>V<sub>C</sub></em>
+          </span>
+          <span class="live-metric" title="Measured animation frame rate">
+            <i class="fas fa-gauge-high"></i> <b id="live-fps">&mdash;</b> <em>fps</em>
+          </span>
+        </div>
       </div>
     </div>
   </section>
@@ -242,7 +261,10 @@
               id="img-process">
           </div>
           <div class="sim-content">
-            <span class="sim-badge process-badge">Hybrid Systems & CA</span>
+            <div class="sim-badges">
+              <span class="sim-badge process-badge">Hybrid Systems & CA</span>
+              <span class="sim-badge badge-soon"><span class="pulse-dot"></span>🚧 Coming Soon</span>
+            </div>
             <h3 class="sim-name">PhysBox: Flux</h3>
             <p class="sim-desc">
               A hybrid systems simulator engineered to model complex relationships, cellular events, and system cycles.
@@ -258,8 +280,8 @@
                 build grids and write custom logic safely.</li>
             </ul>
             <div class="sim-footer">
-              <a href="https://flux.physbox.io" class="btn btn-primary" id="btn-launch-process"><i
-                  class="fas fa-network-wired"></i> Launch Flux Sandbox</a>
+              <a href="https://flux.physbox.io" class="btn btn-primary btn-soon" id="btn-launch-process"><i
+                  class="fas fa-network-wired"></i> Preview Flux <span class="btn-soon-tag">early build</span></a>
               <a href="https://github.com/physbox-io/processsim" target="_blank" class="btn btn-secondary"
                 id="btn-github-process"><i class="fab fa-github"></i> View Repository</a>
             </div>
@@ -347,10 +369,15 @@
           <h3 class="ai-subheading"><i class="fas fa-circle-nodes"></i> Interactive Interfaces for Agents</h3>
           <p class="ai-paragraph">
             Built entirely on client-side WebAssembly, our simulators enable AI agents to bridge the gap between
-            abstract reasoning and concrete physical execution. Agents can utilize browser automation (like Puppeteer or
-            Playwright) or standard WebSockets to interact with simulations in real-time:
+            abstract reasoning and concrete physical execution. Every engine ships a first-class agent interface over
+            the Model Context Protocol, so any MCP client — Claude Code, Gemini in Antigravity, or your own — drives
+            the simulation in real time:
           </p>
           <ul class="ai-bullets">
+            <li><strong>A Native MCP Server, Not Browser Scraping:</strong> <code>physbox-mcp</code> exposes the
+              simulators as <strong>53 typed Model Context Protocol tools</strong> over a local WebSocket relay. Agents
+              call <code>physics_build_scene</code> or <code>circuit_run_sim</code> directly — no DOM selectors, no
+              screenshot parsing, no brittle automation layer.</li>
             <li><strong>Procedural CAD & 3D Printing Generation:</strong> AI agents can write and refactor OpenSCAD code
               to create custom brackets, gears, and enclosures, test structural stability in MuJoCo, and output
               3D-printable STL files.</li>
@@ -362,6 +389,123 @@
               met.</li>
           </ul>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MCP / Agent Interface Section -->
+  <section class="mcp-section" id="mcp">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Model Context Protocol</span>
+        <h2 class="section-title">53 Tools. One <code class="title-code">pip install</code>.</h2>
+        <p class="section-subtitle">PhysBox: MCP is a companion server that puts every simulator on the other end of a
+          tool call. Commands travel as JSON over a local WebSocket relay straight into the running browser tab — no
+          browser automation, no DOM scraping, no cloud round-trip.</p>
+      </div>
+
+      <div class="mcp-counts reveal">
+        <div class="mcp-count-card circuit-count">
+          <span class="mcp-count-num">12</span>
+          <span class="mcp-count-label">Volt tools</span>
+          <span class="mcp-count-desc">SPICE runs, waveform reads, netlist edits, audio I/O</span>
+        </div>
+        <div class="mcp-count-card physics-count">
+          <span class="mcp-count-num">25</span>
+          <span class="mcp-count-label">Mesh tools</span>
+          <span class="mcp-count-desc">Scene building, SCAD validation, headless rollouts, screenshots</span>
+        </div>
+        <div class="mcp-count-card process-count">
+          <span class="mcp-count-num">16</span>
+          <span class="mcp-count-label">Flux tools</span>
+          <span class="mcp-count-desc">Graph construction, solver control, telemetry <em>— in preview</em></span>
+        </div>
+      </div>
+
+      <div class="mcp-grid">
+
+        <!-- Left: Install & Configure -->
+        <div class="mcp-setup reveal">
+          <h3 class="mcp-subheading"><i class="fas fa-terminal"></i> Connect in Two Steps</h3>
+
+          <div class="mcp-step">
+            <span class="mcp-step-num">1</span>
+            <div class="mcp-step-body">
+              <h4>Install the companion server</h4>
+              <div class="code-block">
+                <pre id="mcp-code-install"><code>pip install physbox-mcp</code></pre>
+                <button class="btn-copy-block" data-copy-target="mcp-code-install" aria-label="Copy install command"><i
+                    class="far fa-clipboard"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mcp-step">
+            <span class="mcp-step-num">2</span>
+            <div class="mcp-step-body">
+              <h4>Register it with your MCP client</h4>
+              <p class="mcp-step-note">Drop this into <code>.mcp.json</code> for <strong>Claude Code</strong>, or
+                <code>~/.gemini/config/mcp_config.json</code> for <strong>Gemini in Antigravity</strong>.</p>
+              <div class="code-block">
+                <pre id="mcp-code-config"><code>{
+  "mcpServers": {
+    "physbox-mcp": {
+      "type": "stdio",
+      "command": "physbox-mcp",
+      "args": ["--stdio"]
+    }
+  }
+}</code></pre>
+                <button class="btn-copy-block" data-copy-target="mcp-code-config" aria-label="Copy MCP config"><i
+                    class="far fa-clipboard"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <p class="mcp-footnote"><i class="fas fa-circle-info"></i> Open <a href="https://volt.physbox.io">volt</a>,
+            <a href="https://mesh.physbox.io">mesh</a>, or <a href="https://flux.physbox.io">flux</a>.physbox.io and the
+            page registers itself with the relay on load. Nothing else to wire up.</p>
+        </div>
+
+        <!-- Right: The agent loop -->
+        <div class="mcp-loop reveal delay-100">
+          <h3 class="mcp-subheading"><i class="fas fa-rotate"></i> The Closed Loop</h3>
+          <p class="ai-paragraph">An agent designing a printable part doesn't just emit geometry and hope. It runs the
+            full cycle, and the simulator tells it when it's wrong:</p>
+
+          <ol class="mcp-loop-list">
+            <li>
+              <code>physics_validate_scad</code>
+              <span>Compile the OpenSCAD source. Returns vertex/face counts and a real-world bounding box — and flags
+                the classic millimetre-vs-metre slip that silently builds a part 1000&times; too large.</span>
+            </li>
+            <li>
+              <code>physics_build_scene</code>
+              <span>Drop the compiled mesh into a MuJoCo scene with joints, actuators and constraints.</span>
+            </li>
+            <li>
+              <code>physics_run_headless</code>
+              <span>Run N ticks and return the trajectory without disturbing the live view. Rollouts for free.</span>
+            </li>
+            <li>
+              <code>physics_get_telemetry</code> <span class="loop-or">/</span> <code>physics_get_screenshot</code>
+              <span>Read the numbers, or hand a rendered frame to a vision model. Both are one call.</span>
+            </li>
+            <li class="loop-final">
+              <i class="fas fa-arrow-rotate-left"></i>
+              <span><strong>Correct and repeat.</strong> The part shrinks, the linkage stops binding, the amplifier
+                stops clipping — because something other than the model's own confidence is grading the work.</span>
+            </li>
+          </ol>
+
+          <div class="mcp-ctas">
+            <a href="https://pypi.org/project/physbox-mcp/" target="_blank" class="btn btn-primary" id="mcp-btn-pypi"><i
+                class="fab fa-python"></i> physbox-mcp on PyPI</a>
+            <a href="https://github.com/physbox-io" target="_blank" class="btn btn-secondary" id="mcp-btn-repo"><i
+                class="fab fa-github"></i> Read the Tool Docs</a>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -439,7 +583,8 @@
           <ul>
             <li><a href="https://volt.physbox.io" id="footer-link-circuit">PhysBox: Volt</a></li>
             <li><a href="https://mesh.physbox.io" id="footer-link-physics">PhysBox: Mesh</a></li>
-            <li><a href="https://flux.physbox.io" id="footer-link-process">PhysBox: Flux</a></li>
+            <li><a href="https://flux.physbox.io" id="footer-link-process">PhysBox: Flux <span
+                  class="footer-soon">soon</span></a></li>
           </ul>
         </div>
         <div class="footer-links">

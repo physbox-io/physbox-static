@@ -1289,3 +1289,477 @@ footer {
   box-shadow: 0 4px 10px var(--primary-glow);
 }
 
+
+/* ==========================================================================
+   Hero Live Telemetry — readout for the solvers running in the background
+   ========================================================================== */
+
+.hero-live {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.hero-live-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-header);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  color: var(--text-muted);
+}
+
+.hero-live .live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--circuit-color);
+  box-shadow: 0 0 8px var(--circuit-color);
+  animation: badge-pulse 2s infinite ease-in-out;
+}
+
+.hero-live-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.live-metric {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.5rem 0.95rem;
+  border-radius: 8px;
+  background: rgba(13, 17, 28, 0.55);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+  font-family: var(--font-header);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  cursor: help;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.live-metric:hover {
+  border-color: var(--border-color-hover);
+  transform: translateY(-2px);
+}
+
+.live-metric i {
+  color: var(--primary);
+  font-size: 0.78rem;
+  align-self: center;
+}
+
+.live-metric b {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--text-primary);
+  min-width: 3.4ch;
+  text-align: right;
+}
+
+.live-metric em {
+  font-style: normal;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Coming Soon treatment (Flux)
+   ========================================================================== */
+
+.badge-soon {
+  background: rgba(236, 72, 153, 0.15);
+  border: 1px solid rgba(236, 72, 153, 0.4);
+  color: #f472b6;
+  box-shadow: 0 0 12px rgba(236, 72, 153, 0.15);
+}
+
+.btn-soon {
+  opacity: 0.85;
+}
+
+.btn-soon-tag {
+  margin-left: 0.55rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.28);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.footer-soon {
+  margin-left: 0.4rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  background: rgba(236, 72, 153, 0.12);
+  border: 1px solid rgba(236, 72, 153, 0.25);
+  color: var(--process-color);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+/* ==========================================================================
+   MCP / Agent Interface Section
+   ========================================================================== */
+
+.mcp-section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.title-code {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.82em;
+  padding: 0.1em 0.3em;
+  border-radius: 6px;
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  color: var(--primary);
+}
+
+/* Tool count cards */
+.mcp-counts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.mcp-count-card {
+  padding: 1.75rem 1.5rem;
+  border-radius: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(12px);
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mcp-count-card:hover {
+  transform: translateY(-4px);
+  background: var(--bg-card-hover);
+  border-color: var(--border-color-hover);
+}
+
+.mcp-count-num {
+  display: block;
+  font-family: var(--font-header);
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.circuit-count .mcp-count-num { color: var(--circuit-color); }
+.physics-count .mcp-count-num { color: var(--physics-color); }
+.process-count .mcp-count-num { color: var(--process-color); }
+
+.circuit-count:hover { box-shadow: 0 10px 30px var(--circuit-glow); }
+.physics-count:hover { box-shadow: 0 10px 30px var(--physics-glow); }
+.process-count:hover { box-shadow: 0 10px 30px var(--process-glow); }
+
+.mcp-count-label {
+  display: block;
+  margin-top: 0.6rem;
+  font-family: var(--font-header);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: var(--text-primary);
+}
+
+.mcp-count-desc {
+  display: block;
+  margin-top: 0.55rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.mcp-count-desc em {
+  font-style: normal;
+  color: var(--process-color);
+  white-space: nowrap;
+}
+
+/* Two-column layout */
+.mcp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.mcp-setup,
+.mcp-loop {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 2.75rem 2.5rem;
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mcp-setup:hover,
+.mcp-loop:hover {
+  border-color: var(--border-color-hover);
+  background: var(--bg-card-hover);
+}
+
+.mcp-subheading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.4rem;
+  margin-bottom: 1.75rem;
+}
+
+.mcp-subheading i {
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+/* Numbered setup steps */
+.mcp-step {
+  display: flex;
+  gap: 1.1rem;
+  margin-bottom: 1.75rem;
+}
+
+.mcp-step-num {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  color: var(--primary);
+  font-family: var(--font-header);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.mcp-step-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.mcp-step-body h4 {
+  font-size: 1.02rem;
+  margin-bottom: 0.5rem;
+}
+
+.mcp-step-note {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.85rem;
+}
+
+/* Copyable code blocks */
+.code-block {
+  position: relative;
+  border-radius: 10px;
+  background: rgba(5, 6, 8, 0.75);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.code-block pre {
+  margin: 0;
+  padding: 1rem 3.25rem 1rem 1.1rem;
+  overflow-x: auto;
+}
+
+.code-block code {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: #a5b4fc;
+  white-space: pre;
+}
+
+.btn-copy-block {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  border: 1px solid var(--border-color);
+  background: rgba(13, 17, 28, 0.9);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-copy-block:hover {
+  color: var(--text-primary);
+  border-color: var(--border-color-hover);
+  background: var(--bg-card-hover);
+}
+
+.mcp-footnote {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.mcp-footnote i {
+  color: var(--primary);
+  margin-right: 0.4rem;
+}
+
+/* The agent loop list */
+.mcp-loop-list {
+  list-style: none;
+  counter-reset: loopstep;
+  margin: 1.5rem 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.mcp-loop-list li {
+  position: relative;
+  padding-left: 2.4rem;
+}
+
+.mcp-loop-list li:not(.loop-final)::before {
+  counter-increment: loopstep;
+  content: counter(loopstep);
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  color: var(--physics-color);
+  font-family: var(--font-header);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.mcp-loop-list li.loop-final > i {
+  position: absolute;
+  left: 0;
+  top: 0.2rem;
+  width: 24px;
+  text-align: center;
+  color: var(--primary);
+}
+
+.mcp-loop-list code {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.84rem;
+  color: var(--physics-color);
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.18);
+  border-radius: 5px;
+  padding: 0.12rem 0.4rem;
+}
+
+.mcp-loop-list .loop-or {
+  color: var(--text-muted);
+  margin: 0 0.15rem;
+}
+
+.mcp-loop-list span:not(.loop-or) {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.mcp-loop-list li.loop-final span {
+  margin-top: 0;
+}
+
+.mcp-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Inline code inside AI bullets */
+.ai-bullets code {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.86em;
+  color: var(--primary);
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .mcp-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .mcp-section {
+    padding: 60px 0;
+  }
+
+  .mcp-counts {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .mcp-setup,
+  .mcp-loop {
+    padding: 2rem 1.5rem;
+  }
+
+  .hero-live {
+    margin-top: 2rem;
+  }
+
+  .hero-live-metrics {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .live-metric {
+    justify-content: center;
+  }
+}
+
+/* Respect reduced-motion preferences for the animated background */
+@media (prefers-reduced-motion: reduce) {
+  #canvas-bg {
+    display: none;
+  }
+
+  .pulse-dot,
+  .hero-live .live-dot {
+    animation: none;
+  }
+}
