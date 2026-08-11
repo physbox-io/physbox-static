@@ -77,6 +77,8 @@
       <nav>
         <ul>
           <li><a href="#suite" id="nav-link-suite">Simulators</a></li>
+          <li><a href="hardware.html" id="nav-link-hardware-deepdive">HIL & Fabrication</a></li>
+          <li><a href="tutorials.html" id="nav-link-tutorials">Tutorials</a></li>
           <li><a href="#ai-models" id="nav-link-ai">AI Models</a></li>
           <li><a href="#mcp" id="nav-link-mcp">MCP</a></li>
           <li><a href="#tech" id="nav-link-tech">Architecture</a></li>
@@ -136,9 +138,9 @@
 
       <div class="section-header reveal">
         <span class="section-tag">Interactive Sandbox Suite</span>
-        <h2 class="section-title">Engines Purpose-Built for Exploratory Science</h2>
-        <p class="section-subtitle">A triad of specialized simulation tools designed to eliminate the boundary between
-          raw physical mathematics, hardware-in-the-loop microcontrollers, and 3D procedural CAD.</p>
+        <h2 class="section-title">Engines Purpose-Built for Exploratory Science & Fabrication</h2>
+        <p class="section-subtitle">A suite of specialized simulation tools designed to eliminate the boundary between
+          raw physical mathematics, hardware-in-the-loop microcontrollers, 3D procedural CAD, and 2D CNC vector fabrication.</p>
       </div>
 
       <div class="sim-list">
@@ -239,6 +241,47 @@
                   class="fas fa-cubes"></i> Launch Mesh Sandbox</a>
               <a href="https://github.com/physbox-io/physicssim" target="_blank" class="btn btn-secondary"
                 id="btn-github-physics"><i class="fab fa-github"></i> View Repository</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. PhysBox: Etch -->
+        <div class="sim-item etch-item reveal">
+          <div class="sim-mockup-wrapper etch-mockup-wrapper" id="wrapper-etch">
+            <div class="mockup-header">
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+            </div>
+            <div class="mockup-toggle-badge" id="toggle-badge-etch">
+              <span class="badge-option active" data-mode="stylized" id="toggle-opt-etch-stylized">Stylized
+                Mockup</span>
+              <span class="badge-option" data-mode="raw" id="toggle-opt-etch-raw">Actual Screenshot</span>
+            </div>
+            <img src="assets/etch_mockup.png" alt="PhysBox Etch Interface" class="sim-mockup"
+              data-raw="assets/etch_raw.png" data-stylized="assets/etch_mockup.png" data-state="stylized"
+              id="img-etch">
+          </div>
+          <div class="sim-content">
+            <div class="sim-badges">
+              <span class="sim-badge etch-badge">2D Vector & CNC Studio</span>
+              <span class="sim-badge badge-cnc"><span class="pulse-dot"></span>🔥 Laser & CNC WebSerial</span>
+            </div>
+            <h3 class="sim-name">PhysBox: Etch</h3>
+            <p class="sim-desc">
+              <strong>Vector Design. Toolpathing. WebSerial Fabrication.</strong><br><br>
+              A browser-based 2D vector studio for laser etching, cutting, and CNC milling. Draw or import artwork, vectorize fonts automatically, set per-layer speeds and Z depth pass counts, preview 3D G-code toolpaths, and stream directly to GRBL, FluidNC, or grblHAL hardware over WebSerial.
+            </p>
+            <ul class="sim-features">
+              <li><strong>Bed-Accurate Vector Canvas & Text Vectorization:</strong> Real millimeter grid with bezier node editing, mandala radial symmetry, and Google Fonts picker with automatic font outline conversion so text is truly cut or etched, never dropped.</li>
+              <li><strong>Feeds, Speeds & Safety Warning Engine:</strong> Automatically derives spindle RPM, feed speeds, and pass stepdowns for Plywood, MDF, Hardwood, and Acrylic. Features active safety warnings for potential charring, flare-ups, and carbide end mill breakage.</li>
+              <li><strong>Touch-Plate Z Probing & Bed Heightmaps:</strong> Zero work coordinates via <code>G10 L20</code>, probe Z zero with touch plates, and run 3x3 bed heightmaps so toolpaths follow warped stock or unlevel spoilboards seamlessly over WebSerial.</li>
+            </ul>
+            <div class="sim-footer">
+              <a href="https://etch.physbox.io" class="btn btn-primary" id="btn-launch-etch"><i
+                  class="fas fa-scissors"></i> Launch Etch Studio</a>
+              <a href="https://github.com/physbox-io/etch" target="_blank" class="btn btn-secondary"
+                id="btn-github-etch"><i class="fab fa-github"></i> View Repository</a>
             </div>
           </div>
         </div>
@@ -579,17 +622,20 @@
             simulators for engineers, students, and makers.</p>
         </div>
         <div class="footer-links">
-          <h4>Simulators</h4>
+          <h4>Simulators & Tools</h4>
           <ul>
             <li><a href="https://volt.physbox.io" id="footer-link-circuit">PhysBox: Volt</a></li>
             <li><a href="https://mesh.physbox.io" id="footer-link-physics">PhysBox: Mesh</a></li>
+            <li><a href="https://etch.physbox.io" id="footer-link-etch">PhysBox: Etch</a></li>
             <li><a href="https://flux.physbox.io" id="footer-link-process">PhysBox: Flux <span
                   class="footer-soon">soon</span></a></li>
           </ul>
         </div>
         <div class="footer-links">
-          <h4>Developer</h4>
+          <h4>Developer & Learn</h4>
           <ul>
+            <li><a href="tutorials.html" id="footer-link-tutorials"><i class="fas fa-graduation-cap"></i> Tutorials & Guides</a></li>
+            <li><a href="hardware.html" id="footer-link-hardware"><i class="fas fa-microchip"></i> HIL & Physical Fabrication</a></li>
             <li><a href="https://github.com/physbox-io" target="_blank" id="footer-link-github"><i
                   class="fab fa-github"></i> GitHub</a></li>
             <li><a href="#tech" id="footer-link-docs"><i class="fas fa-book"></i> Architecture</a></li>
@@ -689,6 +735,27 @@
                   class="far fa-clipboard"></i></button>
             </div>
             <a href="https://github.com/physbox-io/processsim" target="_blank" class="btn-open-repo"
+              aria-label="Open Repository"><i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <!-- Repo 4: Etch Studio -->
+        <div class="modal-repo-card etch-card-glow">
+          <div class="repo-info">
+            <span class="repo-icon etch-badge"><i class="fas fa-scissors"></i></span>
+            <div>
+              <h4 class="repo-name">etch</h4>
+              <p class="repo-desc">2D vector design studio, G-code toolpath engine & WebSerial GRBL laser/CNC machine controller.</p>
+            </div>
+          </div>
+          <div class="repo-actions">
+            <div class="clone-box">
+              <input type="text" class="clone-input" readonly value="git clone https://github.com/physbox-io/etch"
+                id="clone-cmd-etch">
+              <button class="btn-copy" data-target="clone-cmd-etch" aria-label="Copy clone command"><i
+                  class="far fa-clipboard"></i></button>
+            </div>
+            <a href="https://github.com/physbox-io/etch" target="_blank" class="btn-open-repo"
               aria-label="Open Repository"><i class="fas fa-external-link-alt"></i></a>
           </div>
         </div>

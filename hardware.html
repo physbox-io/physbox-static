@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhysBox | HIL Hardware, 3D Printing, Laser Cut & CNC Workflows</title>
+
+  <!-- SEO Meta Tags -->
+  <link rel="canonical" href="https://physbox.io/hardware.html">
+  <meta name="description"
+    content="Technical deep dive into PhysBox Hardware-In-The-Loop (HIL) microcontrollers, WASM OpenSCAD 3D printing, SVG panel nesting, finger joints, CNC G-code toolpaths, and WebSerial machine streaming.">
+  <meta name="keywords"
+    content="HIL, hardware in the loop, ESP32, CYD, OpenSCAD, 3D printing, laser cutting, CNC milling, G-code, GRBL, SVG nesting, finger joints, dogbone relief, WebSerial, PhysBox Volt, PhysBox Mesh">
+  <meta name="author" content="physbox.io">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://physbox.io/hardware.html">
+  <meta property="og:title" content="PhysBox | HIL Hardware, 3D Print, Laser & CNC Workflows">
+  <meta property="og:description"
+    content="Technical deep dive into PhysBox HIL microcontrollers, 3D printing, laser cut SVG nesting, interlocking finger joints, CNC G-code toolpaths, and WebSerial streaming.">
+  <meta property="og:image" content="assets/laser_cnc_detail.png">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- FontAwesome for Premium Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+  <!-- Interactive HTML5 Canvas Background -->
+  <canvas id="canvas-bg"></canvas>
+
+  <!-- Sleek Header Navigation -->
+  <header id="main-header">
+    <div class="container">
+      <a href="index.html" class="logo-link" id="nav-logo-link">
+        <img src="assets/physbox_logo.png" alt="PhysBox Logo" class="logo-img">
+        <span class="logo-text">physbox<span class="logo-dot">.</span>io</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html#suite" id="nav-link-main-suite">Main Suite</a></li>
+          <li><a href="#hil-deep-dive" id="nav-link-hil">HIL Silicon</a></li>
+          <li><a href="#print-deep-dive" id="nav-link-print">3D Printing</a></li>
+          <li><a href="#laser-cnc-deep-dive" id="nav-link-laser-cnc">Laser Cut & CNC</a></li>
+          <li><a href="tutorials.html" id="nav-link-tutorials">Tutorials</a></li>
+          <li><a href="#agent-workflow" id="nav-link-agent-hw">AI Tooling</a></li>
+          <li><a href="https://github.com/physbox-io" target="_blank" class="nav-cta" id="nav-btn-github-hw"><i
+                class="fab fa-github"></i> Star on Github</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero deepdive-hero">
+    <div class="container">
+      <div class="hero-badge reveal">
+        <span class="dot"></span>
+        <span>Sim-To-Real Technical Architecture</span>
+      </div>
+      <h1 class="hero-title reveal delay-100">
+        Hardware-In-The-Loop, 3D Printing, <br><span class="gradient-text">Laser Cutting & CNC Workflows.</span>
+      </h1>
+      <p class="hero-subtitle reveal delay-200">
+        An in-depth technical exploration of how <strong>PhysBox: Volt</strong> bridges physical ESP32/CYD microcontrollers with WASM SPICE models, and how <strong>PhysBox: Mesh</strong> translates parametric WebAssembly geometry into 3D prints, laser-cut finger joints, CNC G-code toolpaths, and live WebSerial machine control.
+      </p>
+      <div class="hero-ctas reveal delay-300">
+        <a href="#hil-deep-dive" class="btn btn-primary" id="hero-btn-hil"><i class="fas fa-microchip"></i> HIL Microcontrollers</a>
+        <a href="#print-deep-dive" class="btn btn-secondary" id="hero-btn-print"><i class="fas fa-cubes"></i> 3D Printing</a>
+        <a href="#laser-cnc-deep-dive" class="btn btn-secondary" id="hero-btn-laser-cnc"><i class="fas fa-scissors"></i> Laser Cut & CNC</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 1: HIL Microcontroller Integration (Volt) -->
+  <section class="deepdive-section" id="hil-deep-dive">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">High-Speed Physical Silicon</span>
+        <h2 class="section-title">Hardware-In-The-Loop (HIL) Integration</h2>
+        <p class="section-subtitle">Connecting real ESP32 & Cheap Yellow Display (CYD) microcontrollers directly into the browser's WebAssembly SPICE solver at 460,800 baud with zero buffer starvation.</p>
+      </div>
+
+      <div class="deepdive-grid">
+        <!-- Visual Container -->
+        <div class="deepdive-media reveal">
+          <div class="media-frame">
+            <img src="assets/hil_device_detail.png" alt="ESP32 CYD Hardware-In-The-Loop Laboratory Setup" class="deepdive-img" id="img-hil-detail">
+            <div class="media-caption">
+              <i class="fas fa-camera"></i> Hardware-In-The-Loop (HIL): ESP32 CYD screen displaying real-time waveforms synchronized with PhysBox Volt circuit WASM solver.
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Description -->
+        <div class="deepdive-content reveal delay-100">
+          <h3 class="content-title"><i class="fas fa-bolt" style="color: var(--circuit-color, #10b981);"></i> Real-Time UART & WebSocket Bridge</h3>
+          <p class="content-paragraph">
+            In traditional SPICE simulation, firmware execution is either completely synthetic or disconnected from physical hardware. PhysBox Volt introduces a dedicated <strong>Serial & WebSocket HIL Bridge</strong> running at up to <strong>460,800 baud</strong>.
+          </p>
+          <p class="content-paragraph">
+            Physical microcontrollers read ADC inputs from external analog sensors, execute custom MicroPython or C++ firmware logic, and stream pin states back to the browser worker thread.
+          </p>
+
+          <div class="spec-cards-grid">
+            <div class="spec-card">
+              <span class="spec-icon"><i class="fas fa-tachometer-alt"></i></span>
+              <h4>Lookahead Queue Buffer</h4>
+              <p>Maintains a 40ms simulation step ahead of real time with a 240ms target depth to absorb serial jitter and eliminate audio/pin starvation.</p>
+            </div>
+            <div class="spec-card">
+              <span class="spec-icon"><i class="fas fa-wave-square"></i></span>
+              <h4>Sub-Millisecond Triggers</h4>
+              <p>Derives sub-millisecond digital logic thresholds dynamically based on analog rail voltages computed in WASM.</p>
+            </div>
+            <div class="spec-card">
+              <span class="spec-icon"><i class="fas fa-volume-high"></i></span>
+              <h4>Integrated Audio I/O</h4>
+              <p>Route live physical microphone audio into input nodes and feed synthesized DAC output straight to system speakers.</p>
+            </div>
+            <div class="spec-card">
+              <span class="spec-icon"><i class="fas fa-code-branch"></i></span>
+              <h4>Native Batching (`hil_batch`)</h4>
+              <p>MicroPython and C++ native firmware routines package multiple I/O states per packet for maximum baud-rate efficiency.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Firmware Code Example Box -->
+      <div class="code-showcase-box reveal">
+        <div class="code-header">
+          <span><i class="fas fa-microchip"></i> MicroPython HIL Firmware Routine (`hil_bridge.py`)</span>
+          <button class="btn-copy-block" data-copy-target="hil-code-example" aria-label="Copy MicroPython code"><i class="far fa-clipboard"></i></button>
+        </div>
+        <div class="code-body">
+          <pre id="hil-code-example"><code>import machine, time, select, sys
+
+# Initialize UART at high-speed 460800 baud for PhysBox Volt HIL Bridge
+uart = machine.UART(1, baudrate=460800, tx=22, rx=23)
+adc = machine.ADC(machine.Pin(34))
+dac = machine.DAC(machine.Pin(25))
+
+print("[HIL] Connected to PhysBox Volt SPICE Engine")
+
+while True:
+    if select.select([sys.stdin], [], [], 0)[0]:
+        cmd = sys.stdin.readline().strip()
+        if cmd.startswith("DAC:"):
+            val = int(cmd.split(":")[1])
+            dac.write(val) # Update physical DAC output from WASM circuit model
+
+    raw_val = adc.read()
+    # Batch telemetry: ADC raw value + timestamp tick
+    uart.write(f"ADC:{raw_val}:{time.ticks_us()}\n")
+    time.sleep_us(500)</code></pre>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2: Parametric OpenSCAD & 3D Printing (Mesh) -->
+  <section class="deepdive-section alt-bg" id="print-deep-dive">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Code. Simulate. Print.</span>
+        <h2 class="section-title">Parametric OpenSCAD to 3D Printing</h2>
+        <p class="section-subtitle">Generate procedural CSG geometry in client-side WebAssembly, verify 6-DOF mechanical joint mechanics in MuJoCo, and export slicer-ready Z-Up STL files for physical fabrication.</p>
+      </div>
+
+      <div class="deepdive-grid reverse">
+        <!-- Visual Container -->
+        <div class="deepdive-media reveal">
+          <div class="media-frame">
+            <img src="assets/physical_print_detail.png" alt="3D Printed Parametric Mechanical Assembly" class="deepdive-img" id="img-print-detail">
+            <div class="media-caption">
+              <i class="fas fa-camera"></i> Physical 3D Print: Parametric planetary gear & robotic joint printed in PLA from STL files exported directly out of PhysBox Mesh.
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Description -->
+        <div class="deepdive-content reveal delay-100">
+          <h3 class="content-title"><i class="fas fa-cubes" style="color: var(--physics-color, #06b6d4);"></i> Constructive Solid Geometry in WASM</h3>
+          <p class="content-paragraph">
+            PhysBox Mesh embeds a custom-compiled <strong>WASM OpenSCAD compiler</strong> directly inside the browser. Write code live in the node inspector, preview 3D solid geometry in WebGL, and test kinematic constraints without leaving the tab.
+          </p>
+          <p class="content-paragraph">
+            Once mechanical tolerances and 6-DOF joint constraints pass in MuJoCo WASM, click <strong>Export STL</strong> to generate perfectly oriented Z-Up STL files for immediate printing.
+          </p>
+
+          <div class="spec-cards-grid">
+            <div class="spec-card">
+              <span class="spec-icon"><i class="fas fa-sliders"></i></span>
+              <h4>Live UI Sliders</h4>
+              <p>OpenSCAD annotations like <code>// [min:step:max]</code> automatically create interactive GUI sliders for live parameter tuning.</p>
+            </div>
+            <div class="spec-card">
+              <span class="spec-icon"><i class="fas fa-print"></i></span>
+              <h4>Slicer-Ready Export</h4>
+              <p>Z-Up STL export formatted specifically for PrusaSlicer, Bambu Studio, and Cura with zero manual axis rotation needed.</p>
+            </div>
+            <div class="spec-card">
+              <span class="spec-icon"><i class="fas fa-cogs"></i></span>
+              <h4>Coupled Joint Solvers</h4>
+              <p>Solve gear, rack, and pinion interactions via rigid mathematical constraints or test pure 6-DOF mesh tooth friction.</p>
+            </div>
+            <div class="spec-card">
+              <span class="spec-icon"><i class="fas fa-shield-alt"></i></span>
+              <h4>Bounding Box Validation</h4>
+              <p>Prevents unit scale errors (e.g. mm vs meters) before geometry is sent to your 3D printer.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 3: Laser Cut & CNC Router Workflow (Mesh) -->
+  <section class="deepdive-section" id="laser-cnc-deep-dive">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">2D Panel Unfolding, Nesting & Machine Control</span>
+        <h2 class="section-title">Laser Cutting & CNC Milling Pipeline</h2>
+        <p class="section-subtitle">Unfold 3D assemblies into 2D sheet space, auto-generate interlocking finger joints with kerf compensation, compute CNC dogbone corner reliefs, generate GRBL G-code, and stream live over WebSerial.</p>
+      </div>
+
+      <div class="deepdive-grid">
+        <!-- Visual Container -->
+        <div class="deepdive-media reveal">
+          <div class="media-frame">
+            <img src="assets/laser_cnc_detail.png" alt="Laser Cutting & CNC Toolpath Workflow" class="deepdive-img" id="img-laser-cnc-detail">
+            <div class="media-caption">
+              <i class="fas fa-fire"></i> Laser Cut & CNC Pipeline: Interlocking wooden panel box joints, SVG sheet nesting, and live G-code streaming directly from PhysBox Mesh.
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Description -->
+        <div class="deepdive-content reveal delay-100">
+          <h3 class="content-title"><i class="fas fa-vector-square" style="color: #f59e0b;"></i> Sheet Unfolding, Finger Joints & WebSerial</h3>
+          <p class="content-paragraph">
+            PhysBox Mesh isn't restricted to additive 3D printing. It features a complete subtractive manufacturing engine (`laserCutExporter.ts` and `gcodeExporter.ts`) designed for <strong>Laser Cutters</strong> (LightBurn, Glowforge, LaserGRBL) and <strong>CNC Routers</strong> (GRBL, Marlin, ShopBot).
+          </p>
+          <p class="content-paragraph">
+            The engine automatically unfolds 3D panel meshes onto 2D sheet stock using maximal-rectangle packing algorithms, generates structural tab-and-slot joints, applies kerf/clearance adjustments, and streams G-code straight to machine hardware over WebSerial.
+          </p>
+
+          <div class="spec-cards-grid">
+            <div class="spec-card">
+              <span class="spec-icon"><i class="fas fa-puzzle-piece"></i></span>
+              <h4>Procedural Interlocking Finger Joints</h4>
+              <p>Generates tight press-fit tab-and-slot joints with kerf compensation, clearance tuning, and custom tab width across panel edges.</p>
+            </div>
+            <div class="spec-card">
+              <span class="spec-icon"><i class="fas fa-dog"></i></span>
+              <h4>CNC Dogbone & T-Bone Corner Relief</h4>
+              <p>Calculates corner overcuts so spinning round CNC end mills can seat square 90° mating tabs without manual CAD edits.</p>
+            </div>
+            <div class="spec-card">
+              <span class="spec-icon"><i class="fas fa-layer-group"></i></span>
+              <h4>3D Contour Layer Slicing</h4>
+              <p>Slices arbitrary 3D volumetric meshes into stacked 2D sheet contours (plywood/acrylic) for layered organic physical builds.</p>
+            </div>
+            <div class="spec-card">
+              <span class="spec-icon"><i class="fas fa-plug"></i></span>
+              <h4>WebSerial Live Machine Control</h4>
+              <p>Frame job boundaries and stream G-code directly to physical GRBL/Marlin CNC routers and laser cutters straight from the browser.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CNC / Laser G-Code Showcase Box -->
+      <div class="code-showcase-box reveal">
+        <div class="code-header">
+          <span><i class="fas fa-terminal"></i> Generated GRBL G-Code & WebSerial Output (`laser_panel_cut.gcode`)</span>
+          <button class="btn-copy-block" data-copy-target="gcode-example" aria-label="Copy G-Code"><i class="far fa-clipboard"></i></button>
+        </div>
+        <div class="code-body">
+          <pre id="gcode-example"><code>; Generated by PhysBox Mesh Laser & CNC Engine
+; Machine Mode: LASER CUTTER | Stock Thickness: 3.00mm | Kerf: 0.15mm
+; Interlocking Finger Joint Mode: TAB_SLOT | Corner Relief: DOGBONE
+G90 (Absolute Distance Mode)
+G21 (Metric Units)
+M3 S1000 (Laser Power Active @ 100%)
+G0 X0.00 Y0.00 Z5.00 F1500 (Safe Retract Move)
+
+; Panel 1: Top Enclosure Plate [Finger Joint Contour]
+G0 X12.50 Y10.00
+G1 Z0.00 F800 (Plunge to Cut Depth)
+G1 X87.50 Y10.00 F1200 (Cut Finger Tab Edge A)
+G1 X87.50 Y14.50 (Tab Slot Overcut with Kerf Comp)
+G1 X100.00 Y14.50
+G1 X100.00 Y85.50
+...
+M5 (Laser Off)
+G0 Z10.00 (Job Complete - WebSerial Stream Ended)</code></pre>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 4: Agentic AI Closed-Loop Hardware & Print Tooling -->
+  <section class="deepdive-section alt-bg" id="agent-workflow">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Autonomous Agent Execution</span>
+        <h2 class="section-title">AI Agents Driving Fabrication & HIL</h2>
+        <p class="section-subtitle">Through 53 Model Context Protocol (MCP) tools, AI agents like Claude Code and Gemini Antigravity inspect physical tolerances, generate CAD models, unfold 2D sheet panels, and test circuit telemetry autonomously.</p>
+      </div>
+
+      <div class="ai-workflow-grid reveal">
+        <div class="workflow-card">
+          <div class="step-num">1</div>
+          <h4>Validate OpenSCAD</h4>
+          <p>Agents invoke <code>physics_validate_scad</code> to check vertex counts, watertight geometry, and physical bounding boxes.</p>
+        </div>
+
+        <div class="workflow-card">
+          <div class="step-num">2</div>
+          <h4>Simulate Kinematics</h4>
+          <p>Agents call <code>physics_build_scene</code> and <code>physics_run_headless</code> to run MuJoCo rollouts and check joint binding.</p>
+        </div>
+
+        <div class="workflow-card">
+          <div class="step-num">3</div>
+          <h4>Unfold & Nest 2D Panels</h4>
+          <p>Agents trigger <code>physics_export_lasercut</code> to auto-generate 2D finger joints, kerf compensation, and SVG sheet nesting layouts.</p>
+        </div>
+
+        <div class="workflow-card">
+          <div class="step-num">4</div>
+          <h4>Stream G-Code / HIL</h4>
+          <p>Agents generate G-code via <code>physics_generate_gcode</code> and verify microsecond circuit responses via <code>circuit_get_waveforms</code>.</p>
+        </div>
+      </div>
+
+      <div class="deepdive-ctas reveal">
+        <a href="index.html#suite" class="btn btn-primary"><i class="fas fa-play"></i> Launch Simulator Suite</a>
+        <a href="https://pypi.org/project/physbox-mcp/" target="_blank" class="btn btn-secondary"><i class="fab fa-python"></i> Get physbox-mcp on PyPI</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">physbox<span style="color: var(--primary);">.</span>io</div>
+          <p class="footer-desc">A premium scientific sandbox suite. Open-source, browser-based, high-fidelity simulators for engineers, students, and makers.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Simulators & Tools</h4>
+          <ul>
+            <li><a href="https://volt.physbox.io">PhysBox: Volt</a></li>
+            <li><a href="https://mesh.physbox.io">PhysBox: Mesh</a></li>
+            <li><a href="https://etch.physbox.io">PhysBox: Etch</a></li>
+            <li><a href="https://flux.physbox.io">PhysBox: Flux</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Developer & Learn</h4>
+          <ul>
+            <li><a href="tutorials.html"><i class="fas fa-graduation-cap"></i> Tutorials & Guides</a></li>
+            <li><a href="hardware.html#hil-deep-dive">HIL Integration</a></li>
+            <li><a href="hardware.html#print-deep-dive">3D Print Workflow</a></li>
+            <li><a href="hardware.html#laser-cnc-deep-dive">Laser Cut & CNC Router</a></li>
+            <li><a href="index.html#mcp">MCP Tools</a></li>
+          </ul>
+        </div>
+        <div class="footer-newsletter">
+          <h4>Stay Updated</h4>
+          <p>Receive updates about new preset libraries and simulator components.</p>
+          <form class="newsletter-form" id="newsletter-form-hw">
+            <input type="email" placeholder="Enter your email" class="newsletter-input" required id="newsletter-email-hw">
+            <button type="submit" class="newsletter-btn" id="newsletter-submit-hw"><i class="fas fa-arrow-right"></i></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 physbox.io. Licensed under MIT. Built for the modern web.</p>
+        <div class="footer-social">
+          <a href="https://github.com/physbox-io" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+
+</html>
