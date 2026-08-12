@@ -83,6 +83,7 @@
           <li><a href="#mcp" id="nav-link-mcp">MCP</a></li>
           <li><a href="#tech" id="nav-link-tech">Architecture</a></li>
           <li><a href="#pledge" id="nav-link-pledge">Open Source</a></li>
+          <li><a href="login.html" class="nav-cta" id="nav-btn-signin" style="width: 38px; height: 38px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; margin-right: 0.5rem;" title="Sign In / Account"><i class="fa-solid fa-user"></i></a></li>
           <li><a href="https://github.com/physbox-io" target="_blank" class="nav-cta" id="nav-btn-github"><i
                 class="fab fa-github"></i> Star on Github</a></li>
         </ul>
@@ -96,6 +97,9 @@
       <div class="hero-badge reveal">
         <span class="dot"></span>
         <span>Version 2.0 WebAssembly Engines Active</span>
+        <span style="margin-left: 0.75rem; border-left: 1px solid rgba(255,255,255,0.15); padding-left: 0.75rem; color: #34d399;">
+          <i class="fas fa-lock"></i> 100% Private & Local WASM
+        </span>
       </div>
       <h1 class="hero-title reveal delay-100">
         Scientific Simulation, <span class="gradient-text">Unbound.</span>
@@ -441,7 +445,7 @@
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Model Context Protocol</span>
-        <h2 class="section-title">53 Tools. One <code class="title-code">pip install</code>.</h2>
+        <h2 class="section-title">77 Tools. One <code class="title-code">pip install</code>.</h2>
         <p class="section-subtitle">PhysBox: MCP is a companion server that puts every simulator on the other end of a
           tool call. Commands travel as JSON over a local WebSocket relay straight into the running browser tab — no
           browser automation, no DOM scraping, no cloud round-trip.</p>
@@ -449,14 +453,19 @@
 
       <div class="mcp-counts reveal">
         <div class="mcp-count-card circuit-count">
-          <span class="mcp-count-num">12</span>
+          <span class="mcp-count-num">21</span>
           <span class="mcp-count-label">Volt tools</span>
           <span class="mcp-count-desc">SPICE runs, waveform reads, netlist edits, audio I/O</span>
         </div>
         <div class="mcp-count-card physics-count">
-          <span class="mcp-count-num">25</span>
+          <span class="mcp-count-num">29</span>
           <span class="mcp-count-label">Mesh tools</span>
-          <span class="mcp-count-desc">Scene building, SCAD validation, headless rollouts, screenshots</span>
+          <span class="mcp-count-desc">Scene building, SCAD validation, headless rollouts, STL export</span>
+        </div>
+        <div class="mcp-count-card etch-count" style="border-color: rgba(251, 191, 36, 0.3);">
+          <span class="mcp-count-num" style="color: #fbbf24;">11</span>
+          <span class="mcp-count-label">Etch tools</span>
+          <span class="mcp-count-desc">SVG import, feeds & speeds, Z probing, bed heightmaps, G-code</span>
         </div>
         <div class="mcp-count-card process-count">
           <span class="mcp-count-num">16</span>
@@ -506,7 +515,7 @@
           </div>
 
           <p class="mcp-footnote"><i class="fas fa-circle-info"></i> Open <a href="https://volt.physbox.io">volt</a>,
-            <a href="https://mesh.physbox.io">mesh</a>, or <a href="https://flux.physbox.io">flux</a>.physbox.io and the
+            <a href="https://mesh.physbox.io">mesh</a>, <a href="https://etch.physbox.io">etch</a>, or <a href="https://flux.physbox.io">flux</a>.physbox.io and the
             page registers itself with the relay on load. Nothing else to wire up.</p>
         </div>
 
@@ -549,6 +558,130 @@
           </div>
         </div>
 
+      </div>
+
+      <!-- Copy-Paste AI Agent Prompts Showcase -->
+      <div class="mcp-prompts-showcase reveal delay-200" style="margin-top: 4rem; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(139, 92, 246, 0.25); border-radius: 16px; padding: 2rem;">
+        <h3 style="font-size: 1.25rem; font-family: var(--font-header); color: #fff; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+          <i class="fas fa-terminal" style="color: #a78bfa;"></i> Copy-Paste Agent Prompts for Claude Code & Cursor
+        </h3>
+        <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+          Give your LLM immediate access to a physical world model. Copy any of these prompts directly into your MCP-connected agent:
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem;">
+          <!-- Prompt 1: Volt -->
+          <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 10px; padding: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <span class="sim-badge circuit-badge">Volt (Electronics)</span>
+              <button class="btn-copy-block" data-copy-target="prompt-text-volt" style="position: static; font-size: 0.8rem; padding: 0.25rem 0.6rem;"><i class="far fa-clipboard"></i> Copy</button>
+            </div>
+            <code id="prompt-text-volt" style="font-size: 0.85rem; color: #a7f3d0; display: block; white-space: pre-wrap;">"Optimize the RC filter values in Volt schematic to achieve a 1 kHz cutoff frequency, then run circuit_run_sim and return the magnitude plot."</code>
+          </div>
+
+          <!-- Prompt 2: Mesh -->
+          <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: 10px; padding: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <span class="sim-badge physics-badge">Mesh (3D Physics & CAD)</span>
+              <button class="btn-copy-block" data-copy-target="prompt-text-mesh" style="position: static; font-size: 0.8rem; padding: 0.25rem 0.6rem;"><i class="far fa-clipboard"></i> Copy</button>
+            </div>
+            <code id="prompt-text-mesh" style="font-size: 0.85rem; color: #a5f3fc; display: block; white-space: pre-wrap;">"Write an OpenSCAD mounting bracket in Mesh with 4mm screw holes, test structural collision stability in MuJoCo, and export the Z-up STL."</code>
+          </div>
+
+          <!-- Prompt 3: Etch -->
+          <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 10px; padding: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <span class="sim-badge etch-badge">Etch (CNC & Laser)</span>
+              <button class="btn-copy-block" data-copy-target="prompt-text-etch" style="position: static; font-size: 0.8rem; padding: 0.25rem 0.6rem;"><i class="far fa-clipboard"></i> Copy</button>
+            </div>
+            <code id="prompt-text-etch" style="font-size: 0.85rem; color: #fde68a; display: block; white-space: pre-wrap;">"Import this vector SVG logo, apply 2-pass 3mm stepdown feeds for Plywood, check CNC end mill safety warnings, and generate GRBL G-code."</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON MATRIX: WHY PHYSBOX (AI-NATIVE WORLD MODEL) -->
+  <section class="comparison-section" id="comparison" style="padding: 100px 0; background: linear-gradient(180deg, rgba(15,23,42,0.8) 0%, rgba(2,6,23,1) 100%);">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Platform Comparison</span>
+        <h2 class="section-title">The Only <span class="gradient-text">AI-Native</span> Physical World Model</h2>
+        <p class="section-subtitle">Why traditional browser tools and desktop CAD/CAM leave AI agents in a physical vacuum—and how PhysBox gives LLMs ground-truth spatial, electronic, and physical feedback loops.</p>
+      </div>
+
+      <!-- Feature Comparison Table -->
+      <div class="table-responsive reveal delay-100" style="overflow-x: auto; margin-bottom: 3rem;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; background: rgba(15,23,42,0.5); border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08);">
+          <thead>
+            <tr style="background: rgba(139,92,246,0.15); border-bottom: 1px solid rgba(255,255,255,0.1);">
+              <th style="padding: 1.25rem; font-family: var(--font-header); color: #fff;">Feature / Capability</th>
+              <th style="padding: 1.25rem; font-family: var(--font-header); color: var(--text-muted);">Generic Web Solvers</th>
+              <th style="padding: 1.25rem; font-family: var(--font-header); color: var(--text-muted);">Desktop CAD / CAM</th>
+              <th style="padding: 1.25rem; font-family: var(--font-header); color: #a78bfa; background: rgba(139,92,246,0.2);">✨ PhysBox Suite</th>
+            </tr>
+          </thead>
+          <tbody style="font-size: 0.95rem; color: var(--text-secondary);">
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #fff;">AI Agent Integration</td>
+              <td style="padding: 1rem 1.25rem; color: #ef4444;"><i class="fas fa-xmark"></i> None (Manual UI only)</td>
+              <td style="padding: 1rem 1.25rem; color: #f59e0b;"><i class="fas fa-triangle-exclamation"></i> Heavy Python Plugins</td>
+              <td style="padding: 1rem 1.25rem; color: #34d399; font-weight: 600; background: rgba(139,92,246,0.08);"><i class="fas fa-check-circle"></i> 53 Native MCP Tools (AI-Native)</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #fff;">World Model Grounding</td>
+              <td style="padding: 1rem 1.25rem; color: #ef4444;"><i class="fas fa-xmark"></i> Visual display only</td>
+              <td style="padding: 1rem 1.25rem; color: #ef4444;"><i class="fas fa-xmark"></i> Offline file export</td>
+              <td style="padding: 1rem 1.25rem; color: #34d399; font-weight: 600; background: rgba(139,92,246,0.08);"><i class="fas fa-check-circle"></i> Closed-loop physical ground truth</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #fff;">Local Data Privacy</td>
+              <td style="padding: 1rem 1.25rem; color: #f59e0b;"><i class="fas fa-triangle-exclamation"></i> Server dependent</td>
+              <td style="padding: 1rem 1.25rem; color: #34d399;"><i class="fas fa-check"></i> Local software</td>
+              <td style="padding: 1rem 1.25rem; color: #34d399; font-weight: 600; background: rgba(139,92,246,0.08);"><i class="fas fa-shield-halved"></i> 100% Browser WASM (Zero Cloud Uploads)</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #fff;">Hardware-In-The-Loop (HIL)</td>
+              <td style="padding: 1rem 1.25rem; color: #ef4444;"><i class="fas fa-xmark"></i> None</td>
+              <td style="padding: 1rem 1.25rem; color: #ef4444;"><i class="fas fa-xmark"></i> Special hardware required</td>
+              <td style="padding: 1rem 1.25rem; color: #34d399; font-weight: 600; background: rgba(139,92,246,0.08);"><i class="fas fa-plug"></i> WebSerial UART 460,800 baud</td>
+            </tr>
+            <tr>
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #fff;">Zero-Install Access</td>
+              <td style="padding: 1rem 1.25rem; color: #34d399;"><i class="fas fa-check"></i> Browser URL</td>
+              <td style="padding: 1rem 1.25rem; color: #ef4444;"><i class="fas fa-xmark"></i> Multi-GB installation</td>
+              <td style="padding: 1rem 1.25rem; color: #34d399; font-weight: 600; background: rgba(139,92,246,0.08);"><i class="fas fa-bolt"></i> Instant browser execution</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Honest Engineering Tradeoffs Callout (Strengths vs Weaknesses) -->
+      <div class="reveal delay-200" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+        <!-- Strengths Box -->
+        <div style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 14px; padding: 1.5rem;">
+          <h4 style="font-family: var(--font-header); color: #34d399; margin-bottom: 0.75rem; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-circle-check"></i> Core Strengths
+          </h4>
+          <ul style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; list-style: disc; padding-left: 1.25rem;">
+            <li>Zero friction instant web access with full WebAssembly simulation fidelity.</li>
+            <li>Native 53 MCP tools specifically built as physical world models for AI agents.</li>
+            <li>Bi-directional WebSerial hardware communication for real MCU & CNC controllers.</li>
+            <li>100% offline-capable and private—your files never touch external cloud servers.</li>
+          </ul>
+        </div>
+
+        <!-- Honest Limitations Box -->
+        <div style="background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 14px; padding: 1.5rem;">
+          <h4 style="font-family: var(--font-header); color: #fbbf24; margin-bottom: 0.75rem; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-scale-balanced"></i> Honest Tradeoffs & Limitations
+          </h4>
+          <ul style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; list-style: disc; padding-left: 1.25rem;">
+            <li>Browser WebAssembly memory caps (4GB) limit ultra-large multi-million node FEM meshes.</li>
+            <li>CAM is focused on 2.5D and 3D relief carving (no multi-axis 5-axis CNC support).</li>
+            <li>WebSerial allows 1 active hardware connection per browser tab.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>

@@ -331,6 +331,139 @@
 
         </article>
 
+        <!-- TUTORIAL 2: PHYSBOX VOLT (ELECTRONICS & HIL) -->
+        <article class="article-main category-article article-circuit reveal delay-100" id="article-volt" style="display: none;">
+          <header class="article-header">
+            <div class="article-meta">
+              <span class="article-badge circuit-badge"><i class="fas fa-microchip"></i> PhysBox Volt Studio</span>
+              <span class="article-badge badge-hil"><i class="fas fa-clock"></i> 15 Min Read</span>
+              <span class="article-badge" style="background: rgba(255,255,255,0.05); color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Intermediate</span>
+            </div>
+            <h1 class="article-title">HIL Testing an ESP32 Microcontroller with Ngspice WebAssembly</h1>
+            <p class="article-subtitle">How to bridge physical silicon over WebSerial at 460,800 baud directly into an in-browser SPICE engine with sub-millisecond digital logic derivation and real-time audio synthesis.</p>
+          </header>
+
+          <!-- Volt Section 1 -->
+          <section id="section-volt-hil" class="tutorial-section-block">
+            <h2><i class="fas fa-bolt"></i> 1. The Hardware-In-The-Loop (HIL) Paradigm</h2>
+            <p>
+              Traditional circuit simulators run purely in software isolation. If you want to test how your physical ESP32, Cheap Yellow Display (CYD), or MicroPython firmware responds to real-world analog circuit dynamics—such as inductive kickback, capacitor charge curves, or active audio filters—you usually have to choose between full hardware breadboarding or pure software mocks.
+            </p>
+            <p>
+              <strong>PhysBox Volt bridges this gap.</strong> By running a custom-compiled <strong>Ngspice WebAssembly engine</strong> directly inside your browser tab, Volt communicates bi-directionally over WebSerial at <strong>460,800 baud</strong> with connected microcontroller hardware.
+            </p>
+          </section>
+
+          <!-- Volt Section 2 -->
+          <section id="section-volt-uart" class="tutorial-section-block">
+            <h2><i class="fas fa-plug"></i> 2. WebSerial UART Streaming & Buffer Queue Management</h2>
+            <p>
+              Browsers execute JavaScript on an asynchronous event loop, which creates micro-jitter in serial read cycles. To prevent hardware starvation and maintain sub-millisecond physical timing accuracy, Volt utilizes a <strong>lookahead queue buffer</strong>:
+            </p>
+            <ul>
+              <li><strong>Step Time:</strong> Solves circuit matrix state in <strong>40ms integration steps</strong>.</li>
+              <li><strong>Queue Target:</strong> Buffers up to <strong>240ms of future lookahead steps</strong> in WebWorker memory.</li>
+              <li><strong>High-Speed Baud:</strong> Communicates over WebSerial at <strong>460,800 baud</strong> using packed binary arrays (`hil_batch`).</li>
+            </ul>
+          </section>
+
+          <!-- Volt Section 3 -->
+          <section id="section-volt-audio" class="tutorial-section-block">
+            <h2><i class="fas fa-wave-square"></i> 3. Audio Node Synthesis & Live Microphone I/O</h2>
+            <p>
+              Volt connects directly to the browser's WebAudio API:
+            </p>
+            <ol>
+              <li><strong>Audio Input Nodes:</strong> Bind your hardware microphone input or WebAudio oscillator as an analog AC voltage source inside the schematic.</li>
+              <li><strong>Audio Output Nodes:</strong> Direct raw node voltage outputs into system speaker DACs to hear active RC/RLC bandpass filter effects live as parameters adjust.</li>
+            </ol>
+            <div class="callout-box callout-tip">
+              <div class="callout-title"><i class="fas fa-lightbulb"></i> Pro Tip: AI Agent Optimization</div>
+              <p>Because Volt exposes 53 Model Context Protocol (MCP) tools, you can instruct AI agents like Claude Code to run automated parameter optimization loops (`circuit_run_sim`) to tune filter cutoff frequencies automatically!</p>
+            </div>
+          </section>
+
+          <div class="sim-footer" style="margin-top: 3rem; justify-content: center;">
+            <a href="https://volt.physbox.io" class="btn btn-primary" id="article-btn-launch-volt"><i class="fas fa-microchip"></i> Launch PhysBox Volt Studio</a>
+            <a href="index.html#suite" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return to Main Suite</a>
+          </div>
+        </article>
+
+        <!-- TUTORIAL 3: PHYSBOX MESH (3D CAD & MUJOCO PHYSICS) -->
+        <article class="article-main category-article article-physics reveal delay-100" id="article-mesh" style="display: none;">
+          <header class="article-header">
+            <div class="article-meta">
+              <span class="article-badge physics-badge"><i class="fas fa-cubes"></i> PhysBox Mesh Studio</span>
+              <span class="article-badge badge-scad"><i class="fas fa-clock"></i> 18 Min Read</span>
+              <span class="article-badge" style="background: rgba(255,255,255,0.05); color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Beginner to Advanced</span>
+            </div>
+            <h1 class="article-title">Parametric Procedural CAD & MuJoCo Joint Physics in 10 Minutes</h1>
+            <p class="article-subtitle">Write constructive solid geometry (CSG) in WASM OpenSCAD, auto-generate interactive UI sliders, solve rigid body dynamics in MuJoCo, and export 1-click Z-up STLs for 3D printing.</p>
+          </header>
+
+          <!-- Mesh Section 1 -->
+          <section id="section-mesh-scad" class="tutorial-section-block">
+            <h2><i class="fas fa-code"></i> 1. Live Constructive Solid Geometry (CSG) in WASM</h2>
+            <p>
+              Unlike traditional click-and-drag CAD programs, <strong>PhysBox Mesh</strong> treats geometry as code. Powered by an embedded <strong>WASM OpenSCAD compiler</strong>, you can define parametric shapes using code directly inside the browser node inspector.
+            </p>
+            <p>
+              By adding inline parameter comments (e.g. <code>wall_thickness = 3; // [1:0.5:10]</code>), Mesh automatically generates interactive UI sliders right next to your 3D viewport.
+            </p>
+          </section>
+
+          <!-- Mesh Section 2 -->
+          <section id="section-mesh-mujoco" class="tutorial-section-block">
+            <h2><i class="fas fa-atom"></i> 2. Rigid Body Dynamics & 6-DOF Joint Constraints</h2>
+            <p>
+              Once your 3D model is compiled, Mesh hands the spatial bodies over to the <strong>MuJoCo WebAssembly physics engine</strong>:
+            </p>
+            <ul>
+              <li><strong>Proximity Coupling:</strong> Pinions, gears, and linkage arms solve automatically via joint math constraints.</li>
+              <li><strong>6-DOF Collision Testing:</strong> Test physical gear tooth friction, drop impact, and center-of-gravity balance before sending designs to your slicer.</li>
+            </ul>
+          </section>
+
+          <!-- Mesh Section 3 -->
+          <section id="section-mesh-stl" class="tutorial-section-block">
+            <h2><i class="fas fa-print"></i> 3. 1-Click Z-Up STL Export for 3D Printers</h2>
+            <p>
+              When your mechanical assembly passes physics validation, click <strong>Export STL</strong>. Mesh formats the file in true Z-up coordinate space, ready for PrusaSlicer, Bambu Studio, or Cura without needing manual alignment or rotation.
+            </p>
+
+            <div class="callout-box callout-info">
+              <div class="callout-title"><i class="fas fa-robot"></i> World Model AI Workflows</div>
+              <p>AI agents connect directly to Mesh via MCP (`physics_set_environment`, `physics_check_collisions`) to act as automated generative CAD co-designers!</p>
+            </div>
+          </section>
+
+          <div class="sim-footer" style="margin-top: 3rem; justify-content: center;">
+            <a href="https://mesh.physbox.io" class="btn btn-primary" id="article-btn-launch-mesh"><i class="fas fa-cubes"></i> Launch PhysBox Mesh Studio</a>
+            <a href="index.html#suite" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return to Main Suite</a>
+          </div>
+        </article>
+
+        <!-- TUTORIAL 4: PHYSBOX FLUX (COMING SOON) -->
+        <article class="article-main category-article article-process reveal delay-100" id="article-flux" style="display: none;">
+          <header class="article-header" style="text-align: center;">
+            <div class="article-meta" style="justify-content: center;">
+              <span class="article-badge process-badge"><i class="fas fa-network-wired"></i> PhysBox Flux Studio</span>
+              <span class="article-badge badge-soon"><i class="fas fa-tools"></i> Coming Soon</span>
+            </div>
+            <h1 class="article-title">Hybrid Systems, Cellular Automata & Differential Loops</h1>
+            <p class="article-subtitle">Flux is currently under active development as part of the PhysBox 2.1 release. Check back soon for guides on Runge-Kutta solvers, wildfire CA grids, and stochastic system cycles!</p>
+          </header>
+
+          <div class="callout-box callout-warning" style="margin-top: 2rem; text-align: center;">
+            <div class="callout-title"><i class="fas fa-hourglass-half"></i> Active Engine Build</div>
+            <p>Our hybrid Runge-Kutta and cellular automata solvers are currently undergoing calibration. Explore Volt, Mesh, and Etch in the meantime!</p>
+          </div>
+
+          <div class="sim-footer" style="margin-top: 3rem; justify-content: center;">
+            <a href="index.html#suite" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Explore Active Sandbox Suite</a>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>

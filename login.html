@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | PhysBox Cloud</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    .auth-card-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      background: radial-gradient(circle at 50% 30%, rgba(139, 92, 246, 0.12) 0%, rgba(5, 6, 8, 1) 80%);
+    }
+    .auth-card {
+      background: rgba(13, 17, 28, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      border-radius: 20px;
+      padding: 3rem 2.5rem;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+    }
+    .auth-logo {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .auth-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+    .google-btn-wrapper {
+      display: flex;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin: 1.5rem 0;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-color);
+    }
+    .early-access-box {
+      background: rgba(139, 92, 246, 0.05);
+      border: 1px dashed rgba(139, 92, 246, 0.25);
+      border-radius: 12px;
+      padding: 1rem;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-top: 1.5rem;
+    }
+    .early-access-box strong {
+      color: #a78bfa;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-card-container">
+    <div class="auth-card">
+      <a href="index.html" class="auth-logo" style="text-decoration: none;">
+        <i class="fa-solid fa-cube text-violet-400" style="color: #8b5cf6;"></i> PhysBox Cloud
+      </a>
+      <p class="auth-subtitle">Single Sign-In for Etch, Circuit & Physics</p>
+
+      <div class="google-btn-wrapper">
+        <div id="g_id_onload"
+             data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+             data-callback="handleCredentialResponse"
+             data-auto_prompt="false">
+        </div>
+        <div class="g_id_signin"
+             data-type="standard"
+             data-shape="rectangular"
+             data-theme="filled_blue"
+             data-text="signin_with"
+             data-size="large"
+             data-logo_alignment="left">
+        </div>
+      </div>
+
+      <div class="divider">Early Access Sign Up</div>
+
+      <form id="early-access-form" onsubmit="handleEarlyAccessForm(event)">
+        <input type="email" id="email-input" placeholder="Enter your email address" required style="width:100%; padding:0.8rem; border-radius:8px; border:1px solid rgba(255,255,255,0.1); background:rgba(0,0,0,0.3); color:#fff; margin-bottom:0.75rem;">
+        <button type="submit" class="btn-primary-glow" style="width:100%; cursor:pointer; padding:0.8rem; border:none; font-size:0.95rem;">
+          Sign Up For Early Access
+        </button>
+      </form>
+
+      <div class="early-access-box">
+        <strong>Notice:</strong> PhysBox Cloud requires an active subscription or Early Access invitation. Google Sign-In automatically registers your account for early access.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = window.location.origin.includes('physbox.io') 
+      ? 'https://api.physbox.io' 
+      : 'http://localhost:3000';
+
+    async function handleCredentialResponse(response) {
+      try {
+        const res = await fetch(`${API_BASE}/api/auth/google`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ credential: response.credential })
+        });
+        const data = await res.json();
+        if (data.token) {
+          localStorage.setItem('physbox_auth_token', data.token);
+          localStorage.setItem('physbox_user_email', data.user.email);
+          if (data.is_admin) {
+            window.location.href = 'index.html?auth=success';
+          } else {
+            window.location.href = `guest-list.html?email=${encodeURIComponent(data.user.email)}`;
+          }
+        }
+      } catch (err) {
+        console.error('Login error:', err);
+      }
+    }
+
+    async function handleEarlyAccessForm(e) {
+      e.preventDefault();
+      const email = document.getElementById('email-input').value;
+      try {
+        const res = await fetch(`${API_BASE}/api/auth/google`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email })
+        });
+        const data = await res.json();
+        if (data.user) {
+          localStorage.setItem('physbox_user_email', data.user.email);
+          if (data.is_admin) {
+            window.location.href = 'index.html?auth=success';
+          } else {
+            window.location.href = `guest-list.html?email=${encodeURIComponent(data.user.email)}`;
+          }
+        }
+      } catch (err) {
+        console.error('Sign up error:', err);
+      }
+    }
+  </script>
+</body>
+</html>

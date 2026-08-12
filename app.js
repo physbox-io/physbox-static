@@ -1008,4 +1008,40 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // 9. Interactive Category Filter Pills (tutorials.html)
+  const filterPills = document.querySelectorAll('.filter-pill');
+  const articles = {
+    all: document.querySelector('.article-main:not(.category-article)'),
+    cnc: document.querySelector('.article-main:not(.category-article)'),
+    circuit: document.getElementById('article-volt'),
+    physics: document.getElementById('article-mesh'),
+    process: document.getElementById('article-flux')
+  };
+
+  if (filterPills.length > 0) {
+    filterPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        // Toggle active pill state
+        filterPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+
+        // Determine active filter
+        const filterId = pill.id.replace('filter-', '');
+
+        // Hide all articles first
+        Object.values(articles).forEach(art => {
+          if (art) art.style.display = 'none';
+        });
+
+        // Show target article
+        const targetArticle = articles[filterId] || articles.all;
+        if (targetArticle) {
+          targetArticle.style.display = 'block';
+          targetArticle.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      });
+    });
+  }
+
 });
+

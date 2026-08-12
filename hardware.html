@@ -309,6 +309,56 @@ G0 Z10.00 (Job Complete - WebSerial Stream Ended)</code></pre>
     </div>
   </section>
 
+  <!-- SECTION 3.5: Tested Hardware Matrix -->
+  <section class="deepdive-section" id="hardware-matrix" style="padding: 60px 0;">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Shop Floor Compatibility</span>
+        <h2 class="section-title">Tested & Supported Hardware Matrix</h2>
+        <p class="section-subtitle">Verified microcontrollers, CNC routers, laser cutters, and browser controllers compatible out-of-the-box with PhysBox WebSerial streaming.</p>
+      </div>
+
+      <div class="table-responsive reveal delay-100" style="overflow-x: auto; margin-top: 2rem;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; background: rgba(15,23,42,0.5); border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08);">
+          <thead>
+            <tr style="background: rgba(139,92,246,0.15); border-bottom: 1px solid rgba(255,255,255,0.1);">
+              <th style="padding: 1.25rem; font-family: var(--font-header); color: #fff;">Hardware Category</th>
+              <th style="padding: 1.25rem; font-family: var(--font-header); color: #fff;">Supported Models / Controllers</th>
+              <th style="padding: 1.25rem; font-family: var(--font-header); color: #fff;">Baud Rate / Protocol</th>
+              <th style="padding: 1.25rem; font-family: var(--font-header); color: #a78bfa;">PhysBox Target App</th>
+            </tr>
+          </thead>
+          <tbody style="font-size: 0.95rem; color: var(--text-secondary);">
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #fff;"><i class="fas fa-microchip" style="color: var(--circuit-color);"></i> HIL Microcontrollers</td>
+              <td style="padding: 1rem 1.25rem;">ESP32, ESP32-S3, Cheap Yellow Display (CYD), Arduino Uno / Nano, Raspberry Pi Pico</td>
+              <td style="padding: 1rem 1.25rem;">460,800 baud (WebSerial packed binary arrays)</td>
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #34d399;">PhysBox Volt</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #fff;"><i class="fas fa-scissors" style="color: var(--etch-color);"></i> CNC & Laser Controllers</td>
+              <td style="padding: 1rem 1.25rem;">GRBL 1.1, FluidNC, grblHAL, CNC Shield v3, LaserGRBL boards</td>
+              <td style="padding: 1rem 1.25rem;">115,200 baud (WebSerial G-code streaming)</td>
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #fbbf24;">PhysBox Etch</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #fff;"><i class="fas fa-print" style="color: var(--physics-color);"></i> 3D Printers (Slicers)</td>
+              <td style="padding: 1rem 1.25rem;">PrusaSlicer, Bambu Studio, Cura, OrcaSlicer</td>
+              <td style="padding: 1rem 1.25rem;">1-Click Z-Up Binary STL Export</td>
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #22d3ee;">PhysBox Mesh</td>
+            </tr>
+            <tr>
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #fff;"><i class="fas fa-globe"></i> Supported Browsers</td>
+              <td style="padding: 1rem 1.25rem;">Google Chrome, Microsoft Edge, Opera, Brave (Chromium engine)</td>
+              <td style="padding: 1rem 1.25rem;">WebSerial & WebAssembly Native APIs</td>
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #a78bfa;">All PhysBox Apps</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
   <!-- SECTION 4: Agentic AI Closed-Loop Hardware & Print Tooling -->
   <section class="deepdive-section alt-bg" id="agent-workflow">
     <div class="container">
