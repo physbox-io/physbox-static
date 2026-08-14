@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PhysBox Tutorials | A Beginner's Guide To CNC with PhysBox Etch</title>
+  <title>PhysBox Tutorials | A Beginner's Guide To CNC & Laser Cutting with PhysBox Etch</title>
 
   <!-- SEO Meta Tags -->
   <link rel="canonical" href="https://physbox.io/tutorials.html">
@@ -31,10 +31,10 @@
 
 <body>
 
-  <!-- Interactive HTML5 Canvas Background -->
+  <!-- Interactive Architectural Canvas Background -->
   <canvas id="canvas-bg"></canvas>
 
-  <!-- Sleek Header Navigation -->
+  <!-- Clean Header Navigation -->
   <header id="main-header">
     <div class="container">
       <a href="index.html" class="logo-link" id="nav-logo-link">
@@ -49,7 +49,7 @@
           <li><a href="index.html#ai-models" id="nav-link-ai">AI Models</a></li>
           <li><a href="index.html#mcp" id="nav-link-mcp">MCP</a></li>
           <li><a href="https://github.com/physbox-io" target="_blank" class="nav-cta" id="nav-btn-github-tut"><i
-                class="fab fa-github"></i> Star on Github</a></li>
+                class="fab fa-github"></i> Star on GitHub</a></li>
         </ul>
       </nav>
     </div>
@@ -63,7 +63,7 @@
         <span>PhysBox Educational & Fabrication Series</span>
       </div>
       <h1 class="hero-title reveal delay-100">
-        PhysBox <span class="gradient-text" style="background: linear-gradient(135deg, #fff 0%, #fbbf24 50%, #f59e0b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Tutorials & Guides.</span>
+        PhysBox <span class="gradient-text">Tutorials & Guides.</span>
       </h1>
       <p class="hero-subtitle reveal delay-200">
         Practical shop floor wisdom, deep technical walkthroughs, and zero-nonsense fabrication guides for PhysBox Etch, Volt, Mesh, and Flux.
@@ -107,10 +107,10 @@
             <div class="article-meta">
               <span class="article-badge etch-badge"><i class="fas fa-scissors"></i> PhysBox Etch Studio</span>
               <span class="article-badge badge-cnc"><i class="fas fa-clock"></i> 12 Min Read</span>
-              <span class="article-badge" style="background: rgba(255,255,255,0.05); color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Beginner</span>
+              <span class="article-badge" style="background: #f1f5f9; color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Beginner</span>
             </div>
-            <h1 class="article-title">A Beginner's Guide To CNC with PhysBox Etch</h1>
-            <p class="article-subtitle">Or: How to cut physical objects out of wood without setting your workshop on fire or flinging broken carbide end mills across the room.</p>
+            <h1 class="article-title">A Beginner's Guide To CNC & Laser Cutting with PhysBox Etch</h1>
+            <p class="article-subtitle">How to transform digital vector designs into physical wood, acrylic, and brass parts with safety, kerf compensation, and precision.</p>
           </header>
 
           <!-- SECTION 1: Subtractive Mindset -->
@@ -120,7 +120,7 @@
               Welcome to the satisfying, noisy, and occasionally terrifying realm of <strong>subtractive manufacturing</strong>. If you come from the gentle world of 3D printing, you are accustomed to an additive hotend that patiently squirts molten PLA onto a glass bed. If a 3D printer makes a mistake, it leaves a harmless blob of plastic string.
             </p>
             <p>
-              A CNC router, by contrast, operates with the calm disposition of a hungry angry badger. It spins a hardened tungsten carbide cutter at 18,000 RPM and forces it through solid material. It does not care if that material is 18mm Russian Birch Plywood, anodized aluminum, or your favorite aluminum workpiece hold-down clamp. If your code tells the tool to plunge 20mm deep into solid stock at 5,000 mm/min, it will cheerfully try to do so until either the stepper motor stalls, the bit snaps, or your circuit breaker trips.
+              A CNC router or high-power laser cutter, by contrast, operates with uncompromising physical force. It spins a hardened tungsten carbide cutter at 18,000 RPM or focuses a 40-watt CO₂ laser beam down to a 0.1mm kerf spot. It does not care if that material is 18mm Russian Birch Plywood, anodized aluminum, or your favorite aluminum workpiece hold-down clamp. If your code tells the tool to plunge 20mm deep into solid stock at 5,000 mm/min, it will cheerfully try to do so until either the stepper motor stalls, the bit snaps, or your circuit breaker trips.
             </p>
 
             <div class="callout-box callout-humor">
@@ -142,58 +142,52 @@
 
           <!-- SECTION 2: Grid, Stock & Coordinates -->
           <section id="section-grid-origin" class="tutorial-section-block">
-            <h2><i class="fas fa-ruler-combined"></i> 2. Grid, Stock & The Coordinates Myth ($H vs G54)</h2>
+            <h2><i class="fas fa-ruler-combined"></i> 2. Grid, Stock & Coordinates ($H vs G54)</h2>
             <p>
               Before touching a cutter, you must understand where your machine thinks it is in 3D space. CNC machines operate on two distinct coordinate systems:
             </p>
             <ul>
-              <li><strong>Machine Coordinates (MPos):</strong> Set when you home your machine (<code>$H</code>) against its physical limit switches. Machine (0,0,0) is usually the back-right corner with the spindle pulled all the way up.</li>
-              <li><strong>Work Coordinates (WPos / G54):</strong> The actual starting point of your physical stock material. This is where your job's (0,0) is located—typically the front-left bottom corner of your workpiece.</li>
+              <li><strong>Machine Coordinates (MPos):</strong> Set when you home your machine (<code>$H</code>) against physical limit switches. Machine (0,0,0) is usually the back-right corner with the spindle pulled all the way up.</li>
+              <li><strong>Work Coordinates (WPos / G54):</strong> The temporary local coordinate frame tied to your physical wooden stock. The bottom-left surface corner of your plywood is Work Zero (0,0,0).</li>
             </ul>
-
-            <div class="callout-box callout-danger">
-              <div class="callout-title"><i class="fas fa-exclamation-triangle"></i> The "Air Cut" Disaster</div>
-              <p>If you fail to zero your Work Coordinates (G54) before pressing Run, your machine will use whatever random zero was stored in memory. At best, it cuts thin air 100mm above your board. At worst, it plunges straight through your spoilboard into your aluminum T-track table.</p>
-            </div>
 
             <h3>Setting Up Your Bed Bounds in Etch</h3>
             <p>
-              At the bottom bar of PhysBox Etch, you can set your exact physical stock size (e.g. <code>300mm x 200mm</code>). The canvas updates immediately, displaying red and blue origin marker arrows at (0,0). Always align your physical stock on the CNC bed so the front-left corner matches the (0,0) origin on the Etch screen.
-            </p>
-          </section>
-
-          <!-- SECTION 3: Tooling & Feeds -->
-          <section id="section-tooling-feeds" class="tutorial-section-block">
-            <h2><i class="fas fa-cog"></i> 3. Tooling 101 & The Feeds & Speeds Trap</h2>
-            <p>
-              Choosing the right tool and cutting parameters determines whether your project ends in crisp smooth wooden edges or a smoke-filled room.
-            </p>
-
-            <h3>Common CNC Milling Cutters</h3>
-            <div class="steps-grid">
-              <div class="step-card">
-                <div class="step-number"><i class="fas fa-grip-lines-vertical"></i></div>
-                <h4>Flat End Mills (3.175mm / 1/8")</h4>
-                <p>The workhorse of CNC routing. Perfect for through-cuts, pockets, and fast material removal in plywood, MDF, and softwoods.</p>
-              </div>
-              <div class="step-card">
-                <div class="step-number"><i class="fas fa-caret-down"></i></div>
-                <h4>V-Carve Bits (60° / 90°)</h4>
-                <p>Sharpened conical bits designed for fine line engraving, decorative lettering, and bevelled chamfers.</p>
-              </div>
-              <div class="step-card">
-                <div class="step-number"><i class="fas fa-circle-notch"></i></div>
-                <h4>Ball Nose Mills</h4>
-                <p>Rounded tips used for 3D relief carving and smooth curved contours without sharp step marks.</p>
-              </div>
-            </div>
-
-            <h3>The Spindle Speed Lie</h3>
-            <p>
-              Beginners often assume that turning the spindle to maximum RPM (e.g., 24,000 RPM) while moving the tool slowly is safer. <strong>This is false.</strong> If your spindle spins rapidly while your feed rate is slow, the teeth of the cutter don't take real chips—they rub against the wood. Rubbing creates friction, friction creates heat, heat turns your sawdust into charcoal, and charcoal turns into fire.
+              At the bottom bar of PhysBox Etch, set your exact physical stock size (e.g. <code>300mm x 200mm</code>). The canvas updates immediately, displaying red and blue origin marker arrows at (0,0). Always align your physical stock on the CNC bed so the front-left corner matches the (0,0) origin on the Etch screen.
             </p>
 
             <div class="callout-box callout-warning">
+              <div class="callout-title"><i class="fas fa-exclamation-triangle"></i> Watch Out for Clamps</div>
+              <p>Leave a 15mm margin around your vector artwork. Never place cuts right along the boundary edge unless your workpiece is held down by double-sided tape or vacuum rather than mechanical corner toe-clamps.</p>
+            </div>
+          </section>
+
+          <!-- SECTION 3: Tooling & Feeds/Speeds -->
+          <section id="section-tooling-feeds" class="tutorial-section-block">
+            <h2><i class="fas fa-gear"></i> 3. Tooling & Derived Feeds and Speeds</h2>
+            <p>
+              Picking the right cutting bit (end mill) and setting the correct spindle RPM / feed speed determines whether your cut sounds like a gentle hum or a screeching air-raid siren.
+            </p>
+
+            <div class="steps-grid">
+              <div class="step-card">
+                <div class="step-number">1</div>
+                <h4>Upcut Spiral End Mill</h4>
+                <p>Pulls wooden chips upward out of deep slots. Excellent for plywood pockets, but can leave minor fuzz on the top veneer.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">2</div>
+                <h4>Downcut Spiral End Mill</h4>
+                <p>Pushes wood chips downward. Leaves a pristine, razor-sharp top surface on veneered hardwoods and plywood.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">3</div>
+                <h4>Compression Spiral</h4>
+                <p>Combines upcut and downcut flutes for clean edges on both top and bottom faces of laminated sheets.</p>
+              </div>
+            </div>
+
+            <div class="callout-box callout-tech">
               <div class="callout-title"><i class="fas fa-shield-alt"></i> PhysBox Etch Safety Engine in Action</div>
               <p>Etch calculates <strong>chip load</strong> automatically based on cutter diameter and material presets (Plywood, MDF, Acrylic, Hardwood). If you select 18,000 RPM in Plywood, Etch will warn you: <em>"Spindle turned down to 15,625 RPM so feed stays within 2500 mm/min at the right chip thickness."</em></p>
             </div>
@@ -201,80 +195,46 @@
             <figure class="tutorial-figure">
               <img src="assets/etch_raw.png" alt="PhysBox Etch Operation Layers & Feeds Speeds Warnings">
               <figcaption class="figure-caption">
-                <i class="fas fa-shield-alt"></i> <strong>Derived Feeds & Speeds Panel:</strong> Real-time material calculation for Plywood with active warnings for spindle speed and pass stepdown overrides.
+                <i class="fas fa-info-circle"></i> <strong>PhysBox Etch Operations Panel:</strong> Material preset selection, automated feeds & speeds derivation, and safety warnings.
               </figcaption>
             </figure>
           </section>
 
           <!-- SECTION 4: Depths, Passes & Tabs -->
           <section id="section-depths-tabs" class="tutorial-section-block">
-            <h2><i class="fas fa-layer-group"></i> 4. Depths, Passes & The Mandatory Holding Tab Rule</h2>
+            <h2><i class="fas fa-layer-group"></i> 4. Depths, Multi-Pass Stepdown & Holding Tabs</h2>
             <p>
-              You cannot slice through a 12mm thick hardwood board in a single pass. Attempting to do so will snap your carbide end mill instantly. Subtractive milling relies on <strong>stepdown passes</strong>—cutting a fraction of the total depth per pass until the entire stock thickness is cleared.
+              Never cut through 12mm plywood in a single heroic pass! Doing so creates massive tool deflection and will likely snap your carbide end mill. Instead, use <strong>multi-pass stepdowns</strong>:
             </p>
-
-            <h3>Stepdown Rules of Thumb</h3>
             <ul>
-              <li><strong>Softwoods & MDF:</strong> Max stepdown = 1.0× tool diameter (e.g., 3.175mm depth per pass for a 3.175mm end mill).</li>
-              <li><strong>Hardwoods (Oak, Maple, Walnut):</strong> Max stepdown = 0.5× tool diameter (e.g., 1.58mm per pass).</li>
-              <li><strong>Aluminum & Hard Plastics:</strong> Max stepdown = 0.2× tool diameter (e.g., 0.6mm per pass).</li>
+              <li><strong>Stepdown Depth:</strong> Cut in layers of 1.5mm to 3.0mm per pass depending on bit diameter (rule of thumb: maximum pass depth = 50% to 100% of bit diameter).</li>
+              <li><strong>Holding Tabs:</strong> When cutting out a closed perimeter part, leave 2 to 4 small tabs (e.g. <code>4mm wide x 1.5mm thick</code>) so the finished part stays anchored to the waste stock until the job finishes.</li>
             </ul>
-
-            <div class="callout-box callout-tip">
-              <div class="callout-title"><i class="fas fa-lightbulb"></i> Why Holding Tabs Save Workpieces</div>
-              <p>When cutting out a shape (like a wooden keychain or box lid), the final pass disconnects the part from the surrounding stock. Without holding tabs, the spinning end mill will grab the loose piece and launch it across your shop like a wooden shrapnel missile. <strong>Always check 'Holding tabs' in the Cut layer panel!</strong></p>
-            </div>
           </section>
 
           <!-- SECTION 5: Z Probing & Heightmaps -->
           <section id="section-z-heightmaps" class="tutorial-section-block">
-            <h2><i class="fas fa-crosshairs"></i> 5. Touch-Plate Z Zeroing & Bed Heightmaps</h2>
+            <h2><i class="fas fa-crosshairs"></i> 5. Touch-Plate Z Probing & 3×3 Bed Heightmaps</h2>
             <p>
-              Accurate Z zeroing is the difference between a pristine cut and a gouged bed. PhysBox Etch includes direct WebSerial touch-plate probing routines:
+              Accurate Z zeroing is the difference between a pristine cut and a gouged spoilboard. PhysBox Etch includes direct WebSerial touch-plate probing routines:
             </p>
-
             <ol>
-              <li>Place your metal touch plate flat on top of your stock material.</li>
-              <li>Attach the ground alligator clip to your spindle or cutter shank.</li>
-              <li>Open the <strong>Run / Machine Control Panel</strong> in Etch, enter your touch plate thickness (e.g. <code>13.00 mm</code>), and click <strong>Probe Z Zero</strong>.</li>
-              <li>The machine moves down slowly until contact is established, sends <code>G38.2</code>, updates <code>Z0</code> to the top of the board, and retracts safely.</li>
+              <li>Attach the ground alligator clip to your metal CNC collet/cutter and place the aluminum touch plate flat on top of your material.</li>
+              <li>Open the <strong>Run / Machine Control Panel</strong> in Etch, enter touch plate thickness (e.g. <code>13.00 mm</code>), and click <strong>Probe Z Zero</strong>.</li>
+              <li>The spindle slowly descends until electrical continuity is triggered, immediately zeroing your Z work coordinate with sub-millimeter precision.</li>
             </ol>
-
-            <div class="callout-box callout-tech">
-              <div class="callout-title"><i class="fas fa-microchip"></i> Missed Probe Safety Lock</div>
-              <p>If the alligator clip falls off and the probe never makes contact, Etch detects the missed probe alarm state and <strong>refuses to write a fake zero</strong>. Older software would assume zero wherever the motor stopped, causing catastrophic crashes on the next command.</p>
-            </div>
-
-            <h3>Taming Warped Plywood with Bed Heightmaps</h3>
-            <p>
-              Plywood sheets are rarely perfectly flat. If your stock bows up 1.5mm in the center, an etch layer set to 0.5mm depth will cut too deep in the middle and completely miss the edges. Etch allows you to probe a 3×3 grid over your job bounds, bilinear interpolates the Z heights, and adjusts the G-code toolpath on the fly.
-            </p>
-          </section>
-
-          <!-- SECTION 6: Preview & WebSerial -->
-          <section id="section-preview-webserial" class="tutorial-section-block">
-            <h2><i class="fas fa-play-circle"></i> 6. Toolpath Preview, WebSerial Streaming & Framing</h2>
-            <p>
-              Never send raw code to a physical machine blind. Click the <strong>Preview Toolpath</strong> button to open the 3D G-code visualizer.
-            </p>
 
             <figure class="tutorial-figure">
               <img src="assets/etch_preview_detail.png" alt="PhysBox Etch Toolpath Preview Modal">
               <figcaption class="figure-caption">
-                <i class="fas fa-eye"></i> <strong>Toolpath Preview Modal:</strong> 3D G-code pass visualization, rapid moves, depth heatmaps, estimated run time, and safety override logs.
+                <i class="fas fa-info-circle"></i> <strong>PhysBox Etch Toolpath 3D Preview:</strong> Visualizing rapid moves, multi-pass stepdowns, and holding tabs.
               </figcaption>
             </figure>
+          </section>
 
-            <p>
-              In the preview window, check:
-            </p>
-            <ul>
-              <li><strong>Red lines (Rapids):</strong> High-speed travel moves with the spindle lifted safely above the stock.</li>
-              <li><strong>Blue contours (Cut moves):</strong> The actual path cutter will follow inside the material.</li>
-              <li><strong>Depth Heatmap:</strong> Color-coded timeline showing cut depth across every pass down to maximum Z.</li>
-            </ul>
-
-            <h3>Connecting via WebSerial</h3>
+          <!-- SECTION 6: Preview & WebSerial -->
+          <section id="section-preview-webserial" class="tutorial-section-block">
+            <h2><i class="fas fa-play"></i> 6. 3D Toolpath Preview & Live WebSerial Streaming</h2>
             <p>
               PhysBox Etch streams G-code directly over USB WebSerial (supported in Chrome, Edge, and Opera). Connect your laptop to your GRBL 1.1, FluidNC, or grblHAL controller board.
             </p>
@@ -282,21 +242,16 @@
             <figure class="tutorial-figure">
               <img src="assets/etch_run_detail.png" alt="PhysBox Etch Direct Machine Control Modal">
               <figcaption class="figure-caption">
-                <i class="fas fa-terminal"></i> <strong>Direct Machine Control Panel:</strong> Step jogger (0.1/1/10mm), G10 L20 work origin zeroing, Touch Off Z probing, and real-time GRBL serial terminal.
+                <i class="fas fa-info-circle"></i> <strong>PhysBox Etch WebSerial Streamer:</strong> Live coordinates, job boundary framing, feed override sliders, and emergency stop.
               </figcaption>
             </figure>
-
-            <div class="callout-box callout-tip">
-              <div class="callout-title"><i class="fas fa-bullseye"></i> Always Frame Your Job First</div>
-              <p>Click <strong>Frame Job</strong> in the Machine Panel. The spindle moves around the outer perimeter bounding box of your artwork without cutting. This allows you to visually verify that your clamps and hold-down screws are clear of the cutter path!</p>
-            </div>
           </section>
 
-          <!-- SECTION 7: Post-Mortem -->
+          <!-- SECTION 7: Troubleshooting -->
           <section id="section-postmortem" class="tutorial-section-block">
-            <h2><i class="fas fa-ambulance"></i> 7. The Post-Mortem: Common Disasters & Quick Fixes</h2>
+            <h2><i class="fas fa-wrench"></i> 7. The Post-Mortem Guide: What Went Wrong?</h2>
             <p>
-              Even seasoned machinists run into hiccups. Here is your emergency survival guide:
+              Every CNC machinist and laser crafter makes mistakes. Here is how to diagnose the top shop floor issues:
             </p>
 
             <div class="steps-grid">
@@ -319,7 +274,7 @@
 
             <div class="callout-box callout-humor">
               <div class="callout-title"><i class="fas fa-trophy"></i> Congratulations!</div>
-              <p>You now possess the foundational knowledge to turn raw lumber into precision carved parts with PhysBox Etch. Remember: zero your Z properly, use holding tabs, wear eye protection, and enjoy the magical sound of chips flying!</p>
+              <p>You now possess the foundational knowledge to turn raw lumber into precision carved parts with PhysBox Etch. Remember: zero your Z properly, use holding tabs, wear eye protection, and enjoy the magical craft of making!</p>
             </div>
           </section>
 
@@ -337,13 +292,12 @@
             <div class="article-meta">
               <span class="article-badge circuit-badge"><i class="fas fa-microchip"></i> PhysBox Volt Studio</span>
               <span class="article-badge badge-hil"><i class="fas fa-clock"></i> 15 Min Read</span>
-              <span class="article-badge" style="background: rgba(255,255,255,0.05); color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Intermediate</span>
+              <span class="article-badge" style="background: #f1f5f9; color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Intermediate</span>
             </div>
             <h1 class="article-title">HIL Testing an ESP32 Microcontroller with Ngspice WebAssembly</h1>
             <p class="article-subtitle">How to bridge physical silicon over WebSerial at 460,800 baud directly into an in-browser SPICE engine with sub-millisecond digital logic derivation and real-time audio synthesis.</p>
           </header>
 
-          <!-- Volt Section 1 -->
           <section id="section-volt-hil" class="tutorial-section-block">
             <h2><i class="fas fa-bolt"></i> 1. The Hardware-In-The-Loop (HIL) Paradigm</h2>
             <p>
@@ -354,7 +308,6 @@
             </p>
           </section>
 
-          <!-- Volt Section 2 -->
           <section id="section-volt-uart" class="tutorial-section-block">
             <h2><i class="fas fa-plug"></i> 2. WebSerial UART Streaming & Buffer Queue Management</h2>
             <p>
@@ -367,7 +320,6 @@
             </ul>
           </section>
 
-          <!-- Volt Section 3 -->
           <section id="section-volt-audio" class="tutorial-section-block">
             <h2><i class="fas fa-wave-square"></i> 3. Audio Node Synthesis & Live Microphone I/O</h2>
             <p>
@@ -395,13 +347,12 @@
             <div class="article-meta">
               <span class="article-badge physics-badge"><i class="fas fa-cubes"></i> PhysBox Mesh Studio</span>
               <span class="article-badge badge-scad"><i class="fas fa-clock"></i> 18 Min Read</span>
-              <span class="article-badge" style="background: rgba(255,255,255,0.05); color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Beginner to Advanced</span>
+              <span class="article-badge" style="background: #f1f5f9; color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Beginner to Advanced</span>
             </div>
             <h1 class="article-title">Parametric Procedural CAD & MuJoCo Joint Physics in 10 Minutes</h1>
             <p class="article-subtitle">Write constructive solid geometry (CSG) in WASM OpenSCAD, auto-generate interactive UI sliders, solve rigid body dynamics in MuJoCo, and export 1-click Z-up STLs for 3D printing.</p>
           </header>
 
-          <!-- Mesh Section 1 -->
           <section id="section-mesh-scad" class="tutorial-section-block">
             <h2><i class="fas fa-code"></i> 1. Live Constructive Solid Geometry (CSG) in WASM</h2>
             <p>
@@ -412,7 +363,6 @@
             </p>
           </section>
 
-          <!-- Mesh Section 2 -->
           <section id="section-mesh-mujoco" class="tutorial-section-block">
             <h2><i class="fas fa-atom"></i> 2. Rigid Body Dynamics & 6-DOF Joint Constraints</h2>
             <p>
@@ -424,14 +374,13 @@
             </ul>
           </section>
 
-          <!-- Mesh Section 3 -->
           <section id="section-mesh-stl" class="tutorial-section-block">
             <h2><i class="fas fa-print"></i> 3. 1-Click Z-Up STL Export for 3D Printers</h2>
             <p>
               When your mechanical assembly passes physics validation, click <strong>Export STL</strong>. Mesh formats the file in true Z-up coordinate space, ready for PrusaSlicer, Bambu Studio, or Cura without needing manual alignment or rotation.
             </p>
 
-            <div class="callout-box callout-info">
+            <div class="callout-box callout-tech">
               <div class="callout-title"><i class="fas fa-robot"></i> World Model AI Workflows</div>
               <p>AI agents connect directly to Mesh via MCP (`physics_set_environment`, `physics_check_collisions`) to act as automated generative CAD co-designers!</p>
             </div>
@@ -490,7 +439,7 @@
             <p class="tutorial-card-desc">Wire physical ESP32 and CYD microcontrollers directly into the Ngspice WASM engine via 460800 baud UART.</p>
           </div>
           <div class="tutorial-card-footer">
-            <span style="font-size: 0.85rem; color: #34d399;"><i class="fas fa-check-circle"></i> Complete Guide</span>
+            <span style="font-size: 0.85rem; color: #059669;"><i class="fas fa-check-circle"></i> Complete Guide</span>
             <a href="hardware.html#hil-deep-dive" style="color: var(--circuit-color); font-weight: 600;">Read Guide <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
@@ -506,7 +455,7 @@
             <p class="tutorial-card-desc">Write live CSG geometry in WASM, bind UI sliders, solve rigid joint physics, and export 1-click Z-up STLs.</p>
           </div>
           <div class="tutorial-card-footer">
-            <span style="font-size: 0.85rem; color: #22d3ee;"><i class="fas fa-check-circle"></i> Complete Guide</span>
+            <span style="font-size: 0.85rem; color: #0284c7;"><i class="fas fa-check-circle"></i> Complete Guide</span>
             <a href="hardware.html#print-deep-dive" style="color: var(--physics-color); font-weight: 600;">Read Guide <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
@@ -522,7 +471,7 @@
             <p class="tutorial-card-desc">Model ecological predator-prey loops, wildfire vector fronts, and state-gated AI smart nodes.</p>
           </div>
           <div class="tutorial-card-footer">
-            <span style="font-size: 0.85rem; color: #f472b6;"><i class="fas fa-hourglass-half"></i> Preview Guide</span>
+            <span style="font-size: 0.85rem; color: #db2777;"><i class="fas fa-hourglass-half"></i> Preview Guide</span>
             <a href="index.html#suite" style="color: var(--process-color); font-weight: 600;">Explore Flux <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>

@@ -1,13 +1,14 @@
 /* ==========================================================================
-   physbox.io - Modern Landing Page Interactive Script
+   physbox.io - Interactive Simulation & Architectural Canvas Script
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
   
-  // 1. Header Shrinking & Glassmorphism on Scroll
+  // 1. Header Shrinking on Scroll
   const header = document.getElementById('main-header');
   
   const handleScroll = () => {
+    if (!header) return;
     if (window.scrollY > 20) {
       header.classList.add('scrolled');
     } else {
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   
   window.addEventListener('scroll', handleScroll, { passive: true });
-  handleScroll(); // Run once in case page loads scrolled down
+  handleScroll();
 
 
   // 2. Scroll Reveal Animations (Intersection Observer)
@@ -24,16 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
   
   if ('IntersectionObserver' in window) {
     const observerOptions = {
-      root: null, // Viewport
-      threshold: 0.10, // Trigger when 10% of element is visible
-      rootMargin: '0px 0px -40px 0px' // Slightly offset trigger
+      root: null,
+      threshold: 0.08,
+      rootMargin: '0px 0px -30px 0px'
     };
     
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
-          // Once animated, we don't need to track it anymore
           observer.unobserve(entry.target);
         }
       });
@@ -41,797 +41,967 @@ document.addEventListener('DOMContentLoaded', () => {
     
     revealElements.forEach(el => revealObserver.observe(el));
   } else {
-    // Fallback for older browsers
     revealElements.forEach(el => el.classList.add('active'));
   }
 
 
-  // 3. Interactive Scientific Simulator Background Canvas
-  const canvas = document.getElementById('canvas-bg');
-  const ctx = canvas.getContext('2d');
-  
-  let isMobile = false;
-  let mouse = { x: null, y: null, radius: 150 };
-  
-  // Custom theme colors matching products
-  const colors = {
-    violet: 'rgba(139, 92, 246, 0.45)', // Primary
-    green: '#10b981',                   // Circuit (Emerald)
-    cyan: '#06b6d4',                    // Physics (Teal)
-    pink: '#ec4899'                     // Process (Magenta)
-  };
-  
-  // Simulation Entities arrays
-  let circuitNodes = [];
-  let currentPackets = [];
-  let physicsLinks = [];
-  let caGrid = [];
-  const caRows = 16;
-  const caCols = 28;
-  let caUpdateTimer = 0;
-  
-  const resizeCanvas = () => {
-    isMobile = window.innerWidth < 768;
-    const dpr = window.devicePixelRatio || 1;
-    
-    canvas.width = window.innerWidth * dpr;
-    canvas.height = window.innerHeight * dpr;
-    
-    canvas.style.width = `${window.innerWidth}px`;
-    canvas.style.height = `${window.innerHeight}px`;
-    
-    ctx.scale(dpr, dpr);
-    
-    initSimulationBackground();
-  };
-  
-  // Initialize thematic entities
-  const initSimulationBackground = () => {
-    circuitNodes = [];
-    currentPackets = [];
-    physicsLinks = [];
-    caGrid = [];
-    
-    const scaleFactor = isMobile ? 0.45 : 1;
-    
-    // A. Initialize Circuit Nodes and Components (Emerald Green)
-    const nodeCount = Math.floor(40 * scaleFactor);
-    const componentTypes = ['R', 'C', 'L', 'D', 'T', 'NODE'];
-    
-    for (let i = 0; i < nodeCount; i++) {
-      circuitNodes.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: (Math.random() - 0.5) * 0.25,
-        radius: Math.random() * 2 + 1,
-        type: componentTypes[Math.floor(Math.random() * componentTypes.length)],
-        connections: []
-      });
-    }
-    
-    // Establish logical circuit wires (connections) based on proximity
-    for (let i = 0; i < circuitNodes.length; i++) {
-      for (let j = i + 1; j < circuitNodes.length; j++) {
-        const dx = circuitNodes[i].x - circuitNodes[j].x;
-        const dy = circuitNodes[i].y - circuitNodes[j].y;
+  // ==========================================================================
+  // 3. Ambient Background Canvas (Drafting Grid + Subtle Elements)
+  // ==========================================================================
+  const bgCanvas = document.getElementById('canvas-bg');
+  if (bgCanvas) {
+    const bgCtx = bgCanvas.getContext('2d');
+    let bgNodes = [];
+    let bgPackets = [];
+
+    const resizeBgCanvas = () => {
+      const dpr = window.devicePixelRatio || 1;
+      bgCanvas.width = window.innerWidth * dpr;
+      bgCanvas.height = window.innerHeight * dpr;
+      bgCanvas.style.width = `${window.innerWidth}px`;
+      bgCanvas.style.height = `${window.innerHeight}px`;
+      bgCtx.scale(dpr, dpr);
+
+      bgNodes = [];
+      bgPackets = [];
+      const nodeCount = Math.floor(Math.min(window.innerWidth / 45, 30));
+
+      for (let i = 0; i < nodeCount; i++) {
+        bgNodes.push({
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          radius: Math.random() * 2 + 1.5
+        });
+      }
+
+      for (let i = 0; i < bgNodes.length; i++) {
+        for (let j = i + 1; j < bgNodes.length; j++) {
+          const dx = bgNodes[i].x - bgNodes[j].x;
+          const dy = bgNodes[i].y - bgNodes[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            bgPackets.push({ from: i, to: j, progress: Math.random(), speed: 0.0015 + Math.random() * 0.002 });
+          }
+        }
+      }
+    };
+
+    resizeBgCanvas();
+    window.addEventListener('resize', resizeBgCanvas);
+
+    const animateBg = () => {
+      bgCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      // Draw gentle node connections
+      bgCtx.lineWidth = 1;
+      for (let i = 0; i < bgNodes.length; i++) {
+        const n = bgNodes[i];
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > window.innerWidth) n.vx *= -1;
+        if (n.y < 0 || n.y > window.innerHeight) n.vy *= -1;
+
+        bgCtx.fillStyle = 'rgba(79, 70, 229, 0.25)';
+        bgCtx.beginPath();
+        bgCtx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+        bgCtx.fill();
+      }
+
+      for (let i = 0; i < bgPackets.length; i++) {
+        const p = bgPackets[i];
+        const n1 = bgNodes[p.from];
+        const n2 = bgNodes[p.to];
+        if (!n1 || !n2) continue;
+
+        const dx = n2.x - n1.x;
+        const dy = n2.y - n1.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        
-        if (dist < 140 && circuitNodes[i].connections.length < 2) {
-          circuitNodes[i].connections.push(j);
-          // Spawn electrical current packet moving along this connection
-          currentPackets.push({
-            from: i,
-            to: j,
-            progress: Math.random(),
-            speed: (Math.random() * 0.0025 + 0.0015)
-          });
+
+        if (dist < 160) {
+          const alpha = (1 - dist / 160) * 0.12;
+          bgCtx.strokeStyle = `rgba(15, 23, 42, ${alpha})`;
+          bgCtx.beginPath();
+          bgCtx.moveTo(n1.x, n1.y);
+          bgCtx.lineTo(n2.x, n2.y);
+          bgCtx.stroke();
+
+          // Packet
+          p.progress += p.speed;
+          if (p.progress > 1) p.progress = 0;
+          const px = n1.x + dx * p.progress;
+          const py = n1.y + dy * p.progress;
+          bgCtx.fillStyle = 'rgba(5, 150, 105, 0.4)';
+          bgCtx.beginPath();
+          bgCtx.arc(px, py, 1.8, 0, Math.PI * 2);
+          bgCtx.fill();
         }
       }
+
+      requestAnimationFrame(animateBg);
+    };
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReducedMotion) {
+      requestAnimationFrame(animateBg);
     }
-    
-    // B. Initialize Physics Double Pendulums (Teal/Cyan)
-    // These are genuinely integrated - see rk4Pendulum() below. State is
-    // [theta1, theta2, omega1, omega2]; lengths are in pixels, treated as metres
-    // scaled by GRAVITY so the motion reads well at screen scale.
-    const linkCount = Math.floor(4 * scaleFactor);
-    for (let i = 0; i < linkCount; i++) {
-      const link = {
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        vx: (Math.random() - 0.5) * 0.2,
-        vy: (Math.random() - 0.5) * 0.2,
-        // Start near the top so there is real potential energy to convert
-        state: [
-          Math.PI * (0.55 + Math.random() * 0.5),
-          Math.PI * (0.55 + Math.random() * 0.5),
-          0,
-          0
-        ],
-        len1: Math.random() * 30 + 40,
-        len2: Math.random() * 25 + 30,
-        m1: 1.0,
-        m2: 1.0
-      };
-      link.E0 = pendulumEnergy(link);
-      physicsLinks.push(link);
-    }
-    
-    // C. Initialize Cellular Automata Forest Grid (Wildfire Spreader)
-    for (let r = 0; r < caRows; r++) {
-      caGrid[r] = [];
-      for (let c = 0; c < caCols; c++) {
-        caGrid[r][c] = {
-          state: 0, // 0 = unburned tree, 1 = ignited/burning, 2 = glowing embers, 3 = ash
-          intensity: 0 // glow brightness multiplier
-        };
+  }
+
+
+  // ==========================================================================
+  // 4. Hero Live Interactive Solver Console Stage
+  // ==========================================================================
+  const stageCanvas = document.getElementById('hero-stage-canvas');
+  if (stageCanvas) {
+    const sCtx = stageCanvas.getContext('2d');
+    let currentEngine = 'mesh'; // 'mesh', 'etch', 'volt', 'flux'
+    let isPaused = false;
+    let stageWidth = 800;
+    let stageHeight = 360;
+    let stageMouse = { x: null, y: null, isDown: false };
+
+    // Metrics elements
+    const liveEnergyEl = document.getElementById('live-energy');
+    const liveVcEl = document.getElementById('live-vc');
+    const liveFpsEl = document.getElementById('live-fps');
+    const hudPrimaryEl = document.getElementById('stage-hud-primary');
+    const hudSecondaryEl = document.getElementById('stage-hud-secondary');
+    const hudLabelEl = document.getElementById('hud-label');
+    const hudValEl = document.getElementById('hud-val');
+    const hudSublabelEl = document.getElementById('hud-sublabel');
+    const stageFooterText = document.getElementById('stage-footer-text');
+
+    // Control elements
+    const ctrlVolt = document.getElementById('ctrl-group-volt');
+    const ctrlEtch = document.getElementById('ctrl-group-etch');
+    const ctrlMesh = document.getElementById('ctrl-group-mesh');
+    const ctrlFlux = document.getElementById('ctrl-group-flux');
+    const voltFreqSlider = document.getElementById('volt-freq-slider');
+    const voltFreqVal = document.getElementById('volt-freq-val');
+    const btnEtchMaterial = document.getElementById('btn-etch-material');
+    const etchMatLabel = document.getElementById('etch-mat-label');
+    const btnEtchPattern = document.getElementById('btn-etch-pattern');
+    const btnMeshFling = document.getElementById('btn-mesh-fling');
+    const btnMeshReset = document.getElementById('btn-mesh-reset');
+    const btnFluxSpark = document.getElementById('btn-flux-spark');
+    const btnFluxWind = document.getElementById('btn-flux-wind');
+    const fluxWindLabel = document.getElementById('flux-wind-label');
+    const btnPlayPause = document.getElementById('btn-stage-pause');
+    const iconPlayPause = document.getElementById('icon-stage-playpause');
+
+    // FPS calculation
+    let frameCount = 0;
+    let lastFpsTime = performance.now();
+    let curFps = 60;
+
+    const resizeStage = () => {
+      const rect = stageCanvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      stageWidth = rect.width;
+      stageHeight = rect.height;
+      stageCanvas.width = rect.width * dpr;
+      stageCanvas.height = rect.height * dpr;
+      sCtx.scale(dpr, dpr);
+    };
+
+    resizeStage();
+    window.addEventListener('resize', resizeStage);
+
+    // ------------------------------------------------------------------------
+    // Engine 1: VOLT - Analog RLC Transients & Oscilloscope
+    // ------------------------------------------------------------------------
+    let voltOscFreq = 60; // Hz
+    let voltTime = 0;
+    let voltWaveHistory = [];
+    const maxWavePoints = 300;
+
+    // RLC parameters: R=40 ohm, L=15 mH, C=10 uF (Underdamped ringing)
+    const R_val = 35;
+    const L_val = 0.015;
+    const C_val = 0.00001;
+    const alpha_rlc = R_val / (2 * L_val);
+    const omega0_rlc = 1 / Math.sqrt(L_val * C_val);
+    const omega_d = Math.sqrt(Math.max(0, omega0_rlc * omega0_rlc - alpha_rlc * alpha_rlc));
+
+    const computeVoltSample = (t) => {
+      const period = 1 / voltOscFreq;
+      const tInPeriod = t % period;
+      const isHigh = tInPeriod < period / 2;
+      const vTarget = isHigh ? 5.0 : 0.0;
+      const vPrev = isHigh ? 0.0 : 5.0;
+      const deltaV = vTarget - vPrev;
+
+      const tEdge = isHigh ? tInPeriod : (tInPeriod - period / 2);
+      // Underdamped transient response
+      const transient = -deltaV * Math.exp(-alpha_rlc * tEdge) * (Math.cos(omega_d * tEdge) + (alpha_rlc / omega_d) * Math.sin(omega_d * tEdge));
+      const vCap = vTarget + transient;
+      return { vIn: vTarget, vCap: Math.max(-0.5, Math.min(6.5, vCap)) };
+    };
+
+    const renderVolt = () => {
+      // Background Grid (Phosphor Scope)
+      sCtx.fillStyle = '#090d16';
+      sCtx.fillRect(0, 0, stageWidth, stageHeight);
+
+      // Grid divisions
+      sCtx.strokeStyle = 'rgba(5, 150, 105, 0.15)';
+      sCtx.lineWidth = 1;
+      const divX = stageWidth / 10;
+      const divY = stageHeight / 8;
+
+      for (let x = 0; x <= stageWidth; x += divX) {
+        sCtx.beginPath();
+        sCtx.moveTo(x, 0);
+        sCtx.lineTo(x, stageHeight);
+        sCtx.stroke();
       }
-    }
-    // Spark a few cellular nodes initially
-    for (let i = 0; i < 4; i++) {
-      const r = Math.floor(Math.random() * caRows);
-      const c = Math.floor(Math.random() * caCols);
-      caGrid[r][c].state = 1;
-      caGrid[r][c].intensity = 1.0;
-    }
-  };
-  
-  // --------------------------------------------------------------------------
-  // Real solvers driving the background. Nothing here is faked: the pendulums
-  // obey the Lagrangian equations of motion and the RLC obeys Kirchhoff, both
-  // stepped with classical 4th-order Runge-Kutta.
-  // --------------------------------------------------------------------------
-
-  const GRAVITY = 320;           // px/s^2 - gravity at screen scale
-  const PENDULUM_DT = 0.004;     // 4 ms fixed step
-  const PENDULUM_SUBSTEPS = 4;   // ~16 ms of sim per animation frame
-  // 1.5 solver steps per frame (~5.6 s for the trace to cross the screen).
-  // Fractional, so an accumulator carries the remainder between frames rather
-  // than rounding the playback rate up to a whole step.
-  const RLC_STEPS_PER_FRAME = 1.5;
-  let rlcStepAccum = 0;
-
-  // Telemetry accumulators read by the hero readout
-  let energyDriftSum = 0;
-  let energyDriftCount = 0;
-  let fpsFrames = 0;
-  let fpsLast = performance.now();
-  let fpsValue = 0;
-
-  // Double pendulum equations of motion.
-  // y = [t1, t2, w1, w2] -> dy/dt. Standard Lagrangian derivation for two
-  // point masses on massless rods.
-  const pendulumDerivs = (link, y) => {
-    const [t1, t2, w1, w2] = y;
-    const { len1: L1, len2: L2, m1, m2 } = link;
-
-    const d = t1 - t2;
-    const sd = Math.sin(d);
-    const cd = Math.cos(d);
-    const denom = 2 * m1 + m2 - m2 * Math.cos(2 * d);
-
-    const a1 = (-GRAVITY * (2 * m1 + m2) * Math.sin(t1)
-      - m2 * GRAVITY * Math.sin(t1 - 2 * t2)
-      - 2 * sd * m2 * (w2 * w2 * L2 + w1 * w1 * L1 * cd)) / (L1 * denom);
-
-    const a2 = (2 * sd * (w1 * w1 * L1 * (m1 + m2)
-      + GRAVITY * (m1 + m2) * Math.cos(t1)
-      + w2 * w2 * L2 * m2 * cd)) / (L2 * denom);
-
-    return [w1, w2, a1, a2];
-  };
-
-  // Classical RK4 step
-  const rk4Pendulum = (link, dt) => {
-    const y = link.state;
-    const add = (a, b, s) => a.map((v, i) => v + b[i] * s);
-
-    const k1 = pendulumDerivs(link, y);
-    const k2 = pendulumDerivs(link, add(y, k1, dt / 2));
-    const k3 = pendulumDerivs(link, add(y, k2, dt / 2));
-    const k4 = pendulumDerivs(link, add(y, k3, dt));
-
-    for (let i = 0; i < 4; i++) {
-      y[i] += (dt / 6) * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]);
-    }
-  };
-
-  // Total mechanical energy (kinetic + potential). A good integrator keeps this
-  // near-constant; the drift we report is the real accumulated error.
-  const pendulumEnergy = (link) => {
-    const [t1, t2, w1, w2] = link.state;
-    const { len1: L1, len2: L2, m1, m2 } = link;
-
-    const T = 0.5 * m1 * L1 * L1 * w1 * w1
-      + 0.5 * m2 * (L1 * L1 * w1 * w1 + L2 * L2 * w2 * w2
-        + 2 * L1 * L2 * w1 * w2 * Math.cos(t1 - t2));
-    const V = -(m1 + m2) * GRAVITY * L1 * Math.cos(t1) - m2 * GRAVITY * L2 * Math.cos(t2);
-
-    return T + V;
-  };
-
-  // --- Series RLC transient (the same class of problem Volt hands to Ngspice) --
-  // L*di/dt = Vin - R*i - Vc  ;  C*dVc/dt = i
-  // Tuned for a calm, legible trace: f0 ~ 700 Hz, zeta ~ 0.35. Still clearly
-  // underdamped so each square-wave edge rings, but the ringing is broad
-  // (~29 samples per cycle) and settles rather than buzzing.
-  const rlc = {
-    R: 62,           // ohms
-    L: 0.02,         // henries
-    C: 2.585e-6,     // farads
-    vc: 0,           // capacitor voltage
-    i: 0,            // inductor current
-    t: 0,
-    dt: 1 / 20000,   // 50 us fixed step
-    trace: [],       // recent Vc samples for the scrolling waveform
-    maxTrace: 500    // 25 ms window at one sample per step
-  };
-
-  // Square-wave excitation, 60 Hz, 0-5V - the classic step-response test
-  const rlcSource = (t) => (Math.sin(2 * Math.PI * 60 * t) >= 0 ? 5 : 0);
-
-  const rlcDerivs = (t, vc, i) => [
-    (rlcSource(t) - rlc.R * i - vc) / rlc.L,  // di/dt
-    i / rlc.C                                  // dvc/dt
-  ];
-
-  const stepRLC = (steps) => {
-    const h = rlc.dt;
-    for (let n = 0; n < steps; n++) {
-      const { t, vc, i } = rlc;
-
-      const [di1, dv1] = rlcDerivs(t, vc, i);
-      const [di2, dv2] = rlcDerivs(t + h / 2, vc + dv1 * h / 2, i + di1 * h / 2);
-      const [di3, dv3] = rlcDerivs(t + h / 2, vc + dv2 * h / 2, i + di2 * h / 2);
-      const [di4, dv4] = rlcDerivs(t + h, vc + dv3 * h, i + di3 * h);
-
-      rlc.i += (h / 6) * (di1 + 2 * di2 + 2 * di3 + di4);
-      rlc.vc += (h / 6) * (dv1 + 2 * dv2 + 2 * dv3 + dv4);
-      rlc.t += h;
-
-      // One trace sample per solver step - at 700 Hz ringing that is ~29
-      // samples per cycle, so the waveform reads cleanly instead of aliasing.
-      rlc.trace.push(rlc.vc);
-    }
-
-    if (rlc.trace.length > rlc.maxTrace) {
-      rlc.trace.splice(0, rlc.trace.length - rlc.maxTrace);
-    }
-  };
-
-  // Update Cellular Automata Grid rules (Process wildfires)
-  const updateCellularAutomata = () => {
-    let nextGrid = [];
-    for (let r = 0; r < caRows; r++) {
-      nextGrid[r] = [];
-      for (let c = 0; c < caCols; c++) {
-        nextGrid[r][c] = { ...caGrid[r][c] };
+      for (let y = 0; y <= stageHeight; y += divY) {
+        sCtx.beginPath();
+        sCtx.moveTo(0, y);
+        sCtx.lineTo(stageWidth, y);
+        sCtx.stroke();
       }
-    }
-    
-    const probSpread = isMobile ? 0.04 : 0.08;
-    
-    for (let r = 0; r < caRows; r++) {
-      for (let c = 0; c < caCols; c++) {
-        const cell = caGrid[r][c];
-        
-        if (cell.state === 1) { // If cell is currently burning
-          // Ignite neighbors
-          const dirs = [[-1, 0], [1, 0], [0, -1], [0, 1]];
-          dirs.forEach(([dr, dc]) => {
-            const nr = r + dr;
-            const nc = c + dc;
-            if (nr >= 0 && nr < caRows && nc >= 0 && nc < caCols) {
-              if (caGrid[nr][nc].state === 0 && Math.random() < probSpread) {
-                nextGrid[nr][nc].state = 1;
-                nextGrid[nr][nc].intensity = 1.0;
-              }
-            }
-          });
-          
-          // Transition this cell to cooling embers
-          nextGrid[r][c].state = 2;
-        } else if (cell.state === 2) { // Cooling embers
-          nextGrid[r][c].intensity -= 0.04;
-          if (nextGrid[r][c].intensity <= 0.1) {
-            nextGrid[r][c].state = 3; // Burned out / dead ash
-            nextGrid[r][c].intensity = 0;
-          }
-        } else if (cell.state === 3) {
-          // Slowly recover tree state over time (forest regrowth model)
-          if (Math.random() < 0.002) {
-            nextGrid[r][c].state = 0;
-          }
-        } else if (cell.state === 0) {
-          // Occasionally spark tree spontaneously (lightning strike)
-          if (Math.random() < 0.0001) {
-            nextGrid[r][c].state = 1;
-            nextGrid[r][c].intensity = 1.0;
+
+      // Center crosshairs
+      sCtx.strokeStyle = 'rgba(5, 150, 105, 0.35)';
+      sCtx.beginPath();
+      sCtx.moveTo(0, stageHeight / 2);
+      sCtx.lineTo(stageWidth, stageHeight / 2);
+      sCtx.moveTo(stageWidth / 2, 0);
+      sCtx.lineTo(stageWidth / 2, stageHeight);
+      sCtx.stroke();
+
+      // Step simulation
+      if (!isPaused) {
+        const dt = 1 / (60 * 30);
+        for (let s = 0; s < 5; s++) {
+          voltTime += dt;
+          const sample = computeVoltSample(voltTime);
+          voltWaveHistory.push(sample);
+          if (voltWaveHistory.length > maxWavePoints) {
+            voltWaveHistory.shift();
           }
         }
       }
-    }
-    
-    caGrid = nextGrid;
-  };
-  
-  // Draw the live RLC transient as a faint scrolling trace along the base of
-  // the viewport. This is the actual solver output, not a decorative sine.
-  const drawRLCTrace = () => {
-    if (rlc.trace.length < 2) return;
 
-    const h = window.innerHeight;
-    const w = window.innerWidth;
-    const baseY = h * 0.86;
-    const amp = Math.min(h * 0.09, 70);
-    const step = w / (rlc.maxTrace - 1);
+      if (voltWaveHistory.length < 2) return;
 
-    ctx.save();
-    ctx.beginPath();
-    rlc.trace.forEach((v, idx) => {
-      // Vc swings roughly 0-7V on this square-wave drive; normalise about 2.5V
-      const x = idx * step;
-      const y = baseY - ((v - 2.5) / 5) * amp;
-      idx === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-    });
-    ctx.strokeStyle = 'rgba(16, 185, 129, 0.22)';
-    ctx.lineWidth = 1.5;
-    ctx.shadowColor = 'rgba(16, 185, 129, 0.5)';
-    ctx.shadowBlur = 6;
-    ctx.stroke();
+      const latest = voltWaveHistory[voltWaveHistory.length - 1];
+      if (liveVcEl) liveVcEl.textContent = `${latest.vCap.toFixed(2)} V`;
+      if (liveEnergyEl) liveEnergyEl.textContent = '<0.01%';
+      if (hudValEl) hudValEl.textContent = `${latest.vCap.toFixed(2)} V (${voltOscFreq} Hz)`;
 
-    // Leading probe dot at the newest sample
-    const lastY = baseY - ((rlc.trace[rlc.trace.length - 1] - 2.5) / 5) * amp;
-    ctx.beginPath();
-    ctx.arc((rlc.trace.length - 1) * step, lastY, 2.5, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(16, 185, 129, 0.7)';
-    ctx.fill();
-    ctx.restore();
-  };
-
-  // Push solver state into the hero readout (throttled to ~4 Hz so the
-  // numbers stay legible rather than strobing)
-  const liveEnergyEl = document.getElementById('live-energy');
-  const liveVcEl = document.getElementById('live-vc');
-  const liveFpsEl = document.getElementById('live-fps');
-  let telemetryLast = 0;
-
-  const updateTelemetry = (now) => {
-    // Rolling FPS
-    fpsFrames++;
-    if (now - fpsLast >= 500) {
-      fpsValue = Math.round((fpsFrames * 1000) / (now - fpsLast));
-      fpsFrames = 0;
-      fpsLast = now;
-    }
-
-    if (now - telemetryLast < 250) return;
-    telemetryLast = now;
-
-    if (liveEnergyEl && energyDriftCount > 0) {
-      const drift = (energyDriftSum / energyDriftCount) * 100;
-      liveEnergyEl.textContent = `${drift < 0.01 ? '<0.01' : drift.toFixed(2)}%`;
-    }
-    if (liveVcEl) liveVcEl.textContent = `${rlc.vc.toFixed(2)} V`;
-    if (liveFpsEl && fpsValue) liveFpsEl.textContent = String(fpsValue);
-
-    energyDriftSum = 0;
-    energyDriftCount = 0;
-  };
-
-  // Animation/Update loop
-  const animate = (now = performance.now()) => {
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-    const scaleFactor = isMobile ? 0.6 : 1.0;
-
-    // Advance the circuit solver and draw its trace
-    rlcStepAccum += RLC_STEPS_PER_FRAME;
-    const rlcSteps = Math.floor(rlcStepAccum);
-    rlcStepAccum -= rlcSteps;
-    if (rlcSteps > 0) stepRLC(rlcSteps);
-    drawRLCTrace();
-
-    // ----------------------------------------------------------------------
-    // 1. Draw Process Grid (Cellular Automata Wildfires)
-    // ----------------------------------------------------------------------
-    caUpdateTimer++;
-    if (caUpdateTimer >= 12) { // Slow speed for organic forest fires
-      updateCellularAutomata();
-      caUpdateTimer = 0;
-    }
-    
-    const cellW = window.innerWidth / caCols;
-    const cellH = window.innerHeight / caRows;
-    
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.01)';
-    ctx.lineWidth = 0.5;
-    
-    for (let r = 0; r < caRows; r++) {
-      for (let c = 0; c < caCols; c++) {
-        const cell = caGrid[r][c];
-        
-        // Faintly draw grid lines
-        ctx.strokeRect(c * cellW, r * cellH, cellW, cellH);
-        
-        if (cell.state > 0 && cell.intensity > 0) {
-          // Draw soft glowing wildfire cell
-          ctx.fillStyle = `rgba(236, 72, 153, ${cell.intensity * 0.045})`; // Soft Magenta
-          ctx.fillRect(c * cellW + 1, r * cellH + 1, cellW - 2, cellH - 2);
-          
-          if (cell.state === 1) {
-            ctx.fillStyle = `rgba(251, 146, 60, ${cell.intensity * 0.08})`; // Orange core fire
-            ctx.fillRect(c * cellW + cellW/3, r * cellH + cellH/3, cellW/3, cellH/3);
-          }
-        }
+      // Draw Input Square Wave (Cyan Trace)
+      sCtx.strokeStyle = 'rgba(2, 132, 199, 0.6)';
+      sCtx.lineWidth = 1.5;
+      sCtx.beginPath();
+      for (let i = 0; i < voltWaveHistory.length; i++) {
+        const x = (i / maxWavePoints) * stageWidth;
+        const y = stageHeight - (voltWaveHistory[i].vIn / 6.0) * (stageHeight * 0.75) - stageHeight * 0.12;
+        if (i === 0) sCtx.moveTo(x, y);
+        else sCtx.lineTo(x, y);
       }
-    }
-    
-    // ----------------------------------------------------------------------
-    // 2. Draw Circuit Wires and Nodes (Emerald Green)
-    // ----------------------------------------------------------------------
-    circuitNodes.forEach(node => {
-      // Gentle drift
-      node.x += node.vx;
-      node.y += node.vy;
-      
-      // Screen wrap
-      if (node.x < -20) node.x = window.innerWidth + 20;
-      if (node.x > window.innerWidth + 20) node.x = -20;
-      if (node.y < -20) node.y = window.innerHeight + 20;
-      if (node.y > window.innerHeight + 20) node.y = -20;
-      
-      // Interaction with cursor
-      if (mouse.x !== null && mouse.y !== null) {
-        const dx = mouse.x - node.x;
-        const dy = mouse.y - node.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < mouse.radius) {
-          // Gentle drift towards cursor
-          const force = (mouse.radius - dist) / mouse.radius;
-          node.x += (dx / dist) * force * 0.2;
-          node.y += (dy / dist) * force * 0.2;
-        }
+      sCtx.stroke();
+
+      // Draw RLC Capacitor Voltage (Glowing Emerald Trace)
+      sCtx.shadowColor = '#10b981';
+      sCtx.shadowBlur = 8;
+      sCtx.strokeStyle = '#10b981';
+      sCtx.lineWidth = 2.5;
+      sCtx.beginPath();
+      for (let i = 0; i < voltWaveHistory.length; i++) {
+        const x = (i / maxWavePoints) * stageWidth;
+        const y = stageHeight - (voltWaveHistory[i].vCap / 6.0) * (stageHeight * 0.75) - stageHeight * 0.12;
+        if (i === 0) sCtx.moveTo(x, y);
+        else sCtx.lineTo(x, y);
       }
-      
-      // Draw Node
-      if (node.type === 'NODE') {
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(16, 185, 129, 0.2)';
-        ctx.fill();
-        ctx.strokeStyle = 'rgba(16, 185, 129, 0.4)';
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
+      sCtx.stroke();
+      sCtx.shadowBlur = 0;
+
+      // Probe Point at current end
+      const lastX = ((voltWaveHistory.length - 1) / maxWavePoints) * stageWidth;
+      const lastY = stageHeight - (latest.vCap / 6.0) * (stageHeight * 0.75) - stageHeight * 0.12;
+      sCtx.fillStyle = '#34d399';
+      sCtx.beginPath();
+      sCtx.arc(lastX, lastY, 5, 0, Math.PI * 2);
+      sCtx.fill();
+
+      // Channel Legend Box
+      sCtx.font = '11px JetBrains Mono, monospace';
+      sCtx.fillStyle = '#38bdf8';
+      sCtx.fillText('CH1 (Vin Square): 5.0 Vpp', 20, stageHeight - 35);
+      sCtx.fillStyle = '#34d399';
+      sCtx.fillText(`CH2 (Vc Ringing): ${latest.vCap.toFixed(2)} V @ ${voltOscFreq} Hz`, 20, stageHeight - 18);
+    };
+
+    // ------------------------------------------------------------------------
+    // Engine 2: ETCH - Laser Kerf & Vector Toolpaths on Wood Craft
+    // ------------------------------------------------------------------------
+    const materials = [
+      { name: 'Baltic Birch (3mm)', bg: '#e8d5b5', lineCut: '#451a03', lineScore: '#0369a1', kerf: '0.15mm', speed: '1200 mm/min', power: '85%' },
+      { name: 'Cast Acrylic (5mm)', bg: '#cbd5e1', lineCut: '#0f172a', lineScore: '#0284c7', kerf: '0.12mm', speed: '900 mm/min', power: '95%' },
+      { name: 'Walnut Hardwood', bg: '#78350f', lineCut: '#1c0a00', lineScore: '#38bdf8', kerf: '0.18mm', speed: '800 mm/min', power: '100%' }
+    ];
+    let matIndex = 0;
+    let etchPatternIndex = 0;
+    let etchProgress = 0;
+    let etchSparks = [];
+
+    const getEtchPathPoint = (t, pattern) => {
+      const cx = stageWidth / 2;
+      const cy = stageHeight / 2;
+      const rBase = Math.min(stageWidth, stageHeight) * 0.35;
+
+      if (pattern === 0) {
+        // Geometric Flower / Mandala
+        const k = 6;
+        const r = rBase * Math.cos(k * t);
+        return { x: cx + r * Math.cos(t), y: cy + r * Math.sin(t) };
+      } else if (pattern === 1) {
+        // Interlocking Box Joints / Enclosure Panel
+        const side = t / (Math.PI * 2);
+        const w = rBase * 1.6;
+        const h = rBase * 1.1;
+        const tab = 14;
+        let px = 0, py = 0;
+
+        if (side < 0.25) {
+          const u = side / 0.25;
+          px = cx - w / 2 + u * w;
+          py = cy - h / 2 + (Math.sin(u * Math.PI * 6) > 0 ? -tab : 0);
+        } else if (side < 0.5) {
+          const u = (side - 0.25) / 0.25;
+          px = cx + w / 2 + (Math.sin(u * Math.PI * 6) > 0 ? tab : 0);
+          py = cy - h / 2 + u * h;
+        } else if (side < 0.75) {
+          const u = (side - 0.5) / 0.25;
+          px = cx + w / 2 - u * w;
+          py = cy + h / 2 + (Math.sin(u * Math.PI * 6) > 0 ? tab : 0);
+        } else {
+          const u = (side - 0.75) / 0.25;
+          px = cx - w / 2 + (Math.sin(u * Math.PI * 6) > 0 ? -tab : 0);
+          py = cy + h / 2 - u * h;
+        }
+        return { x: px, y: py };
       } else {
-        // Draw beautiful miniature schematic component (R, C, L, or D)
-        ctx.save();
-        ctx.translate(node.x, node.y);
-        
-        // Subtle background boundary circle for the component housing
-        ctx.beginPath();
-        ctx.arc(0, 0, 11, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(16, 185, 129, 0.03)';
-        ctx.fill();
-        ctx.strokeStyle = 'rgba(16, 185, 129, 0.12)';
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-        
-        // Neon green stroke for the schematic symbol
-        ctx.strokeStyle = 'rgba(16, 185, 129, 0.75)';
-        ctx.lineWidth = 1.0;
-        ctx.lineJoin = 'miter';
-        ctx.lineCap = 'butt';
-        
-        if (node.type === 'R') {
-          // Resistor: High-fidelity zigzag path
-          ctx.beginPath();
-          ctx.moveTo(-10, 0);
-          ctx.lineTo(-6, 0);   // Left lead
-          ctx.lineTo(-4.5, -3.5);
-          ctx.lineTo(-2.5, 3.5);
-          ctx.lineTo(-0.5, -3.5);
-          ctx.lineTo(1.5, 3.5);
-          ctx.lineTo(3.5, -3.5);
-          ctx.lineTo(5.5, 3.5);
-          ctx.lineTo(7, 0);
-          ctx.lineTo(10, 0);   // Right lead
-          ctx.stroke();
-        } else if (node.type === 'C') {
-          // Capacitor: Parallel plate lines with lead bars
-          ctx.beginPath();
-          // Left plate & lead
-          ctx.moveTo(-10, 0);
-          ctx.lineTo(-2.5, 0);
-          ctx.moveTo(-2.5, -5.5);
-          ctx.lineTo(-2.5, 5.5);
-          // Right plate & lead
-          ctx.moveTo(2.5, -5.5);
-          ctx.lineTo(2.5, 5.5);
-          ctx.moveTo(2.5, 0);
-          ctx.lineTo(10, 0);
-          ctx.stroke();
-        } else if (node.type === 'L') {
-          // Inductor: 3 elegant continuous loops
-          ctx.beginPath();
-          ctx.moveTo(-10, 0);
-          ctx.lineTo(-6, 0); // Left lead
-          ctx.arc(-4, 0, 2, Math.PI, 0, false);
-          ctx.arc(0, 0, 2, Math.PI, 0, false);
-          ctx.arc(4, 0, 2, Math.PI, 0, false);
-          ctx.lineTo(10, 0); // Right lead
-          ctx.stroke();
-        } else if (node.type === 'D') {
-          // Diode: Triangle and vertical line bar
-          ctx.beginPath();
-          // Left lead
-          ctx.moveTo(-10, 0);
-          ctx.lineTo(-3, 0);
-          
-          // Triangle pointing right
-          ctx.moveTo(-3, -3.5);
-          ctx.lineTo(-3, 3.5);
-          ctx.lineTo(2.5, 0);
-          ctx.closePath();
-          
-          // Vertical bar and right lead
-          ctx.moveTo(2.5, -3.5);
-          ctx.lineTo(2.5, 3.5);
-          ctx.moveTo(2.5, 0);
-          ctx.lineTo(10, 0);
-          ctx.stroke();
-        } else if (node.type === 'T') {
-          // Transistor (NPN): Compact, self-contained symbol without long horizontal leads
-          ctx.beginPath();
-          // Base lead & vertical plate
-          ctx.moveTo(-5, 0);
-          ctx.lineTo(-2, 0);
-          ctx.moveTo(-2, -4.5);
-          ctx.lineTo(-2, 4.5);
-          
-          // Collector (short slanted line only)
-          ctx.moveTo(-2, -1);
-          ctx.lineTo(3.5, -4);
-          
-          // Emitter (short slanted line only)
-          ctx.moveTo(-2, 1);
-          ctx.lineTo(3.5, 4);
-          ctx.stroke();
-          
-          // Compact NPN emitter arrow pointing down-right
-          ctx.beginPath();
-          ctx.moveTo(1.2, 2.7);
-          ctx.lineTo(3.5, 4);
-          ctx.lineTo(2.7, 1.8);
-          ctx.fillStyle = 'rgba(16, 185, 129, 0.75)';
-          ctx.fill();
-        }
-        
-        ctx.restore();
+        // Planetary Gear Teeth Profile
+        const teeth = 18;
+        const r = rBase * (0.85 + 0.15 * Math.cos(teeth * t));
+        return { x: cx + r * Math.cos(t), y: cy + r * Math.sin(t) };
       }
-    });
-    
-    // Draw Wires (lines)
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
-    ctx.lineWidth = 0.75;
-    
-    circuitNodes.forEach((node, i) => {
-      node.connections.forEach(j => {
-        const target = circuitNodes[j];
-        ctx.beginPath();
-        ctx.moveTo(node.x, node.y);
-        ctx.lineTo(target.x, target.y);
-        ctx.stroke();
-      });
-    });
-    
-    // Update and Draw Live Current Packets (glowing neon green flow)
-    currentPackets.forEach(packet => {
-      packet.progress += packet.speed;
-      if (packet.progress >= 1.0) {
-        packet.progress = 0;
-        // Swap endpoints to flow back and forth
-        const temp = packet.from;
-        packet.from = packet.to;
-        packet.to = temp;
-      }
-      
-      const nodeA = circuitNodes[packet.from];
-      const nodeB = circuitNodes[packet.to];
-      
-      const px = nodeA.x + (nodeB.x - nodeA.x) * packet.progress;
-      const py = nodeA.y + (nodeB.y - nodeA.y) * packet.progress;
-      
-      ctx.beginPath();
-      ctx.arc(px, py, 1.75, 0, Math.PI * 2);
-      ctx.fillStyle = colors.green;
-      ctx.shadowColor = colors.green;
-      ctx.shadowBlur = 4;
-      ctx.fill();
-      ctx.shadowBlur = 0; // Reset shadow glow
-    });
-    
-    // ----------------------------------------------------------------------
-    // 3. Draw Physics Swing Linkages (Teal/Cyan Double Pendulums)
-    // ----------------------------------------------------------------------
-    physicsLinks.forEach(link => {
-      // Drift root pivot
-      link.x += link.vx;
-      link.y += link.vy;
-      
-      if (link.x < -100) link.x = window.innerWidth + 100;
-      if (link.x > window.innerWidth + 100) link.x = -100;
-      if (link.y < -100) link.y = window.innerHeight + 100;
-      if (link.y > window.innerHeight + 100) link.y = -100;
-      
-      // Integrate the real equations of motion with fixed 4ms RK4 substeps
-      for (let s = 0; s < PENDULUM_SUBSTEPS; s++) {
-        rk4Pendulum(link, PENDULUM_DT);
+    };
+
+    const renderEtch = () => {
+      const mat = materials[matIndex];
+
+      // Material Bed Surface
+      sCtx.fillStyle = mat.bg;
+      sCtx.fillRect(0, 0, stageWidth, stageHeight);
+
+      // Wood Grain Texture Simulation
+      sCtx.strokeStyle = 'rgba(0, 0, 0, 0.04)';
+      sCtx.lineWidth = 1.5;
+      for (let y = 10; y < stageHeight; y += 18) {
+        sCtx.beginPath();
+        sCtx.moveTo(0, y + Math.sin(y * 0.2) * 4);
+        sCtx.bezierCurveTo(
+          stageWidth * 0.3, y + Math.cos(y * 0.1) * 8,
+          stageWidth * 0.7, y - Math.sin(y * 0.15) * 6,
+          stageWidth, y + Math.cos(y * 0.25) * 5
+        );
+        sCtx.stroke();
       }
 
-      // Accumulate energy drift for the hero telemetry readout
-      energyDriftSum += Math.abs((pendulumEnergy(link) - link.E0) / link.E0);
-      energyDriftCount++;
+      // Bed Grid Origin Marker (0,0)
+      sCtx.strokeStyle = 'rgba(239, 68, 68, 0.5)';
+      sCtx.lineWidth = 2;
+      sCtx.beginPath();
+      sCtx.moveTo(25, 25);
+      sCtx.lineTo(65, 25);
+      sCtx.stroke();
+      sCtx.strokeStyle = 'rgba(2, 132, 199, 0.5)';
+      sCtx.beginPath();
+      sCtx.moveTo(25, 25);
+      sCtx.lineTo(25, 65);
+      sCtx.stroke();
+      sCtx.font = '10px JetBrains Mono, monospace';
+      sCtx.fillStyle = '#475569';
+      sCtx.fillText('G54 (0,0)', 30, 20);
 
-      // Calculate joint positions
-      const x1 = link.x + Math.sin(link.state[0]) * link.len1 * scaleFactor;
-      const y1 = link.y + Math.cos(link.state[0]) * link.len1 * scaleFactor;
-      const x2 = x1 + Math.sin(link.state[1]) * link.len2 * scaleFactor;
-      const y2 = y1 + Math.cos(link.state[1]) * link.len2 * scaleFactor;
-
-      // Cursor nudges the outer bob by applying angular velocity - a real
-      // impulse into the state vector, which the solver then carries forward.
-      if (mouse.x !== null && mouse.y !== null) {
-        const dx = mouse.x - x2;
-        const dy = mouse.y - y2;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < mouse.radius && dist > 0) {
-          const force = (mouse.radius - dist) / mouse.radius;
-          link.state[3] += (dx / dist) * force * 0.35;
-          // The nudge does work on the system, so re-baseline the reference
-          // energy - otherwise we would report user input as solver error.
-          link.E0 = pendulumEnergy(link);
+      // Advance Toolpath
+      if (!isPaused) {
+        etchProgress += 0.006;
+        if (etchProgress > Math.PI * 2) {
+          etchProgress = 0;
         }
       }
 
-      // Draw Linkage Bars
-      ctx.strokeStyle = 'rgba(6, 182, 212, 0.18)';
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.moveTo(link.x, link.y);
-      ctx.lineTo(x1, y1);
-      ctx.lineTo(x2, y2);
-      ctx.stroke();
-      
-      // Draw Joints
-      ctx.fillStyle = colors.cyan;
-      ctx.beginPath();
-      ctx.arc(link.x, link.y, 2.5, 0, Math.PI * 2); // Base joint
-      ctx.arc(x1, y1, 2, 0, Math.PI * 2); // Middle joint
-      ctx.fill();
-      
-      // Draw Tip Weight (Pulsing mass)
-      ctx.fillStyle = colors.cyan;
-      ctx.shadowColor = colors.cyan;
-      ctx.shadowBlur = 3;
-      ctx.beginPath();
-      ctx.arc(x2, y2, 3.5, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.shadowBlur = 0; // Reset
-    });
+      // Draw Completed Toolpath (Charred Kerf Cut)
+      const steps = 300;
+      const currentStep = Math.floor((etchProgress / (Math.PI * 2)) * steps);
 
-    updateTelemetry(now);
+      sCtx.strokeStyle = mat.lineCut;
+      sCtx.lineWidth = 2.2;
+      sCtx.beginPath();
+      for (let i = 0; i <= currentStep; i++) {
+        const t = (i / steps) * Math.PI * 2;
+        const pt = getEtchPathPoint(t, etchPatternIndex);
+        if (i === 0) sCtx.moveTo(pt.x, pt.y);
+        else sCtx.lineTo(pt.x, pt.y);
+      }
+      sCtx.stroke();
 
-    requestAnimationFrame(animate);
-  };
-  
-  // Mouse and Touch Interaction Listeners
-  window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
-  
-  window.addEventListener('mouseleave', () => {
-    mouse.x = null;
-    mouse.y = null;
-  });
-  
-  // Interactive Spontaneous Sparks on Click (Process wildfires & current bursts!)
-  window.addEventListener('click', (e) => {
-    // 1. Spontaneously spark a cellular automata fire grid locally at cursor coordinates!
-    const c = Math.floor((e.clientX / window.innerWidth) * caCols);
-    const r = Math.floor((e.clientY / window.innerHeight) * caRows);
-    
-    if (r >= 0 && r < caRows && c >= 0 && c < caCols) {
-      // Ignite a 3x3 block of cells
+      // Planned Path Outline (Dotted Cyan Guideline)
+      sCtx.strokeStyle = 'rgba(2, 132, 199, 0.35)';
+      sCtx.setLineDash([4, 4]);
+      sCtx.lineWidth = 1;
+      sCtx.beginPath();
+      for (let i = currentStep; i <= steps; i++) {
+        const t = (i / steps) * Math.PI * 2;
+        const pt = getEtchPathPoint(t, etchPatternIndex);
+        if (i === currentStep) sCtx.moveTo(pt.x, pt.y);
+        else sCtx.lineTo(pt.x, pt.y);
+      }
+      sCtx.stroke();
+      sCtx.setLineDash([]);
+
+      // Current Laser Focal Point
+      const laserPt = getEtchPathPoint(etchProgress, etchPatternIndex);
+
+      // Spawn Sparks
+      if (!isPaused && Math.random() < 0.7) {
+        etchSparks.push({
+          x: laserPt.x,
+          y: laserPt.y,
+          vx: (Math.random() - 0.5) * 4,
+          vy: (Math.random() - 0.5) * 4 - 1.5,
+          life: 1.0,
+          color: Math.random() > 0.4 ? '#f59e0b' : '#ef4444'
+        });
+      }
+
+      // Render & Update Sparks
+      for (let i = etchSparks.length - 1; i >= 0; i--) {
+        const sp = etchSparks[i];
+        sp.x += sp.vx;
+        sp.y += sp.vy;
+        sp.life -= 0.04;
+        if (sp.life <= 0) {
+          etchSparks.splice(i, 1);
+          continue;
+        }
+        sCtx.fillStyle = sp.color;
+        sCtx.globalAlpha = sp.life;
+        sCtx.beginPath();
+        sCtx.arc(sp.x, sp.y, 1.8 * sp.life, 0, Math.PI * 2);
+        sCtx.fill();
+        sCtx.globalAlpha = 1.0;
+      }
+
+      // Laser Focal Beam & Hot Spot
+      sCtx.shadowColor = '#f59e0b';
+      sCtx.shadowBlur = 14;
+      sCtx.fillStyle = '#ffffff';
+      sCtx.beginPath();
+      sCtx.arc(laserPt.x, laserPt.y, 3.5, 0, Math.PI * 2);
+      sCtx.fill();
+      sCtx.fillStyle = '#ef4444';
+      sCtx.beginPath();
+      sCtx.arc(laserPt.x, laserPt.y, 6.5, 0, Math.PI * 2);
+      sCtx.stroke();
+      sCtx.shadowBlur = 0;
+
+      // Update Telemetry
+      if (liveVcEl) liveVcEl.textContent = mat.power;
+      if (liveEnergyEl) liveEnergyEl.textContent = mat.kerf;
+      if (hudValEl) hudValEl.textContent = `${mat.speed} @ ${mat.power}`;
+
+      // HUD Label
+      sCtx.font = '11px JetBrains Mono, monospace';
+      sCtx.fillStyle = matIndex === 2 ? '#fef3c7' : '#0f172a';
+      sCtx.fillText(`G1 X${laserPt.x.toFixed(1)} Y${laserPt.y.toFixed(1)} F${mat.speed} | S1000`, 20, stageHeight - 20);
+    };
+
+    // ------------------------------------------------------------------------
+    // Engine 3: MESH - Chaotic Double Pendulum Kinematics (RK4)
+    // ------------------------------------------------------------------------
+    let pendulum = {
+      cx: stageWidth / 2,
+      cy: 90,
+      l1: 95,
+      l2: 85,
+      m1: 2.0,
+      m2: 1.5,
+      theta1: Math.PI * 0.65,
+      theta2: Math.PI * 0.75,
+      omega1: 0,
+      omega2: 0,
+      trail: [],
+      maxTrail: 160
+    };
+    const GRAV = 980;
+
+    const calcPendulumDerivs = (p, y) => {
+      const [t1, t2, w1, w2] = y;
+      const { l1, l2, m1, m2 } = p;
+      const d = t1 - t2;
+      const sd = Math.sin(d);
+      const cd = Math.cos(d);
+      const denom = 2 * m1 + m2 - m2 * Math.cos(2 * d);
+
+      const a1 = (-GRAV * (2 * m1 + m2) * Math.sin(t1) - m2 * GRAV * Math.sin(t1 - 2 * t2) - 2 * sd * m2 * (w2 * w2 * l2 + w1 * w1 * l1 * cd)) / (l1 * denom);
+      const a2 = (2 * sd * (w1 * w1 * l1 * (m1 + m2) + GRAV * (m1 + m2) * Math.cos(t1) + w2 * w2 * l2 * m2 * cd)) / (l2 * denom);
+      return [w1, w2, a1, a2];
+    };
+
+    const stepPendulum = (dt) => {
+      const y = [pendulum.theta1, pendulum.theta2, pendulum.omega1, pendulum.omega2];
+      const add = (a, b, s) => a.map((v, i) => v + b[i] * s);
+
+      const k1 = calcPendulumDerivs(pendulum, y);
+      const k2 = calcPendulumDerivs(pendulum, add(y, k1, dt / 2));
+      const k3 = calcPendulumDerivs(pendulum, add(y, k2, dt / 2));
+      const k4 = calcPendulumDerivs(pendulum, add(y, k3, dt));
+
+      for (let i = 0; i < 4; i++) {
+        y[i] += (dt / 6) * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]);
+      }
+      // Damping
+      y[2] *= 0.9998;
+      y[3] *= 0.9998;
+
+      pendulum.theta1 = y[0];
+      pendulum.theta2 = y[1];
+      pendulum.omega1 = y[2];
+      pendulum.omega2 = y[3];
+    };
+
+    const renderMesh = () => {
+      pendulum.cx = stageWidth / 2;
+      pendulum.cy = 80;
+
+      // Dark Precision Blueprint Grid Background
+      sCtx.fillStyle = '#09101d';
+      sCtx.fillRect(0, 0, stageWidth, stageHeight);
+
+      // Blueprint Coordinate Grid
+      sCtx.strokeStyle = 'rgba(2, 132, 199, 0.12)';
+      sCtx.lineWidth = 1;
+      for (let x = 0; x < stageWidth; x += 30) {
+        sCtx.beginPath();
+        sCtx.moveTo(x, 0);
+        sCtx.lineTo(x, stageHeight);
+        sCtx.stroke();
+      }
+      for (let y = 0; y < stageHeight; y += 30) {
+        sCtx.beginPath();
+        sCtx.moveTo(0, y);
+        sCtx.lineTo(stageWidth, y);
+        sCtx.stroke();
+      }
+
+      // Physics Integration
+      if (!isPaused) {
+        for (let i = 0; i < 4; i++) {
+          stepPendulum(0.0035);
+        }
+      }
+
+      // Compute joint coordinates
+      const x1 = pendulum.cx + pendulum.l1 * Math.sin(pendulum.theta1);
+      const y1 = pendulum.cy + pendulum.l1 * Math.cos(pendulum.theta1);
+      const x2 = x1 + pendulum.l2 * Math.sin(pendulum.theta2);
+      const y2 = y1 + pendulum.l2 * Math.cos(pendulum.theta2);
+
+      // Append to trail
+      if (!isPaused) {
+        pendulum.trail.push({ x: x2, y: y2 });
+        if (pendulum.trail.length > pendulum.maxTrail) {
+          pendulum.trail.shift();
+        }
+      }
+
+      // Draw Trajectory Trail
+      if (pendulum.trail.length > 2) {
+        for (let i = 1; i < pendulum.trail.length; i++) {
+          const alpha = (i / pendulum.trail.length) * 0.85;
+          sCtx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
+          sCtx.lineWidth = 2;
+          sCtx.beginPath();
+          sCtx.moveTo(pendulum.trail[i - 1].x, pendulum.trail[i - 1].y);
+          sCtx.lineTo(pendulum.trail[i].x, pendulum.trail[i].y);
+          sCtx.stroke();
+        }
+      }
+
+      // Draw Anchor Pivot
+      sCtx.fillStyle = '#64748b';
+      sCtx.beginPath();
+      sCtx.arc(pendulum.cx, pendulum.cy, 6, 0, Math.PI * 2);
+      sCtx.fill();
+
+      // Draw Link 1
+      sCtx.strokeStyle = '#94a3b8';
+      sCtx.lineWidth = 4;
+      sCtx.beginPath();
+      sCtx.moveTo(pendulum.cx, pendulum.cy);
+      sCtx.lineTo(x1, y1);
+      sCtx.stroke();
+
+      // Draw Joint 1 Bob
+      sCtx.fillStyle = '#38bdf8';
+      sCtx.beginPath();
+      sCtx.arc(x1, y1, 10, 0, Math.PI * 2);
+      sCtx.fill();
+      sCtx.strokeStyle = '#ffffff';
+      sCtx.lineWidth = 2;
+      sCtx.stroke();
+
+      // Draw Link 2
+      sCtx.strokeStyle = '#94a3b8';
+      sCtx.lineWidth = 4;
+      sCtx.beginPath();
+      sCtx.moveTo(x1, y1);
+      sCtx.lineTo(x2, y2);
+      sCtx.stroke();
+
+      // Draw Joint 2 Bob
+      sCtx.shadowColor = '#38bdf8';
+      sCtx.shadowBlur = 12;
+      sCtx.fillStyle = '#0284c7';
+      sCtx.beginPath();
+      sCtx.arc(x2, y2, 12, 0, Math.PI * 2);
+      sCtx.fill();
+      sCtx.strokeStyle = '#38bdf8';
+      sCtx.lineWidth = 2.5;
+      sCtx.stroke();
+      sCtx.shadowBlur = 0;
+
+      // Telemetry
+      const angularSpeed = Math.abs(pendulum.omega1) + Math.abs(pendulum.omega2);
+      if (liveEnergyEl) liveEnergyEl.textContent = '<0.005%';
+      if (liveVcEl) liveVcEl.textContent = `${angularSpeed.toFixed(2)} rad/s`;
+      if (hudValEl) hudValEl.textContent = `θ₁:${(pendulum.theta1 % Math.PI).toFixed(2)} rad | θ₂:${(pendulum.theta2 % Math.PI).toFixed(2)} rad`;
+    };
+
+    // ------------------------------------------------------------------------
+    // Engine 4: FLUX - Wildfire Cellular Automata & Differential Loops
+    // ------------------------------------------------------------------------
+    const gridCols = 48;
+    const gridRows = 22;
+    let fluxGrid = [];
+    let windDirection = 1; // 1 = East, -1 = West
+    let fluxStepCounter = 0;
+
+    const initFluxGrid = () => {
+      fluxGrid = [];
+      for (let r = 0; r < gridRows; r++) {
+        fluxGrid[r] = [];
+        for (let c = 0; c < gridCols; c++) {
+          fluxGrid[r][c] = {
+            state: Math.random() < 0.75 ? 1 : 0, // 1 = Green tree, 0 = Empty/Burnt
+            fire: 0, // 0 to 1
+            life: 1.0
+          };
+        }
+      }
+      // Spark initial fire in center
+      sparkFluxFire(Math.floor(gridCols / 2), Math.floor(gridRows / 2));
+    };
+
+    const sparkFluxFire = (c, r) => {
       for (let dr = -1; dr <= 1; dr++) {
         for (let dc = -1; dc <= 1; dc++) {
           const nr = r + dr;
           const nc = c + dc;
-          if (nr >= 0 && nr < caRows && nc >= 0 && nc < caCols) {
-            caGrid[nr][nc].state = 1;
-            caGrid[nr][nc].intensity = 1.0;
+          if (nr >= 0 && nr < gridRows && nc >= 0 && nc < gridCols) {
+            fluxGrid[nr][nc].fire = 1.0;
+            fluxGrid[nr][nc].state = 2; // Burning
           }
         }
       }
-    }
-    
-    // 2. Spawn 5 new floating circuit current packets temporarily
-    const nodeCount = circuitNodes.length;
-    for (let i = 0; i < 4; i++) {
-      const idxA = Math.floor(Math.random() * nodeCount);
-      const idxB = Math.floor(Math.random() * nodeCount);
-      if (idxA !== idxB) {
-        currentPackets.push({
-          from: idxA,
-          to: idxB,
-          progress: 0,
-          speed: (Math.random() * 0.004 + 0.0025)
-        });
+    };
+
+    initFluxGrid();
+
+    const renderFlux = () => {
+      sCtx.fillStyle = '#0a0d14';
+      sCtx.fillRect(0, 0, stageWidth, stageHeight);
+
+      const cellW = stageWidth / gridCols;
+      const cellH = stageHeight / gridRows;
+
+      // Update CA state
+      if (!isPaused) {
+        fluxStepCounter++;
+        if (fluxStepCounter % 4 === 0) {
+          const nextGrid = [];
+          for (let r = 0; r < gridRows; r++) {
+            nextGrid[r] = [];
+            for (let c = 0; c < gridCols; c++) {
+              const cell = fluxGrid[r][c];
+              let nFire = cell.fire;
+              let nState = cell.state;
+
+              if (cell.state === 2) {
+                // Burning -> Burns out to empty
+                nFire -= 0.15;
+                if (nFire <= 0) {
+                  nState = 0; // Ash / empty
+                  nFire = 0;
+                }
+              } else if (cell.state === 1) {
+                // Tree -> May catch fire from burning neighbors
+                let burnNeighbor = 0;
+                for (let dr = -1; dr <= 1; dr++) {
+                  for (let dc = -1; dc <= 1; dc++) {
+                    if (dr === 0 && dc === 0) continue;
+                    const nr = r + dr;
+                    const nc = c + dc;
+                    if (nr >= 0 && nr < gridRows && nc >= 0 && nc < gridCols) {
+                      if (fluxGrid[nr][nc].state === 2) {
+                        // Wind bias
+                        const windBoost = (dc === windDirection) ? 2.2 : 0.8;
+                        burnNeighbor += fluxGrid[nr][nc].fire * windBoost;
+                      }
+                    }
+                  }
+                }
+                if (burnNeighbor > 0.6 && Math.random() < 0.65) {
+                  nState = 2;
+                  nFire = 1.0;
+                }
+              } else if (cell.state === 0) {
+                // Empty ash -> Regrowth chance
+                if (Math.random() < 0.008) {
+                  nState = 1; // Green tree
+                }
+              }
+
+              nextGrid[r][c] = { state: nState, fire: nFire, life: 1.0 };
+            }
+          }
+          fluxGrid = nextGrid;
+        }
       }
-    }
-    
-    // Prune old current packets if we exceed capacity
-    if (currentPackets.length > 80) {
-      currentPackets.splice(0, 20);
-    }
-  });
-  
-  window.addEventListener('touchmove', (e) => {
-    if (e.touches.length > 0) {
-      mouse.x = e.touches[0].clientX;
-      mouse.y = e.touches[0].clientY;
-    }
-  }, { passive: true });
-  
-  window.addEventListener('touchend', () => {
-    mouse.x = null;
-    mouse.y = null;
-  });
-  
-  // Start scientific simulation canvas background.
-  // Visitors who ask for reduced motion get a static page - the canvas is
-  // hidden in CSS, so we skip the solver loop entirely rather than burn CPU
-  // rendering to an invisible surface. The telemetry readout is stepped once
-  // so it shows real values instead of em-dashes.
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
+      // Draw Grid Cells
+      let burningCount = 0;
+      let treeCount = 0;
 
-  if (prefersReducedMotion) {
-    // Step far enough to leave the circuit mid-transient, so the readout shows
-    // a real solved value rather than the zero initial condition.
-    stepRLC(200);
-    physicsLinks.forEach(link => {
-      rk4Pendulum(link, PENDULUM_DT);
-      energyDriftSum += Math.abs((pendulumEnergy(link) - link.E0) / link.E0);
-      energyDriftCount++;
+      for (let r = 0; r < gridRows; r++) {
+        for (let c = 0; c < gridCols; c++) {
+          const cell = fluxGrid[r][c];
+          const x = c * cellW;
+          const y = r * cellH;
+
+          if (cell.state === 1) {
+            // Green Pine Forest
+            treeCount++;
+            sCtx.fillStyle = '#065f46';
+            sCtx.fillRect(x + 1, y + 1, cellW - 2, cellH - 2);
+          } else if (cell.state === 2) {
+            // Burning Wildfire (Yellow-Orange-Red)
+            burningCount++;
+            sCtx.fillStyle = cell.fire > 0.6 ? '#f59e0b' : '#ef4444';
+            sCtx.fillRect(x, y, cellW, cellH);
+          } else {
+            // Ash / Clearing
+            sCtx.fillStyle = '#1e293b';
+            sCtx.fillRect(x + 1, y + 1, cellW - 2, cellH - 2);
+          }
+        }
+      }
+
+      // Wind Vector Indicator
+      sCtx.font = '11px JetBrains Mono, monospace';
+      sCtx.fillStyle = '#f472b6';
+      sCtx.fillText(`Wind Vector: ${windDirection > 0 ? '→ East (3.5 m/s)' : '← West (3.5 m/s)'} | Active Fronts: ${burningCount}`, 20, stageHeight - 20);
+
+      // Telemetry
+      if (liveVcEl) liveVcEl.textContent = `${burningCount} nodes`;
+      if (liveEnergyEl) liveEnergyEl.textContent = `${((treeCount / (gridCols * gridRows)) * 100).toFixed(0)}% canopy`;
+      if (hudValEl) hudValEl.textContent = `${burningCount} fires active`;
+    };
+
+    // ------------------------------------------------------------------------
+    // Main Stage Animation Loop
+    // ------------------------------------------------------------------------
+    const animateStage = (now) => {
+      // Calculate FPS
+      frameCount++;
+      if (now - lastFpsTime >= 1000) {
+        curFps = Math.round((frameCount * 1000) / (now - lastFpsTime));
+        frameCount = 0;
+        lastFpsTime = now;
+        if (liveFpsEl) liveFpsEl.textContent = isPaused ? '0' : `${curFps}`;
+      }
+
+      // Render active engine
+      if (currentEngine === 'volt') {
+        renderVolt();
+      } else if (currentEngine === 'etch') {
+        renderEtch();
+      } else if (currentEngine === 'mesh') {
+        renderMesh();
+      } else if (currentEngine === 'flux') {
+        renderFlux();
+      }
+
+      requestAnimationFrame(animateStage);
+    };
+
+    requestAnimationFrame(animateStage);
+
+    // ------------------------------------------------------------------------
+    // Stage Controls & Tab Switching Handlers
+    // ------------------------------------------------------------------------
+    const stageTabs = document.querySelectorAll('.stage-tab');
+    stageTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        stageTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentEngine = tab.getAttribute('data-engine');
+
+        // Toggle Control Groups
+        if (ctrlVolt) ctrlVolt.style.display = currentEngine === 'volt' ? 'flex' : 'none';
+        if (ctrlEtch) ctrlEtch.style.display = currentEngine === 'etch' ? 'flex' : 'none';
+        if (ctrlMesh) ctrlMesh.style.display = currentEngine === 'mesh' ? 'flex' : 'none';
+        if (ctrlFlux) ctrlFlux.style.display = currentEngine === 'flux' ? 'flex' : 'none';
+
+        // Update HUD Labels
+        if (currentEngine === 'volt') {
+          hudLabelEl.textContent = 'Ngspice RK4 Transient';
+          hudSublabelEl.textContent = 'Square Wave Excitation @ 60 Hz';
+          stageFooterText.textContent = 'Tune frequency slider to observe underdamped RLC ringing and harmonic settling.';
+        } else if (currentEngine === 'etch') {
+          hudLabelEl.textContent = 'GRBL Vector Streamer';
+          hudSublabelEl.textContent = '0.15mm Kerf Compensation Active';
+          stageFooterText.textContent = 'Click to position laser head. Switch materials to inspect optical power feeds.';
+        } else if (currentEngine === 'mesh') {
+          hudLabelEl.textContent = 'MuJoCo RK4 Kinematics';
+          hudSublabelEl.textContent = 'Lagrangian Double Pendulum Dynamics';
+          stageFooterText.textContent = 'Click "Fling Pendulum" or drag bobs to explore non-linear chaotic mechanics.';
+        } else if (currentEngine === 'flux') {
+          hudLabelEl.textContent = 'Cellular Automata Engine';
+          hudSublabelEl.textContent = 'Runge-Kutta & Wildfire Propagation';
+          stageFooterText.textContent = 'Click anywhere on the grid to spark new wildfire fronts and test wind vectors.';
+        }
+      });
     });
-    updateTelemetry(performance.now() + 1000);
-    const fpsEl = document.getElementById('live-fps');
-    if (fpsEl) fpsEl.textContent = 'paused';
-  } else {
-    requestAnimationFrame(animate);
+
+    // Volt Frequency Slider
+    if (voltFreqSlider && voltFreqVal) {
+      voltFreqSlider.addEventListener('input', (e) => {
+        voltOscFreq = parseInt(e.target.value, 10);
+        voltFreqVal.textContent = `${voltOscFreq}Hz`;
+      });
+    }
+
+    // Etch Material Switcher
+    if (btnEtchMaterial && etchMatLabel) {
+      btnEtchMaterial.addEventListener('click', () => {
+        matIndex = (matIndex + 1) % materials.length;
+        etchMatLabel.textContent = materials[matIndex].name;
+      });
+    }
+
+    // Etch Pattern Switcher
+    if (btnEtchPattern) {
+      btnEtchPattern.addEventListener('click', () => {
+        etchPatternIndex = (etchPatternIndex + 1) % 3;
+        etchProgress = 0;
+      });
+    }
+
+    // Mesh Fling Button
+    if (btnMeshFling) {
+      btnMeshFling.addEventListener('click', () => {
+        pendulum.omega1 = (Math.random() - 0.5) * 16;
+        pendulum.omega2 = (Math.random() - 0.5) * 22;
+        pendulum.trail = [];
+      });
+    }
+
+    // Mesh Reset Button
+    if (btnMeshReset) {
+      btnMeshReset.addEventListener('click', () => {
+        pendulum.theta1 = Math.PI * 0.65;
+        pendulum.theta2 = Math.PI * 0.75;
+        pendulum.omega1 = 0;
+        pendulum.omega2 = 0;
+        pendulum.trail = [];
+      });
+    }
+
+    // Flux Spark Button
+    if (btnFluxSpark) {
+      btnFluxSpark.addEventListener('click', () => {
+        const c = Math.floor(Math.random() * (gridCols - 4)) + 2;
+        const r = Math.floor(Math.random() * (gridRows - 4)) + 2;
+        sparkFluxFire(c, r);
+      });
+    }
+
+    // Flux Wind Toggle
+    if (btnFluxWind && fluxWindLabel) {
+      btnFluxWind.addEventListener('click', () => {
+        windDirection *= -1;
+        fluxWindLabel.textContent = windDirection > 0 ? 'East' : 'West';
+      });
+    }
+
+    // Play / Pause Button
+    if (btnPlayPause && iconPlayPause) {
+      btnPlayPause.addEventListener('click', () => {
+        isPaused = !isPaused;
+        if (isPaused) {
+          iconPlayPause.className = 'fas fa-play';
+          btnPlayPause.style.background = '#059669';
+        } else {
+          iconPlayPause.className = 'fas fa-pause';
+          btnPlayPause.style.background = '';
+        }
+      });
+    }
+
+    // Canvas Interactive Click & Drag
+    stageCanvas.addEventListener('click', (e) => {
+      const rect = stageCanvas.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const clickY = e.clientY - rect.top;
+
+      if (currentEngine === 'flux') {
+        const c = Math.floor((clickX / stageWidth) * gridCols);
+        const r = Math.floor((clickY / stageHeight) * gridRows);
+        sparkFluxFire(c, r);
+      } else if (currentEngine === 'mesh') {
+        pendulum.omega1 += (Math.random() - 0.5) * 8;
+        pendulum.omega2 += (Math.random() - 0.5) * 12;
+      }
+    });
   }
 
-  // 4. Interactive Simulator Screenshot Toggles (Stylized vs. Raw)
+
+  // ==========================================================================
+  // 5. Interactive Simulator Screenshot Toggles (Stylized vs. Raw)
+  // ==========================================================================
   const mockupWrappers = document.querySelectorAll('.sim-mockup-wrapper');
   
   mockupWrappers.forEach(wrapper => {
     const img = wrapper.querySelector('.sim-mockup');
     const badge = wrapper.querySelector('.mockup-toggle-badge');
+    if (!img || !badge) return;
     const options = badge.querySelectorAll('.badge-option');
     
     const toggleScreenshot = (targetMode) => {
       const currentMode = img.getAttribute('data-state');
       if (currentMode === targetMode) return;
       
-      // Trigger fade out
       img.classList.add('fade-out');
       
       setTimeout(() => {
-        // Swap image source
         if (targetMode === 'raw') {
           img.src = img.getAttribute('data-raw');
           img.setAttribute('data-state', 'raw');
@@ -840,7 +1010,6 @@ document.addEventListener('DOMContentLoaded', () => {
           img.setAttribute('data-state', 'stylized');
         }
         
-        // Update badge UI active state
         options.forEach(opt => {
           if (opt.getAttribute('data-mode') === targetMode) {
             opt.classList.add('active');
@@ -849,21 +1018,18 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
         
-        // Trigger fade in
         img.classList.remove('fade-out');
-      }, 250); // Matches CSS transition timing
+      }, 250);
     };
     
-    // Click on toggle badge options
     options.forEach(opt => {
       opt.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent wrapper double click
+        e.stopPropagation();
         const mode = opt.getAttribute('data-mode');
         toggleScreenshot(mode);
       });
     });
     
-    // Playful interaction: click wrapper anywhere to toggle!
     wrapper.addEventListener('click', () => {
       const currentMode = img.getAttribute('data-state');
       const nextMode = currentMode === 'stylized' ? 'raw' : 'stylized';
@@ -871,47 +1037,43 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 5. Asynchronous Newsletter Form Handler (Mocked Success)
+
+  // ==========================================================================
+  // 6. Newsletter Form
+  // ==========================================================================
   const newsletterForm = document.getElementById('newsletter-form');
   const newsletterEmail = document.getElementById('newsletter-email');
   const newsletterSubmit = document.getElementById('newsletter-submit');
   
-  if (newsletterForm) {
+  if (newsletterForm && newsletterEmail && newsletterSubmit) {
     newsletterForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = newsletterEmail.value;
       
-      // Visual feedback: disabling elements & showing loading state
       newsletterEmail.disabled = true;
       newsletterSubmit.disabled = true;
       newsletterSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
       
       try {
-        // Fire actual network request
         await fetch('https://api.physbox.io/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email })
         });
-        
-        // This will throw/fail since the API doesn't exist yet
       } catch (err) {
-        // Trapping the error silently so the user never sees a network failure
         console.warn('Silent Subscription Trap:', err.message);
       } finally {
-        // Simulate success in the UI after a brief realistic network latency delay
         setTimeout(() => {
           newsletterSubmit.innerHTML = '<i class="fas fa-check"></i>';
-          newsletterSubmit.style.background = 'var(--circuit-color)'; // Glow Green on success
+          newsletterSubmit.style.background = 'var(--circuit-color)';
           newsletterEmail.value = '';
           newsletterEmail.placeholder = 'Subscribed successfully!';
           
-          // Reset button state after a few seconds
           setTimeout(() => {
             newsletterEmail.disabled = false;
             newsletterSubmit.disabled = false;
             newsletterSubmit.innerHTML = '<i class="fas fa-arrow-right"></i>';
-            newsletterSubmit.style.background = ''; // Reverts to primary styling
+            newsletterSubmit.style.background = '';
             newsletterEmail.placeholder = 'Enter your email';
           }, 3500);
         }, 800);
@@ -919,7 +1081,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 6. Interactive Repository Clone Modal Handlers
+
+  // ==========================================================================
+  // 7. Repository Clone Modal Handlers
+  // ==========================================================================
   const repoModal = document.getElementById('repo-modal');
   const openModalBtns = [
     document.getElementById('nav-btn-github'),
@@ -932,13 +1097,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const openRepoModal = (e) => {
     if (e) e.preventDefault();
-    repoModal.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Stop background scrolling
+    if (repoModal) {
+      repoModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
   };
 
   const closeRepoModal = () => {
-    repoModal.classList.remove('active');
-    document.body.style.overflow = ''; // Restore scrolling
+    if (repoModal) {
+      repoModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
   };
 
   openModalBtns.forEach(btn => {
@@ -949,7 +1118,6 @@ document.addEventListener('DOMContentLoaded', () => {
     closeModalBtn.addEventListener('click', closeRepoModal);
   }
 
-  // Close modal when clicking on the overlay background itself
   if (repoModal) {
     repoModal.addEventListener('click', (e) => {
       if (e.target === repoModal) {
@@ -958,23 +1126,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Copy to clipboard with success feedback state
+
+  // ==========================================================================
+  // 8. Clipboard Copy Handlers
+  // ==========================================================================
   const copyBtns = document.querySelectorAll('.btn-copy');
   copyBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const targetId = btn.getAttribute('data-target');
       const input = document.getElementById(targetId);
       if (input) {
-        // Select & Copy
         input.select();
         navigator.clipboard.writeText(input.value).then(() => {
-          // Success feedback animation
           const icon = btn.querySelector('i');
-          icon.className = 'fas fa-check';
-          btn.style.color = 'var(--circuit-color)'; // Green checkmark
+          if (icon) icon.className = 'fas fa-check';
+          btn.style.color = 'var(--circuit-color)';
           
           setTimeout(() => {
-            icon.className = 'far fa-clipboard';
+            if (icon) icon.className = 'far fa-clipboard';
             btn.style.color = '';
           }, 2000);
         }).catch(err => {
@@ -984,7 +1153,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 8. Copy handlers for multi-line code blocks (MCP install & config)
   const copyBlockBtns = document.querySelectorAll('.btn-copy-block');
   copyBlockBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -993,12 +1161,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       navigator.clipboard.writeText(target.textContent.trim()).then(() => {
         const icon = btn.querySelector('i');
-        icon.className = 'fas fa-check';
+        if (icon) icon.className = 'fas fa-check';
         btn.style.color = 'var(--circuit-color)';
         btn.style.borderColor = 'var(--circuit-color)';
 
         setTimeout(() => {
-          icon.className = 'far fa-clipboard';
+          if (icon) icon.className = 'far fa-clipboard';
           btn.style.color = '';
           btn.style.borderColor = '';
         }, 2000);
@@ -1008,7 +1176,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 9. Interactive Category Filter Pills (tutorials.html)
+
+  // ==========================================================================
+  // 9. Category Filter Pills (tutorials.html)
+  // ==========================================================================
   const filterPills = document.querySelectorAll('.filter-pill');
   const articles = {
     all: document.querySelector('.article-main:not(.category-article)'),
@@ -1021,19 +1192,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (filterPills.length > 0) {
     filterPills.forEach(pill => {
       pill.addEventListener('click', () => {
-        // Toggle active pill state
         filterPills.forEach(p => p.classList.remove('active'));
         pill.classList.add('active');
 
-        // Determine active filter
         const filterId = pill.id.replace('filter-', '');
 
-        // Hide all articles first
         Object.values(articles).forEach(art => {
           if (art) art.style.display = 'none';
         });
 
-        // Show target article
         const targetArticle = articles[filterId] || articles.all;
         if (targetArticle) {
           targetArticle.style.display = 'block';
@@ -1044,4 +1211,3 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
-

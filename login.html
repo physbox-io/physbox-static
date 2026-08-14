@@ -14,13 +14,12 @@
       align-items: center;
       justify-content: center;
       padding: 2rem 1rem;
-      background: radial-gradient(circle at 50% 30%, rgba(139, 92, 246, 0.12) 0%, rgba(5, 6, 8, 1) 80%);
+      background: radial-gradient(circle at 50% 20%, #ffffff 0%, #f4f6fa 60%, #eef1f6 100%);
     }
     .auth-card {
-      background: rgba(13, 17, 28, 0.85);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-xl);
       border-radius: 20px;
       padding: 3rem 2.5rem;
       max-width: 440px;
@@ -62,8 +61,8 @@
       background: var(--border-color);
     }
     .early-access-box {
-      background: rgba(139, 92, 246, 0.05);
-      border: 1px dashed rgba(139, 92, 246, 0.25);
+      background: var(--primary-light);
+      border: 1px dashed rgba(79, 70, 229, 0.3);
       border-radius: 12px;
       padding: 1rem;
       color: var(--text-secondary);
@@ -71,7 +70,7 @@
       margin-top: 1.5rem;
     }
     .early-access-box strong {
-      color: #a78bfa;
+      color: var(--primary);
     }
   </style>
 </head>
@@ -79,7 +78,7 @@
   <div class="auth-card-container">
     <div class="auth-card">
       <a href="index.html" class="auth-logo" style="text-decoration: none;">
-        <i class="fa-solid fa-cube text-violet-400" style="color: #8b5cf6;"></i> PhysBox Cloud
+        <i class="fa-solid fa-cube" style="color: var(--primary);"></i> PhysBox Cloud
       </a>
       <p class="auth-subtitle">Single Sign-In for Etch, Circuit & Physics</p>
 
@@ -102,8 +101,8 @@
       <div class="divider">Early Access Sign Up</div>
 
       <form id="early-access-form" onsubmit="handleEarlyAccessForm(event)">
-        <input type="email" id="email-input" placeholder="Enter your email address" required style="width:100%; padding:0.8rem; border-radius:8px; border:1px solid rgba(255,255,255,0.1); background:rgba(0,0,0,0.3); color:#fff; margin-bottom:0.75rem;">
-        <button type="submit" class="btn-primary-glow" style="width:100%; cursor:pointer; padding:0.8rem; border:none; font-size:0.95rem;">
+        <input type="email" id="email-input" placeholder="Enter your email address" required style="width:100%; padding:0.8rem 1rem; border-radius:8px; border:1px solid var(--border-color); background:#f8fafc; color:var(--text-primary); margin-bottom:0.75rem; font-family:var(--font-body); font-size:0.92rem; outline:none;">
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; padding:0.8rem; font-size:0.95rem;">
           Sign Up For Early Access
         </button>
       </form>

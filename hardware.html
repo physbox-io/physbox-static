@@ -31,10 +31,10 @@
 
 <body>
 
-  <!-- Interactive HTML5 Canvas Background -->
+  <!-- Interactive Architectural Canvas Background -->
   <canvas id="canvas-bg"></canvas>
 
-  <!-- Sleek Header Navigation -->
+  <!-- Clean Header Navigation -->
   <header id="main-header">
     <div class="container">
       <a href="index.html" class="logo-link" id="nav-logo-link">
@@ -50,7 +50,7 @@
           <li><a href="tutorials.html" id="nav-link-tutorials">Tutorials</a></li>
           <li><a href="#agent-workflow" id="nav-link-agent-hw">AI Tooling</a></li>
           <li><a href="https://github.com/physbox-io" target="_blank" class="nav-cta" id="nav-btn-github-hw"><i
-                class="fab fa-github"></i> Star on Github</a></li>
+                class="fab fa-github"></i> Star on GitHub</a></li>
         </ul>
       </nav>
     </div>
@@ -99,7 +99,7 @@
 
         <!-- Technical Description -->
         <div class="deepdive-content reveal delay-100">
-          <h3 class="content-title"><i class="fas fa-bolt" style="color: var(--circuit-color, #10b981);"></i> Real-Time UART & WebSocket Bridge</h3>
+          <h3 class="content-title"><i class="fas fa-bolt" style="color: var(--circuit-color);"></i> Real-Time UART & WebSocket Bridge</h3>
           <p class="content-paragraph">
             In traditional SPICE simulation, firmware execution is either completely synthetic or disconnected from physical hardware. PhysBox Volt introduces a dedicated <strong>Serial & WebSocket HIL Bridge</strong> running at up to <strong>460,800 baud</strong>.
           </p>
@@ -111,7 +111,7 @@
             <div class="spec-card">
               <span class="spec-icon"><i class="fas fa-tachometer-alt"></i></span>
               <h4>Lookahead Queue Buffer</h4>
-              <p>Maintains a 40ms simulation step ahead of real time with a 240ms target depth to absorb serial jitter and eliminate audio/pin starvation.</p>
+              <p>Maintains a 40ms simulation step ahead of real time with a 240ms target depth to absorb serial jitter and eliminate pin starvation.</p>
             </div>
             <div class="spec-card">
               <span class="spec-icon"><i class="fas fa-wave-square"></i></span>
@@ -187,7 +187,7 @@ while True:
 
         <!-- Technical Description -->
         <div class="deepdive-content reveal delay-100">
-          <h3 class="content-title"><i class="fas fa-cubes" style="color: var(--physics-color, #06b6d4);"></i> Constructive Solid Geometry in WASM</h3>
+          <h3 class="content-title"><i class="fas fa-cubes" style="color: var(--physics-color);"></i> Constructive Solid Geometry in WASM</h3>
           <p class="content-paragraph">
             PhysBox Mesh embeds a custom-compiled <strong>WASM OpenSCAD compiler</strong> directly inside the browser. Write code live in the node inspector, preview 3D solid geometry in WebGL, and test kinematic constraints without leaving the tab.
           </p>
@@ -245,7 +245,7 @@ while True:
 
         <!-- Technical Description -->
         <div class="deepdive-content reveal delay-100">
-          <h3 class="content-title"><i class="fas fa-vector-square" style="color: #f59e0b;"></i> Sheet Unfolding, Finger Joints & WebSerial</h3>
+          <h3 class="content-title"><i class="fas fa-vector-square" style="color: var(--etch-color);"></i> Sheet Unfolding, Finger Joints & WebSerial</h3>
           <p class="content-paragraph">
             PhysBox Mesh isn't restricted to additive 3D printing. It features a complete subtractive manufacturing engine (`laserCutExporter.ts` and `gcodeExporter.ts`) designed for <strong>Laser Cutters</strong> (LightBurn, Glowforge, LaserGRBL) and <strong>CNC Routers</strong> (GRBL, Marlin, ShopBot).
           </p>
@@ -310,7 +310,7 @@ G0 Z10.00 (Job Complete - WebSerial Stream Ended)</code></pre>
   </section>
 
   <!-- SECTION 3.5: Tested Hardware Matrix -->
-  <section class="deepdive-section" id="hardware-matrix" style="padding: 60px 0;">
+  <section class="deepdive-section alt-bg" id="hardware-matrix">
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Shop Floor Compatibility</span>
@@ -319,39 +319,39 @@ G0 Z10.00 (Job Complete - WebSerial Stream Ended)</code></pre>
       </div>
 
       <div class="table-responsive reveal delay-100" style="overflow-x: auto; margin-top: 2rem;">
-        <table style="width: 100%; border-collapse: collapse; text-align: left; background: rgba(15,23,42,0.5); border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08);">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
           <thead>
-            <tr style="background: rgba(139,92,246,0.15); border-bottom: 1px solid rgba(255,255,255,0.1);">
-              <th style="padding: 1.25rem; font-family: var(--font-header); color: #fff;">Hardware Category</th>
-              <th style="padding: 1.25rem; font-family: var(--font-header); color: #fff;">Supported Models / Controllers</th>
-              <th style="padding: 1.25rem; font-family: var(--font-header); color: #fff;">Baud Rate / Protocol</th>
-              <th style="padding: 1.25rem; font-family: var(--font-header); color: #a78bfa;">PhysBox Target App</th>
+            <tr style="background: #f8fafc; border-bottom: 1px solid var(--border-color);">
+              <th style="padding: 1.15rem 1.25rem; font-family: var(--font-header); color: var(--text-primary);">Hardware Category</th>
+              <th style="padding: 1.15rem 1.25rem; font-family: var(--font-header); color: var(--text-primary);">Supported Models / Controllers</th>
+              <th style="padding: 1.15rem 1.25rem; font-family: var(--font-header); color: var(--text-primary);">Baud Rate / Protocol</th>
+              <th style="padding: 1.15rem 1.25rem; font-family: var(--font-header); color: var(--primary);">PhysBox Target App</th>
             </tr>
           </thead>
-          <tbody style="font-size: 0.95rem; color: var(--text-secondary);">
-            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #fff;"><i class="fas fa-microchip" style="color: var(--circuit-color);"></i> HIL Microcontrollers</td>
+          <tbody style="font-size: 0.92rem; color: var(--text-secondary);">
+            <tr style="border-bottom: 1px solid var(--border-color);">
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: var(--text-primary);"><i class="fas fa-microchip" style="color: var(--circuit-color); margin-right: 0.4rem;"></i> HIL Microcontrollers</td>
               <td style="padding: 1rem 1.25rem;">ESP32, ESP32-S3, Cheap Yellow Display (CYD), Arduino Uno / Nano, Raspberry Pi Pico</td>
               <td style="padding: 1rem 1.25rem;">460,800 baud (WebSerial packed binary arrays)</td>
-              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #34d399;">PhysBox Volt</td>
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #047857;">PhysBox Volt</td>
             </tr>
-            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #fff;"><i class="fas fa-scissors" style="color: var(--etch-color);"></i> CNC & Laser Controllers</td>
+            <tr style="border-bottom: 1px solid var(--border-color);">
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: var(--text-primary);"><i class="fas fa-scissors" style="color: var(--etch-color); margin-right: 0.4rem;"></i> CNC & Laser Controllers</td>
               <td style="padding: 1rem 1.25rem;">GRBL 1.1, FluidNC, grblHAL, CNC Shield v3, LaserGRBL boards</td>
               <td style="padding: 1rem 1.25rem;">115,200 baud (WebSerial G-code streaming)</td>
-              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #fbbf24;">PhysBox Etch</td>
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #b45309;">PhysBox Etch</td>
             </tr>
-            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #fff;"><i class="fas fa-print" style="color: var(--physics-color);"></i> 3D Printers (Slicers)</td>
+            <tr style="border-bottom: 1px solid var(--border-color);">
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: var(--text-primary);"><i class="fas fa-print" style="color: var(--physics-color); margin-right: 0.4rem;"></i> 3D Printers (Slicers)</td>
               <td style="padding: 1rem 1.25rem;">PrusaSlicer, Bambu Studio, Cura, OrcaSlicer</td>
               <td style="padding: 1rem 1.25rem;">1-Click Z-Up Binary STL Export</td>
-              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #22d3ee;">PhysBox Mesh</td>
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #0369a1;">PhysBox Mesh</td>
             </tr>
             <tr>
-              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #fff;"><i class="fas fa-globe"></i> Supported Browsers</td>
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: var(--text-primary);"><i class="fas fa-globe" style="color: var(--primary); margin-right: 0.4rem;"></i> Supported Browsers</td>
               <td style="padding: 1rem 1.25rem;">Google Chrome, Microsoft Edge, Opera, Brave (Chromium engine)</td>
               <td style="padding: 1rem 1.25rem;">WebSerial & WebAssembly Native APIs</td>
-              <td style="padding: 1rem 1.25rem; font-weight: 600; color: #a78bfa;">All PhysBox Apps</td>
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: var(--primary);">All PhysBox Apps</td>
             </tr>
           </tbody>
         </table>
@@ -360,7 +360,7 @@ G0 Z10.00 (Job Complete - WebSerial Stream Ended)</code></pre>
   </section>
 
   <!-- SECTION 4: Agentic AI Closed-Loop Hardware & Print Tooling -->
-  <section class="deepdive-section alt-bg" id="agent-workflow">
+  <section class="deepdive-section" id="agent-workflow">
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Autonomous Agent Execution</span>
