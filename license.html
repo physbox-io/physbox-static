@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhysBox Public License (PPPL-1.0) | Terms & Disclaimers</title>
+
+  <!-- SEO Meta Tags -->
+  <link rel="canonical" href="https://physbox.io/license.html">
+  <meta name="description"
+    content="PhysBox Permissive Public License (PPPL-1.0) terms, commercial use permissions, and machine safety disclaimers for PhysBox Volt, Mesh, Etch, and Flux.">
+  <meta name="keywords"
+    content="PhysBox license, PPPL-1.0, open source, commercial use, CNC disclaimer, laser cutter disclaimer, circuit simulator license">
+  <meta name="author" content="physbox.io">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://physbox.io/license.html">
+  <meta property="og:title" content="PhysBox Permissive Public License (PPPL-1.0)">
+  <meta property="og:description"
+    content="Permissive terms for personal, research, and commercial usage across the PhysBox simulation suite.">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- FontAwesome for Premium Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .license-container {
+      max-width: 900px;
+      margin: 120px auto 80px;
+      padding: 0 24px;
+    }
+    .license-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .license-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #10b981;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .license-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .license-subtitle {
+      color: var(--text-muted, #94a3b8);
+      font-size: 1.1rem;
+    }
+    .license-card {
+      background: var(--surface-card, rgba(15, 23, 42, 0.7));
+      border: 1px solid var(--border, rgba(255, 255, 255, 0.1));
+      border-radius: 16px;
+      padding: 36px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+    }
+    .license-pre {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--text-main, #e2e8f0);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-bottom: 36px;
+    }
+    .summary-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .summary-box h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .summary-box p {
+      font-size: 12px;
+      color: var(--text-muted, #94a3b8);
+      line-height: 1.5;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Interactive Architectural Canvas Background -->
+  <canvas id="canvas-bg"></canvas>
+
+  <!-- Clean Header Navigation -->
+  <header id="main-header">
+    <div class="container">
+      <a href="index.html" class="logo-link" id="nav-logo-link">
+        <img src="assets/physbox_logo.png" alt="PhysBox Logo" class="logo-img">
+        <span class="logo-text">physbox<span class="logo-dot">.</span>io</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html#suite" id="nav-link-main-suite">Simulators</a></li>
+          <li><a href="hardware.html" id="nav-link-hardware">HIL & Fabrication</a></li>
+          <li><a href="tutorials.html" id="nav-link-tutorials">Tutorials</a></li>
+          <li><a href="index.html#ai-models" id="nav-link-ai">AI Models</a></li>
+          <li><a href="index.html#mcp" id="nav-link-mcp">MCP</a></li>
+          <li><a href="https://github.com/physbox-io" target="_blank" class="nav-cta" id="nav-btn-github"><i
+                class="fab fa-github"></i> GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="license-container">
+    <div class="license-header">
+      <div class="license-badge"><i class="fas fa-scale-balanced"></i> Permissive Software License</div>
+      <h1 class="license-title">PhysBox Public License</h1>
+      <p class="license-subtitle">Governing PhysBox Volt, Mesh, Etch, and Flux</p>
+    </div>
+
+    <!-- Quick Highlights -->
+    <div class="summary-grid">
+      <div class="summary-box">
+        <h4 style="color: #10b981;"><i class="fas fa-check-circle"></i> Commercial Use Allowed</h4>
+        <p>You can freely use outputs (milled PCBs, laser cuts, 3D prints, G-code, CAD models) for commercial products and sale.</p>
+      </div>
+      <div class="summary-box">
+        <h4 style="color: #38bdf8;"><i class="fas fa-id-card"></i> Attribution Required</h4>
+        <p>Retain the copyright notice and license text in project documentation and distributions.</p>
+      </div>
+      <div class="summary-box">
+        <h4 style="color: #f59e0b;"><i class="fas fa-code-fork"></i> No Standalone Forking</h4>
+        <p>The core software platform cannot be re-hosted, re-branded, or redistributed as a competing standalone service.</p>
+      </div>
+      <div class="summary-box">
+        <h4 style="color: #f43f5e;"><i class="fas fa-shield-halved"></i> Machine Safety Disclaimer</h4>
+        <p>Strict limitation of liability for CNC crashes, laser fires, thermal overloads, or physical operator hazards.</p>
+      </div>
+    </div>
+
+    <div class="license-card">
+      <pre class="license-pre">PhysBox Permissive Public License (PPPL-1.0)
+Copyright (c) 2026 PhysBox Contributors and Authors. All Rights Reserved.
+
+================================================================================
+1. PERMISSION AND SCOPE
+================================================================================
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to access,
+execute, and use the Software for personal, educational, research, and commercial
+purposes, including the generation, export, and commercial utilization of output
+artifacts (such as schematics, simulation results, 3D meshes, CAD models, STL files,
+SVG paths, PCB layouts, toolpaths, CNC G-code, and laser cutter instructions).
+
+================================================================================
+2. PERMITTED COMMERCIAL USE OF OUTPUTS
+================================================================================
+You are fully permitted to:
+(a) Use the Software to design, prototype, simulate, and manufacture physical or
+    digital products for commercial sale or distribution.
+(b) Sell, distribute, and monetize any physical workpieces, milled PCBs, laser-cut
+    materials, 3D printed parts, or digital designs produced using the Software.
+
+================================================================================
+3. ATTRIBUTION & RESTRICTIONS ON SOFTWARE FORKING / REDISTRIBUTION
+================================================================================
+(a) Attribution: The above copyright notice and this permission notice must be
+    retained in all copies or substantial portions of the Software, documentation,
+    and derivative materials.
+(b) No Standalone Forking or Hosted Service Redistribution: You may NOT redistribute,
+    sublicense, re-brand, or host the Software or its source code as a standalone,
+    competing software product, SaaS platform, web service, or forked distribution
+    without explicit prior written authorization from the copyright holders.
+(c) Brand Protection: The names "PhysBox", "Etch", "Volt", "Mesh", "Flux",
+    or the names of their contributors may not be used to endorse or promote
+    third-party products without specific prior written permission.
+
+================================================================================
+4. STRICT DISCLAIMER OF LIABILITY & PHYSICAL MACHINERY / HARDWARE WARNING
+================================================================================
+THE SOFTWARE, PHYSICAL/ELECTRICAL SIMULATION ENGINES, GEOMETRY ALGORITHMS,
+G-CODE GENERATORS, CAM TOOLPATH CALCULATORS, AND MACHINE CONTROLLERS ARE
+PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE, ACCURACY, TITLE, OR NON-INFRINGEMENT.
+
+IN NO EVENT SHALL THE AUTHORS, COPYRIGHT HOLDERS, OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, PUNITIVE, OR CONSEQUENTIAL
+DAMAGES OR LOSSES OF ANY KIND (INCLUDING, BUT NOT LIMITED TO:
+- CNC MACHINE DAMAGE, SPINDLE CRASHES, TOOL BREAKAGE, OR STEPPER MOTOR FAILURE;
+- LASER HEAD DAMAGE, OPTICAL DAMAGE, MATERIAL FIRE, BURNING, OR FUME EXPOSURE;
+- ELECTRICAL COMPONENT DESTRUCTION, SHORT CIRCUITS, THERMAL OVERLOAD, OR FIRE;
+- LOSS OF USE, LOSS OF DATA, LOSS OF WORKPIECES, LOSS OF PROFITS, OR BUSINESS
+  INTERRUPTION;
+- BODILY INJURY, EYE DAMAGE, OR PERSONAL HARM RESULTING FROM OPERATION OF CNC
+  ROUTERS, LASER CUTTERS, 3D PRINTERS, MACHINE TOOLS, OR HIGH-VOLTAGE CIRCUITS)
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
+THE USE OF THIS SOFTWARE OR ITS GENERATED TOOLPATHS, G-CODE, ELECTRONIC NETLISTS,
+OR TELEMETRY CONTROLS, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+OPERATOR RESPONSIBILITY:
+Operating CNC machinery, laser cutters, power tools, and electronic circuits involves
+inherent physical risks. The operator assumes full and sole responsibility for verifying
+safe machine clearance, travel limits, feeds, speeds, clamping, laser enclosure safety,
+ventilation, personal protective equipment (PPE), and electrical isolation before
+initiating any physical machining, cutting, or powering on any circuit.</pre>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">physbox<span style="color: var(--primary, #38bdf8);">.</span>io</div>
+          <p class="footer-desc">A premium scientific and craft sandbox suite. Open-source, browser-based, high-fidelity simulators for engineers, students, and makers.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Simulators & Tools</h4>
+          <ul>
+            <li><a href="https://volt.physbox.io">PhysBox: Volt</a></li>
+            <li><a href="https://mesh.physbox.io">PhysBox: Mesh</a></li>
+            <li><a href="https://etch.physbox.io">PhysBox: Etch</a></li>
+            <li><a href="https://flux.physbox.io">PhysBox: Flux</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Developer & Learn</h4>
+          <ul>
+            <li><a href="tutorials.html"><i class="fas fa-graduation-cap"></i> Tutorials & Guides</a></li>
+            <li><a href="hardware.html"><i class="fas fa-microchip"></i> HIL & Physical Fabrication</a></li>
+            <li><a href="https://github.com/physbox-io" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+            <li><a href="license.html"><i class="fas fa-scale-balanced"></i> PPPL License</a></li>
+          </ul>
+        </div>
+        <div class="footer-newsletter">
+          <h4>Stay Updated</h4>
+          <p>Receive updates about new preset libraries and simulator components.</p>
+          <form class="newsletter-form" id="newsletter-form-lic">
+            <input type="email" placeholder="Enter your email" class="newsletter-input" required id="newsletter-email-lic">
+            <button type="submit" class="newsletter-btn" id="newsletter-submit-lic"><i class="fas fa-arrow-right"></i></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 physbox.io. Licensed under PPPL-1.0. Built for the modern web.</p>
+        <div class="footer-social">
+          <a href="https://github.com/physbox-io" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+
+</html>
