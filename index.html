@@ -9,7 +9,7 @@
   <!-- SEO Meta Tags -->
   <link rel="canonical" href="https://physbox.io/">
   <meta name="description"
-    content="Explore PhysBox, a powerful suite of open-source, browser-based simulation tools. High-fidelity electronics, MuJoCo 3D physics, OpenSCAD 3D printing, and hardware-in-the-loop microcontrollers—plus 53 Model Context Protocol tools so AI agents can drive every simulator. 100% local and free.">
+    content="Explore PhysBox, a powerful suite of open-source, browser-based simulation tools. High-fidelity electronics, MuJoCo 3D physics, OpenSCAD 3D printing, and hardware-in-the-loop microcontrollers—plus 81 Model Context Protocol tools so AI agents can drive every simulator. 100% local and free.">
   <meta name="keywords"
     content="simulation, electronics simulator, WASM physics, MuJoCo, cellular automata, Runge Kutta, open source simulator, ngspice wasm, circuit sandbox, MCP server, Model Context Protocol, AI agent tools, world model, OpenSCAD, hardware in the loop, laser cutting, CNC milling, vector design">
   <meta name="author" content="physbox.io">
@@ -246,7 +246,7 @@
         <div class="ribbon-item">
           <div class="ribbon-icon ribbon-flux"><i class="fas fa-robot"></i></div>
           <div>
-            <div class="ribbon-title">53 Native MCP Tools</div>
+            <div class="ribbon-title">81 Native MCP Tools</div>
             <div class="ribbon-subtitle">Direct agent control via Model Context Protocol</div>
           </div>
         </div>
@@ -449,6 +449,7 @@
               <li><strong>Bed-Accurate Vector Canvas & Typography Vectorization:</strong> Real millimeter workspace with bezier node editing, mandala radial symmetry, and Google Fonts picker with automatic outline conversion so text cuts crisply without missing paths.</li>
               <li><strong>Intelligent Speeds, Feeds & Safety Warnings:</strong> Automatically derives spindle RPM, feed speeds, and pass stepdowns for Plywood, MDF, Hardwood, and Acrylic with live safety warnings for charring and carbide bit deflection.</li>
               <li><strong>Touch-Plate Z Probing & Bed Heightmaps:</strong> Zero work coordinates via <code>G10 L20</code>, probe Z zero with touch plates, and run 3x3 bed heightmaps so toolpaths follow warped stock or unlevel spoilboards seamlessly.</li>
+              <li><strong>Raster Import & Clip Art Library:</strong> Bring a photo or logo in as traced vector, halftone dots, or engrave scanlines &mdash; or as a greyscale shade layer where darkness drives cut depth, so pitch, angle and depth stay editable afterwards. 40 built-in symbols across shapes, nature, tech and ornaments place at true millimeter size.</li>
             </ul>
             <div class="sim-footer">
               <a href="https://etch.physbox.io" class="btn btn-primary" id="btn-launch-etch"><i
@@ -573,7 +574,7 @@
             Built entirely on client-side WebAssembly, our simulators enable AI agents to bridge the gap between abstract reasoning and concrete physical execution. Every engine ships a first-class agent interface over the Model Context Protocol:
           </p>
           <ul class="ai-bullets">
-            <li><strong>Native MCP Server, Not Brittle Scraping:</strong> <code>physbox-mcp</code> exposes the simulators as <strong>53 typed Model Context Protocol tools</strong> over a local WebSocket relay. Agents call <code>physics_build_scene</code> or <code>circuit_run_sim</code> directly.</li>
+            <li><strong>Native MCP Server, Not Brittle Scraping:</strong> <code>physbox-mcp</code> exposes the simulators as <strong>81 typed Model Context Protocol tools</strong> over a local WebSocket relay. Agents call <code>physics_build_scene</code> or <code>circuit_run_sim</code> directly.</li>
             <li><strong>Procedural CAD & 3D Printing Generation:</strong> AI agents write and refactor OpenSCAD code to create custom brackets, gears, and enclosures, test structural stability in MuJoCo, and output 3D-printable STL files.</li>
             <li><strong>Real-World Hardware & Telemetry (HIL):</strong> Using WebSocket telemetry, serial HIL bridges, and general IoT webhooks, agents stream hardware pin states, read sensor values, and drive physical microcontrollers directly.</li>
             <li><strong>Iterative Design Self-Correction:</strong> Agents observe physical bounds and signal waveforms at 60fps, self-correcting schematic nets and CAD parameters until physical and functional requirements are met.</li>
@@ -588,8 +589,8 @@
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Model Context Protocol</span>
-        <h2 class="section-title">77 Tools. One <code class="title-code">pip install</code>.</h2>
-        <p class="section-subtitle">PhysBox: MCP is a companion server that puts every simulator on the other end of a tool call. Commands travel as JSON over a local WebSocket relay straight into the running browser tab.</p>
+        <h2 class="section-title">81 Tools. One <code class="title-code">pip install</code>.</h2>
+        <p class="section-subtitle">PhysBox: MCP is a companion server that puts every simulator on the other end of a tool call. Commands travel as JSON over a local WebSocket relay straight into the running browser tab. Seventy-nine are simulator tools; two more — <code>detect_apps</code> and <code>send_command</code> — work across all of them.</p>
       </div>
 
       <div class="mcp-counts reveal">
@@ -604,9 +605,9 @@
           <span class="mcp-count-desc">Scene building, SCAD validation, headless rollouts, STL export</span>
         </div>
         <div class="mcp-count-card etch-count">
-          <span class="mcp-count-num">11</span>
+          <span class="mcp-count-num">13</span>
           <span class="mcp-count-label">Etch tools</span>
-          <span class="mcp-count-desc">SVG import, feeds & speeds, Z probing, bed heightmaps, G-code</span>
+          <span class="mcp-count-desc">SVG &amp; raster import, clip art, presets, machine capabilities, G-code</span>
         </div>
         <div class="mcp-count-card process-count">
           <span class="mcp-count-num">16</span>
@@ -766,7 +767,7 @@
               <td style="padding: 1rem 1.25rem; font-weight: 600; color: var(--text-primary);">AI Agent Integration</td>
               <td style="padding: 1rem 1.25rem; color: #dc2626;"><i class="fas fa-xmark"></i> None (Manual UI only)</td>
               <td style="padding: 1rem 1.25rem; color: #d97706;"><i class="fas fa-triangle-exclamation"></i> Heavy Python Plugins</td>
-              <td style="padding: 1rem 1.25rem; color: #059669; font-weight: 600; background: rgba(79, 70, 229, 0.04);"><i class="fas fa-check-circle"></i> 53 Native MCP Tools (AI-Native)</td>
+              <td style="padding: 1rem 1.25rem; color: #059669; font-weight: 600; background: rgba(79, 70, 229, 0.04);"><i class="fas fa-check-circle"></i> 81 Native MCP Tools (AI-Native)</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--border-color);">
               <td style="padding: 1rem 1.25rem; font-weight: 600; color: var(--text-primary);">World Model Grounding</td>
@@ -804,7 +805,7 @@
           </h4>
           <ul style="font-size: 0.9rem; color: #065f46; line-height: 1.6; list-style: disc; padding-left: 1.25rem;">
             <li>Zero friction instant web access with full WebAssembly simulation fidelity.</li>
-            <li>Native 53 MCP tools specifically built as physical world models for AI agents.</li>
+            <li>Native 81 MCP tools specifically built as physical world models for AI agents.</li>
             <li>Bi-directional WebSerial hardware communication for real MCU & CNC controllers.</li>
             <li>100% offline-capable and private—your files never touch external cloud servers.</li>
           </ul>

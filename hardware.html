@@ -365,7 +365,7 @@ G0 Z10.00 (Job Complete - WebSerial Stream Ended)</code></pre>
       <div class="section-header reveal">
         <span class="section-tag">Autonomous Agent Execution</span>
         <h2 class="section-title">AI Agents Driving Fabrication & HIL</h2>
-        <p class="section-subtitle">Through 53 Model Context Protocol (MCP) tools, AI agents like Claude Code and Gemini Antigravity inspect physical tolerances, generate CAD models, unfold 2D sheet panels, and test circuit telemetry autonomously.</p>
+        <p class="section-subtitle">Through 81 Model Context Protocol (MCP) tools, AI agents like Claude Code and Gemini Antigravity inspect physical tolerances, generate CAD models, unfold 2D sheet panels, and test circuit telemetry autonomously.</p>
       </div>
 
       <div class="ai-workflow-grid reveal">
@@ -384,13 +384,13 @@ G0 Z10.00 (Job Complete - WebSerial Stream Ended)</code></pre>
         <div class="workflow-card">
           <div class="step-num">3</div>
           <h4>Unfold & Nest 2D Panels</h4>
-          <p>Agents trigger <code>physics_export_lasercut</code> to auto-generate 2D finger joints, kerf compensation, and SVG sheet nesting layouts.</p>
+          <p>Mesh unfolds the model into finger-jointed, kerf-compensated 2D panels, and agents hand the sheet to Etch with <code>etch_set_svg</code> to lay it out for cutting.</p>
         </div>
 
         <div class="workflow-card">
           <div class="step-num">4</div>
           <h4>Stream G-Code / HIL</h4>
-          <p>Agents generate G-code via <code>physics_generate_gcode</code> and verify microsecond circuit responses via <code>circuit_get_waveforms</code>.</p>
+          <p>Agents generate G-code via <code>etch_generate_gcode</code> and verify microsecond circuit responses via <code>circuit_get_waveforms</code>.</p>
         </div>
       </div>
 
