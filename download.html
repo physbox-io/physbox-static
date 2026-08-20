@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download PhysBox Native | PhysBox Pro</title>
+
+  <!-- This page is gated: it is only useful to a signed-in account, so it is
+       kept out of search results rather than indexed as an empty sign-in wall. -->
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://physbox.io/download.html">
+  <meta name="description" content="Download the PhysBox Native desktop app for Linux and Windows. Available to signed-in PhysBox Pro accounts.">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- FontAwesome for Premium Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    .gate-section { padding: 8rem 0 5rem; }
+
+    /* --- Loading / signed-out gate --- */
+    .gate-card {
+      max-width: 480px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-xl);
+      border-radius: 20px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+    }
+    .gate-lock {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .gate-title {
+      font-family: var(--font-header);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.3px;
+    }
+    .gate-desc {
+      color: var(--text-secondary);
+      font-size: 0.97rem;
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+    }
+    .gate-btn-wrap { display: flex; justify-content: center; min-height: 44px; }
+    .gate-error {
+      display: none;
+      color: #b91c1c;
+      background: #fef2f2;
+      border: 1px solid rgba(185, 28, 28, 0.2);
+      border-radius: 10px;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.86rem;
+      margin-top: 1.25rem;
+      text-align: left;
+    }
+
+    /* --- Signed-in account bar --- */
+    .account-bar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      box-shadow: var(--shadow-sm);
+      padding: 1rem 1.25rem;
+      margin-bottom: 3rem;
+    }
+    .account-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-family: var(--font-header);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .account-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .account-meta { flex: 1; min-width: 180px; }
+    .account-name { font-weight: 600; color: var(--text-primary); font-size: 0.95rem; }
+    .account-email { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); }
+    .tier-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-header);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid rgba(79, 70, 229, 0.25);
+    }
+    .btn-signout {
+      background: none;
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      padding: 0.5rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    .btn-signout:hover { border-color: var(--border-color-hover); color: var(--text-primary); }
+
+    /* --- Download cards --- */
+    .download-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .download-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      box-shadow: var(--shadow-md);
+      padding: 2rem 1.75rem;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .download-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-color-hover);
+    }
+    .download-os-icon {
+      font-size: 2.4rem;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .download-os-name {
+      font-family: var(--font-header);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.35rem;
+    }
+    .download-file {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      word-break: break-all;
+    }
+    .download-req {
+      font-size: 0.83rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-top: 1rem;
+    }
+    .download-note {
+      display: none;
+      margin-top: 0.9rem;
+      font-size: 0.82rem;
+      color: var(--etch-dark);
+      background: var(--etch-light);
+      border: 1px solid rgba(217, 119, 6, 0.25);
+      border-radius: 10px;
+      padding: 0.6rem 0.8rem;
+    }
+    .suggested-tag {
+      /* Rendered in both cards but only made visible in the matching one, so
+         the pair stays vertically aligned either way. */
+      display: inline-block;
+      visibility: hidden;
+      font-family: var(--font-header);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--circuit-color);
+      background: var(--circuit-light);
+      border-radius: 999px;
+      padding: 0.25rem 0.6rem;
+      margin-bottom: 0.75rem;
+    }
+    .suggested-tag.visible { visibility: visible; }
+    .install-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.75rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .install-block h3 {
+      font-family: var(--font-header);
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+    .install-block pre {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 1rem;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.83rem;
+      color: var(--text-primary);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .install-block pre:last-child { margin-bottom: 0; }
+  </style>
+</head>
+
+<body>
+
+  <!-- Interactive Architectural Canvas Background -->
+  <canvas id="canvas-bg"></canvas>
+
+  <!-- Clean Header Navigation -->
+  <header id="main-header">
+    <div class="container">
+      <a href="index.html" class="logo-link" id="nav-logo-link">
+        <img src="assets/physbox_logo.png" alt="PhysBox Logo" class="logo-img">
+        <span class="logo-text">physbox<span class="logo-dot">.</span>io</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html#suite" id="nav-link-main-suite">Main Suite</a></li>
+          <li><a href="pro.html" id="nav-link-pro">PhysBox Pro</a></li>
+          <li><a href="hardware.html" id="nav-link-hardware">HIL &amp; Fabrication</a></li>
+          <li><a href="tutorials.html" id="nav-link-tutorials">Tutorials</a></li>
+          <li id="nav-account"></li>
+          <li><a href="https://github.com/physbox-io" target="_blank" class="nav-cta" id="nav-btn-github-dl"><i class="fab fa-github"></i> Star on GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="gate-section">
+    <div class="container">
+
+      <!-- State 1: verifying the stored session against the API -->
+      <div id="state-loading" class="gate-card">
+        <span class="gate-lock"><i class="fas fa-circle-notch fa-spin"></i></span>
+        <h1 class="gate-title">Checking your account&hellip;</h1>
+        <p class="gate-desc">One moment while we verify your PhysBox session.</p>
+      </div>
+
+      <!-- State 2: signed out -->
+      <div id="state-signed-out" class="gate-card" style="display: none;">
+        <span class="gate-lock"><i class="fas fa-lock"></i></span>
+        <h1 class="gate-title">Members only</h1>
+        <p class="gate-desc">
+          The <strong>PhysBox Native</strong> desktop app is available to signed-in PhysBox accounts. Sign in with Google &mdash; the same account you use in Volt, Mesh, Etch and Flux &mdash; to get the Linux and Windows builds.
+        </p>
+        <div class="gate-btn-wrap" id="google-signin-button"></div>
+        <p class="gate-error" id="gate-error" role="alert"></p>
+        <p style="margin-top: 1.5rem; font-size: 0.87rem; color: var(--text-muted);">
+          Not sure what you get? <a href="pro.html" style="color: var(--primary); font-weight: 600;">Read about PhysBox Pro</a>.
+        </p>
+      </div>
+
+      <!-- State 3: signed in -->
+      <div id="state-signed-in" style="display: none;">
+
+        <div class="account-bar">
+          <span class="account-avatar" id="account-avatar">?</span>
+          <div class="account-meta">
+            <div class="account-name" id="account-name">PhysBox account</div>
+            <div class="account-email" id="account-email"></div>
+          </div>
+          <span class="tier-badge" id="account-tier"><i class="fas fa-sparkles"></i> <span id="account-tier-text">Early Access</span></span>
+          <button type="button" class="btn-signout" id="btn-signout"><i class="fas fa-arrow-right-from-bracket"></i> Sign out</button>
+        </div>
+
+        <div class="section-header">
+          <span class="section-tag">PhysBox Pro Downloads</span>
+          <h1 class="section-title">PhysBox Native <span style="font-family: var(--font-mono); font-size: 0.55em; color: var(--text-muted); vertical-align: middle;">v1.0.0</span></h1>
+          <p class="section-subtitle">The C++20 desktop build of Mesh &mdash; MuJoCo running natively, a GPU-accelerated viewport with 4x multisampled anti-aliasing, and every feature of the Mesh web app. Available for Linux and Windows.</p>
+        </div>
+
+        <div class="download-grid">
+          <div class="download-card" id="card-linux">
+            <span class="suggested-tag" id="suggest-linux">Detected on this machine</span>
+            <i class="fab fa-linux download-os-icon"></i>
+            <div class="download-os-name">Linux</div>
+            <div class="download-file">PhysBox-Native-1.0.0-x86_64.AppImage</div>
+            <a href="#" class="btn btn-primary download-btn" data-os="linux" id="btn-download-linux" style="justify-content: center; width: 100%;">
+              <i class="fas fa-download"></i> Download for Linux
+            </a>
+            <p class="download-note" id="note-linux"></p>
+            <p class="download-req">
+              x86-64 with <strong>AVX2</strong> (Haswell, 2013 or newer). Needs a GL 3.3-capable driver and the usual X11 runtime libraries.
+            </p>
+          </div>
+
+          <div class="download-card" id="card-windows">
+            <span class="suggested-tag" id="suggest-windows">Detected on this machine</span>
+            <i class="fab fa-windows download-os-icon"></i>
+            <div class="download-os-name">Windows</div>
+            <div class="download-file">PhysBox-Native-1.0.0-x64-Setup.exe</div>
+            <a href="#" class="btn btn-primary download-btn" data-os="windows" id="btn-download-windows" style="justify-content: center; width: 100%;">
+              <i class="fas fa-download"></i> Download for Windows
+            </a>
+            <p class="download-note" id="note-windows"></p>
+            <p class="download-req">
+              Windows 10 or 11, x64 with <strong>AVX2</strong> (Haswell, 2013 or newer). TLS is handled by Schannel, so there is nothing else to install.
+            </p>
+          </div>
+        </div>
+
+        <p style="text-align: center; color: var(--text-muted); font-size: 0.88rem; margin-bottom: 3rem;">
+          <i class="fab fa-apple"></i> macOS is not currently supported. Prefer to build it yourself? The desktop source builds with CMake on both platforms.
+        </p>
+
+        <div class="install-block">
+          <h3><i class="fas fa-terminal"></i> After downloading</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65; margin-bottom: 1rem;">
+            <strong>Linux</strong> &mdash; mark the AppImage executable and run it:
+          </p>
+          <pre><code>chmod +x PhysBox-Native-1.0.0-x86_64.AppImage
+./PhysBox-Native-1.0.0-x86_64.AppImage</code></pre>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65; margin-bottom: 1rem;">
+            <strong>Windows</strong> &mdash; run the installer and launch <em>PhysBox Native</em> from the Start menu. SmartScreen may warn on first run while the build's signature reputation is still new.
+          </p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65;">
+            Sign in from the app's account menu to pick up your cloud saves. Copilot keys and the theme live in
+            <code style="font-family: var(--font-mono); font-size: 0.85em;">~/.config/physbox-native/settings.json</code>.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="padding: 2rem 0;">
+    <div class="container">
+      <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+        <p class="footer-copy">&copy; 2026 physbox.io. Licensed under PPPL-1.0. Built for the modern web.</p>
+        <div class="footer-social">
+          <a href="https://github.com/physbox-io" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+  <script src="auth.js"></script>
+  <script>
+    /**
+     * Placeholder build URLs.
+     *
+     * TODO: replace each null with the real artifact URL once the 1.0.0 builds
+     * are published. While a value is null the button stays in place but
+     * reports that the build is not out yet, rather than sending anyone to a
+     * 404 that looks like a broken download.
+     */
+    const DOWNLOADS = {
+      linux: null,   // e.g. 'https://downloads.physbox.io/native/1.0.0/PhysBox-Native-1.0.0-x86_64.AppImage'
+      windows: null  // e.g. 'https://downloads.physbox.io/native/1.0.0/PhysBox-Native-1.0.0-x64-Setup.exe'
+    };
+
+    const loadingEl = document.getElementById('state-loading');
+    const signedOutEl = document.getElementById('state-signed-out');
+    const signedInEl = document.getElementById('state-signed-in');
+    const errorEl = document.getElementById('gate-error');
+
+    function showState(el) {
+      [loadingEl, signedOutEl, signedInEl].forEach(node => {
+        node.style.display = node === el ? (node === signedInEl ? 'block' : '') : 'none';
+      });
+    }
+
+    function showError(message) {
+      errorEl.textContent = message;
+      errorEl.style.display = 'block';
+    }
+
+    function initials(user) {
+      const source = (user.name || user.email || '?').trim();
+      return source.charAt(0).toUpperCase();
+    }
+
+    function showSignedIn(user) {
+      document.getElementById('account-name').textContent = user.name || 'PhysBox account';
+      document.getElementById('account-email').textContent = user.email || '';
+
+      const avatar = document.getElementById('account-avatar');
+      if (user.picture) {
+        const img = document.createElement('img');
+        img.src = user.picture;
+        img.alt = '';
+        avatar.replaceChildren(img);
+      } else {
+        avatar.textContent = initials(user);
+      }
+
+      const isActive = user.subscription_tier === 'active';
+      document.getElementById('account-tier-text').textContent = isActive ? 'Pro' : 'Early Access';
+
+      showState(signedInEl);
+      highlightPlatform();
+    }
+
+    /** Nudges the visitor toward the build that matches the machine they are on. */
+    function highlightPlatform() {
+      const ua = navigator.userAgent;
+      const os = /Windows/i.test(ua) ? 'windows' : (/Linux|X11|CrOS/i.test(ua) && !/Android/i.test(ua)) ? 'linux' : null;
+      if (os) document.getElementById('suggest-' + os).classList.add('visible');
+    }
+
+    document.querySelectorAll('.download-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const os = btn.dataset.os;
+        const url = DOWNLOADS[os];
+        if (url) {
+          window.location.href = url;
+          return;
+        }
+        e.preventDefault();
+        const note = document.getElementById('note-' + os);
+        note.textContent = 'This build is being packaged — the download link is not live yet. Your account is on the list, and we will email you the moment it ships.';
+        note.style.display = 'block';
+      });
+    });
+
+    document.getElementById('btn-signout').addEventListener('click', () => {
+      PhysBoxAuth.signOut();
+      window.location.reload();
+    });
+
+    function renderSignIn() {
+      showState(signedOutEl);
+      PhysBoxAuth.renderGoogleSignInButton(
+        document.getElementById('google-signin-button'),
+        async (credential) => {
+          errorEl.style.display = 'none';
+          try {
+            const data = await PhysBoxAuth.loginWithGoogle(credential);
+            showSignedIn(data.user);
+          } catch (err) {
+            showError(err.message || 'Sign-in failed. Please try again.');
+          }
+        },
+        showError
+      );
+    }
+
+    // Verify the stored token against the API rather than trusting localStorage
+    // on its own — a stale or revoked token should land on the sign-in gate.
+    PhysBoxAuth.fetchCurrentUser().then(user => {
+      if (user) showSignedIn(user);
+      else renderSignIn();
+    }).catch(() => renderSignIn());
+  </script>
+</body>
+
+</html>

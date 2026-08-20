@@ -2655,3 +2655,141 @@ footer {
     font-size: 1.85rem;
   }
 }
+
+/* ==========================================================================
+   Shared Nav Account Control (rendered by auth.js into #nav-account)
+   ========================================================================== */
+
+.nav-account {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Both the signed-out link and the signed-in avatar share this footprint, so
+   the header does not shift as the session resolves. */
+.nav-account-btn {
+  width: 36px;
+  height: 36px;
+  padding: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50% !important;
+  flex-shrink: 0;
+}
+
+.nav-account-avatar {
+  border: 1px solid rgba(79, 70, 229, 0.25);
+  background: var(--primary-light);
+  color: var(--primary);
+  font-family: var(--font-header);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.nav-account-avatar:hover,
+.nav-account.open .nav-account-avatar {
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+}
+
+.nav-account-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nav-account-menu {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  right: 0;
+  min-width: 232px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  box-shadow: var(--shadow-xl);
+  padding: 0.5rem;
+  z-index: 1200;
+  display: none;
+}
+
+.nav-account.open .nav-account-menu {
+  display: block;
+}
+
+.nav-account-head {
+  padding: 0.65rem 0.75rem 0.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 0.4rem;
+}
+
+.nav-account-name {
+  font-family: var(--font-header);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.nav-account-email {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  overflow-wrap: anywhere;
+}
+
+.nav-account-tier {
+  display: inline-block;
+  font-family: var(--font-header);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--primary);
+  background: var(--primary-light);
+  border: 1px solid rgba(79, 70, 229, 0.25);
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+}
+
+.nav-account-menu a,
+.nav-account-menu .nav-account-signout {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: none;
+  background: none;
+  border-radius: 9px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-align: left;
+  cursor: pointer;
+}
+
+.nav-account-menu a i,
+.nav-account-menu .nav-account-signout i {
+  width: 16px;
+  color: var(--text-tertiary);
+}
+
+.nav-account-menu a:hover,
+.nav-account-menu .nav-account-signout:hover {
+  background: var(--bg-surface-subtle);
+  color: var(--text-primary);
+}
+
+.nav-account-menu .nav-account-signout {
+  margin-top: 0.3rem;
+  border-top: 1px solid var(--border-subtle);
+  border-radius: 0 0 9px 9px;
+}

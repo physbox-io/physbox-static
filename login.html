@@ -6,7 +6,6 @@
   <title>Sign In | PhysBox Pro</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     .auth-card-container {
       min-height: 100vh;
@@ -80,23 +79,13 @@
       <a href="index.html" class="auth-logo" style="text-decoration: none;">
         <i class="fa-solid fa-cube" style="color: var(--primary);"></i> PhysBox Pro
       </a>
-      <p class="auth-subtitle">Single Sign-In for Etch, Circuit & Physics</p>
+      <p class="auth-subtitle">Single sign-in for Volt, Mesh, Etch &amp; Flux</p>
 
       <div class="google-btn-wrapper">
-        <div id="g_id_onload"
-             data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
-             data-callback="handleCredentialResponse"
-             data-auto_prompt="false">
-        </div>
-        <div class="g_id_signin"
-             data-type="standard"
-             data-shape="rectangular"
-             data-theme="filled_blue"
-             data-text="signin_with"
-             data-size="large"
-             data-logo_alignment="left">
-        </div>
+        <div id="google-signin-button"></div>
       </div>
+
+      <p id="auth-error" role="alert" style="display:none; color:#b91c1c; background:#fef2f2; border:1px solid rgba(185,28,28,0.2); border-radius:10px; padding:0.7rem 0.9rem; font-size:0.86rem; margin-bottom:1rem;"></p>
 
       <div class="divider">Early Access Sign Up</div>
 
@@ -108,58 +97,82 @@
       </form>
 
       <div class="early-access-box">
-        <strong>Notice:</strong> PhysBox Pro requires an active subscription or Early Access invitation. Google Sign-In automatically registers your account for early access.
+        <strong>Notice:</strong> PhysBox Pro requires an active subscription or Early Access invitation. Google Sign-In automatically registers your account for early access. <a href="pro.html" style="color: var(--primary); font-weight: 600;">See what Pro includes</a>.
       </div>
     </div>
   </div>
 
+  <script src="auth.js"></script>
   <script>
-    const API_BASE = window.location.origin.includes('physbox.io') 
-      ? 'https://api.physbox.io' 
-      : 'http://localhost:3000';
+    // Where to land after a successful sign-in. `?next=` lets gated pages —
+    // download.html in particular — bounce through here and come back.
+    const NEXT_PARAM = new URLSearchParams(window.location.search).get('next');
+    // Only same-site relative paths, so a crafted link can't turn our own
+    // sign-in into an open redirect to someone else's domain.
+    const NEXT = NEXT_PARAM && /^[a-z0-9._-]+\.html(\?[^#]*)?(#.*)?$/i.test(NEXT_PARAM) ? NEXT_PARAM : null;
 
-    async function handleCredentialResponse(response) {
-      try {
-        const res = await fetch(`${API_BASE}/api/auth/google`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ credential: response.credential })
-        });
-        const data = await res.json();
-        if (data.token) {
-          localStorage.setItem('physbox_auth_token', data.token);
-          localStorage.setItem('physbox_user_email', data.user.email);
-          if (data.is_admin) {
-            window.location.href = 'index.html?auth=success';
-          } else {
-            window.location.href = `guest-list.html?email=${encodeURIComponent(data.user.email)}`;
-          }
-        }
-      } catch (err) {
-        console.error('Login error:', err);
+    const errorBox = document.getElementById('auth-error');
+
+    function showError(message) {
+      errorBox.textContent = message;
+      errorBox.style.display = 'block';
+    }
+
+    function clearError() {
+      errorBox.style.display = 'none';
+    }
+
+    function landAfterSignIn(data) {
+      if (NEXT) {
+        window.location.href = NEXT;
+      } else if (data.is_admin || (data.user && data.user.subscription_tier === 'active')) {
+        window.location.href = 'index.html?auth=success';
+      } else {
+        window.location.href = `guest-list.html?email=${encodeURIComponent(data.user.email)}`;
       }
     }
 
+    // Already signed in? Skip straight through rather than making the user
+    // click Google again.
+    PhysBoxAuth.fetchCurrentUser().then(user => {
+      if (user) landAfterSignIn({ user, is_admin: false });
+    });
+
+    PhysBoxAuth.renderGoogleSignInButton(
+      document.getElementById('google-signin-button'),
+      async (credential) => {
+        clearError();
+        try {
+          const data = await PhysBoxAuth.loginWithGoogle(credential);
+          landAfterSignIn(data);
+        } catch (err) {
+          showError(err.message || 'Sign-in failed. Please try again.');
+        }
+      },
+      showError
+    );
+
     async function handleEarlyAccessForm(e) {
       e.preventDefault();
+      clearError();
       const email = document.getElementById('email-input').value;
       try {
-        const res = await fetch(`${API_BASE}/api/auth/google`, {
+        const res = await fetch(`${PhysBoxAuth.getApiBaseUrl()}/api/auth/early-access`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email })
+          body: JSON.stringify({ email })
         });
-        const data = await res.json();
-        if (data.user) {
-          localStorage.setItem('physbox_user_email', data.user.email);
-          if (data.is_admin) {
-            window.location.href = 'index.html?auth=success';
-          } else {
-            window.location.href = `guest-list.html?email=${encodeURIComponent(data.user.email)}`;
-          }
+        if (!res.ok) {
+          // Surface what the API actually said. A generic string here hides
+          // real causes — a request that never reached the API at all reads
+          // identically to a rejected email address.
+          const data = await res.json().catch(() => ({}));
+          throw new Error(data.error || `Could not add you to the list (HTTP ${res.status}).`);
         }
+        localStorage.setItem('physbox_user_email', email);
+        window.location.href = `guest-list.html?email=${encodeURIComponent(email)}`;
       } catch (err) {
-        console.error('Sign up error:', err);
+        showError(err.message || 'Could not add you to the list. Please try again.');
       }
     }
   </script>
