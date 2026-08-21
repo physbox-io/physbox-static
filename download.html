@@ -177,6 +177,20 @@
       line-height: 1.6;
       margin-top: 1rem;
     }
+    .download-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-tertiary);
+      margin-bottom: 1.25rem;
+      min-height: 1.9em;
+    }
+    .download-btn.disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
     .download-note {
       display: none;
       margin-top: 0.9rem;
@@ -297,7 +311,7 @@
 
         <div class="section-header">
           <span class="section-tag">PhysBox Pro Downloads</span>
-          <h1 class="section-title">PhysBox Native <span style="font-family: var(--font-mono); font-size: 0.55em; color: var(--text-muted); vertical-align: middle;">v1.0.0</span></h1>
+          <h1 class="section-title">PhysBox Native <span id="release-version" style="font-family: var(--font-mono); font-size: 0.55em; color: var(--text-muted); vertical-align: middle;"></span></h1>
           <p class="section-subtitle">The C++20 desktop build of Mesh &mdash; MuJoCo running natively, a GPU-accelerated viewport with 4x multisampled anti-aliasing, and every feature of the Mesh web app. Available for Linux and Windows.</p>
         </div>
 
@@ -306,7 +320,8 @@
             <span class="suggested-tag" id="suggest-linux">Detected on this machine</span>
             <i class="fab fa-linux download-os-icon"></i>
             <div class="download-os-name">Linux</div>
-            <div class="download-file">PhysBox-Native-1.0.0-x86_64.AppImage</div>
+            <div class="download-file">Checking the latest release…</div>
+            <div class="download-meta"><span class="download-size"></span><span class="download-sha"></span></div>
             <a href="#" class="btn btn-primary download-btn" data-os="linux" id="btn-download-linux" style="justify-content: center; width: 100%;">
               <i class="fas fa-download"></i> Download for Linux
             </a>
@@ -320,7 +335,8 @@
             <span class="suggested-tag" id="suggest-windows">Detected on this machine</span>
             <i class="fab fa-windows download-os-icon"></i>
             <div class="download-os-name">Windows</div>
-            <div class="download-file">PhysBox-Native-1.0.0-x64-Setup.exe</div>
+            <div class="download-file">Checking the latest release…</div>
+            <div class="download-meta"><span class="download-size"></span><span class="download-sha"></span></div>
             <a href="#" class="btn btn-primary download-btn" data-os="windows" id="btn-download-windows" style="justify-content: center; width: 100%;">
               <i class="fas fa-download"></i> Download for Windows
             </a>
@@ -340,14 +356,15 @@
           <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65; margin-bottom: 1rem;">
             <strong>Linux</strong> &mdash; mark the AppImage executable and run it:
           </p>
-          <pre><code>chmod +x PhysBox-Native-1.0.0-x86_64.AppImage
-./PhysBox-Native-1.0.0-x86_64.AppImage</code></pre>
+          <pre><code>chmod +x PhysBox-Native-*.AppImage
+./PhysBox-Native-*.AppImage</code></pre>
           <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65; margin-bottom: 1rem;">
             <strong>Windows</strong> &mdash; run the installer and launch <em>PhysBox Native</em> from the Start menu. SmartScreen may warn on first run while the build's signature reputation is still new.
           </p>
           <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65;">
             Sign in from the app's account menu to pick up your cloud saves. Copilot keys and the theme live in
-            <code style="font-family: var(--font-mono); font-size: 0.85em;">~/.config/physbox-native/settings.json</code>.
+            <code style="font-family: var(--font-mono); font-size: 0.85em;">%APPDATA%\physbox-native</code> on Windows and
+            <code style="font-family: var(--font-mono); font-size: 0.85em;">~/.config/physbox-native</code> on Linux.
           </p>
         </div>
       </div>
@@ -372,17 +389,15 @@
   <script src="auth.js"></script>
   <script>
     /**
-     * Placeholder build URLs.
+     * The builds come from the API, not from a link in this page.
      *
-     * TODO: replace each null with the real artifact URL once the 1.0.0 builds
-     * are published. While a value is null the button stays in place but
-     * reports that the build is not out yet, rather than sending anyone to a
-     * 404 that looks like a broken download.
+     * GET /api/downloads lists what the current release contains; the object
+     * itself lives in a private bucket, and a signed URL is minted per click by
+     * GET /api/downloads/<platform>. Minting on click rather than on load
+     * matters: these URLs are deliberately short-lived, and one issued when the
+     * page opened would routinely have expired before anyone pressed the button.
      */
-    const DOWNLOADS = {
-      linux: null,   // e.g. 'https://downloads.physbox.io/native/1.0.0/PhysBox-Native-1.0.0-x86_64.AppImage'
-      windows: null  // e.g. 'https://downloads.physbox.io/native/1.0.0/PhysBox-Native-1.0.0-x64-Setup.exe'
-    };
+    let manifest = null;
 
     const loadingEl = document.getElementById('state-loading');
     const signedOutEl = document.getElementById('state-signed-out');
@@ -424,6 +439,7 @@
 
       showState(signedInEl);
       highlightPlatform();
+      loadManifest();
     }
 
     /** Nudges the visitor toward the build that matches the machine they are on. */
@@ -433,18 +449,74 @@
       if (os) document.getElementById('suggest-' + os).classList.add('visible');
     }
 
+    /** Fills a card in from the manifest, or explains why it cannot be offered. */
+    function applyBuild(platform) {
+      const card = document.getElementById('card-' + platform);
+      const btn = document.getElementById('btn-download-' + platform);
+      const build = manifest && manifest.builds.find(b => b.platform === platform);
+
+      if (!build) {
+        btn.classList.add('disabled');
+        btn.setAttribute('aria-disabled', 'true');
+        setNote(platform, manifest
+          ? `No ${platform} build in release ${manifest.version} yet.`
+          : 'Builds are not published yet — check back shortly.');
+        return;
+      }
+
+      card.querySelector('.download-file').textContent = build.filename;
+      if (build.size) {
+        const mb = (build.size / (1024 * 1024)).toFixed(0);
+        card.querySelector('.download-size').textContent = `${mb} MB`;
+      }
+      if (build.sha256) {
+        const digest = card.querySelector('.download-sha');
+        digest.textContent = 'SHA-256 ' + build.sha256.slice(0, 16) + '\u2026';
+        digest.title = build.sha256;
+      }
+    }
+
+    function setNote(platform, message) {
+      const note = document.getElementById('note-' + platform);
+      note.textContent = message;
+      note.style.display = message ? 'block' : 'none';
+    }
+
     document.querySelectorAll('.download-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const os = btn.dataset.os;
-        const url = DOWNLOADS[os];
-        if (url) {
-          window.location.href = url;
-          return;
-        }
+      btn.addEventListener('click', async (e) => {
         e.preventDefault();
-        const note = document.getElementById('note-' + os);
-        note.textContent = 'This build is being packaged — the download link is not live yet. Your account is on the list, and we will email you the moment it ships.';
-        note.style.display = 'block';
+        const platform = btn.dataset.os;
+        if (btn.classList.contains('disabled')) return;
+
+        const label = btn.innerHTML;
+        btn.classList.add('disabled');
+        btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Preparing download\u2026';
+        setNote(platform, '');
+
+        try {
+          const res = await fetch(`${PhysBoxAuth.getApiBaseUrl()}/api/downloads/${platform}`, {
+            headers: { 'Authorization': `Bearer ${PhysBoxAuth.getStoredAuthToken()}` }
+          });
+          const data = await res.json().catch(() => ({}));
+
+          if (res.status === 401) {
+            // The session lapsed while the page was open.
+            PhysBoxAuth.clearStoredAuth();
+            renderSignIn();
+            return;
+          }
+          if (!res.ok) throw new Error(data.error || `Could not prepare the download (HTTP ${res.status}).`);
+
+          // A plain navigation, not <a download>: the signed URL carries its own
+          // Content-Disposition, and this keeps the page where it is.
+          window.location.href = data.url;
+          setNote(platform, `Your download of ${data.filename} should be starting.`);
+        } catch (err) {
+          setNote(platform, err.message || 'Could not prepare the download.');
+        } finally {
+          btn.classList.remove('disabled');
+          btn.innerHTML = label;
+        }
       });
     });
 
@@ -452,6 +524,23 @@
       PhysBoxAuth.signOut();
       window.location.reload();
     });
+
+    /** Asks the API what the current release contains, and renders the cards. */
+    async function loadManifest() {
+      try {
+        const res = await fetch(`${PhysBoxAuth.getApiBaseUrl()}/api/downloads`, {
+          headers: { 'Authorization': `Bearer ${PhysBoxAuth.getStoredAuthToken()}` }
+        });
+        if (res.ok) {
+          manifest = await res.json();
+          document.getElementById('release-version').textContent = 'v' + manifest.version;
+        }
+      } catch {
+        // Leave `manifest` null; applyBuild() then says builds are unavailable
+        // rather than offering a button that cannot work.
+      }
+      ['linux', 'windows'].forEach(applyBuild);
+    }
 
     function renderSignIn() {
       showState(signedOutEl);
