@@ -353,6 +353,7 @@
         '<span class="nav-account-tier"></span>' +
       '</div>' +
       '<a href="history.html"><i class="fa-solid fa-clock-rotate-left"></i> Job History</a>' +
+      '<a href="settings.html"><i class="fa-solid fa-sliders"></i> Account Settings</a>' +
       '<a href="pro.html"><i class="fa-solid fa-star"></i> PhysBox Pro</a>' +
       '<a href="download.html"><i class="fa-solid fa-download"></i> Downloads</a>' +
       '<button type="button" class="nav-account-signout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign out</button>';
