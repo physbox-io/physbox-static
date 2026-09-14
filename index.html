@@ -9,7 +9,7 @@
   <!-- SEO Meta Tags -->
   <link rel="canonical" href="https://physbox.io/">
   <meta name="description"
-    content="Explore PhysBox, a powerful suite of open-source, browser-based simulation tools. Browser-based EDA with schematic capture and SPICE, MuJoCo 3D physics, OpenSCAD 3D printing, and hardware-in-the-loop microcontrollers—plus 81 Model Context Protocol tools so AI agents can drive every simulator. 100% local and free.">
+    content="Explore PhysBox, a powerful suite of open-source, browser-based simulation tools. Browser-based EDA with schematic capture and SPICE, MuJoCo 3D physics, OpenSCAD 3D printing, and hardware-in-the-loop microcontrollers—plus 151 Model Context Protocol tools so AI agents can drive every simulator. 100% local and free.">
   <meta name="keywords"
     content="simulation, EDA, electronic design automation, browser EDA, schematic capture, electronics simulator, WASM physics, MuJoCo, cellular automata, Runge Kutta, open source simulator, ngspice wasm, circuit sandbox, MCP server, Model Context Protocol, AI agent tools, world model, OpenSCAD, hardware in the loop, laser cutting, CNC milling, vector design">
   <meta name="author" content="physbox.io">
@@ -123,7 +123,7 @@
           <li><a href="hardware.html" class="mobile-nav-link"><i class="fas fa-microchip"></i> HIL & Fabrication</a></li>
           <li><a href="tutorials.html" class="mobile-nav-link"><i class="fas fa-graduation-cap"></i> Tutorials</a></li>
           <li><a href="#ai-models" class="mobile-nav-link" data-close-drawer><i class="fas fa-robot"></i> AI Models</a></li>
-          <li><a href="#mcp" class="mobile-nav-link" data-close-drawer><i class="fas fa-plug"></i> 81 Native MCP Tools</a></li>
+          <li><a href="#mcp" class="mobile-nav-link" data-close-drawer><i class="fas fa-plug"></i> 151 Native MCP Tools</a></li>
           <li><a href="#tech" class="mobile-nav-link" data-close-drawer><i class="fas fa-bolt"></i> Architecture</a></li>
           <li><a href="#pledge" class="mobile-nav-link" data-close-drawer><i class="fas fa-heart"></i> Open Source</a></li>
 
@@ -323,7 +323,7 @@
         <div class="ribbon-item">
           <div class="ribbon-icon ribbon-flux"><i class="fas fa-robot"></i></div>
           <div>
-            <div class="ribbon-title">81 Native MCP Tools</div>
+            <div class="ribbon-title">151 Native MCP Tools</div>
             <div class="ribbon-subtitle">Direct agent control via Model Context Protocol</div>
           </div>
         </div>
@@ -680,7 +680,7 @@
             Built entirely on client-side WebAssembly, our simulators enable AI agents to bridge the gap between abstract reasoning and concrete physical execution. Every engine ships a first-class agent interface over the Model Context Protocol:
           </p>
           <ul class="ai-bullets">
-            <li><strong>Native MCP Server, Not Brittle Scraping:</strong> <code>physbox-mcp</code> exposes the simulators as <strong>81 typed Model Context Protocol tools</strong> over a local WebSocket relay. Agents call <code>physics_build_scene</code> or <code>circuit_run_sim</code> directly.</li>
+            <li><strong>Native MCP Server, Not Brittle Scraping:</strong> <code>physbox-mcp</code> exposes the simulators as <strong>151 typed Model Context Protocol tools</strong> over a local WebSocket relay. Agents call <code>physics_build_scene</code> or <code>circuit_run_sim</code> directly.</li>
             <li><strong>Procedural CAD & 3D Printing Generation:</strong> AI agents write and refactor OpenSCAD code to create custom brackets, gears, and enclosures, test structural stability in MuJoCo, and output 3D-printable STL files.</li>
             <li><strong>Real-World Hardware & Telemetry (HIL):</strong> Using WebSocket telemetry, serial HIL bridges, and general IoT webhooks, agents stream hardware pin states, read sensor values, and drive physical microcontrollers directly.</li>
             <li><strong>Iterative Design Self-Correction:</strong> Agents observe physical bounds and signal waveforms at 60fps, self-correcting schematic nets and CAD parameters until physical and functional requirements are met.</li>
@@ -695,8 +695,8 @@
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Model Context Protocol</span>
-        <h2 class="section-title">81 Tools. One <code class="title-code">pip install</code>.</h2>
-        <p class="section-subtitle">PhysBox: MCP is a companion server that puts every simulator on the other end of a tool call. Commands travel as JSON over a local WebSocket relay straight into the running browser tab. Seventy-nine are simulator tools; two more — <code>detect_apps</code> and <code>send_command</code> — work across all of them.</p>
+        <h2 class="section-title">151 Tools. One <code class="title-code">pip install</code>.</h2>
+        <p class="section-subtitle">PhysBox: MCP is a companion server that puts every simulator on the other end of a tool call. Commands travel as JSON over a local WebSocket relay straight into the running browser tab. A hundred and thirty-seven are simulator tools; ten more read the run archive and your account; four — <code>detect_apps</code>, <code>send_command</code>, <code>list_sessions</code> and <code>use_session</code> — work across all of them.</p>
       </div>
 
       <div class="mcp-counts reveal">
@@ -873,7 +873,7 @@
               <td style="padding: 1rem 1.25rem; font-weight: 600; color: var(--text-primary);">AI Agent Integration</td>
               <td style="padding: 1rem 1.25rem; color: #dc2626;"><i class="fas fa-xmark"></i> None (Manual UI only)</td>
               <td style="padding: 1rem 1.25rem; color: #d97706;"><i class="fas fa-triangle-exclamation"></i> Heavy Python Plugins</td>
-              <td style="padding: 1rem 1.25rem; color: #059669; font-weight: 600; background: rgba(79, 70, 229, 0.04);"><i class="fas fa-check-circle"></i> 81 Native MCP Tools (AI-Native)</td>
+              <td style="padding: 1rem 1.25rem; color: #059669; font-weight: 600; background: rgba(79, 70, 229, 0.04);"><i class="fas fa-check-circle"></i> 151 Native MCP Tools (AI-Native)</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--border-color);">
               <td style="padding: 1rem 1.25rem; font-weight: 600; color: var(--text-primary);">World Model Grounding</td>
@@ -911,7 +911,7 @@
           </h4>
           <ul style="font-size: 0.9rem; color: #065f46; line-height: 1.6; list-style: disc; padding-left: 1.25rem;">
             <li>Zero friction instant web access with full WebAssembly simulation fidelity.</li>
-            <li>Native 81 MCP tools specifically built as physical world models for AI agents.</li>
+            <li>Native 151 MCP tools specifically built as physical world models for AI agents.</li>
             <li>Bi-directional WebSerial hardware communication for real MCU & CNC controllers.</li>
             <li>100% offline-capable and private—your files never touch external cloud servers.</li>
           </ul>
