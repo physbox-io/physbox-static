@@ -309,12 +309,12 @@
               <div class="step-card">
                 <div class="step-number"><i class="fas fa-skull"></i></div>
                 <h4>Spindle Stalls / Loud Screech</h4>
-                <p><strong>Cause:</strong> Pass depth is too deep or feed rate is too fast.<br><strong>Fix:</strong> Hit E-STOP immediately. Reduce stepdown depth in Etch layer panel by 50% and re-run.</p>
+                <p><strong>Cause:</strong> Pass depth is too deep or feed rate is too fast.<br><strong>Fix:</strong> Back the feed off with Live Trim &mdash; it acts on the motion already buffered, so you do not lose the job. If it is still screeching, E-STOP, halve the stepdown in the Etch layer panel and re-run.</p>
               </div>
               <div class="step-card">
                 <div class="step-number"><i class="fas fa-fire-alt"></i></div>
                 <h4>Charred / Blackened Wood</h4>
-                <p><strong>Cause:</strong> Spindle RPM is too high relative to feed speed (friction burn).<br><strong>Fix:</strong> Increase feed rate or decrease spindle RPM to maintain adequate chip thickness.</p>
+                <p><strong>Cause:</strong> Spindle RPM is too high relative to feed speed (friction burn).<br><strong>Fix:</strong> Nudge feed up or spindle down with Live Trim mid-job until the burning stops, then save that pair into the layer for next time.</p>
               </div>
               <div class="step-card">
                 <div class="step-number"><i class="fas fa-dog"></i></div>
