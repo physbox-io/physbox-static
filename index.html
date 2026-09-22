@@ -417,6 +417,7 @@
             <div class="sim-badges">
               <span class="sim-badge physics-badge">Generative Physics</span>
               <span class="sim-badge badge-scad"><span class="pulse-dot"></span>🛠️ OpenSCAD & 3D Printing</span>
+              <span class="sim-badge badge-scad"><span class="pulse-dot"></span>🥣 True Concave Collision</span>
             </div>
             <h3 class="sim-name">PhysBox: Mesh</h3>
             <p class="sim-desc">
@@ -427,6 +428,7 @@
               files.
             </p>
             <ul class="sim-features">
+              <li><strong>True Concave Collision &mdash; Cups Actually Hold Things:</strong> Every other browser physics engine collides a mesh as its convex hull, so hollow shapes are quietly solid: drop a ball into a cup and it lands on an invisible lid at the rim. Mesh measures each body's <em>solidity</em> and decomposes concave geometry into convex hulls with V-HACD in a background worker. Containers contain, funnels feed, housings seat &mdash; on imported STLs, sculpts, lattices and booleans alike. No proxy walls, no flags, no setup.</li>
               <li><strong>Procedural WASM OpenSCAD & Parametric Sliders:</strong> Write constructive solid geometry (CSG) code live inside the browser node inspector. Automatically compiles code and generates interactive UI sliders from annotations for instant tuning.</li>
               <li><strong>1-Click Z-Up STL Export for 3D Printing:</strong> Export individual procedural components or full mechanical assemblies directly to Z-up orientation STL files, formatted specifically for modern slicers (PrusaSlicer, Bambu Studio, Cura).</li>
               <li><strong>Proximity-Aware Coupling & Complete DOF Control:</strong> Solves pinion, gear, and rack behaviors on the fly using rigid mathematical joint constraints, or uncheck coupling to test pure colliding gear teeth friction across 6-DOF bodies.</li>
