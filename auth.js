@@ -191,6 +191,27 @@
     return request('/api/telemetry/latest' + query({ app_id: appId }));
   }
 
+  /**
+   * Asks a running machine to trim its feed, spindle or rapids, or to pause or
+   * pick the job back up.
+   *
+   * The machine is not reached from here: the browser driving it holds the only
+   * serial port. This leaves the request on the account and the driving tab
+   * picks it up with its next telemetry post, about a second later. Pro, like
+   * the watching it sits next to.
+   *
+   * The API refuses a command the driving app has not said it understands, and
+   * the app refuses a resume for a pause that came from the program rather than
+   * from a person. Neither refusal is repeated here — this page is a second
+   * behind the machine and is the wrong place to decide either.
+   */
+  function sendMachineCommand(deviceId, appId, kind, step) {
+    return request('/api/telemetry/override', {
+      method: 'POST',
+      body: JSON.stringify({ deviceId: deviceId, appId: appId, kind: kind, step: step })
+    });
+  }
+
   function fetchTokens() {
     return request('/api/tokens');
   }
@@ -425,6 +446,7 @@
     fetchRun: fetchRun,
     fetchRunSummary: fetchRunSummary,
     fetchLatestTelemetry: fetchLatestTelemetry,
+    sendMachineCommand: sendMachineCommand,
     fetchTokens: fetchTokens,
     createToken: createToken,
     revokeToken: revokeToken,

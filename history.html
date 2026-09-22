@@ -123,6 +123,49 @@
     }
     .live-bar span { display: block; height: 100%; background: var(--primary); border-radius: 999px; }
 
+    /* Live trim. Same controls as the apps, because it is the same three
+       GRBL overrides — nudges and a reset, not a slider. */
+    .trim {
+      margin-top: 0.8rem;
+      padding-top: 0.7rem;
+      border-top: 1px solid var(--border, #e4e8ee);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .trim-head {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .trim-row { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+    .trim-label {
+      width: 3.6rem;
+      flex-shrink: 0;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .trim-btn {
+      font-family: var(--font-mono, monospace);
+      font-size: 0.72rem;
+      line-height: 1;
+      padding: 0.35rem 0.45rem;
+      min-width: 2.1rem;
+      border: 1px solid var(--border, #e4e8ee);
+      border-radius: 6px;
+      background: var(--bg-card, #fff);
+      color: var(--text-primary, #1a2230);
+      cursor: pointer;
+    }
+    .trim-btn:hover { background: var(--bg-card-alt, #eef1f5); }
+    .trim-btn[disabled] { opacity: 0.45; cursor: progress; }
+    .trim-note { font-size: 0.74rem; color: var(--text-muted); }
+    .trim-note.bad { color: #b42318; }
+
     .dot {
       width: 9px;
       height: 9px;
@@ -626,6 +669,10 @@
 
         var dot = document.createElement('span');
         var running = t.status === 'running' || t.status === 'Run';
+        // GRBL says `Hold`, the apps say `PAUSED_OPERATOR` and friends, and the
+        // archive says `paused`. All three mean a job that is on the machine
+        // and not moving, which is the one that can be picked back up.
+        var paused = /hold|paused/i.test(t.status || '');
         var errored = /alarm|error/i.test(t.status || '');
         dot.className = 'dot' + (running ? ' running' : errored ? ' error' : '');
         top.appendChild(dot);
@@ -675,7 +722,98 @@
           card.appendChild(err);
         }
 
+        if (running || paused) card.appendChild(jobControls(t, running, paused));
+
         return card;
+      }
+
+      /**
+       * Trimming a job from here rather than from the bench.
+       *
+       * The same three GRBL overrides the apps offer, for the same reason: a cut
+       * that is chattering or burning is corrected without stopping the job and
+       * losing registration to the stock. This page cannot reach the controller
+       * — the browser driving it holds the only serial port — so a press leaves
+       * the nudge on the account and the driving tab applies it on its next
+       * telemetry post, about a second later.
+       *
+       * Nothing here can start motion. An override scales a move the program
+       * already commanded, and the controller clamps it to its own range, so
+       * the worst a mis-click does is run a cut that is already happening at a
+       * different speed. Whoever is standing at the machine keeps the stop.
+       */
+      function jobControls(t, running, paused) {
+        var wrap = document.createElement('div');
+        wrap.className = 'trim';
+
+        var head = document.createElement('div');
+        head.className = 'trim-head';
+        head.textContent = running ? 'Live trim' : 'Paused';
+        wrap.appendChild(head);
+
+        var note = document.createElement('div');
+        note.className = 'trim-note';
+        note.textContent = 'Applied within about a second.';
+
+        function press(button, kind, step) {
+          button.disabled = true;
+          PhysBoxAuth.sendMachineCommand(t.deviceId, t.appId, kind, step).then(function () {
+            note.className = 'trim-note';
+            note.textContent =
+              kind === 'pause' || kind === 'resume'
+                ? 'Sent — the card shows it when the machine reports back.'
+                : 'Sent — the percentage updates when the machine reports back.';
+          }).catch(function (err) {
+            note.className = 'trim-note bad';
+            // The API refuses a trim for a machine that is not running, which is
+            // the useful thing to say rather than a generic failure.
+            note.textContent = (err && err.message) || 'Could not send that trim.';
+          }).then(function () {
+            button.disabled = false;
+          });
+        }
+
+        function row(label, kind, steps, labels) {
+          var r = document.createElement('div');
+          r.className = 'trim-row';
+          var name = document.createElement('span');
+          name.className = 'trim-label';
+          name.textContent = label;
+          r.appendChild(name);
+          steps.forEach(function (step, i) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'trim-btn';
+            b.textContent = labels[i];
+            b.title = label + ' ' + labels[i];
+            b.addEventListener('click', function () { press(b, kind, step); });
+            r.appendChild(b);
+          });
+          wrap.appendChild(r);
+        }
+
+        if (running) {
+          // 0 is the reset byte for feed and spindle; rapids have no nudges at
+          // all, only the three settings GRBL implements.
+          row('Feed', 'feed', [-10, -1, 0, 1, 10], ['\u221210', '\u22121', '100%', '+1', '+10']);
+          row('Spindle', 'spindle', [-10, -1, 0, 1, 10], ['\u221210', '\u22121', '100%', '+1', '+10']);
+          row('Rapids', 'rapid', [25, 50, 100], ['25%', '50%', '100%']);
+          row('Job', 'pause', [0], ['Pause']);
+        } else {
+          /*
+           * Resume is offered for any pause, and refused by the machine end for
+           * the ones that mean somebody is standing at it — a tool change or a
+           * material swap. That refusal belongs there rather than here: this
+           * page is told the status a second late and cannot be the thing that
+           * decides a spindle is safe to restart.
+           */
+          row('Job', 'resume', [0], ['Resume']);
+          note.textContent =
+            'Resume is ignored for a tool or material change — those are picked back up at the machine.';
+        }
+
+        wrap.appendChild(note);
+        return wrap;
       }
 
       function loadLive() {
