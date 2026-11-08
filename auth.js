@@ -4,7 +4,7 @@
    Mirrors src/utils/apiClient.ts and src/utils/googleAuth.ts as they exist in
    the Etch, Volt/Circuit and Mesh/Physics apps, so a session established in any
    of them (or here) is the same session everywhere on *.physbox.io: the same
-   API base, the same localStorage keys, and the same Google client id.
+   API base, the same session cookie, and the same Google client id.
    ========================================================================== */
 
 (function (global) {
@@ -57,29 +57,79 @@
     return LOCAL_API;
   }
 
+  /*
+   * The session lives in a cookie on physbox.io, shared with Etch, Volt and Mesh
+   * (each its own origin, so localStorage could never carry it between them).
+   * Same names and attributes as @physbox-io/ui's suiteSession: signing in or
+   * out here does it in every app. The profile is a per-origin cache, kept next
+   * to the token it belongs to.
+   */
+  var SESSION_COOKIE = 'physbox_session';
+  var SHARED_MARKER = 'physbox_session_shared';
+  var PROFILE_TOKEN_KEY = 'physbox_user_profile_token';
+
+  function readCookie(name) {
+    var parts = (document.cookie || '').split(';');
+    for (var i = 0; i < parts.length; i++) {
+      var eq = parts[i].indexOf('=');
+      if (eq < 0 || parts[i].slice(0, eq).trim() !== name) continue;
+      try { return decodeURIComponent(parts[i].slice(eq + 1).trim()); } catch (e) { return null; }
+    }
+    return null;
+  }
+
+  function writeCookie(name, value) {
+    var host = global.location.hostname;
+    var attrs = ['Path=/', value === null ? 'Max-Age=0' : 'Max-Age=34560000', 'SameSite=Lax'];
+    if (host === 'physbox.io' || /\.physbox\.io$/.test(host)) attrs.push('Domain=physbox.io');
+    if (global.location.protocol === 'https:') attrs.push('Secure');
+    document.cookie = name + '=' + (value === null ? '' : encodeURIComponent(value)) + '; ' + attrs.join('; ');
+  }
+
   function getStoredAuthToken() {
-    try { return localStorage.getItem(AUTH_TOKEN_KEY); } catch (e) { return null; }
+    var token = readCookie(SESSION_COOKIE);
+    if (token) return token;
+    try {
+      // A session from before the cookie: adopt it once, unless the suite has
+      // moved on, in which case it outlived a sign-out somewhere else.
+      var legacy = localStorage.getItem(AUTH_TOKEN_KEY);
+      if (!legacy) return null;
+      localStorage.removeItem(AUTH_TOKEN_KEY);
+      if (readCookie(SHARED_MARKER)) return null;
+      writeCookie(SHARED_MARKER, '1');
+      writeCookie(SESSION_COOKIE, legacy);
+      localStorage.setItem(PROFILE_TOKEN_KEY, legacy);
+      return legacy;
+    } catch (e) { return null; }
   }
 
   function getStoredUser() {
     try {
+      var token = getStoredAuthToken();
+      if (!token || localStorage.getItem(PROFILE_TOKEN_KEY) !== token) return null;
       var raw = localStorage.getItem(USER_KEY);
       return raw ? JSON.parse(raw) : null;
     } catch (e) { return null; }
   }
 
   function setStoredAuth(token, user) {
+    writeCookie(SHARED_MARKER, '1');
+    writeCookie(SESSION_COOKIE, token);
     try {
-      localStorage.setItem(AUTH_TOKEN_KEY, token);
+      localStorage.removeItem(AUTH_TOKEN_KEY);
       localStorage.setItem(USER_KEY, JSON.stringify(user));
+      localStorage.setItem(PROFILE_TOKEN_KEY, token);
       if (user && user.email) localStorage.setItem('physbox_user_email', user.email);
     } catch (e) { console.error('Failed to store auth session', e); }
   }
 
   function clearStoredAuth() {
+    writeCookie(SHARED_MARKER, '1');
+    writeCookie(SESSION_COOKIE, null);
     try {
       localStorage.removeItem(AUTH_TOKEN_KEY);
       localStorage.removeItem(USER_KEY);
+      localStorage.removeItem(PROFILE_TOKEN_KEY);
       localStorage.removeItem('physbox_user_email');
     } catch (e) { console.error('Failed to clear auth session', e); }
   }
@@ -142,12 +192,15 @@
     if (!getStoredAuthToken()) return Promise.resolve(null);
     return request('/api/auth/me').then(function (res) {
       if (res && res.user) {
-        setStoredAuth(getStoredAuthToken(), res.user);
+        // The API rolls a session forward and hands the new token back.
+        setStoredAuth(res.token || getStoredAuthToken(), res.user);
         return res.user;
       }
       return null;
-    }).catch(function () {
-      clearStoredAuth();
+    }).catch(function (err) {
+      // Only a refusal ends the session, and it ends it in every app: being
+      // offline or a 5xx must not sign somebody out of the suite.
+      if (err && (err.status === 401 || err.status === 403)) clearStoredAuth();
       return null;
     });
   }
