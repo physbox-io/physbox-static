@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found | PhysBox</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="/styles.css?v=20260905">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .notfound-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .notfound-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-xl);
+      border-radius: 20px;
+      padding: 3rem 2.5rem;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+    .notfound-code {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 1.25rem;
+    }
+    .notfound-title {
+      font-family: var(--font-header);
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+    }
+    .notfound-desc {
+      color: var(--text-secondary);
+      font-size: 0.96rem;
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="notfound-wrap">
+    <div class="notfound-card">
+      <span class="notfound-code">HTTP 404</span>
+      <h1 class="notfound-title">Page not found</h1>
+      <p class="notfound-desc">That URL does not exist on physbox.io. Head back to the main engineering simulation suite below.</p>
+      <a href="/index.html" class="btn btn-primary" style="justify-content: center; padding: 0.8rem 1.6rem;">
+        <i class="fas fa-house"></i> Back to physbox.io
+      </a>
+    </div>
+  </div>
+</body>
+
+</html>

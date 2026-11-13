@@ -1,0 +1,7 @@
+.git
+.gitignore
+.claude
+Dockerfile
+nginx.conf
+assets/__pycache__
+assets/*.py

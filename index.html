@@ -20,7 +20,7 @@
   <meta property="og:title" content="PhysBox | High-Fidelity Open-Source Interactive Simulations">
   <meta property="og:description"
     content="A powerful suite of browser-based simulation tools. High-fidelity electronics, MuJoCo 3D physics, cellular automata, and IoT nodes—100% local, offline-capable, and completely free.">
-  <meta property="og:image" content="assets/physics_raw.png">
+  <meta property="og:image" content="https://physbox.io/assets/physics_raw.png">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
@@ -28,7 +28,7 @@
   <meta property="twitter:title" content="PhysBox | High-Fidelity Open-Source Interactive Simulations">
   <meta property="twitter:description"
     content="A powerful suite of browser-based simulation tools. High-fidelity electronics, MuJoCo 3D physics, cellular automata, and IoT nodes—100% local, offline-capable, and completely free.">
-  <meta property="twitter:image" content="assets/physics_raw.png">
+  <meta property="twitter:image" content="https://physbox.io/assets/physics_raw.png">
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="styles.css?v=20260905">
@@ -36,28 +36,74 @@
   <!-- FontAwesome for Premium Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- JSON-LD Structured Data for Scientific Software Suite (SEO Integration) -->
+  <!-- JSON-LD Structured Data for Scientific & Engineering Software Suite -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "PhysBox Simulation Suite",
-    "operatingSystem": "All (Web Browser Platform)",
-    "applicationCategory": "EducationalApplication, ScientificApplication, BusinessApplication",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "PhysBox",
-      "url": "https://physbox.io"
-    },
-    "description": "A high-fidelity open-source simulation suite running natively in WebAssembly. Features PhysBox: Volt (browser-based EDA \u2014 schematic capture, SPICE simulation and MCU with audio), PhysBox: Mesh (MuJoCo rigid body physics), PhysBox: Etch (laser cutting and CNC fabrication), and PhysBox: Flux (cellular automata, Runge-Kutta, and LLM nodes).",
-    "softwareVersion": "2.0.0",
-    "license": "https://opensource.org/licenses/MIT",
-    "downloadUrl": "https://github.com/physbox-io"
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://physbox.io/#organization",
+        "name": "PhysBox",
+        "url": "https://physbox.io/",
+        "logo": "https://physbox.io/assets/physbox_logo.png",
+        "sameAs": [
+          "https://github.com/physbox-io"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "url": "https://physbox.io/contact.html"
+        }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://physbox.io/#suite",
+        "name": "PhysBox Simulation & CAD Fabrication Suite",
+        "url": "https://physbox.io/",
+        "operatingSystem": "Web Browser (WebAssembly / WebGL), Linux, Windows",
+        "applicationCategory": "DeveloperApplication, DesignApplication, EducationalApplication, ScientificApplication",
+        "applicationSubCategory": "CAD, Electronic Design Automation (EDA), Physics Simulation, CAM",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "publisher": {
+          "@id": "https://physbox.io/#organization"
+        },
+        "description": "Browser-based scientific simulation and digital fabrication suite powered by WebAssembly: PhysBox Volt (EDA, schematic capture, SPICE simulation, PCB milling), PhysBox Mesh (MuJoCo rigid-body 3D physics, OpenSCAD CSG CAD, 3D printing, CNC relief/solid CAM), PhysBox Etch (2D vector laser cutting & GRBL control), and PhysBox Flux (system dynamics & cellular automata).",
+        "softwareVersion": "2.0.0",
+        "license": "https://physbox.io/license.html",
+        "termsOfService": "https://physbox.io/terms.html",
+        "hasPart": [
+          {
+            "@type": "WebApplication",
+            "name": "PhysBox: Volt",
+            "url": "https://volt.physbox.io/",
+            "applicationCategory": "DeveloperApplication"
+          },
+          {
+            "@type": "WebApplication",
+            "name": "PhysBox: Mesh",
+            "url": "https://mesh.physbox.io/",
+            "applicationCategory": "DesignApplication"
+          },
+          {
+            "@type": "WebApplication",
+            "name": "PhysBox: Etch",
+            "url": "https://etch.physbox.io/",
+            "applicationCategory": "DesignApplication"
+          },
+          {
+            "@type": "WebApplication",
+            "name": "PhysBox: Flux",
+            "url": "https://flux.physbox.io/",
+            "applicationCategory": "ScientificApplication"
+          }
+        ]
+      }
+    ]
   }
   </script>
 </head>
@@ -1033,6 +1079,8 @@
             <li><a href="#tech" id="footer-link-docs"><i class="fas fa-book"></i> Architecture</a></li>
             <li><a href="about.html" id="footer-link-about"><i class="fas fa-users"></i> About the Team</a></li>
             <li><a href="license.html" id="footer-link-license"><i class="fas fa-scale-balanced"></i> PPPL License</a></li>
+            <li><a href="privacy.html" id="footer-link-privacy"><i class="fas fa-user-shield"></i> Privacy Policy</a></li>
+            <li><a href="terms.html" id="footer-link-terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
             <li><a href="contact.html" id="footer-link-contact"><i class="fas fa-envelope"></i> Contact Us</a></li>
           </ul>
         </div>
@@ -1050,12 +1098,10 @@
       <div class="footer-bottom">
         <!-- Sparse & Faint Orange, Black & White Woodcut Tiger in Bottom Navbar -->
         <img src="assets/tigers/footer-tiger-color.png" alt="" class="footer-navbar-tiger" aria-hidden="true" loading="lazy">
-        <p class="footer-copy">&copy; 2026 physbox.io. Licensed under PPPL-1.0. Built for the modern web.</p>
+        <p class="footer-copy">&copy; 2026 physbox.io. Licensed under <a href="license.html" style="color: inherit; text-decoration: underline;">PPPL-1.0</a> &middot; <a href="privacy.html" style="color: inherit; text-decoration: underline;">Privacy</a> &middot; <a href="terms.html" style="color: inherit; text-decoration: underline;">Terms</a></p>
         <div class="footer-social">
-          <a href="https://github.com/physbox-io" target="_blank" class="social-link" id="social-link-github"><i
+          <a href="https://github.com/physbox-io" target="_blank" class="social-link" id="social-link-github" aria-label="PhysBox on GitHub"><i
               class="fab fa-github"></i></a>
-          <a href="#" class="social-link" id="social-link-twitter"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="social-link" id="social-link-linkedin"><i class="fab fa-linkedin"></i></a>
         </div>
       </div>
     </div>
