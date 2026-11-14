@@ -7,8 +7,8 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Copy static website assets to Nginx default html directory
 COPY . /usr/share/nginx/html/
 
-# Remove default Nginx configuration files to prevent conflicts
-RUN rm -rf /etc/nginx/conf.d
+# Remove default Nginx configuration files and build files from html root
+RUN rm -rf /etc/nginx/conf.d /usr/share/nginx/html/nginx.conf /usr/share/nginx/html/Dockerfile
 
 # Google Cloud Run injects the PORT environment variable (default 8080)
 # and expects Nginx to bind to it. 
