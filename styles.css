@@ -36,10 +36,6 @@
   --physics-light: #f0f9ff;
   --physics-glow: rgba(2, 132, 199, 0.14);
   
-  --process-color: #db2777;   /* Mulberry Rose */
-  --process-light: #fdf2f8;
-  --process-glow: rgba(219, 39, 119, 0.14);
-  
   /* Laser & CNC Artisanal Palette */
   --etch-color: #d97706;     /* Warm Amber / Burnished Brass */
   --etch-dark: #b45309;      /* Terracotta / Burnt Walnut */
@@ -90,8 +86,26 @@ body {
   min-height: 100vh;
   line-height: 1.65;
   background-color: var(--bg-body);
-  background-image: radial-gradient(rgba(15, 23, 42, 0.07) 1px, transparent 1px);
-  background-size: 28px 28px;
+  /* Subtle apothecary/engraver edge washes + crisp architectural drafting grid */
+  background-image:
+    radial-gradient(ellipse 40% 38% at 0% 18%, rgba(5, 150, 105, 0.048), transparent 70%),
+    radial-gradient(ellipse 40% 38% at 100% 36%, rgba(217, 119, 6, 0.052), transparent 70%),
+    radial-gradient(ellipse 40% 36% at 0% 66%, rgba(30, 41, 59, 0.038), transparent 70%),
+    radial-gradient(ellipse 40% 36% at 100% 84%, rgba(2, 132, 199, 0.044), transparent 70%),
+    linear-gradient(to right, rgba(30, 41, 59, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30, 41, 59, 0.04) 1px, transparent 1px),
+    linear-gradient(to right, rgba(15, 23, 42, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.02) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    140px 140px,
+    140px 140px,
+    28px 28px,
+    28px 28px;
+  background-attachment: fixed, fixed, fixed, fixed, scroll, scroll, scroll, scroll;
   overflow-x: hidden;
   width: 100%;
   max-width: 100%;
@@ -104,16 +118,18 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
 }
 
 /* Container */
 .container {
-  max-width: 1200px;
+  max-width: 1360px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 2.25rem;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 /* Typography & General Styles */
@@ -554,15 +570,38 @@ nav a.active::after {
 
 .hero-title {
   font-size: 3.85rem;
-  max-width: 920px;
-  margin: 0 auto 1.35rem;
+  max-width: 1080px;
+  margin: 0 auto 0.65rem;
   letter-spacing: -1.2px;
   line-height: 1.15;
 }
 
+.hero-free-inline {
+  white-space: nowrap;
+  color: var(--text-primary);
+}
+
+.hero-free-ast {
+  font-size: 0.52em;
+  font-weight: 700;
+  color: var(--circuit-color);
+  margin-left: 0.06em;
+  vertical-align: super;
+}
+
+.hero-free-footnote {
+  font-family: var(--font-header);
+  font-size: 0.92rem;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--text-muted);
+  margin: 0 auto 1.35rem;
+  letter-spacing: 0.01em;
+}
+
 .hero-subtitle {
   font-size: 1.2rem;
-  max-width: 700px;
+  max-width: 780px;
   margin: 0 auto 2.25rem;
   color: var(--text-secondary);
   line-height: 1.7;
@@ -608,20 +647,12 @@ nav a.active::after {
   box-shadow: 0 6px 20px rgba(217, 119, 6, 0.45);
 }
 
-.btn-hero-flux {
-  background: #fdf2f8;
-  color: #be185d !important;
-  border: 1px solid rgba(219, 39, 119, 0.25);
-  cursor: default;
-  opacity: 0.9;
-}
-
 /* ==========================================================================
    Interactive Live Solver Console Stage (Hero Stage)
    ========================================================================== */
 .hero-stage {
   margin-top: 3.25rem;
-  max-width: 1000px;
+  max-width: 1140px;
   margin-left: auto;
   margin-right: auto;
   background: #ffffff;
@@ -710,12 +741,6 @@ nav a.active::after {
   background: #f0f9ff;
   color: #0369a1;
   box-shadow: 0 1px 3px rgba(2, 132, 199, 0.15);
-}
-
-.stage-tab.active[data-engine="flux"] {
-  background: #fdf2f8;
-  color: #be185d;
-  box-shadow: 0 1px 3px rgba(219, 39, 119, 0.15);
 }
 
 .stage-viewport {
@@ -861,7 +886,7 @@ nav a.active::after {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.25rem;
-  max-width: 1000px;
+  max-width: 1140px;
   margin: 2.25rem auto 0;
   text-align: left;
 }
@@ -897,7 +922,6 @@ nav a.active::after {
 .ribbon-volt { background: var(--circuit-light); color: var(--circuit-color); }
 .ribbon-mesh { background: var(--physics-light); color: var(--physics-color); }
 .ribbon-etch { background: var(--etch-light); color: var(--etch-dark); }
-.ribbon-flux { background: var(--process-light); color: var(--process-color); }
 
 .ribbon-title {
   font-family: var(--font-header);
@@ -1003,7 +1027,9 @@ nav a.active::after {
 
 .sim-mockup {
   width: 100%;
-  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top center;
   border-radius: 10px;
   display: block;
   transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1089,11 +1115,6 @@ nav a.active::after {
   color: #ffffff;
 }
 
-.process-item .badge-option.active {
-  background: var(--process-color);
-  color: #ffffff;
-}
-
 /* Simulator Content */
 .sim-content {
   display: flex;
@@ -1156,18 +1177,6 @@ nav a.active::after {
   color: #b45309;
 }
 
-.process-badge {
-  background: var(--process-light);
-  border: 1px solid rgba(219, 39, 119, 0.25);
-  color: var(--process-color);
-}
-
-.badge-soon {
-  background: var(--process-light);
-  border: 1px solid rgba(219, 39, 119, 0.35);
-  color: var(--process-color);
-}
-
 .pulse-dot {
   display: inline-block;
   width: 6px;
@@ -1217,94 +1226,97 @@ nav a.active::after {
 .circuit-item .sim-features li::before { color: var(--circuit-color); }
 .physics-item .sim-features li::before { color: var(--physics-color); }
 .etch-item .sim-features li::before { color: var(--etch-color); }
-.process-item .sim-features li::before { color: var(--process-color); }
 
-/* PhysBox: Volt & Mesh Sparse & Faint Background Tigers (Full Section Watermarks) */
+/* Simulator Showcase Cards & Visual Column */
 .circuit-item,
-.physics-item {
-  position: relative;
-  overflow: hidden;
-}
-
-.circuit-tiger-bg,
-.physics-tiger-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  pointer-events: none;
-  z-index: 0;
-  mix-blend-mode: multiply;
-  user-select: none;
-  transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.circuit-tiger-bg {
-  object-position: center 65%;
-  opacity: 0.085;
-}
-
-.physics-tiger-bg {
-  direction: ltr;
-  object-position: center 42%;
-  opacity: 0.095;
-}
-
-.circuit-item:hover .circuit-tiger-bg,
-.physics-item:hover .physics-tiger-bg {
-  opacity: 0.18;
-  transform: scale(1.025);
-}
-
-.circuit-item .sim-content,
-.circuit-item .sim-mockup-wrapper,
-.physics-item .sim-content,
-.physics-item .sim-mockup-wrapper {
-  position: relative;
-  z-index: 1;
-}
-
-/* Laser / Etch Artisanal Section with Rich Natural Line Art */
+.physics-item,
 .etch-item {
   position: relative;
+}
+
+.sim-visual-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  direction: ltr;
+  min-width: 0;
+}
+
+/* Integrated Field-Sketchbook Vignettes (Under Mockup, Never Over Text) */
+.sim-field-sketch {
+  display: grid;
+  grid-template-columns: 185px minmax(0, 1fr);
+  align-items: center;
+  gap: 1.15rem;
+  padding: 0.85rem 1.2rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #fcfdff 0%, #f8fafc 100%);
+  border: 1px solid rgba(15, 23, 42, 0.07);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sim-field-sketch picture {
+  display: block;
+  width: 100%;
+}
+
+.sim-item:hover .sim-field-sketch {
+  border-color: rgba(15, 23, 42, 0.14);
+  box-shadow: var(--shadow-sm);
+}
+
+.etch-item .sim-field-sketch {
+  background: linear-gradient(135deg, #fffdf9 0%, #fef8ee 100%);
+  border-color: rgba(217, 119, 6, 0.2);
+}
+
+.sim-sketch-art {
+  width: 100%;
+  height: auto;
+  display: block;
+  mix-blend-mode: multiply;
+  opacity: 0.9;
+  user-select: none;
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.sim-item:hover .sim-sketch-art {
+  opacity: 0.96;
+  transform: translateY(-1px) scale(1.02);
+}
+
+.sim-sketch-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.sim-sketch-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.circuit-item .sim-sketch-kicker { color: var(--circuit-color); }
+.physics-item .sim-sketch-kicker { color: var(--physics-color); }
+.etch-item .sim-sketch-kicker { color: var(--etch-dark); }
+
+.sim-sketch-note {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.48;
+}
+
+/* Laser / Etch Artisanal Section */
+.etch-item {
   overflow: hidden;
-  background: linear-gradient(135deg, #ffffff 0%, #fffbf5 60%, #fef8ee 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #fffbf5 65%, #fef8ee 100%);
   border: 1px solid rgba(217, 119, 6, 0.25);
-}
-
-.etch-line-art-bg {
-  position: absolute;
-  right: -20px;
-  top: -20px;
-  width: 520px;
-  height: 520px;
-  opacity: 0.22;
-  pointer-events: none;
-  z-index: 0;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.etch-line-art-left {
-  position: absolute;
-  left: -40px;
-  bottom: -40px;
-  width: 420px;
-  height: 420px;
-  opacity: 0.18;
-  pointer-events: none;
-  z-index: 0;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.etch-item:hover .etch-line-art-bg {
-  opacity: 0.32;
-  transform: scale(1.03) rotate(2deg);
-}
-
-.etch-item:hover .etch-line-art-left {
-  opacity: 0.26;
-  transform: scale(1.03) rotate(-2deg);
 }
 
 .etch-item .sim-content,
@@ -1624,7 +1636,6 @@ nav a.active::after {
 .circuit-count .mcp-count-num { color: var(--circuit-color); }
 .physics-count .mcp-count-num { color: var(--physics-color); }
 .etch-count .mcp-count-num { color: var(--etch-color); }
-.process-count .mcp-count-num { color: var(--process-color); }
 
 .mcp-count-label {
   display: block;
@@ -1941,7 +1952,7 @@ footer {
   padding: 5rem 0 3rem;
   border-top: 1px solid var(--border-color);
   position: relative;
-  background-color: #ffffff;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 11%, rgba(255, 255, 255, 0.94) 17%, rgba(255, 255, 255, 0.94) 83%, rgba(255, 255, 255, 0) 89%, rgba(255, 255, 255, 0) 100%);
   overflow: hidden;
 }
 
@@ -2047,38 +2058,41 @@ footer {
   box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
 }
 
+/* Quiet colophon vignette resting above the footer rule */
+.footer-colophon-vignette {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem auto 1.75rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+.footer-colophon-img {
+  width: clamp(240px, 32vw, 390px);
+  max-width: 92%;
+  height: auto;
+  display: block;
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+  transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+footer:hover .footer-colophon-img {
+  opacity: 0.96;
+  transform: translateY(-2px);
+}
+
 .footer-bottom {
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 2rem;
+  padding-top: 1.75rem;
   padding-bottom: 0.5rem;
   border-top: 1px solid var(--border-color);
-  min-height: 72px;
-}
-
-/* Sparse & Faint Orange, Black & White Woodcut Tiger in Bottom Navbar */
-.footer-navbar-tiger {
-  position: absolute;
-  left: 50%;
-  bottom: -4px;
-  transform: translateX(-50%);
-  width: clamp(340px, 50vw, 720px);
-  max-width: 90%;
-  height: auto;
-  opacity: 0.22;
-  mix-blend-mode: multiply;
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
-  transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.footer-bottom:hover .footer-navbar-tiger,
-footer:hover .footer-navbar-tiger {
-  opacity: 0.36;
-  transform: translateX(-50%) scale(1.02);
+  min-height: 60px;
 }
 
 .footer-copy {
@@ -2102,19 +2116,6 @@ footer:hover .footer-navbar-tiger {
 
 .social-link:hover {
   color: var(--primary);
-}
-
-.footer-soon {
-  margin-left: 0.4rem;
-  padding: 0.1rem 0.4rem;
-  border-radius: 4px;
-  background: var(--process-light);
-  border: 1px solid rgba(219, 39, 119, 0.25);
-  color: var(--process-color);
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
 }
 
 /* Animations & Scroll Reveal Effects */
@@ -2333,7 +2334,7 @@ footer:hover .footer-navbar-tiger {
 }
 
 .deepdive-section.alt-bg {
-  background: #ffffff;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 11%, rgba(255, 255, 255, 0.92) 17%, rgba(255, 255, 255, 0.92) 83%, rgba(255, 255, 255, 0) 89%, rgba(255, 255, 255, 0) 100%);
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
 }
@@ -3191,11 +3192,13 @@ footer:hover .footer-navbar-tiger {
   .footer-social {
     justify-content: center;
   }
-  .footer-navbar-tiger {
-    width: 95%;
-    max-width: 380px;
-    bottom: 0;
-    opacity: 0.18;
+  .sim-field-sketch {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+  .sim-sketch-art {
+    max-width: 210px;
+    margin: 0 auto;
   }
 }
 
@@ -3450,26 +3453,6 @@ footer:hover .footer-navbar-tiger {
 .sim-quick-btn.btn-etch:hover {
   background: #fef3c7;
   box-shadow: 0 4px 14px rgba(217, 119, 6, 0.2);
-}
-
-.sim-quick-btn.btn-flux {
-  border-color: rgba(219, 39, 119, 0.25);
-  color: var(--text-muted);
-  background: #fdf2f8;
-  cursor: default;
-  opacity: 0.9;
-}
-
-.sim-quick-btn .badge-soon {
-  font-size: 10.5px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: #fbcfe8;
-  color: #be185d;
-  font-weight: 800;
-  margin-left: 4px;
 }
 
 /* 3-Column Team Grid */
@@ -3961,329 +3944,90 @@ footer:hover .footer-navbar-tiger {
 }
 
 /* ==========================================================================
-   Hand-Drawn Tiger Margin System (Editorial Unstructured.io Aesthetic)
+   Connected Suite & Cross-App Co-Simulation Section
    ========================================================================== */
 
-:root {
-  --tiger-opacity: 0.88;
-  --tiger-filter: contrast(1.04) brightness(0.98);
-}
-
-body[data-tiger-style="subtle"] {
-  --tiger-opacity: 0.38;
-  --tiger-filter: contrast(0.95) brightness(1.05);
-}
-
-body[data-tiger-style="off"] .tiger-margin-wing {
-  display: none !important;
-}
-
-/* Mobile-First: Margin Wing Component & Controls Hidden by Default */
-.tiger-margin-wing,
-.tiger-control-pill {
-  display: none !important;
-}
-
-/* Card framing */
-.tiger-card {
+.connected-suite {
+  padding: 90px 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 11%, rgba(250, 252, 255, 0.92) 17%, rgba(250, 252, 255, 0.92) 83%, rgba(255, 255, 255, 0) 89%, rgba(255, 255, 255, 0) 100%);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   position: relative;
-  display: flex;
-  flex-direction: column;
-  background: transparent;
-  padding: 0;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.tiger-margin-left .tiger-card:hover {
-  transform: translateX(4px);
+.connected-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem;
 }
 
-.tiger-margin-right .tiger-card:hover {
-  transform: translateX(-4px);
-}
-
-/* Frame wrapper */
-.tiger-img-wrap {
-  position: relative;
-  width: 100%;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-/* Subtle corner technical brackets */
-.tiger-img-wrap::before,
-.tiger-img-wrap::after {
-  content: "";
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  border-color: rgba(15, 23, 42, 0.18);
-  pointer-events: none;
-  z-index: 2;
-  transition: border-color 0.3s ease;
-}
-
-.tiger-margin-left .tiger-img-wrap::before {
-  top: 0;
-  right: 0;
-  border-top: 1.5px solid rgba(15, 23, 42, 0.22);
-  border-right: 1.5px solid rgba(15, 23, 42, 0.22);
-}
-
-.tiger-margin-left .tiger-img-wrap::after {
-  bottom: 0;
-  right: 0;
-  border-bottom: 1.5px solid rgba(15, 23, 42, 0.22);
-  border-right: 1.5px solid rgba(15, 23, 42, 0.22);
-}
-
-.tiger-margin-right .tiger-img-wrap::before {
-  top: 0;
-  left: 0;
-  border-top: 1.5px solid rgba(15, 23, 42, 0.22);
-  border-left: 1.5px solid rgba(15, 23, 42, 0.22);
-}
-
-.tiger-margin-right .tiger-img-wrap::after {
-  bottom: 0;
-  left: 0;
-  border-bottom: 1.5px solid rgba(15, 23, 42, 0.22);
-  border-left: 1.5px solid rgba(15, 23, 42, 0.22);
-}
-
-.tiger-margin-wing:hover .tiger-img-wrap::before,
-.tiger-margin-wing:hover .tiger-img-wrap::after {
-  border-color: var(--primary);
-}
-
-.tiger-art {
-  display: block;
-  width: 100%;
-  height: auto;
-  pointer-events: none;
-  mix-blend-mode: multiply;
-  transition: transform 0.4s ease;
-}
-
-/* Field guide metadata & annotations */
-.tiger-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  margin-top: 10px;
-  padding: 0 4px;
-  font-family: var(--font-mono);
-}
-
-.tiger-margin-left .tiger-meta {
-  text-align: right;
-}
-
-.tiger-margin-right .tiger-meta {
-  text-align: left;
-}
-
-.tiger-badge-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.tiger-margin-left .tiger-badge-row {
-  justify-content: flex-end;
-}
-
-.tiger-margin-right .tiger-badge-row {
-  justify-content: flex-start;
-}
-
-.tiger-badge {
-  display: inline-block;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--primary);
-  background: rgba(79, 70, 229, 0.08);
-  border: 1px solid rgba(79, 70, 229, 0.18);
-  padding: 2px 7px;
-  border-radius: 3px;
-}
-
-.tiger-sci-name {
-  font-family: 'Outfit', serif, sans-serif;
-  font-size: 0.88rem;
-  font-style: italic;
-  font-weight: 600;
-  color: var(--text-primary);
-  letter-spacing: -0.2px;
-}
-
-.tiger-desc {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  letter-spacing: 0.4px;
-}
-
-/* Technical guide tick marks along margin rails */
-.tiger-guide-rail {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: linear-gradient(to bottom, 
-    transparent 0%, 
-    rgba(15, 23, 42, 0.08) 5%, 
-    rgba(15, 23, 42, 0.08) 95%, 
-    transparent 100%
-  );
-  pointer-events: none;
-}
-
-.tiger-margin-left .tiger-guide-rail {
-  right: -14px;
-}
-
-.tiger-margin-right .tiger-guide-rail {
-  left: -14px;
-}
-
-/* Experimental Tiger Controls Widget */
-.tiger-control-pill {
-  position: fixed;
-  bottom: 22px;
-  left: 22px;
-  z-index: 99;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
-  border-radius: 999px;
-  padding: 5px 12px 5px 8px;
-  font-family: var(--font-header);
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  transition: all 0.25s ease;
-  user-select: none;
-}
-
-.tiger-control-pill:hover {
-  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.12);
-  border-color: rgba(79, 70, 229, 0.25);
-}
-
-.tiger-control-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: #fef3c7;
-  color: #b45309;
-  font-size: 0.85rem;
-}
-
-.tiger-control-btns {
-  display: inline-flex;
-  align-items: center;
-  background: var(--bg-surface-subtle);
-  border-radius: 999px;
-  padding: 2px;
-  gap: 2px;
-}
-
-.tiger-btn-mode {
-  border: none;
-  background: transparent;
-  padding: 3px 8px;
-  border-radius: 999px;
-  font-family: var(--font-header);
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.tiger-btn-mode:hover {
-  color: var(--text-primary);
-}
-
-.tiger-btn-mode.active {
+.connected-card {
   background: #ffffff;
-  color: var(--primary);
-  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 2rem 2rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-/* Wide Desktop Display (>1260px) */
-@media (min-width: 1261px) {
-  .tiger-margin-wing {
-    display: block !important;
-    position: absolute;
-    width: clamp(210px, 16vw, 290px);
-    z-index: 2;
-    pointer-events: auto;
-    user-select: none;
-    opacity: var(--tiger-opacity);
-    filter: var(--tiger-filter);
-    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
-  }
+.connected-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-color-hover);
+}
 
-  .tiger-margin-wing.tiger-margin-left {
-    right: calc(50% + 615px);
-    top: 155px;
-  }
+.connected-route {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
 
-  .tiger-margin-wing.tiger-margin-right {
-    left: calc(50% + 615px);
-    top: 155px;
-  }
+.route-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-family: var(--font-header);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
 
-  .tiger-control-pill {
-    display: inline-flex !important;
+.route-volt { background: var(--circuit-light); color: var(--circuit-color); border: 1px solid rgba(5, 150, 105, 0.22); }
+.route-mesh { background: var(--physics-light); color: var(--physics-color); border: 1px solid rgba(2, 132, 199, 0.22); }
+.route-etch { background: var(--etch-light); color: var(--etch-dark); border: 1px solid rgba(217, 119, 6, 0.25); }
+.route-suite { background: var(--primary-light); color: var(--primary); border: 1px solid rgba(79, 70, 229, 0.22); }
+
+.route-arrow {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+.connected-card h3 {
+  font-family: var(--font-header);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.25px;
+}
+
+.connected-card p {
+  font-size: 0.94rem;
+  color: var(--text-secondary);
+  line-height: 1.62;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .connected-grid {
+    grid-template-columns: 1fr;
   }
 }
 
-@media (min-width: 1261px) and (max-width: 1480px) {
-  .tiger-margin-wing {
-    width: clamp(180px, 14vw, 240px);
-    opacity: calc(var(--tiger-opacity) * 0.85);
-  }
-  .tiger-margin-wing.tiger-margin-left {
-    right: calc(50% + 605px);
-  }
-  .tiger-margin-wing.tiger-margin-right {
-    left: calc(50% + 605px);
-  }
-}
-
-@media (max-width: 1260px) {
-  .tiger-margin-wing,
-  .tiger-control-pill {
-    display: none !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    overflow: hidden !important;
-    position: absolute !important;
-    left: -9999px !important;
-  }
-}
-
-/* The card washes are inset:0 inside their positioned card, so they cannot
-   affect layout at any width - keep them on phones, just a touch lighter so
-   the text over them stays legible on a small, often glary screen. */
-@media (max-width: 1024px) {
-  .circuit-tiger-bg {
-    opacity: 0.07;
-  }
-  .physics-tiger-bg {
-    opacity: 0.08;
-  }
-}
 

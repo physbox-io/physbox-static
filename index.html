@@ -9,29 +9,29 @@
   <!-- SEO Meta Tags -->
   <link rel="canonical" href="https://physbox.io/">
   <meta name="description"
-    content="Explore PhysBox, a powerful suite of open-source, browser-based simulation tools. Browser-based EDA with schematic capture and SPICE, MuJoCo 3D physics, OpenSCAD 3D printing, and hardware-in-the-loop microcontrollers—plus 259 Model Context Protocol tools so AI agents can drive every simulator. 100% local and free.">
+    content="Explore PhysBox, an open-source browser simulation and fabrication suite: Volt (EDA, SPICE, Bode sweeps, 2-layer PCB milling & HIL), Mesh (MuJoCo 3D physics, lattice/sculpt/OpenSCAD CAD, zero-sample 3D vibro-acoustics, hydrostatics, molds & 3D printing), and Etch (multi-sheet laser & CNC vector studio) — plus 259 Model Context Protocol tools for AI agents.">
   <meta name="keywords"
-    content="simulation, EDA, electronic design automation, browser EDA, schematic capture, electronics simulator, WASM physics, MuJoCo, cellular automata, Runge Kutta, open source simulator, ngspice wasm, circuit sandbox, MCP server, Model Context Protocol, AI agent tools, world model, OpenSCAD, hardware in the loop, laser cutting, CNC milling, vector design">
+    content="simulation, EDA, electronic design automation, browser EDA, schematic capture, PCB milling, Bode plot, WASM physics, MuJoCo, 3D vibro-acoustics, modal synthesis, hydrostatics, compliant flexures, slip casting, 3MF mold export, OpenSCAD, lattice CAD, MCP server, Model Context Protocol, AI agent tools, world model, hardware in the loop, laser cutting, CNC milling, vector design">
   <meta name="author" content="physbox.io">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://physbox.io/">
-  <meta property="og:title" content="PhysBox | High-Fidelity Open-Source Interactive Simulations">
+  <meta property="og:title" content="PhysBox | High-Fidelity Open-Source Interactive Simulations & Fabrication">
   <meta property="og:description"
-    content="A powerful suite of browser-based simulation tools. High-fidelity electronics, MuJoCo 3D physics, cellular automata, and IoT nodes—100% local, offline-capable, and completely free.">
-  <meta property="og:image" content="https://physbox.io/assets/physics_raw.png">
+    content="Browser-native EDA & PCB milling, MuJoCo 3D physics & vibro-acoustics, parametric/lattice/sculpt CAD, molds, and laser/CNC vector fabrication — with 259 MCP tools for AI agents.">
+  <meta property="og:image" content="https://physbox.io/assets/mesh_showcase.png">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://physbox.io/">
-  <meta property="twitter:title" content="PhysBox | High-Fidelity Open-Source Interactive Simulations">
+  <meta property="twitter:title" content="PhysBox | High-Fidelity Open-Source Interactive Simulations & Fabrication">
   <meta property="twitter:description"
-    content="A powerful suite of browser-based simulation tools. High-fidelity electronics, MuJoCo 3D physics, cellular automata, and IoT nodes—100% local, offline-capable, and completely free.">
-  <meta property="twitter:image" content="https://physbox.io/assets/physics_raw.png">
+    content="Browser-native EDA & PCB milling, MuJoCo 3D physics & vibro-acoustics, parametric/lattice/sculpt CAD, molds, and laser/CNC vector fabrication — with 259 MCP tools for AI agents.">
+  <meta property="twitter:image" content="https://physbox.io/assets/mesh_showcase.png">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="styles.css?v=20260905">
+  <link rel="stylesheet" href="styles.css?v=20261119c">
 
   <!-- FontAwesome for Premium Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -72,7 +72,7 @@
         "publisher": {
           "@id": "https://physbox.io/#organization"
         },
-        "description": "Browser-based scientific simulation and digital fabrication suite powered by WebAssembly: PhysBox Volt (EDA, schematic capture, SPICE simulation, PCB milling), PhysBox Mesh (MuJoCo rigid-body 3D physics, OpenSCAD CSG CAD, 3D printing, CNC relief/solid CAM), PhysBox Etch (2D vector laser cutting & GRBL control), and PhysBox Flux (system dynamics & cellular automata).",
+        "description": "Browser-based scientific simulation and digital fabrication suite powered by WebAssembly: PhysBox Volt (EDA, schematic capture, XSPICE/Ngspice simulation, Bode sweeps, 2-layer PCB milling, HIL), PhysBox Mesh (MuJoCo rigid-body 3D physics, 3D vibro-acoustics, hydrostatics, Lattice/Sculpt/OpenSCAD CAD, molds, slip-casting, timber joinery, 3D printing & CNC CAM), and PhysBox Etch (multi-sheet 2D vector laser cutting & GRBL control).",
         "softwareVersion": "2.0.0",
         "license": "https://physbox.io/license.html",
         "termsOfService": "https://physbox.io/terms.html",
@@ -94,12 +94,6 @@
             "name": "PhysBox: Etch",
             "url": "https://etch.physbox.io/",
             "applicationCategory": "DesignApplication"
-          },
-          {
-            "@type": "WebApplication",
-            "name": "PhysBox: Flux",
-            "url": "https://flux.physbox.io/",
-            "applicationCategory": "ScientificApplication"
           }
         ]
       }
@@ -163,7 +157,6 @@
           <li><a href="https://volt.physbox.io" target="_blank" class="mobile-nav-link"><i class="fas fa-microchip" style="color: var(--circuit-color);"></i> PhysBox: Volt</a></li>
           <li><a href="https://mesh.physbox.io" target="_blank" class="mobile-nav-link"><i class="fas fa-cube" style="color: var(--physics-color);"></i> PhysBox: Mesh</a></li>
           <li><a href="https://etch.physbox.io" target="_blank" class="mobile-nav-link"><i class="fas fa-scissors" style="color: var(--etch-color);"></i> PhysBox: Etch</a></li>
-          <li><a href="https://flux.physbox.io" target="_blank" class="mobile-nav-link"><i class="fas fa-network-wired" style="color: var(--process-color);"></i> PhysBox: Flux</a></li>
 
           <li class="mobile-nav-section-title">Documentation & Guides</li>
           <li><a href="hardware.html" class="mobile-nav-link"><i class="fas fa-microchip"></i> HIL & Fabrication</a></li>
@@ -192,23 +185,6 @@
 
   <!-- Hero Section -->
   <section class="hero">
-    <!-- Margin Illustration: Fig 01 (Left) -->
-    <aside class="tiger-margin-wing tiger-margin-left reveal delay-300" style="top: 160px; display: none;" aria-label="Field Illustration - Prowling Tiger">
-      <div class="tiger-guide-rail"></div>
-      <div class="tiger-card">
-        <div class="tiger-badge-row">
-          <span class="tiger-badge">FIELD EXP. 01</span>
-        </div>
-        <div class="tiger-img-wrap">
-          <img src="assets/tigers/tiger-prowl-left.png" alt="Hand-drawn sketch of a prowling tiger amidst jungle vines" class="tiger-art" loading="lazy">
-        </div>
-        <div class="tiger-meta">
-          <span class="tiger-sci-name">Panthera tigris</span>
-          <span class="tiger-desc">PROWLING STRIDE // CANOPY 18°N</span>
-        </div>
-      </div>
-    </aside>
-
     <div class="container">
       <div class="hero-badge reveal">
         <span class="dot"></span>
@@ -218,10 +194,11 @@
         </span>
       </div>
       <h1 class="hero-title reveal delay-100">
-        Design, Simulation & Making, <br><span class="gradient-text">limited by your ideas not your software.</span>
+        Design, Simulation &amp; Making, <br><span class="gradient-text">limited by your ideas not your software.</span> <span class="hero-free-inline">Totally free.<sup class="hero-free-ast">*</sup></span>
       </h1>
+      <p class="hero-free-footnote reveal delay-100">*Free as in beer, and as in speech.</p>
       <p class="hero-subtitle reveal delay-200">
-        High-fidelity, open-source simulation engines running natively in your browser. From real-time Hardware-In-The-Loop microcontrollers and microsecond electronics to parametric 3D printing, precision laser and CNC vector fabrication, and modeling the consequences of your ideas.
+        High-fidelity, open-source simulation and fabrication engines running natively in your browser. From SPICE electronics, 2-layer PCB milling, and realtime HIL silicon to 3D MuJoCo mechanics, zero-sample vibro-acoustics, slip-cast &amp; 3MF molds, and multi-sheet laser/CNC craft &mdash; connected live across one suite.
       </p>
       <div class="hero-ctas reveal delay-300">
         <a href="https://mesh.physbox.io" target="_blank" class="btn btn-hero-mesh" id="hero-btn-mesh">
@@ -233,9 +210,6 @@
         <a href="https://etch.physbox.io" target="_blank" class="btn btn-hero-etch" id="hero-btn-etch">
           <i class="fas fa-scissors"></i> PhysBox: Etch
         </a>
-        <span class="btn btn-hero-flux disabled" id="hero-btn-flux" title="Coming Soon">
-          <i class="fas fa-network-wired"></i> PhysBox: Flux <span class="badge-soon">Soon</span>
-        </span>
       </div>
 
       <!-- Live Interactive Solver Console Stage -->
@@ -250,7 +224,6 @@
             <button class="stage-tab active" data-engine="mesh"><i class="fas fa-cubes"></i> Mesh (Chaos Pendulum)</button>
             <button class="stage-tab" data-engine="etch"><i class="fas fa-scissors"></i> Etch (Laser Kerf)</button>
             <button class="stage-tab" data-engine="volt"><i class="fas fa-wave-square"></i> Volt (RLC SPICE)</button>
-            <button class="stage-tab" data-engine="flux"><i class="fas fa-network-wired"></i> Flux (Wildfire CA)</button>
           </div>
         </div>
 
@@ -297,26 +270,6 @@
               </button>
             </div>
 
-            <!-- Mesh Controls -->
-            <div class="stage-ctrl-group" id="ctrl-group-mesh" style="display: none;">
-              <button class="stage-ctrl-btn" id="btn-mesh-fling" title="Give chaotic impulse">
-                <i class="fas fa-hand-pointer"></i> Fling Pendulum
-              </button>
-              <button class="stage-ctrl-btn" id="btn-mesh-reset" title="Reset angle">
-                <i class="fas fa-rotate-left"></i> Reset
-              </button>
-            </div>
-
-            <!-- Flux Controls -->
-            <div class="stage-ctrl-group" id="ctrl-group-flux" style="display: none;">
-              <button class="stage-ctrl-btn" id="btn-flux-spark" title="Spark new wildfire front">
-                <i class="fas fa-fire"></i> Spark Fire
-              </button>
-              <button class="stage-ctrl-btn" id="btn-flux-wind" title="Toggle Wind Vector">
-                <i class="fas fa-wind"></i> Wind: <span id="flux-wind-label">East</span>
-              </button>
-            </div>
-
             <button class="stage-ctrl-btn" id="btn-stage-pause" title="Play/Pause live solver">
               <i class="fas fa-pause" id="icon-stage-playpause"></i>
             </button>
@@ -333,8 +286,8 @@
             <span class="stage-metric-pill" title="4th-order Runge-Kutta numerical energy drift">
               Energy Drift: <b id="live-energy">&mdash;</b>
             </span>
-            <span class="stage-metric-pill" title="Real-time node potential">
-              Output $V_C$: <b id="live-vc">&mdash;</b>
+            <span class="stage-metric-pill" title="Real-time solver state / node potential">
+              Output: <b id="live-vc">&mdash;</b>
             </span>
             <span class="stage-metric-pill" title="Browser rendering frame rate">
               Rate: <b id="live-fps">&mdash;</b> fps
@@ -348,29 +301,29 @@
         <div class="ribbon-item">
           <div class="ribbon-icon ribbon-volt"><i class="fas fa-microchip"></i></div>
           <div>
-            <div class="ribbon-title">WASM Ngspice Engine</div>
-            <div class="ribbon-subtitle">Real-time 460.8k baud HIL silicon bridge</div>
+            <div class="ribbon-title">SPICE EDA &amp; PCB Milling</div>
+            <div class="ribbon-subtitle">Bode sweeps, 2-layer copper CAM &amp; realtime HIL</div>
           </div>
         </div>
         <div class="ribbon-item">
           <div class="ribbon-icon ribbon-mesh"><i class="fas fa-cubes"></i></div>
           <div>
-            <div class="ribbon-title">MuJoCo & CSG CAD</div>
-            <div class="ribbon-subtitle">Procedural OpenSCAD & 1-click STL export</div>
+            <div class="ribbon-title">MuJoCo, Acoustics &amp; CAD</div>
+            <div class="ribbon-subtitle">Lattice/sculpt/SCAD, hydrostatics, molds &amp; 3MF</div>
           </div>
         </div>
         <div class="ribbon-item">
           <div class="ribbon-icon ribbon-etch"><i class="fas fa-scissors"></i></div>
           <div>
-            <div class="ribbon-title">Laser Craft & CNC CAM</div>
-            <div class="ribbon-subtitle">Kerf offset, finger joints & WebSerial GRBL</div>
+            <div class="ribbon-title">Multi-Sheet Laser &amp; CNC</div>
+            <div class="ribbon-subtitle">Ornaments, living hinges &amp; live WebSerial trim</div>
           </div>
         </div>
         <div class="ribbon-item">
-          <div class="ribbon-icon ribbon-flux"><i class="fas fa-robot"></i></div>
+          <div class="ribbon-icon" style="background: var(--primary-light); color: var(--primary);"><i class="fas fa-robot"></i></div>
           <div>
             <div class="ribbon-title">259 Native MCP Tools</div>
-            <div class="ribbon-subtitle">Direct agent control via Model Context Protocol</div>
+            <div class="ribbon-subtitle">Closed-loop agent control across every app</div>
           </div>
         </div>
       </div>
@@ -380,68 +333,62 @@
 
   <!-- Showcase Section -->
   <section class="showcase" id="suite">
-    <!-- Margin Illustration: Fig 02 (Right) -->
-    <aside class="tiger-margin-wing tiger-margin-right reveal delay-200" style="top: 260px; display: none;" aria-label="Field Illustration - Arboreal Rest">
-      <div class="tiger-guide-rail"></div>
-      <div class="tiger-card">
-        <div class="tiger-badge-row">
-          <span class="tiger-badge">FIELD EXP. 02</span>
-        </div>
-        <div class="tiger-img-wrap">
-          <img src="assets/tigers/tiger-rest-right.png" alt="Hand-drawn sketch of a tiger resting on a mossy branch" class="tiger-art" loading="lazy">
-        </div>
-        <div class="tiger-meta">
-          <span class="tiger-sci-name">Arboreal equilibrium</span>
-          <span class="tiger-desc">MOSS BOUGH // ELEV. 420M</span>
-        </div>
-      </div>
-    </aside>
-
     <div class="container">
 
       <div class="section-header reveal">
         <span class="section-tag">Interactive Sandbox Suite</span>
-        <h2 class="section-title">Engines Purpose-Built for Exploratory Science & Fabrication</h2>
-        <p class="section-subtitle">Specialized simulation tools designed to bridge physical mathematics, hardware-in-the-loop silicon, procedural 3D CAD, and precision vector craft.</p>
+        <h2 class="section-title">Engines Purpose-Built for Exploratory Science &amp; Fabrication</h2>
+        <p class="section-subtitle">Specialized simulation studios designed to bridge physical mathematics, hardware-in-the-loop silicon, multi-domain 3D CAD/CAM, and precision vector craft.</p>
       </div>
 
       <div class="sim-list">
 
         <!-- 1. PhysBox: Volt -->
         <div class="sim-item circuit-item reveal">
-          <!-- Sparse Background Illustration -->
-          <img src="assets/tigers/volt-tiger-bg.png" alt="" class="circuit-tiger-bg" aria-hidden="true" loading="lazy">
-          <div class="sim-mockup-wrapper circuit-mockup-wrapper" id="wrapper-circuit">
-            <div class="mockup-header">
-              <span class="mockup-dot"></span>
-              <span class="mockup-dot"></span>
-              <span class="mockup-dot"></span>
+          <div class="sim-visual-col">
+            <div class="sim-mockup-wrapper circuit-mockup-wrapper" id="wrapper-circuit">
+              <div class="mockup-header">
+                <span class="mockup-dot"></span>
+                <span class="mockup-dot"></span>
+                <span class="mockup-dot"></span>
+              </div>
+              <div class="mockup-toggle-badge" id="toggle-badge-volt">
+                <span class="badge-option active" data-mode="stylized" id="toggle-opt-volt-stylized">Bode &amp; DC Sweep</span>
+                <span class="badge-option" data-mode="raw" id="toggle-opt-volt-raw">2-Layer PCB CAM</span>
+              </div>
+              <img src="assets/volt_showcase.png?v=20261119c" alt="PhysBox Volt EDA &amp; SPICE Simulator Interface" class="sim-mockup"
+                data-stylized="assets/volt_showcase.png?v=20261119c" data-raw="assets/circuit_raw.png?v=20261119c" data-state="stylized"
+                id="img-circuit">
             </div>
-            <img src="assets/circuit_raw.png" alt="PhysBox Volt Circuit Simulator Interface" class="sim-mockup" id="img-circuit">
+            <figure class="sim-field-sketch">
+              <picture>
+                <source srcset="assets/tigers/volt-tiger-sketch.webp" type="image/webp">
+                <img src="assets/tigers/volt-tiger-sketch.png" alt="Copperplate sketch of a tiger studying a Lissajous harmonic oscillation curve" class="sim-sketch-art" loading="lazy">
+              </picture>
+              <figcaption class="sim-sketch-caption">
+                <span class="sim-sketch-kicker">Harmonic &amp; Electromechanical Loop</span>
+                <span class="sim-sketch-note">Sweep small-signal Bode plots, mill double-sided copper boards, or link live motor coils and Thiele-Small speakers straight into a 3D Mesh scene.</span>
+              </figcaption>
+            </figure>
           </div>
           <div class="sim-content">
             <div class="sim-badges">
-              <span class="sim-badge circuit-badge">EDA &middot; Electronics & Signals</span>
-              <span class="sim-badge badge-hil"><span class="pulse-dot"></span>⚡ Hardware-In-The-Loop (HIL)</span>
+              <span class="sim-badge circuit-badge">EDA &middot; SPICE &amp; PCB CAM</span>
+              <span class="sim-badge badge-hil"><span class="pulse-dot"></span><i class="fas fa-bolt" style="margin-right: 5px;"></i> HIL &amp; Co-Simulation</span>
             </div>
             <h3 class="sim-name">PhysBox: Volt</h3>
             <p class="sim-desc">
-              A full <strong>EDA</strong> (Electronic Design Automation) environment that runs entirely in the
-              browser &mdash; schematic capture, netlist extraction and analog simulation on one canvas &mdash; powered
-              by an optimized, custom-compiled <strong>Ngspice WebAssembly engine</strong> with real-time
-              <strong>Hardware-In-The-Loop (HIL) execution</strong>.
-              Design, wire, and test complex electrical circuits with true physical waveforms synchronized directly with
-              physical microcontrollers.
+              A complete browser-native <strong>EDA &amp; mixed-signal studio</strong> &mdash; schematic capture, XSPICE/Ngspice simulation, frequency-domain analysis, and 2-layer PCB fabrication on one canvas &mdash; powered by a synchronous <strong>WebAssembly SPICE engine</strong> with real-time <strong>Hardware-In-The-Loop (HIL)</strong> silicon and live 3D electromechanical co-simulation.
             </p>
             <ul class="sim-features">
-              <li><strong>Hardware-In-The-Loop Microcontroller Bridge:</strong> Wire physical ESP32 & CYD microcontrollers directly into the WASM SPICE worker via high-speed UART (460,800 baud) & WebSockets. Supports MicroPython & C++ native batching (`hil_batch`).</li>
-              <li><strong>Integrated Audio Inputs & Outputs:</strong> Bind real hardware microphone inputs to input nodes, feed raw DAC outputs directly to your system speakers, and synthesize hardware filters in real time.</li>
-              <li><strong>Visual React Flow Canvas & MCU Sandbox:</strong> Schematic capture in a modular node-editor &mdash; the EDA front end that compiles straight to the SPICE netlist the solver runs. Build and modify circuit nets, program microcontrollers inside the schematic, and execute firmware cycles alongside passive components.</li>
+              <li><strong>Transient, DC Bias &amp; Bode Frequency Sweeps:</strong> Inspect live oscilloscope traces, toggle quiescent <strong>DC operating-point</strong> voltage chips on every net, run log-frequency <strong>Bode magnitude/phase sweeps</strong> with automatic &minus;3&nbsp;dB corner readouts, and catch overloaded resistors or reverse-biased LEDs with live ERC and power-rating checks.</li>
+              <li><strong>Single &amp; 2-Layer PCB Milling, Stencils &amp; Gerbers:</strong> Auto-place and drag-to-reroute footprints with copper flood and pad clearance rings. Probe a 4&times;4 conductive heightmap directly on copper-clad FR4 over WebSerial, drill spoilboard flip-alignment pins for double-sided boards, send SMD paste stencils to Etch, or export RS-274X Gerbers.</li>
+              <li><strong>Realtime HIL &amp; Live Mesh Co-Simulation:</strong> Bridge physical ESP32/CYD microcontrollers in realtime over WebSerial, route live WebAudio mic/speaker signals through analog filters, or click <strong>Link Mesh</strong> to drive 3D NEMA&nbsp;17 steppers, DC gearmotors, and acoustic speaker enclosures from real SPICE currents.</li>
             </ul>
             <div class="sim-footer">
               <a href="https://volt.physbox.io" class="btn btn-primary" id="btn-launch-circuit"><i
-                  class="fas fa-microchip"></i> Launch Volt Sandbox</a>
-              <a href="https://github.com/physbox-io/circuitsim" target="_blank" class="btn btn-secondary"
+                  class="fas fa-microchip"></i> Launch Volt Studio</a>
+              <a href="https://github.com/physbox-io/volt" target="_blank" class="btn btn-secondary"
                 id="btn-github-circuit"><i class="fab fa-github"></i> View Repository</a>
             </div>
           </div>
@@ -449,40 +396,53 @@
 
         <!-- 2. PhysBox: Mesh -->
         <div class="sim-item physics-item reveal">
-          <!-- Sparse Background Illustration: Tiger swiping hanging pendulum ball -->
-          <img src="assets/tigers/mesh-tiger-bg.png" alt="" class="physics-tiger-bg" aria-hidden="true" loading="lazy">
-          <div class="sim-mockup-wrapper physics-mockup-wrapper" id="wrapper-physics">
-            <div class="mockup-header">
-              <span class="mockup-dot"></span>
-              <span class="mockup-dot"></span>
-              <span class="mockup-dot"></span>
+          <div class="sim-visual-col">
+            <div class="sim-mockup-wrapper physics-mockup-wrapper" id="wrapper-physics">
+              <div class="mockup-header">
+                <span class="mockup-dot"></span>
+                <span class="mockup-dot"></span>
+                <span class="mockup-dot"></span>
+              </div>
+              <div class="mockup-toggle-badge" id="toggle-badge-mesh">
+                <span class="badge-option active" data-mode="stylized" id="toggle-opt-mesh-stylized">#3DBenchy Hydrostatics</span>
+                <span class="badge-option" data-mode="raw" id="toggle-opt-mesh-raw">Silicone Pour Mold</span>
+              </div>
+              <img src="assets/mesh_showcase.png?v=20261119c" alt="PhysBox Mesh 3D Physics, CAD &amp; Fabrication Studio" class="sim-mockup"
+                data-stylized="assets/mesh_showcase.png?v=20261119c" data-raw="assets/physics_raw.png?v=20261119c" data-state="stylized"
+                id="img-physics">
             </div>
-            <img src="assets/physics_raw.png" alt="PhysBox Mesh Physics Simulator Interface" class="sim-mockup" id="img-physics">
+            <figure class="sim-field-sketch">
+              <picture>
+                <source srcset="assets/tigers/mesh-tiger-sketch.webp" type="image/webp">
+                <img src="assets/tigers/mesh-tiger-sketch.png" alt="Hand-drawn copperplate sketch of a tiger batting a suspended pendulum bob" class="sim-sketch-art" loading="lazy">
+              </picture>
+              <figcaption class="sim-sketch-caption">
+                <span class="sim-sketch-kicker">Coupled Mechanics, Hydrostatics &amp; Sound</span>
+                <span class="sim-sketch-note">Every collision, bowed string, marimba bar, and blown bore is synthesized live from actual 3D geometry and material stiffness &mdash; zero pre-recorded audio samples.</span>
+              </figcaption>
+            </figure>
           </div>
           <div class="sim-content">
             <div class="sim-badges">
-              <span class="sim-badge physics-badge">Generative Physics</span>
-              <span class="sim-badge badge-scad"><span class="pulse-dot"></span>🛠️ OpenSCAD & 3D Printing</span>
-              <span class="sim-badge badge-scad"><span class="pulse-dot"></span>🥣 True Concave Collision</span>
+              <span class="sim-badge physics-badge">MuJoCo 3D Physics &amp; CAD</span>
+              <span class="sim-badge badge-scad"><span class="pulse-dot"></span><i class="fas fa-wave-square" style="margin-right: 5px;"></i> 3D Vibro-Acoustics</span>
+              <span class="sim-badge badge-scad"><span class="pulse-dot"></span><i class="fas fa-fill-drip" style="margin-right: 5px;"></i> Molds, Timber &amp; 3MF</span>
             </div>
             <h3 class="sim-name">PhysBox: Mesh</h3>
             <p class="sim-desc">
-              <strong>Code. Simulate. Print. Powered by AI.</strong><br>
-              An advanced mechanical simulator powered by a custom-compiled <strong>MuJoCo WebAssembly engine</strong>
-              and an integrated <strong>WASM OpenSCAD compiler</strong>. Generate parametric procedural CAD models, test
-              physical joint mechanics in real time in a GPU-accelerated WebGL viewport, and export 3D-print ready STL
-              files.
+              <strong>Model. Simulate. Listen. Make.</strong><br>
+              A multi-domain mechanical, acoustic, and digital fabrication studio combining <strong>MuJoCo WebAssembly</strong> with <strong>Lattice cage modelling</strong>, <strong>clay sculpting</strong>, <strong>WASM OpenSCAD</strong>, and path-traced rendering. Build assemblies that collide concavely, float upright, ring at concert pitch, and export to printers, mills, lasers, and casting benches.
             </p>
             <ul class="sim-features">
-              <li><strong>True Concave Collision &mdash; Cups Actually Hold Things:</strong> Every other browser physics engine collides a mesh as its convex hull, so hollow shapes are quietly solid: drop a ball into a cup and it lands on an invisible lid at the rim. Mesh measures each body's <em>solidity</em> and decomposes concave geometry into convex hulls with V-HACD in a background worker. Containers contain, funnels feed, housings seat &mdash; on imported STLs, sculpts, lattices and booleans alike. No proxy walls, no flags, no setup.</li>
-              <li><strong>Procedural WASM OpenSCAD & Parametric Sliders:</strong> Write constructive solid geometry (CSG) code live inside the browser node inspector. Automatically compiles code and generates interactive UI sliders from annotations for instant tuning.</li>
-              <li><strong>1-Click Z-Up STL Export for 3D Printing:</strong> Export individual procedural components or full mechanical assemblies directly to Z-up orientation STL files, formatted specifically for modern slicers (PrusaSlicer, Bambu Studio, Cura).</li>
-              <li><strong>Proximity-Aware Coupling & Complete DOF Control:</strong> Solves pinion, gear, and rack behaviors on the fly using rigid mathematical joint constraints, or uncheck coupling to test pure colliding gear teeth friction across 6-DOF bodies.</li>
+              <li><strong>True Concave Collision, Hydrostatics, Flexures &amp; Fracture:</strong> Automatic background V-HACD decomposition means cups hold balls and funnels feed parts with zero proxy setup. Simulate container-bounded water with 3D Archimedes righting torques, compliant leaf flexures, shearable welds, Hertzian denting/shattering, and internal <code>M4&ndash;M16</code> hex-nut ballast (<code>Stand</code>, <code>Spin</code>, <code>Float</code>).</li>
+              <li><strong>Zero-Sample 3D Vibro-Acoustics &amp; Luthier Tuning:</strong> Coupled Kirchhoff&ndash;Love shell + 3D FDTD cavity FIR convolution, Rayleigh&ndash;Ritz modal bars, Schelleng bowed/plucked strings (4/4 cello, lyre), and 3D TMM wind/brass waveguides &mdash; carve an f-hole or thin a spruce top and hear the resonance change live.</li>
+              <li><strong>Lattice CAD, Clay Sculpting, Surface Patterns &amp; OpenSCAD:</strong> Model dimensioned hard-surface cages on a decade grid (<code>0.1&ndash;100 mm</code>) with live edge rounding (<code>E</code>), slice sculpted clay with viewport scissors, apply 7 procedural architectural patterns (kumiko, guilloch&eacute;, fluted, parquet), or write parametric OpenSCAD with auto-generated UI sliders.</li>
+              <li><strong>Molds, Slip-Casting, Timber Joinery &amp; Multi-Setup CAM:</strong> Generate separable silicone/rigid pour molds with sliding C-clips, plaster slip-cast molds, PVA dissolvable liners, multi-material 3MF slicer plates, mortise-and-tenon timber breakdowns, bonded brickwork, and multi-setup CNC/relief/sheet-unfold jobs &mdash; then click <strong>Add Simulation</strong> to test the machined or cast part back in physics.</li>
             </ul>
             <div class="sim-footer">
               <a href="https://mesh.physbox.io" class="btn btn-primary" id="btn-launch-physics"><i
-                  class="fas fa-cubes"></i> Launch Mesh Sandbox</a>
-              <a href="https://github.com/physbox-io/physicssim" target="_blank" class="btn btn-secondary"
+                  class="fas fa-cubes"></i> Launch Mesh Studio</a>
+              <a href="https://github.com/physbox-io/mesh" target="_blank" class="btn btn-secondary"
                 id="btn-github-physics"><i class="fab fa-github"></i> View Repository</a>
             </div>
           </div>
@@ -490,87 +450,56 @@
 
         <!-- 3. PhysBox: Etch (Laser Cutting & Vector Craft Artistry) -->
         <div class="sim-item etch-item reveal">
-          <!-- Prominent Top-Right Botanical & Wood Contour Line Art -->
-          <svg class="etch-line-art-bg" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="380" cy="120" rx="260" ry="240" stroke="#d97706" stroke-width="1.5" stroke-dasharray="10 6"/>
-            <ellipse cx="380" cy="120" rx="220" ry="200" stroke="#b45309" stroke-width="1.5"/>
-            <ellipse cx="380" cy="120" rx="180" ry="160" stroke="#d97706" stroke-width="1.8" stroke-dasharray="16 8"/>
-            <ellipse cx="380" cy="120" rx="140" ry="120" stroke="#b45309" stroke-width="1.5"/>
-            <ellipse cx="380" cy="120" rx="100" ry="85" stroke="#d97706" stroke-width="2"/>
-            <ellipse cx="380" cy="120" rx="60" ry="50" stroke="#b45309" stroke-width="2.2"/>
-            <!-- Elegant Botanical Monstera / Fern Leaves Vector Paths -->
-            <path d="M 220 340 Q 340 220 460 100" stroke="#d97706" stroke-width="2.5"/>
-            <path d="M 310 250 C 270 230 250 180 290 150 C 330 180 340 220 310 250 Z" stroke="#b45309" stroke-width="1.8" fill="rgba(217, 119, 6, 0.08)"/>
-            <path d="M 370 190 C 330 170 310 120 350 90 C 390 120 400 160 370 190 Z" stroke="#d97706" stroke-width="1.8" fill="rgba(180, 83, 9, 0.08)"/>
-            <path d="M 260 300 C 220 280 200 230 240 200 C 280 230 290 270 260 300 Z" stroke="#b45309" stroke-width="1.8" fill="rgba(217, 119, 6, 0.08)"/>
-          </svg>
-
-          <!-- Subtle Bottom-Left Topographic Contour Lines -->
-          <svg class="etch-line-art-left" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M -50 350 C 50 320 120 380 220 310 C 320 240 280 150 420 120" stroke="#d97706" stroke-width="1.5" stroke-dasharray="8 6"/>
-            <path d="M -50 290 C 60 260 130 310 230 240 C 330 170 290 90 420 60" stroke="#b45309" stroke-width="1.5"/>
-            <path d="M -50 230 C 70 200 140 240 240 170 C 340 100 300 30 420 0" stroke="#d97706" stroke-width="1.8"/>
-            <path d="M -50 170 C 80 140 150 170 250 100 C 350 30 310 -30 420 -60" stroke="#b45309" stroke-width="1.5" stroke-dasharray="12 6"/>
-          </svg>
-
-          <div class="sim-mockup-wrapper etch-mockup-wrapper" id="wrapper-etch">
-            <div class="mockup-header">
-              <span class="mockup-dot"></span>
-              <span class="mockup-dot"></span>
-              <span class="mockup-dot"></span>
+          <div class="sim-visual-col">
+            <div class="sim-mockup-wrapper etch-mockup-wrapper" id="wrapper-etch">
+              <div class="mockup-header">
+                <span class="mockup-dot"></span>
+                <span class="mockup-dot"></span>
+                <span class="mockup-dot"></span>
+              </div>
+              <div class="mockup-toggle-badge" id="toggle-badge-etch">
+                <span class="badge-option active" data-mode="stylized" id="toggle-opt-etch-stylized">3D V-Carve Plaque</span>
+                <span class="badge-option" data-mode="raw" id="toggle-opt-etch-raw">Lotus Relief Carve</span>
+              </div>
+              <img src="assets/etch_showcase.png?v=20261119c" alt="PhysBox Etch Multi-Sheet Vector &amp; Laser/CNC Studio" class="sim-mockup"
+                data-raw="assets/etch_raw.png?v=20261119c" data-stylized="assets/etch_showcase.png?v=20261119c" data-state="stylized"
+                id="img-etch">
             </div>
-            <div class="mockup-toggle-badge" id="toggle-badge-etch">
-              <span class="badge-option active" data-mode="stylized" id="toggle-opt-etch-stylized">Stylized Mockup</span>
-              <span class="badge-option" data-mode="raw" id="toggle-opt-etch-raw">Actual Screenshot</span>
-            </div>
-            <img src="assets/etch_mockup.png" alt="PhysBox Etch Interface" class="sim-mockup"
-              data-raw="assets/etch_raw.png" data-stylized="assets/etch_mockup.png" data-state="stylized"
-              id="img-etch">
+            <figure class="sim-field-sketch">
+              <picture>
+                <source srcset="assets/tigers/etch-tiger-craft.webp" type="image/webp">
+                <img src="assets/tigers/etch-tiger-craft.png" alt="Woodcut engraving study of a tiger walking from botanical fronds into concentric laser contour toolpaths" class="sim-sketch-art" loading="lazy">
+              </picture>
+              <figcaption class="sim-sketch-caption">
+                <span class="sim-sketch-kicker">Woodcut Relief, Fretwork &amp; Contour CAM</span>
+                <span class="sim-sketch-note">From botanical vine ornaments, lace fills, and living hinges to multi-sheet registration pin stacks and live mid-cut GRBL overrides.</span>
+              </figcaption>
+            </figure>
           </div>
           <div class="sim-content">
             <div class="sim-badges">
-              <span class="sim-badge etch-badge">2D Vector & CNC Studio</span>
-              <span class="sim-badge badge-cnc"><span class="pulse-dot"></span>🔥 Laser Craft & WebSerial</span>
+              <span class="sim-badge etch-badge">2D Vector &amp; Multi-Sheet CAM</span>
+              <span class="sim-badge badge-cnc"><span class="pulse-dot"></span><i class="fas fa-fire-flame-curved" style="margin-right: 5px;"></i> Laser Craft &amp; WebSerial</span>
             </div>
             <h3 class="sim-name">PhysBox: Etch</h3>
             <p class="sim-desc">
-              <strong>Vector Artistry. Laser Precision. Machine Control.</strong><br>
-              A studio for laser cutting, fine surface engraving, and CNC routing. Draw or import vector artwork, vectorize typography automatically, calculate material-specific feeds and kerf compensation, preview 3D G-code toolpaths, and stream directly to GRBL, FluidNC, or grblHAL hardware over WebSerial &mdash; trimming feed, spindle and rapids live while the job runs.
+              <strong>Vector Artistry. Laser Precision. Shop-Floor Control.</strong><br>
+              A multi-sheet studio for laser cutting, fine surface engraving, fretwork, and CNC routing. Compose stacked designs across tabbed sheets with shared registration holes, derive chip-load-safe feeds and optical kerf automatically, and stream straight to GRBL, FluidNC, or grblHAL hardware over WebSerial &mdash; with <strong>Live Trim</strong> and crash-proof <strong>Run From Line</strong> recovery.
             </p>
 
-            <!-- Visible Natural Botanical Inset Showcase -->
-            <div class="etch-botanical-panel">
-              <div class="botanical-thumb">
-                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
-                  <!-- Botanical Leaf Vector Artwork -->
-                  <path d="M 50 90 Q 50 10 90 10 Q 50 50 10 90 Z" fill="rgba(217, 119, 6, 0.15)" stroke="#d97706" stroke-width="2.5"/>
-                  <path d="M 50 90 L 50 10" stroke="#b45309" stroke-width="2"/>
-                  <path d="M 50 70 Q 65 60 78 62" stroke="#d97706" stroke-width="1.5"/>
-                  <path d="M 50 50 Q 68 40 82 42" stroke="#d97706" stroke-width="1.5"/>
-                  <path d="M 50 30 Q 68 20 84 22" stroke="#d97706" stroke-width="1.5"/>
-                  <path d="M 50 70 Q 35 60 22 62" stroke="#d97706" stroke-width="1.5"/>
-                  <path d="M 50 50 Q 32 40 18 42" stroke="#d97706" stroke-width="1.5"/>
-                </svg>
-              </div>
-              <div class="botanical-panel-text">
-                <strong>Natural Botanical & Contour Toolpaths</strong>
-                Supports fine vector engravings, concentric tree growth ring contours, floral inlays, and kerf-tight organic wooden joinery.
-              </div>
-            </div>
-            
             <!-- Laser Operations Triplet -->
             <div class="etch-operations-grid">
               <div class="etch-op-card">
-                <div class="op-badge-cut"><i class="fas fa-scissors"></i> Vector Cut</div>
-                <span>0.15mm optical kerf compensation with multi-pass stepdown tabs.</span>
+                <div class="op-badge-cut"><i class="fas fa-scissors"></i> Cut &amp; Living Hinge</div>
+                <span>Kerf-compensated profiles, ramped tabs, perforations &amp; kerf-bent wood hinges.</span>
               </div>
               <div class="etch-op-card">
-                <div class="op-badge-score"><i class="fas fa-pen-nib"></i> Vector Score</div>
-                <span>Fast vector tracing with low power for crisp surface joinery lines.</span>
+                <div class="op-badge-score"><i class="fas fa-pen-nib"></i> Ornaments &amp; Sweep</div>
+                <span>Procedural vines, guilloch&eacute;, variable-width brush sweeps &amp; fretwork lace.</span>
               </div>
               <div class="etch-op-card">
-                <div class="op-badge-engrave"><i class="fas fa-brush"></i> Raster Engrave</div>
-                <span>High-density bi-directional burnt fills for rich wood & acrylic depth.</span>
+                <div class="op-badge-engrave"><i class="fas fa-brush"></i> Shade &amp; Texture Fill</div>
+                <span>Tiled pattern hatches, halftone dithering, non-destructive eraser masks &amp; V-carve.</span>
               </div>
             </div>
 
@@ -579,14 +508,13 @@
               <span class="craft-swatch-tag"><span class="craft-swatch-dot swatch-wood"></span> Baltic Birch (3mm)</span>
               <span class="craft-swatch-tag"><span class="craft-swatch-dot swatch-acrylic"></span> Cast Acrylic (5mm)</span>
               <span class="craft-swatch-tag"><span class="craft-swatch-dot swatch-leather"></span> Walnut Hardwood</span>
-              <span class="craft-swatch-tag"><span class="craft-swatch-dot swatch-brass"></span> Brass Inlay</span>
+              <span class="craft-swatch-tag"><span class="craft-swatch-dot swatch-brass"></span> SMD Mylar Stencil</span>
             </div>
 
             <ul class="sim-features">
-              <li><strong>Bed-Accurate Vector Canvas & Typography Vectorization:</strong> Real millimeter workspace with bezier node editing, mandala radial symmetry, and Google Fonts picker with automatic outline conversion so text cuts crisply without missing paths.</li>
-              <li><strong>Intelligent Speeds, Feeds & Safety Warnings:</strong> Automatically derives spindle RPM, feed speeds, and pass stepdowns for Plywood, MDF, Hardwood, and Acrylic with live safety warnings for charring and carbide bit deflection.</li>
-              <li><strong>Touch-Plate Z Probing & Bed Heightmaps:</strong> Zero work coordinates via <code>G10 L20</code>, probe Z zero with touch plates, and run 3x3 bed heightmaps so toolpaths follow warped stock or unlevel spoilboards seamlessly.</li>
-              <li><strong>Raster Import & Clip Art Library:</strong> Bring a photo or logo in as traced vector, halftone dots, or engrave scanlines &mdash; or as a greyscale shade layer where darkness drives cut depth, so pitch, angle and depth stay editable afterwards. 40 built-in symbols across shapes, nature, tech and ornaments place at true millimeter size.</li>
+              <li><strong>Multi-Sheet Layered Jobs &amp; One-Click Suite Handoffs:</strong> Build multi-layer shadowboxes and enclosures across a tabbed sheet strip with shared stock, cross-sheet copy/paste, and aligned registration pin holes. Unfolded panels from Mesh and solder-paste stencils from Volt land directly in your open Etch tab.</li>
+              <li><strong>Procedural Ornaments, Lace Fills &amp; Variable-Width Brushes:</strong> Generate flowing botanical vines, guilloch&eacute; rosettes, radial mandalas, fretwork lace, paint-bucket texture fills, DXF imports/exports, and hand-smoothed calligraphic strokes &mdash; plus non-destructive layer eraser masks.</li>
+              <li><strong>Derived Feeds, Spoilboard Surfacing &amp; Run-From Recovery:</strong> Derives router chiploads and laser energy-per-mm automatically, runs <strong>Material Test Grids</strong> and spoilboard facing passes, probes 3&times;3 bed heightmaps, survives browser reloads mid-job, and previews &amp; resumes any stopped cut from an exact G-code line.</li>
             </ul>
             <div class="sim-footer">
               <a href="https://etch.physbox.io" class="btn btn-primary" id="btn-launch-etch"><i
@@ -597,69 +525,65 @@
           </div>
         </div>
 
-        <!-- 4. PhysBox: Flux -->
-        <div class="sim-item process-item reveal">
-          <div class="sim-mockup-wrapper process-mockup-wrapper" id="wrapper-process">
-            <div class="mockup-header">
-              <span class="mockup-dot"></span>
-              <span class="mockup-dot"></span>
-              <span class="mockup-dot"></span>
-            </div>
-            <div class="mockup-toggle-badge" id="toggle-badge-process">
-              <span class="badge-option active" data-mode="stylized" id="toggle-opt-process-stylized">Stylized Mockup</span>
-              <span class="badge-option" data-mode="raw" id="toggle-opt-process-raw">Actual Screenshot</span>
-            </div>
-            <img src="assets/process_mockup.png" alt="Process Simulator Interface" class="sim-mockup"
-              data-raw="assets/process_raw.png" data-stylized="assets/process_mockup.png" data-state="stylized"
-              id="img-process">
+      </div>
+    </div>
+  </section>
+
+  <!-- Connected Suite & Cross-App Co-Simulation Section -->
+  <section class="connected-suite" id="connected">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Connected Workshop</span>
+        <h2 class="section-title">Three Studios. <span class="gradient-text">One Coupled Physical Loop.</span></h2>
+        <p class="section-subtitle">Volt, Mesh, and Etch aren't isolated tabs. Link a live SPICE circuit to a 3D MuJoCo mechanism in real time, wrap a 3D enclosure around a routed PCB, or unfold multi-sheet joinery straight onto your laser bed.</p>
+      </div>
+
+      <div class="connected-grid">
+        <div class="connected-card reveal">
+          <div class="connected-route">
+            <span class="route-pill route-volt"><i class="fas fa-bolt"></i> Volt</span>
+            <i class="fas fa-arrows-left-right route-arrow"></i>
+            <span class="route-pill route-mesh"><i class="fas fa-cube"></i> Mesh</span>
           </div>
-          <div class="sim-content">
-            <div class="sim-badges">
-              <span class="sim-badge process-badge">Hybrid Systems & CA</span>
-              <span class="sim-badge badge-soon"><span class="pulse-dot"></span>🚧 Early Preview</span>
-            </div>
-            <h3 class="sim-name">PhysBox: Flux</h3>
-            <p class="sim-desc">
-              A hybrid systems simulator engineered to model complex relationships, cellular events, and system cycles.
-              Bridge the gap between deterministic calculus and stochastic environmental cellular grids.
-            </p>
-            <ul class="sim-features">
-              <li><strong>Runge-Kutta Differential Solver:</strong> Simulate multi-variable ecological balances, predator-prey dynamics, and process loops with numerical stability.</li>
-              <li><strong>Wildfire Cellular Automata:</strong> Model pixel-by-pixel fire front spread, incorporating wind vectors, moisture, and response dispatch logic directly on an interactive 2D grid.</li>
-              <li><strong>General IoT & Smart Nodes:</strong> Read real-world telemetry via WebSocket inputs and fire outbound webhooks for physical actions, combined with a <strong>State-Gated LLM Copilot</strong> to build grids safely.</li>
-            </ul>
-            <div class="sim-footer">
-              <a href="https://flux.physbox.io" class="btn btn-primary" id="btn-launch-process"><i
-                  class="fas fa-network-wired"></i> Preview Flux</a>
-              <a href="https://github.com/physbox-io/processsim" target="_blank" class="btn btn-secondary"
-                id="btn-github-process"><i class="fab fa-github"></i> View Repository</a>
-            </div>
-          </div>
+          <h3>Live Electromechanical &amp; Acoustic Co-Simulation</h3>
+          <p>Click <strong>Link Mesh</strong> in Volt to bind H-bridges, step drivers, NEMA&nbsp;17 steppers, and DC gearmotors directly to MuJoCo 3D joints &mdash; Volt solves coil currents while Mesh solves mechanical torque and stall loads. Or bind a <strong>Thiele-Small speaker driver</strong> to a 3D Mesh enclosure cavity to hear how box volume and ports shape your circuit's bass response.</p>
         </div>
 
+        <div class="connected-card reveal delay-100">
+          <div class="connected-route">
+            <span class="route-pill route-volt"><i class="fas fa-microchip"></i> Volt PCB</span>
+            <i class="fas fa-arrow-right route-arrow"></i>
+            <span class="route-pill route-mesh"><i class="fas fa-cubes"></i> Mesh CAD</span>
+          </div>
+          <h3>Send Routed Boards to Mesh for Enclosure CAD</h3>
+          <p>Once your single- or double-sided board is laid out in Volt, send it to Mesh in one click. The true board outline, mounting holes, and 3D component keep-outs arrive at exact millimetre scale so you can model snap-fit 3D-printed cases, brass heat-set bosses, or cast silicone boots around it.</p>
+        </div>
+
+        <div class="connected-card reveal delay-200">
+          <div class="connected-route">
+            <span class="route-pill route-mesh"><i class="fas fa-cube"></i> Mesh</span>
+            <span class="route-arrow">+</span>
+            <span class="route-pill route-volt"><i class="fas fa-bolt"></i> Volt</span>
+            <i class="fas fa-arrow-right route-arrow"></i>
+            <span class="route-pill route-etch"><i class="fas fa-scissors"></i> Etch</span>
+          </div>
+          <h3>Direct Multi-Sheet &amp; Stencil Handoffs to Etch</h3>
+          <p>Unfold finger-jointed plywood enclosures, stacked contour slices, or soft-goods patterns with glue tabs in Mesh and send every sheet straight into an open Etch tab with stock thickness and machine metadata intact &mdash; or send SMD solder-paste apertures from Volt to Etch for precision Mylar laser cutting.</p>
+        </div>
+
+        <div class="connected-card reveal delay-300">
+          <div class="connected-route">
+            <span class="route-pill route-suite"><i class="fas fa-shield-halved"></i> Unified Suite</span>
+          </div>
+          <h3>Shared Sign-In, Synced Tool Rack &amp; Floating E-Stop</h3>
+          <p>Sign in once across <code>physbox.io</code>, Volt, Mesh, and Etch. Your end-mill tool rack, machine bed dimensions, Z touch-plate thickness, and theme follow you automatically &mdash; backed by cross-tab active-job awareness and one unmistakable floating <strong>E-Stop</strong> above every dialog.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- AI World Models Section -->
   <section class="ai-agents" id="ai-models">
-    <!-- Margin Illustration: Fig 03 (Left) -->
-    <aside class="tiger-margin-wing tiger-margin-left reveal delay-200" style="top: 130px; display: none;" aria-label="Field Illustration - Focused Tiger Gaze">
-      <div class="tiger-guide-rail"></div>
-      <div class="tiger-card">
-        <div class="tiger-badge-row">
-          <span class="tiger-badge">FIELD EXP. 03</span>
-        </div>
-        <div class="tiger-img-wrap">
-          <img src="assets/tigers/tiger-portrait-left.png" alt="Hand-drawn sketch of a tiger face emerging through monstera leaves" class="tiger-art" loading="lazy">
-        </div>
-        <div class="tiger-meta">
-          <span class="tiger-sci-name">Piercing intent</span>
-          <span class="tiger-desc">MONSTERA ARCH // CANOPY CORE</span>
-        </div>
-      </div>
-    </aside>
-
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Agentic AI Tooling</span>
@@ -744,29 +668,29 @@
       <div class="section-header reveal">
         <span class="section-tag">Model Context Protocol</span>
         <h2 class="section-title">259 Tools. One <code class="title-code">pip install</code>.</h2>
-        <p class="section-subtitle">PhysBox: MCP is a companion server that puts every simulator on the other end of a tool call. Commands travel as JSON over a local WebSocket relay straight into the running browser tab. Two hundred and forty-four are simulator tools; ten more read the run archive and your account; four — <code>detect_apps</code>, <code>send_command</code>, <code>list_sessions</code> and <code>use_session</code> — work across all of them.</p>
+        <p class="section-subtitle">PhysBox: MCP is a companion server that puts every simulator on the other end of a tool call. Commands travel as JSON over a local WebSocket relay straight into the running browser tab (or native desktop window). Two hundred and forty-five are simulator tools; ten more read the run archive and your account; four &mdash; <code>detect_apps</code>, <code>send_command</code>, <code>list_sessions</code> and <code>use_session</code> &mdash; work across all of them.</p>
       </div>
 
       <div class="mcp-counts reveal">
-        <div class="mcp-count-card circuit-count">
-          <span class="mcp-count-num">21</span>
-          <span class="mcp-count-label">Volt tools</span>
-          <span class="mcp-count-desc">SPICE runs, waveform reads, netlist edits, audio I/O</span>
-        </div>
         <div class="mcp-count-card physics-count">
-          <span class="mcp-count-num">29</span>
+          <span class="mcp-count-num">117</span>
           <span class="mcp-count-label">Mesh tools</span>
-          <span class="mcp-count-desc">Scene building, SCAD validation, headless rollouts, STL export</span>
+          <span class="mcp-count-desc">Lattice/sculpt/SCAD CAD, MuJoCo rollouts, DFM, molds, slip-cast, timber &amp; 3MF/CAM</span>
         </div>
         <div class="mcp-count-card etch-count">
-          <span class="mcp-count-num">13</span>
+          <span class="mcp-count-num">59</span>
           <span class="mcp-count-label">Etch tools</span>
-          <span class="mcp-count-desc">SVG &amp; raster import, clip art, presets, machine capabilities, G-code</span>
+          <span class="mcp-count-desc">Multi-sheet SVG/DXF, ornaments, living hinges, lace fills, probing &amp; WebSerial GRBL</span>
         </div>
-        <div class="mcp-count-card process-count">
-          <span class="mcp-count-num">16</span>
-          <span class="mcp-count-label">Flux tools</span>
-          <span class="mcp-count-desc">Graph construction, solver control, telemetry <em>— in preview</em></span>
+        <div class="mcp-count-card circuit-count">
+          <span class="mcp-count-num">53</span>
+          <span class="mcp-count-label">Volt tools</span>
+          <span class="mcp-count-desc">SPICE runs, Bode &amp; parameter sweeps, 2-layer PCB routing/milling, HIL &amp; audio I/O</span>
+        </div>
+        <div class="mcp-count-card">
+          <span class="mcp-count-num" style="color: var(--primary);">30</span>
+          <span class="mcp-count-label">Archive, Relay &amp; Batch</span>
+          <span class="mcp-count-desc">10 cloud run-archive &amp; doc tools, 4 cross-app session relays &amp; 16 headless batch/Monte-Carlo solvers</span>
         </div>
       </div>
 
@@ -811,37 +735,37 @@
           </div>
 
           <p class="mcp-footnote"><i class="fas fa-circle-info"></i> Open <a href="https://volt.physbox.io" style="color: var(--primary); font-weight:600;">volt</a>,
-            <a href="https://mesh.physbox.io" style="color: var(--primary); font-weight:600;">mesh</a>, <a href="https://etch.physbox.io" style="color: var(--primary); font-weight:600;">etch</a>, or <a href="https://flux.physbox.io" style="color: var(--primary); font-weight:600;">flux</a>.physbox.io and the
-            page registers itself with the relay on load. Nothing else to wire up.</p>
+            <a href="https://mesh.physbox.io" style="color: var(--primary); font-weight:600;">mesh</a>, or <a href="https://etch.physbox.io" style="color: var(--primary); font-weight:600;">etch</a>.physbox.io and the
+            page registers itself with the relay on load &mdash; sending live heartbeats during heavy CAM/CSG builds so long tool calls never time out.</p>
+          <p class="mcp-footnote" style="margin-top: 0.75rem; padding-top: 0.75rem;"><i class="fas fa-circle-info"></i> Works across <strong>multiple open tabs simultaneously</strong> &mdash; keep Volt, Mesh, and Etch (or several scenes of the same studio) open side by side and your agent addresses each tab cleanly by session without cross-talk.</p>
         </div>
 
         <!-- Right: The agent loop -->
         <div class="mcp-loop reveal delay-100">
           <h3 class="mcp-subheading"><i class="fas fa-rotate"></i> The Closed Loop</h3>
-          <p class="ai-paragraph">An agent designing a printable or laser-cut part doesn't just emit geometry and hope. It runs the
-            full cycle, and the simulator gives ground truth feedback:</p>
+          <p class="ai-paragraph">An agent designing a printable, cast, or CNC-machined assembly doesn't just emit geometry and hope. It runs the
+            full physical cycle, and the simulator gives ground-truth feedback:</p>
 
           <ol class="mcp-loop-list">
             <li>
-              <code>physics_validate_scad</code>
-              <span>Compile the OpenSCAD source. Returns vertex/face counts and a real-world bounding box — and flags
-                the classic millimetre-vs-metre slip that silently builds a part 1000&times; too large.</span>
+              <code>physics_create_lattice</code> <span class="loop-or">/</span> <code>physics_validate_scad</code>
+              <span>Build dimensioned cage geometry or compile OpenSCAD, inspect real-world bounding boxes, and run <code>physics_check_dfm</code> to catch thin walls or steep overhangs early.</span>
             </li>
             <li>
-              <code>physics_build_scene</code>
-              <span>Drop the compiled mesh into a MuJoCo scene with joints, actuators and constraints.</span>
+              <code>physics_build_scene</code> <span class="loop-or">&amp;</span> <code>physics_run_headless</code>
+              <span>Drop the assembly into MuJoCo with joints, flexures, water buoyancy, or coupled Volt motors, and step N ticks to verify nothing binds or tips.</span>
             </li>
             <li>
-              <code>physics_run_headless</code>
-              <span>Run N ticks and return the trajectory without disturbing the live view. Rollouts for free.</span>
+              <code>physics_make_pour_box</code> <span class="loop-or">/</span> <code>physics_export_cut</code>
+              <span>Generate separable C-clip molds, slip-cast plaster shells, timber mortise-and-tenon setups, or hand unfolded finger-joint sheets straight to Etch.</span>
             </li>
             <li>
               <code>physics_get_telemetry</code> <span class="loop-or">/</span> <code>physics_get_screenshot</code>
-              <span>Read numbers, or hand a rendered frame to a vision model. Both are one call.</span>
+              <span>Read exact joint/contact numbers or capture a clean, overlay-free viewport frame (<code>clean: true</code>) for visual inspection.</span>
             </li>
             <li class="loop-final">
               <i class="fas fa-arrow-rotate-left"></i>
-              <span><strong>Correct and repeat.</strong> The part shrinks, the linkage stops binding, the amplifier stops clipping — because something other than the model's own confidence is grading the work.</span>
+              <span><strong>Correct and repeat.</strong> The mold drafts cleanly, the linkage stops binding, the filter hits &minus;3&nbsp;dB on target &mdash; because physics, not model confidence, grades the work.</span>
             </li>
           </ol>
 
@@ -858,7 +782,7 @@
       <!-- Copy-Paste AI Agent Prompts Showcase -->
       <div class="mcp-prompts-showcase reveal delay-200" style="margin-top: 3.5rem; background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; padding: 2.25rem; box-shadow: var(--shadow-md);">
         <h3 style="font-size: 1.25rem; font-family: var(--font-header); color: var(--text-primary); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
-          <i class="fas fa-terminal" style="color: var(--primary);"></i> Copy-Paste Agent Prompts for Claude Code & Cursor
+          <i class="fas fa-terminal" style="color: var(--primary);"></i> Copy-Paste Agent Prompts for Claude Code, Cursor &amp; Antigravity
         </h3>
         <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
           Give your LLM immediate access to a physical world model. Copy any of these prompts directly into your MCP-connected agent:
@@ -868,28 +792,28 @@
           <!-- Prompt 1: Volt -->
           <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-              <span class="sim-badge circuit-badge">Volt (Electronics)</span>
+              <span class="sim-badge circuit-badge">Volt (EDA &amp; Bode)</span>
               <button class="btn-copy-block" data-copy-target="prompt-text-volt" style="position: static; width: auto; height: auto; padding: 0.3rem 0.65rem; font-size: 0.78rem; display: inline-flex; gap: 0.35rem; align-items: center;"><i class="far fa-clipboard"></i> Copy</button>
             </div>
-            <code id="prompt-text-volt" style="font-size: 0.84rem; color: #047857; display: block; font-family: var(--font-mono); line-height: 1.5;">"Optimize the RC filter values in Volt schematic to achieve a 1 kHz cutoff frequency, then run circuit_run_sim and return the magnitude plot."</code>
+            <code id="prompt-text-volt" style="font-size: 0.84rem; color: #047857; display: block; font-family: var(--font-mono); line-height: 1.5;">"Tune the active low-pass filter in Volt for a clean 1 kHz -3 dB cutoff, check that every resistor stays within its power rating, and lay out a 2-layer PCB ready to mill."</code>
           </div>
 
           <!-- Prompt 2: Mesh -->
           <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-              <span class="sim-badge physics-badge">Mesh (3D Physics & CAD)</span>
+              <span class="sim-badge physics-badge">Mesh (CAD, DFM &amp; Molds)</span>
               <button class="btn-copy-block" data-copy-target="prompt-text-mesh" style="position: static; width: auto; height: auto; padding: 0.3rem 0.65rem; font-size: 0.78rem; display: inline-flex; gap: 0.35rem; align-items: center;"><i class="far fa-clipboard"></i> Copy</button>
             </div>
-            <code id="prompt-text-mesh" style="font-size: 0.84rem; color: #0369a1; display: block; font-family: var(--font-mono); line-height: 1.5;">"Write an OpenSCAD mounting bracket in Mesh with 4mm screw holes, test structural collision stability in MuJoCo, and export the Z-up STL."</code>
+            <code id="prompt-text-mesh" style="font-size: 0.84rem; color: #0369a1; display: block; font-family: var(--font-mono); line-height: 1.5;">"Build a separable two-part silicone pour mold with sliding C-clips around the Benchy in Mesh, check printability, and simulate pouring and demolding the cast."</code>
           </div>
 
           <!-- Prompt 3: Etch -->
           <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-              <span class="sim-badge etch-badge">Etch (CNC & Laser)</span>
+              <span class="sim-badge etch-badge">Etch (Multi-Sheet CAM)</span>
               <button class="btn-copy-block" data-copy-target="prompt-text-etch" style="position: static; width: auto; height: auto; padding: 0.3rem 0.65rem; font-size: 0.78rem; display: inline-flex; gap: 0.35rem; align-items: center;"><i class="far fa-clipboard"></i> Copy</button>
             </div>
-            <code id="prompt-text-etch" style="font-size: 0.84rem; color: #b45309; display: block; font-family: var(--font-mono); line-height: 1.5;">"Import this vector SVG logo, apply 2-pass 3mm stepdown feeds for Plywood, check CNC safety warnings, and generate GRBL G-code."</code>
+            <code id="prompt-text-etch" style="font-size: 0.84rem; color: #b45309; display: block; font-family: var(--font-mono); line-height: 1.5;">"Unfold the finger-jointed enclosure from Mesh into Etch, engrave a botanical vine border on the lid, verify there are no open cut loops, and generate G-code for 3 mm Baltic birch."</code>
           </div>
         </div>
       </div>
@@ -897,12 +821,12 @@
   </section>
 
   <!-- Platform Comparison -->
-  <section class="comparison-section" id="comparison" style="padding: 90px 0; background: #ffffff; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+  <section class="comparison-section" id="comparison" style="padding: 90px 0; background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 11%, rgba(255, 255, 255, 0.92) 17%, rgba(255, 255, 255, 0.92) 83%, rgba(255, 255, 255, 0) 89%, rgba(255, 255, 255, 0) 100%); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Platform Comparison</span>
         <h2 class="section-title">The Only <span class="gradient-text">AI-Native</span> Physical World Model</h2>
-        <p class="section-subtitle">Why traditional browser tools and desktop CAD/CAM leave AI agents in a physical vacuum—and how PhysBox gives LLMs ground-truth spatial, electronic, and physical feedback loops.</p>
+        <p class="section-subtitle">Why traditional browser tools and desktop CAD/CAM leave AI agents in a physical vacuum—and how PhysBox gives LLMs ground-truth spatial, electronic, acoustic, and physical feedback loops.</p>
       </div>
 
       <!-- Feature Comparison Table -->
@@ -926,26 +850,26 @@
             <tr style="border-bottom: 1px solid var(--border-color);">
               <td style="padding: 1rem 1.25rem; font-weight: 600; color: var(--text-primary);">World Model Grounding</td>
               <td style="padding: 1rem 1.25rem; color: #dc2626;"><i class="fas fa-xmark"></i> Visual display only</td>
-              <td style="padding: 1rem 1.25rem; color: #dc2626;"><i class="fas fa-xmark"></i> Offline file export</td>
-              <td style="padding: 1rem 1.25rem; color: #059669; font-weight: 600; background: rgba(79, 70, 229, 0.04);"><i class="fas fa-check-circle"></i> Closed-loop physical ground truth</td>
+              <td style="padding: 1rem 1.25rem; color: #dc2626;"><i class="fas fa-xmark"></i> Disconnected CAD/EDA silos</td>
+              <td style="padding: 1rem 1.25rem; color: #059669; font-weight: 600; background: rgba(79, 70, 229, 0.04);"><i class="fas fa-check-circle"></i> Coupled SPICE + MuJoCo + 3D Acoustics</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--border-color);">
               <td style="padding: 1rem 1.25rem; font-weight: 600; color: var(--text-primary);">Local Data Privacy</td>
               <td style="padding: 1rem 1.25rem; color: #d97706;"><i class="fas fa-triangle-exclamation"></i> Server dependent</td>
               <td style="padding: 1rem 1.25rem; color: #059669;"><i class="fas fa-check"></i> Local software</td>
-              <td style="padding: 1rem 1.25rem; color: #059669; font-weight: 600; background: rgba(79, 70, 229, 0.04);"><i class="fas fa-shield-halved"></i> 100% Browser WASM (Zero Cloud Uploads)</td>
+              <td style="padding: 1rem 1.25rem; color: #059669; font-weight: 600; background: rgba(79, 70, 229, 0.04);"><i class="fas fa-shield-halved"></i> 100% Local WASM (Optional Cloud Sync)</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--border-color);">
-              <td style="padding: 1rem 1.25rem; font-weight: 600; color: var(--text-primary);">Hardware-In-The-Loop (HIL)</td>
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: var(--text-primary);">Hardware-In-The-Loop &amp; CNC</td>
               <td style="padding: 1rem 1.25rem; color: #dc2626;"><i class="fas fa-xmark"></i> None</td>
-              <td style="padding: 1rem 1.25rem; color: #dc2626;"><i class="fas fa-xmark"></i> Special hardware required</td>
-              <td style="padding: 1rem 1.25rem; color: #059669; font-weight: 600; background: rgba(79, 70, 229, 0.04);"><i class="fas fa-plug"></i> WebSerial UART 460,800 baud</td>
+              <td style="padding: 1rem 1.25rem; color: #dc2626;"><i class="fas fa-xmark"></i> Separate sender software</td>
+              <td style="padding: 1rem 1.25rem; color: #059669; font-weight: 600; background: rgba(79, 70, 229, 0.04);"><i class="fas fa-plug"></i> Direct Realtime WebSerial HIL &amp; GRBL</td>
             </tr>
             <tr>
-              <td style="padding: 1rem 1.25rem; font-weight: 600; color: var(--text-primary);">Zero-Install Access</td>
+              <td style="padding: 1rem 1.25rem; font-weight: 600; color: var(--text-primary);">Zero-Install + Native Escape Hatch</td>
               <td style="padding: 1rem 1.25rem; color: #059669;"><i class="fas fa-check"></i> Browser URL</td>
-              <td style="padding: 1rem 1.25rem; color: #dc2626;"><i class="fas fa-xmark"></i> Multi-GB installation</td>
-              <td style="padding: 1rem 1.25rem; color: #059669; font-weight: 600; background: rgba(79, 70, 229, 0.04);"><i class="fas fa-bolt"></i> Instant browser execution</td>
+              <td style="padding: 1rem 1.25rem; color: #dc2626;"><i class="fas fa-xmark"></i> Multi-GB install only</td>
+              <td style="padding: 1rem 1.25rem; color: #059669; font-weight: 600; background: rgba(79, 70, 229, 0.04);"><i class="fas fa-bolt"></i> Instant Browser + C++20 Native Desktop</td>
             </tr>
           </tbody>
         </table>
@@ -958,21 +882,21 @@
             <i class="fas fa-circle-check"></i> Core Strengths
           </h4>
           <ul style="font-size: 0.9rem; color: #065f46; line-height: 1.6; list-style: disc; padding-left: 1.25rem;">
-            <li>Zero friction instant web access with full WebAssembly simulation fidelity.</li>
-            <li>Native 259 MCP tools specifically built as physical world models for AI agents.</li>
-            <li>Bi-directional WebSerial hardware communication for real MCU & CNC controllers.</li>
-            <li>100% offline-capable and private—your files never touch external cloud servers.</li>
+            <li>Zero-friction browser access with coupled SPICE, MuJoCo, hydrostatics, and 3D vibro-acoustics.</li>
+            <li>259 native MCP tools built as closed-loop physical world models for AI agents.</li>
+            <li>End-to-end fabrication: multi-material 3MF, silicone/slip-cast molds, 2-layer PCBs, timber joinery, and laser/CNC G-code.</li>
+            <li>100% local WASM execution with no account required (plus optional C++20 desktop builds for heavy workloads).</li>
           </ul>
         </div>
 
         <div style="background: #fffbeb; border: 1px solid rgba(217, 119, 6, 0.25); border-radius: 16px; padding: 1.5rem;">
           <h4 style="font-family: var(--font-header); color: #b45309; margin-bottom: 0.75rem; font-size: 1.05rem; display: flex; align-items: center; gap: 0.5rem;">
-            <i class="fas fa-scale-balanced"></i> Honest Tradeoffs & Limitations
+            <i class="fas fa-scale-balanced"></i> Honest Tradeoffs &amp; Limitations
           </h4>
           <ul style="font-size: 0.9rem; color: #92400e; line-height: 1.6; list-style: disc; padding-left: 1.25rem;">
-            <li>Browser WebAssembly memory caps (4GB) limit ultra-large multi-million node FEM meshes.</li>
-            <li>CAM is focused on 2.5D and 3D relief carving (no multi-axis 5-axis CNC support).</li>
-            <li>WebSerial allows 1 active hardware connection per browser tab.</li>
+            <li>Browser tabs face a 4GB WebAssembly heap cap (solved on desktop by PhysBox Native C++20).</li>
+            <li>Subtractive CAM targets 2.5D, 3D relief, and indexed multi-face setups rather than continuous 5-axis simultaneous milling.</li>
+            <li>Direct USB WebSerial streaming requires a Chromium-based browser (Chrome, Edge, Brave, Opera) or PhysBox Native.</li>
           </ul>
         </div>
       </div>
@@ -981,50 +905,33 @@
 
   <!-- Technical Details / Architecture -->
   <section class="tech-stack" id="tech">
-    <!-- Margin Illustration: Fig 04 (Right) -->
-    <aside class="tiger-margin-wing tiger-margin-right reveal delay-200" style="top: 110px; display: none;" aria-label="Field Illustration - Bamboo Kinematics">
-      <div class="tiger-guide-rail"></div>
-      <div class="tiger-card">
-        <div class="tiger-badge-row">
-          <span class="tiger-badge">FIELD EXP. 04</span>
-        </div>
-        <div class="tiger-img-wrap">
-          <img src="assets/tigers/tiger-bamboo-right.png" alt="Hand-drawn sketch of a tiger stepping stealthily through bamboo stalks" class="tiger-art" loading="lazy">
-        </div>
-        <div class="tiger-meta">
-          <span class="tiger-sci-name">Bamboo kinematics</span>
-          <span class="tiger-desc">PASSAGE // GROVE STEPPER</span>
-        </div>
-      </div>
-    </aside>
-
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Inside The Engine</span>
         <h2 class="section-title">Zero-Server Web Architecture</h2>
-        <p class="section-subtitle">By compiling industry-standard C simulation engines and CAD compilers to WebAssembly, we deliver desktop-grade physics, HIL hardware, and 3D modeling directly in the browser.</p>
+        <p class="section-subtitle">By compiling industry-standard C/C++ solvers and CAD kernels to WebAssembly, PhysBox delivers desktop-grade multi-physics, acoustics, HIL silicon, and CAM directly in the browser.</p>
       </div>
 
       <div class="tech-grid">
         <div class="tech-card reveal">
           <span class="tech-icon"><i class="fas fa-bolt"></i></span>
-          <h3>WebAssembly Simulators</h3>
-          <p>Native C simulation cores like Ngspice and MuJoCo compiled directly to WebAssembly for native-level execution speeds and complete browser sandboxing.</p>
+          <h3>WASM MuJoCo &amp; XSPICE</h3>
+          <p>Synchronous Ngspice/XSPICE and MuJoCo 3.17 cores compiled to WebAssembly with background V-HACD concave decomposition, hydrostatics, and fracture mechanics.</p>
         </div>
         <div class="tech-card reveal delay-100">
-          <span class="tech-icon"><i class="fas fa-microchip"></i></span>
-          <h3>Hardware-In-The-Loop (HIL)</h3>
-          <p>High-speed UART (460,800 baud) & WebSocket protocol linking WASM circuit solvers with MicroPython/C++ firmware running on physical ESP32/CYD microcontrollers.</p>
+          <span class="tech-icon"><i class="fas fa-wave-square"></i></span>
+          <h3>3D Vibro-Acoustics &amp; HIL</h3>
+          <p>Kirchhoff&ndash;Love plate + 3D FDTD cavity FIR convolution in WebAudio Worklets alongside realtime WebSerial HIL bridges and live Volt&leftrightarrow;Mesh co-simulation.</p>
         </div>
         <div class="tech-card reveal delay-200">
           <span class="tech-icon"><i class="fas fa-cubes"></i></span>
-          <h3>WASM OpenSCAD & 3D Printing</h3>
-          <p>Integrated CSG geometry engine compiling OpenSCAD code to MuJoCo collision meshes in WASM with live parametric UI sliders and 1-click STL export.</p>
+          <h3>Manifold CSG, Lattice &amp; Molds</h3>
+          <p>Exact Manifold booleans, decade-grid lattice cages, clay sculpting, OpenSCAD, DFM analysis, separable silicone/slip-cast molds, and multi-material 3MF export.</p>
         </div>
         <div class="tech-card reveal delay-300">
           <span class="tech-icon"><i class="fas fa-scissors"></i></span>
-          <h3>Laser Vector & CNC CAM</h3>
-          <p>Real-time kerf offset calculations, SVG nesting, tab-and-slot finger joints, and WebSerial G-code streaming for laser cutters and CNC machines.</p>
+          <h3>PCB, Timber &amp; Laser/CNC CAM</h3>
+          <p>Conductive heightmap PCB isolation milling, mortise-and-tenon timber setups, multi-sheet kerf nesting, live GRBL overrides, and crash-proof Run-From recovery.</p>
         </div>
       </div>
     </div>
@@ -1036,9 +943,7 @@
       <div class="pledge-card reveal">
         <h2 class="pledge-title">Our Open-Source Pledge</h2>
         <p class="pledge-desc">
-          We believe scientific, maker, and educational tools should be accessible to everyone. physbox.io is
-          completely free to use, contains no hidden tiers, requires no account creation, and will remain open-source
-          forever. You can clone the repositories and run them offline locally.
+          We believe scientific, maker, and educational tools should be accessible to everyone. Every PhysBox browser simulator &mdash; Volt, Mesh, and Etch &mdash; runs 100% locally in your browser for free with no account required, and the source repositories are open under PPPL-1.0 so you can clone and run them offline anytime. Optional <a href="pro.html" style="color: var(--primary); font-weight: 600;">PhysBox Pro</a> funds development with cloud sync, run archives, and DRM-free perpetual C++20 desktop builds.
         </p>
         <div class="pledge-ctas">
           <a href="https://github.com/physbox-io" target="_blank" class="btn btn-primary" id="pledge-btn-clone"><i
@@ -1058,20 +963,18 @@
           <p class="footer-desc">A premium scientific and craft sandbox suite. Open-source, browser-based, high-fidelity simulators for engineers, students, and makers.</p>
         </div>
         <div class="footer-links">
-          <h4>Simulators & Tools</h4>
+          <h4>Simulators &amp; Tools</h4>
           <ul>
             <li><a href="https://volt.physbox.io" id="footer-link-circuit">PhysBox: Volt</a></li>
             <li><a href="https://mesh.physbox.io" id="footer-link-physics">PhysBox: Mesh</a></li>
             <li><a href="https://etch.physbox.io" id="footer-link-etch">PhysBox: Etch</a></li>
-            <li><a href="https://flux.physbox.io" id="footer-link-process">PhysBox: Flux <span
-                  class="footer-soon">soon</span></a></li>
           </ul>
         </div>
         <div class="footer-links">
-          <h4>Developer & Learn</h4>
+          <h4>Developer &amp; Learn</h4>
           <ul>
-            <li><a href="tutorials.html" id="footer-link-tutorials"><i class="fas fa-graduation-cap"></i> Tutorials & Guides</a></li>
-            <li><a href="hardware.html" id="footer-link-hardware"><i class="fas fa-microchip"></i> HIL & Physical Fabrication</a></li>
+            <li><a href="tutorials.html" id="footer-link-tutorials"><i class="fas fa-graduation-cap"></i> Tutorials &amp; Guides</a></li>
+            <li><a href="hardware.html" id="footer-link-hardware"><i class="fas fa-microchip"></i> HIL &amp; Physical Fabrication</a></li>
             <li><a href="pro.html" id="footer-link-pro"><i class="fas fa-star"></i> PhysBox Pro</a></li>
             <li><a href="download.html" id="footer-link-download"><i class="fas fa-download"></i> Native App Download</a></li>
             <li><a href="https://github.com/physbox-io" target="_blank" id="footer-link-github"><i
@@ -1095,9 +998,15 @@
         </div>
       </div>
 
+      <!-- Quiet Architectural Sketch Colophon Above the Footer Rule -->
+      <div class="footer-colophon-vignette" aria-hidden="true">
+        <picture>
+          <source srcset="assets/tigers/footer-tiger-sketch.webp" type="image/webp">
+          <img src="assets/tigers/footer-tiger-sketch.png" alt="" class="footer-colophon-img" loading="lazy">
+        </picture>
+      </div>
+
       <div class="footer-bottom">
-        <!-- Sparse & Faint Orange, Black & White Woodcut Tiger in Bottom Navbar -->
-        <img src="assets/tigers/footer-tiger-color.png" alt="" class="footer-navbar-tiger" aria-hidden="true" loading="lazy">
         <p class="footer-copy">&copy; 2026 physbox.io. Licensed under <a href="license.html" style="color: inherit; text-decoration: underline;">PPPL-1.0</a> &middot; <a href="privacy.html" style="color: inherit; text-decoration: underline;">Privacy</a> &middot; <a href="terms.html" style="color: inherit; text-decoration: underline;">Terms</a></p>
         <div class="footer-social">
           <a href="https://github.com/physbox-io" target="_blank" class="social-link" id="social-link-github" aria-label="PhysBox on GitHub"><i
@@ -1113,48 +1022,48 @@
       <button class="modal-close" id="modal-close-btn" aria-label="Close modal">&times;</button>
       <div class="modal-header">
         <h3 class="modal-title">Source Repositories</h3>
-        <p class="modal-subtitle">Direct access to core WebAssembly simulator modules. Clone locally or explore codebases.</p>
+        <p class="modal-subtitle">Direct access to core WebAssembly simulator studios. Clone locally or explore the codebases.</p>
       </div>
       <div class="modal-body">
 
-        <!-- Repo 1: Circuit Sim -->
+        <!-- Repo 1: Volt -->
         <div class="modal-repo-card circuit-card-glow">
           <div class="repo-info">
             <span class="repo-icon circuit-badge"><i class="fas fa-microchip"></i></span>
             <div>
-              <h4 class="repo-name">circuitsim</h4>
-              <p class="repo-desc">SPICE WASM solver, Web Audio playground & HIL MicroPython/C++ hardware bridge.</p>
+              <h4 class="repo-name">volt</h4>
+              <p class="repo-desc">Browser EDA, XSPICE/Ngspice WASM solver, Bode sweeps, 2-layer PCB milling &amp; realtime HIL bridge.</p>
             </div>
           </div>
           <div class="repo-actions">
             <div class="clone-box">
-              <input type="text" class="clone-input" readonly value="git clone https://github.com/physbox-io/circuitsim"
+              <input type="text" class="clone-input" readonly value="git clone https://github.com/physbox-io/volt"
                 id="clone-cmd-circuit">
               <button class="btn-copy" data-target="clone-cmd-circuit" aria-label="Copy clone command"><i
                   class="far fa-clipboard"></i></button>
             </div>
-            <a href="https://github.com/physbox-io/circuitsim" target="_blank" class="btn-open-repo"
+            <a href="https://github.com/physbox-io/volt" target="_blank" class="btn-open-repo"
               aria-label="Open Repository"><i class="fas fa-external-link-alt"></i></a>
           </div>
         </div>
 
-        <!-- Repo 2: Physics Sim -->
+        <!-- Repo 2: Mesh -->
         <div class="modal-repo-card physics-card-glow">
           <div class="repo-info">
             <span class="repo-icon physics-badge"><i class="fas fa-cubes"></i></span>
             <div>
-              <h4 class="repo-name">physicssim</h4>
-              <p class="repo-desc">MuJoCo rigid body engine, OpenSCAD CSG WASM compiler & 3D-print STL exporter.</p>
+              <h4 class="repo-name">mesh</h4>
+              <p class="repo-desc">MuJoCo 3D physics, 3D vibro-acoustics, lattice/sculpt/OpenSCAD CAD, slip-cast &amp; 3MF molds, timber &amp; CNC CAM.</p>
             </div>
           </div>
           <div class="repo-actions">
             <div class="clone-box">
-              <input type="text" class="clone-input" readonly value="git clone https://github.com/physbox-io/physicssim"
+              <input type="text" class="clone-input" readonly value="git clone https://github.com/physbox-io/mesh"
                 id="clone-cmd-physics">
               <button class="btn-copy" data-target="clone-cmd-physics" aria-label="Copy clone command"><i
                   class="far fa-clipboard"></i></button>
             </div>
-            <a href="https://github.com/physbox-io/physicssim" target="_blank" class="btn-open-repo"
+            <a href="https://github.com/physbox-io/mesh" target="_blank" class="btn-open-repo"
               aria-label="Open Repository"><i class="fas fa-external-link-alt"></i></a>
           </div>
         </div>
@@ -1165,7 +1074,7 @@
             <span class="repo-icon etch-badge"><i class="fas fa-scissors"></i></span>
             <div>
               <h4 class="repo-name">etch</h4>
-              <p class="repo-desc">2D vector design studio, G-code toolpath engine & WebSerial GRBL laser/CNC machine controller.</p>
+              <p class="repo-desc">Multi-sheet 2D vector studio, ornaments &amp; living hinges, G-code CAM &amp; WebSerial GRBL controller.</p>
             </div>
           </div>
           <div class="repo-actions">
@@ -1180,24 +1089,24 @@
           </div>
         </div>
 
-        <!-- Repo 4: Process Sim -->
-        <div class="modal-repo-card process-card-glow">
+        <!-- Repo 4: MCP Server -->
+        <div class="modal-repo-card">
           <div class="repo-info">
-            <span class="repo-icon process-badge"><i class="fas fa-network-wired"></i></span>
+            <span class="repo-icon" style="background: var(--primary-light); color: var(--primary); border: 1px solid rgba(79, 70, 229, 0.25);"><i class="fas fa-plug"></i></span>
             <div>
-              <h4 class="repo-name">processsim</h4>
-              <p class="repo-desc">System dynamics modeling, Cellular Automata & IoT smart nodes.</p>
+              <h4 class="repo-name">physbox-mcp</h4>
+              <p class="repo-desc">Model Context Protocol server exposing 259 tools across Mesh, Etch, Volt, and the run archive.</p>
             </div>
           </div>
           <div class="repo-actions">
             <div class="clone-box">
-              <input type="text" class="clone-input" readonly value="git clone https://github.com/physbox-io/processsim"
-                id="clone-cmd-process">
-              <button class="btn-copy" data-target="clone-cmd-process" aria-label="Copy clone command"><i
+              <input type="text" class="clone-input" readonly value="pip install physbox-mcp"
+                id="clone-cmd-mcp">
+              <button class="btn-copy" data-target="clone-cmd-mcp" aria-label="Copy install command"><i
                   class="far fa-clipboard"></i></button>
             </div>
-            <a href="https://github.com/physbox-io/processsim" target="_blank" class="btn-open-repo"
-              aria-label="Open Repository"><i class="fas fa-external-link-alt"></i></a>
+            <a href="https://pypi.org/project/physbox-mcp/" target="_blank" class="btn-open-repo"
+              aria-label="Open PyPI Package"><i class="fas fa-external-link-alt"></i></a>
           </div>
         </div>
 
@@ -1205,20 +1114,9 @@
     </div>
   </div>
 
-  <!-- Experimental Tiger Linework Mode Selector (Unstructured.io Style) -->
-  <aside class="tiger-control-pill" id="tiger-control-pill" style="display: none;" title="Experimental Margin Linework Mode">
-    <span class="tiger-control-icon">🐅</span>
-    <span>Linework</span>
-    <div class="tiger-control-btns" role="group" aria-label="Tiger Linework Style">
-      <button type="button" class="tiger-btn-mode active" data-mode="vivid" title="Full hand-drawn contrast">Vivid</button>
-      <button type="button" class="tiger-btn-mode" data-mode="subtle" title="Subtle ambient watermark">Subtle</button>
-      <button type="button" class="tiger-btn-mode" data-mode="off" title="Hide margin illustrations">Off</button>
-    </div>
-  </aside>
-
   <!-- Scripts -->
-  <script src="app.js?v=20260905"></script>
-  <script src="auth.js?v=20260909"></script>
+  <script src="app.js?v=20261119c"></script>
+  <script src="auth.js?v=20261119c"></script>
 </body>
 
 </html>

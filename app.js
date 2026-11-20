@@ -46,106 +46,137 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ==========================================================================
-  // 3. Ambient Background Canvas (Drafting Grid + Subtle Elements)
+  // 3. Ambient Background Canvas (Vernier Rulers & Unique Jungle Woodcut Plates)
   // ==========================================================================
   const bgCanvas = document.getElementById('canvas-bg');
   if (bgCanvas) {
     const bgCtx = bgCanvas.getContext('2d');
-    let bgNodes = [];
-    let bgPackets = [];
+    const botanicalPlates = [
+      'assets/tigers/jungle-monstera.webp',
+      'assets/tigers/jungle-strelitzia.webp',
+      'assets/tigers/jungle-bamboo-fern.webp',
+      'assets/tigers/jungle-orchid-pitcher.webp',
+      'assets/tigers/jungle-banana-palm.webp',
+      'assets/tigers/jungle-passionflower.webp',
+      'assets/tigers/jungle-banyan-staghorn.webp',
+      'assets/tigers/jungle-hibiscus-taro.webp'
+    ].map((src) => {
+      const img = new Image();
+      img.src = src;
+      return img;
+    });
 
-    const resizeBgCanvas = () => {
+    const drawGutterCraft = () => {
       const dpr = window.devicePixelRatio || 1;
-      bgCanvas.width = window.innerWidth * dpr;
-      bgCanvas.height = window.innerHeight * dpr;
-      bgCanvas.style.width = `${window.innerWidth}px`;
-      bgCanvas.style.height = `${window.innerHeight}px`;
-      bgCtx.scale(dpr, dpr);
-
-      bgNodes = [];
-      bgPackets = [];
-      const nodeCount = Math.floor(Math.min(window.innerWidth / 45, 30));
-
-      for (let i = 0; i < nodeCount; i++) {
-        bgNodes.push({
-          x: Math.random() * window.innerWidth,
-          y: Math.random() * window.innerHeight,
-          vx: (Math.random() - 0.5) * 0.25,
-          vy: (Math.random() - 0.5) * 0.25,
-          radius: Math.random() * 2 + 1.5
-        });
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      if (bgCanvas.width !== Math.round(w * dpr) || bgCanvas.height !== Math.round(h * dpr)) {
+        bgCanvas.width = Math.round(w * dpr);
+        bgCanvas.height = Math.round(h * dpr);
+        bgCanvas.style.width = `${w}px`;
+        bgCanvas.style.height = `${h}px`;
       }
+      bgCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      bgCtx.clearRect(0, 0, w, h);
 
-      for (let i = 0; i < bgNodes.length; i++) {
-        for (let j = i + 1; j < bgNodes.length; j++) {
-          const dx = bgNodes[i].x - bgNodes[j].x;
-          const dy = bgNodes[i].y - bgNodes[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 150) {
-            bgPackets.push({ from: i, to: j, progress: Math.random(), speed: 0.0015 + Math.random() * 0.002 });
-          }
-        }
-      }
-    };
+      const freeSide = (w - 1360) / 2;
+      if (freeSide < 44) return;
 
-    resizeBgCanvas();
-    window.addEventListener('resize', resizeBgCanvas);
+      const scrollY = window.scrollY || 0;
+      const leftRailX = Math.max(18, Math.min(freeSide - 22, 34));
+      const rightRailX = w - leftRailX;
 
-    const animateBg = () => {
-      bgCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      bgCtx.save();
 
-      // Draw gentle node connections
-      bgCtx.lineWidth = 1;
-      for (let i = 0; i < bgNodes.length; i++) {
-        const n = bgNodes[i];
-        n.x += n.vx;
-        n.y += n.vy;
-        if (n.x < 0 || n.x > window.innerWidth) n.vx *= -1;
-        if (n.y < 0 || n.y > window.innerHeight) n.vy *= -1;
-
-        bgCtx.fillStyle = 'rgba(79, 70, 229, 0.25)';
+      // 1. Crisp Vernier Millimeter Drafting Rulers on Outer Edges
+      [leftRailX, rightRailX].forEach((rx, sideIdx) => {
+        bgCtx.strokeStyle = 'rgba(30, 41, 59, 0.12)';
+        bgCtx.lineWidth = 1;
         bgCtx.beginPath();
-        bgCtx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
-        bgCtx.fill();
-      }
+        bgCtx.moveTo(rx, 86);
+        bgCtx.lineTo(rx, h - 32);
+        bgCtx.stroke();
 
-      for (let i = 0; i < bgPackets.length; i++) {
-        const p = bgPackets[i];
-        const n1 = bgNodes[p.from];
-        const n2 = bgNodes[p.to];
-        if (!n1 || !n2) continue;
+        const step = 28;
+        const offset = -(scrollY * 0.35) % step;
+        const dir = sideIdx === 0 ? 1 : -1;
 
-        const dx = n2.x - n1.x;
-        const dy = n2.y - n1.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
+        for (let y = 94 + offset; y < h - 38; y += step) {
+          if (y < 86) continue;
+          const tickIndex = Math.round((y - offset) / step);
+          const isMajor = tickIndex % 5 === 0;
+          const tickLen = isMajor ? 10 : 4.5;
 
-        if (dist < 160) {
-          const alpha = (1 - dist / 160) * 0.12;
-          bgCtx.strokeStyle = `rgba(15, 23, 42, ${alpha})`;
+          bgCtx.strokeStyle = isMajor ? 'rgba(30, 41, 59, 0.22)' : 'rgba(30, 41, 59, 0.09)';
           bgCtx.beginPath();
-          bgCtx.moveTo(n1.x, n1.y);
-          bgCtx.lineTo(n2.x, n2.y);
+          bgCtx.moveTo(rx, y);
+          bgCtx.lineTo(rx + dir * tickLen, y);
           bgCtx.stroke();
 
-          // Packet
-          p.progress += p.speed;
-          if (p.progress > 1) p.progress = 0;
-          const px = n1.x + dx * p.progress;
-          const py = n1.y + dy * p.progress;
-          bgCtx.fillStyle = 'rgba(5, 150, 105, 0.4)';
+          if (isMajor && freeSide >= 86) {
+            bgCtx.fillStyle = 'rgba(71, 85, 105, 0.44)';
+            bgCtx.font = '9px "JetBrains Mono", monospace';
+            bgCtx.textAlign = sideIdx === 0 ? 'left' : 'right';
+            const mmVal = Math.abs(Math.round((scrollY * 0.35 + y) * 0.5));
+            bgCtx.fillText(`${mmVal}`, rx + dir * 14, y + 3);
+          }
+        }
+
+        // Printmaker corner registration crosshairs at top & bottom of each rail
+        [86, h - 32].forEach((cy) => {
+          bgCtx.strokeStyle = 'rgba(30, 41, 59, 0.24)';
           bgCtx.beginPath();
-          bgCtx.arc(px, py, 1.8, 0, Math.PI * 2);
-          bgCtx.fill();
+          bgCtx.moveTo(rx - 5, cy);
+          bgCtx.lineTo(rx + 5, cy);
+          bgCtx.moveTo(rx, cy - 5);
+          bgCtx.lineTo(rx, cy + 5);
+          bgCtx.arc(rx, cy, 3, 0, Math.PI * 2);
+          bgCtx.stroke();
+        });
+      });
+
+      // 2. Jungle Botanical Woodcut Margin Plates (every plate distinct, never repeated)
+      if (freeSide >= 88) {
+        const maxAvailW = freeSide - 40;
+        const docH = Math.max(document.documentElement.scrollHeight, h * 1.5);
+        const alpha = Math.min(0.84, Math.max(0.34, (freeSide - 68) / 110));
+        const parallaxFactor = 0.78;
+        const maxVirtY = h + Math.max(0, docH - h) * parallaxFactor;
+        const slotCount = Math.min(botanicalPlates.length, Math.max(2, Math.ceil(maxVirtY / 560)));
+        const spacing = slotCount > 1 ? Math.max(540, (maxVirtY - 560) / (slotCount - 1)) : 560;
+
+        for (let i = 0; i < slotCount; i++) {
+          const isLeft = i % 2 === 0;
+          const img = botanicalPlates[i];
+          if (!img.complete || !img.naturalWidth) continue;
+
+          const virtY = 125 + i * spacing;
+          const y = virtY - scrollY * parallaxFactor;
+          const aspect = img.naturalHeight / img.naturalWidth;
+          const targetH = Math.min(480, h * 0.54);
+          const drawW = Math.min(maxAvailW, targetH / aspect);
+          const drawH = drawW * aspect;
+
+          if (y + drawH < -40 || y > h + 40) continue;
+
+          const innerStart = isLeft ? leftRailX + 16 : rightRailX - 16 - maxAvailW;
+          const x = innerStart + (maxAvailW - drawW) * 0.5;
+
+          bgCtx.save();
+          bgCtx.globalAlpha = alpha;
+          bgCtx.drawImage(img, x, y, drawW, drawH);
+          bgCtx.restore();
         }
       }
 
-      requestAnimationFrame(animateBg);
+      bgCtx.restore();
     };
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!prefersReducedMotion) {
-      requestAnimationFrame(animateBg);
-    }
+    botanicalPlates.forEach((img) => { img.onload = drawGutterCraft; });
+    window.addEventListener('resize', drawGutterCraft);
+    window.addEventListener('scroll', () => requestAnimationFrame(drawGutterCraft), { passive: true });
+    window.addEventListener('load', drawGutterCraft);
+    drawGutterCraft();
   }
 
 
@@ -155,18 +186,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const stageCanvas = document.getElementById('hero-stage-canvas');
   if (stageCanvas) {
     const sCtx = stageCanvas.getContext('2d');
-    let currentEngine = 'mesh'; // 'mesh', 'etch', 'volt', 'flux'
+    let currentEngine = 'mesh'; // 'mesh', 'etch', 'volt'
     let isPaused = false;
     let stageWidth = 800;
     let stageHeight = 360;
-    let stageMouse = { x: null, y: null, isDown: false };
 
     // Metrics elements
     const liveEnergyEl = document.getElementById('live-energy');
     const liveVcEl = document.getElementById('live-vc');
     const liveFpsEl = document.getElementById('live-fps');
-    const hudPrimaryEl = document.getElementById('stage-hud-primary');
-    const hudSecondaryEl = document.getElementById('stage-hud-secondary');
     const hudLabelEl = document.getElementById('hud-label');
     const hudValEl = document.getElementById('hud-val');
     const hudSublabelEl = document.getElementById('hud-sublabel');
@@ -176,7 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctrlVolt = document.getElementById('ctrl-group-volt');
     const ctrlEtch = document.getElementById('ctrl-group-etch');
     const ctrlMesh = document.getElementById('ctrl-group-mesh');
-    const ctrlFlux = document.getElementById('ctrl-group-flux');
     const voltFreqSlider = document.getElementById('volt-freq-slider');
     const voltFreqVal = document.getElementById('volt-freq-val');
     const btnEtchMaterial = document.getElementById('btn-etch-material');
@@ -184,9 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnEtchPattern = document.getElementById('btn-etch-pattern');
     const btnMeshFling = document.getElementById('btn-mesh-fling');
     const btnMeshReset = document.getElementById('btn-mesh-reset');
-    const btnFluxSpark = document.getElementById('btn-flux-spark');
-    const btnFluxWind = document.getElementById('btn-flux-wind');
-    const fluxWindLabel = document.getElementById('flux-wind-label');
     const btnPlayPause = document.getElementById('btn-stage-pause');
     const iconPlayPause = document.getElementById('icon-stage-playpause');
 
@@ -686,146 +710,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ------------------------------------------------------------------------
-    // Engine 4: FLUX - Wildfire Cellular Automata & Differential Loops
-    // ------------------------------------------------------------------------
-    const gridCols = 48;
-    const gridRows = 22;
-    let fluxGrid = [];
-    let windDirection = 1; // 1 = East, -1 = West
-    let fluxStepCounter = 0;
-
-    const initFluxGrid = () => {
-      fluxGrid = [];
-      for (let r = 0; r < gridRows; r++) {
-        fluxGrid[r] = [];
-        for (let c = 0; c < gridCols; c++) {
-          fluxGrid[r][c] = {
-            state: Math.random() < 0.75 ? 1 : 0, // 1 = Green tree, 0 = Empty/Burnt
-            fire: 0, // 0 to 1
-            life: 1.0
-          };
-        }
-      }
-      // Spark initial fire in center
-      sparkFluxFire(Math.floor(gridCols / 2), Math.floor(gridRows / 2));
-    };
-
-    const sparkFluxFire = (c, r) => {
-      for (let dr = -1; dr <= 1; dr++) {
-        for (let dc = -1; dc <= 1; dc++) {
-          const nr = r + dr;
-          const nc = c + dc;
-          if (nr >= 0 && nr < gridRows && nc >= 0 && nc < gridCols) {
-            fluxGrid[nr][nc].fire = 1.0;
-            fluxGrid[nr][nc].state = 2; // Burning
-          }
-        }
-      }
-    };
-
-    initFluxGrid();
-
-    const renderFlux = () => {
-      sCtx.fillStyle = '#0a0d14';
-      sCtx.fillRect(0, 0, stageWidth, stageHeight);
-
-      const cellW = stageWidth / gridCols;
-      const cellH = stageHeight / gridRows;
-
-      // Update CA state
-      if (!isPaused) {
-        fluxStepCounter++;
-        if (fluxStepCounter % 4 === 0) {
-          const nextGrid = [];
-          for (let r = 0; r < gridRows; r++) {
-            nextGrid[r] = [];
-            for (let c = 0; c < gridCols; c++) {
-              const cell = fluxGrid[r][c];
-              let nFire = cell.fire;
-              let nState = cell.state;
-
-              if (cell.state === 2) {
-                // Burning -> Burns out to empty
-                nFire -= 0.15;
-                if (nFire <= 0) {
-                  nState = 0; // Ash / empty
-                  nFire = 0;
-                }
-              } else if (cell.state === 1) {
-                // Tree -> May catch fire from burning neighbors
-                let burnNeighbor = 0;
-                for (let dr = -1; dr <= 1; dr++) {
-                  for (let dc = -1; dc <= 1; dc++) {
-                    if (dr === 0 && dc === 0) continue;
-                    const nr = r + dr;
-                    const nc = c + dc;
-                    if (nr >= 0 && nr < gridRows && nc >= 0 && nc < gridCols) {
-                      if (fluxGrid[nr][nc].state === 2) {
-                        // Wind bias
-                        const windBoost = (dc === windDirection) ? 2.2 : 0.8;
-                        burnNeighbor += fluxGrid[nr][nc].fire * windBoost;
-                      }
-                    }
-                  }
-                }
-                if (burnNeighbor > 0.6 && Math.random() < 0.65) {
-                  nState = 2;
-                  nFire = 1.0;
-                }
-              } else if (cell.state === 0) {
-                // Empty ash -> Regrowth chance
-                if (Math.random() < 0.008) {
-                  nState = 1; // Green tree
-                }
-              }
-
-              nextGrid[r][c] = { state: nState, fire: nFire, life: 1.0 };
-            }
-          }
-          fluxGrid = nextGrid;
-        }
-      }
-
-      // Draw Grid Cells
-      let burningCount = 0;
-      let treeCount = 0;
-
-      for (let r = 0; r < gridRows; r++) {
-        for (let c = 0; c < gridCols; c++) {
-          const cell = fluxGrid[r][c];
-          const x = c * cellW;
-          const y = r * cellH;
-
-          if (cell.state === 1) {
-            // Green Pine Forest
-            treeCount++;
-            sCtx.fillStyle = '#065f46';
-            sCtx.fillRect(x + 1, y + 1, cellW - 2, cellH - 2);
-          } else if (cell.state === 2) {
-            // Burning Wildfire (Yellow-Orange-Red)
-            burningCount++;
-            sCtx.fillStyle = cell.fire > 0.6 ? '#f59e0b' : '#ef4444';
-            sCtx.fillRect(x, y, cellW, cellH);
-          } else {
-            // Ash / Clearing
-            sCtx.fillStyle = '#1e293b';
-            sCtx.fillRect(x + 1, y + 1, cellW - 2, cellH - 2);
-          }
-        }
-      }
-
-      // Wind Vector Indicator
-      sCtx.font = '11px JetBrains Mono, monospace';
-      sCtx.fillStyle = '#f472b6';
-      sCtx.fillText(`Wind Vector: ${windDirection > 0 ? '→ East (3.5 m/s)' : '← West (3.5 m/s)'} | Active Fronts: ${burningCount}`, 20, stageHeight - 20);
-
-      // Telemetry
-      if (liveVcEl) liveVcEl.textContent = `${burningCount} nodes`;
-      if (liveEnergyEl) liveEnergyEl.textContent = `${((treeCount / (gridCols * gridRows)) * 100).toFixed(0)}% canopy`;
-      if (hudValEl) hudValEl.textContent = `${burningCount} fires active`;
-    };
-
-    // ------------------------------------------------------------------------
     // Main Stage Animation Loop
     // ------------------------------------------------------------------------
     const animateStage = (now) => {
@@ -845,8 +729,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderEtch();
       } else if (currentEngine === 'mesh') {
         renderMesh();
-      } else if (currentEngine === 'flux') {
-        renderFlux();
       }
 
       requestAnimationFrame(animateStage);
@@ -868,7 +750,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (ctrlVolt) ctrlVolt.style.display = currentEngine === 'volt' ? 'flex' : 'none';
         if (ctrlEtch) ctrlEtch.style.display = currentEngine === 'etch' ? 'flex' : 'none';
         if (ctrlMesh) ctrlMesh.style.display = currentEngine === 'mesh' ? 'flex' : 'none';
-        if (ctrlFlux) ctrlFlux.style.display = currentEngine === 'flux' ? 'flex' : 'none';
 
         // Update HUD Labels
         if (currentEngine === 'volt') {
@@ -882,11 +763,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (currentEngine === 'mesh') {
           hudLabelEl.textContent = 'MuJoCo RK4 Kinematics';
           hudSublabelEl.textContent = 'Lagrangian Double Pendulum Dynamics';
-          stageFooterText.textContent = 'Click "Fling Pendulum" or drag bobs to explore non-linear chaotic mechanics.';
-        } else if (currentEngine === 'flux') {
-          hudLabelEl.textContent = 'Cellular Automata Engine';
-          hudSublabelEl.textContent = 'Runge-Kutta & Wildfire Propagation';
-          stageFooterText.textContent = 'Click anywhere on the grid to spark new wildfire fronts and test wind vectors.';
+          stageFooterText.textContent = 'Click "Fling Pendulum" or click inside the viewport to explore non-linear chaotic mechanics.';
         }
       });
     });
@@ -935,23 +812,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Flux Spark Button
-    if (btnFluxSpark) {
-      btnFluxSpark.addEventListener('click', () => {
-        const c = Math.floor(Math.random() * (gridCols - 4)) + 2;
-        const r = Math.floor(Math.random() * (gridRows - 4)) + 2;
-        sparkFluxFire(c, r);
-      });
-    }
-
-    // Flux Wind Toggle
-    if (btnFluxWind && fluxWindLabel) {
-      btnFluxWind.addEventListener('click', () => {
-        windDirection *= -1;
-        fluxWindLabel.textContent = windDirection > 0 ? 'East' : 'West';
-      });
-    }
-
     // Play / Pause Button
     if (btnPlayPause && iconPlayPause) {
       btnPlayPause.addEventListener('click', () => {
@@ -966,17 +826,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Canvas Interactive Click & Drag
-    stageCanvas.addEventListener('click', (e) => {
-      const rect = stageCanvas.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const clickY = e.clientY - rect.top;
-
-      if (currentEngine === 'flux') {
-        const c = Math.floor((clickX / stageWidth) * gridCols);
-        const r = Math.floor((clickY / stageHeight) * gridRows);
-        sparkFluxFire(c, r);
-      } else if (currentEngine === 'mesh') {
+    // Canvas Interactive Click
+    stageCanvas.addEventListener('click', () => {
+      if (currentEngine === 'mesh') {
         pendulum.omega1 += (Math.random() - 0.5) * 8;
         pendulum.omega2 += (Math.random() - 0.5) * 12;
       }
@@ -1178,94 +1030,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ==========================================================================
-  // 9. Category Filter Pills (tutorials.html)
+  // 9. Category Filter Pills & Dynamic TOC (tutorials.html)
   // ==========================================================================
   const filterPills = document.querySelectorAll('.filter-pill');
-  const articles = {
-    all: document.querySelector('.article-main:not(.category-article)'),
-    cnc: document.querySelector('.article-main:not(.category-article)'),
-    circuit: document.getElementById('article-volt'),
-    physics: document.getElementById('article-mesh'),
-    process: document.getElementById('article-flux')
+  const allArticles = document.querySelectorAll('.article-main');
+  const dynamicToc = document.getElementById('dynamic-toc-list');
+
+  const rebuildToc = (activeArticle) => {
+    if (!dynamicToc || !activeArticle) return;
+    const blocks = activeArticle.querySelectorAll('.tutorial-section-block');
+    dynamicToc.innerHTML = '';
+    blocks.forEach((sec, idx) => {
+      const h2 = sec.querySelector('h2');
+      if (!h2 || !sec.id) return;
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `#${sec.id}`;
+      a.className = idx === 0 ? 'toc-link active' : 'toc-link';
+      a.textContent = h2.textContent.trim();
+      li.appendChild(a);
+      dynamicToc.appendChild(li);
+    });
+  };
+
+  const openTutorialArticle = (articleId, shouldScroll = true) => {
+    const target = document.getElementById(articleId) || allArticles[0];
+    if (!target) return;
+
+    allArticles.forEach(art => {
+      art.style.display = art === target ? 'block' : 'none';
+    });
+
+    filterPills.forEach(p => {
+      p.classList.toggle('active', p.getAttribute('data-article') === target.id);
+    });
+
+    rebuildToc(target);
+    if (shouldScroll) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   if (filterPills.length > 0) {
     filterPills.forEach(pill => {
       pill.addEventListener('click', () => {
-        filterPills.forEach(p => p.classList.remove('active'));
-        pill.classList.add('active');
-
-        const filterId = pill.id.replace('filter-', '');
-
-        Object.values(articles).forEach(art => {
-          if (art) art.style.display = 'none';
-        });
-
-        const targetArticle = articles[filterId] || articles.all;
-        if (targetArticle) {
-          targetArticle.style.display = 'block';
-          targetArticle.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-      });
-    });
-  }
-
-  // ==========================================================================
-  // 10. Hand-Drawn Tiger Margin Linework Controller (Experimental)
-  // ==========================================================================
-  const tigerControlPill = document.getElementById('tiger-control-pill');
-  if (tigerControlPill) {
-    const tigerBtns = tigerControlPill.querySelectorAll('.tiger-btn-mode');
-    const savedTigerMode = localStorage.getItem('physbox_tiger_style') || 'vivid';
-
-    const applyTigerMode = (mode) => {
-      if (mode === 'vivid') {
-        document.body.removeAttribute('data-tiger-style');
-      } else {
-        document.body.setAttribute('data-tiger-style', mode);
-      }
-      tigerBtns.forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.mode === mode);
-      });
-      localStorage.setItem('physbox_tiger_style', mode);
-    };
-
-    applyTigerMode(savedTigerMode);
-
-    tigerBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        applyTigerMode(btn.dataset.mode);
+        const targetId = pill.getAttribute('data-article') || 'article-etch';
+        if (history.replaceState) history.replaceState(null, '', `#${targetId}`);
+        openTutorialArticle(targetId, true);
       });
     });
 
-    // Subtle natural parallax shift for margin illustrations
-    const tigerWings = document.querySelectorAll('.tiger-margin-wing');
-    if (tigerWings.length > 0 && window.matchMedia('(min-width: 1261px)').matches) {
-      let ticking = false;
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          window.requestAnimationFrame(() => {
-            const scrollY = window.scrollY;
-            tigerWings.forEach((wing, idx) => {
-              // Gentle alternate vertical offset based on section scroll
-              const factor = (idx % 2 === 0 ? 0.035 : -0.035);
-              const card = wing.querySelector('.tiger-card');
-              if (card) {
-                const rect = wing.getBoundingClientRect();
-                const offset = (window.innerHeight / 2 - rect.top) * factor;
-                card.style.transform = `translateY(${Math.max(-25, Math.min(25, offset))}px)`;
-              }
-            });
-            ticking = false;
-          });
-          ticking = true;
-        }
-      }, { passive: true });
+    document.querySelectorAll('[data-open-article]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('data-open-article');
+        if (history.replaceState) history.replaceState(null, '', `#${targetId}`);
+        openTutorialArticle(targetId, true);
+      });
+    });
+
+    const hashId = window.location.hash.replace('#', '');
+    if (hashId && document.getElementById(hashId)?.classList.contains('article-main')) {
+      openTutorialArticle(hashId, false);
+    } else if (allArticles[0]) {
+      rebuildToc(allArticles[0]);
     }
   }
 
   // ==========================================================================
-  // 11. Mobile Navigation Hamburger & Drawer Controller
+  // 10. Mobile Navigation Hamburger & Drawer Controller
   // ==========================================================================
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mobileNavDrawer = document.getElementById('mobile-nav-drawer');
