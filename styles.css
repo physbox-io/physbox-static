@@ -2818,6 +2818,67 @@ footer:hover .footer-colophon-img {
   color: var(--etch-color);
 }
 
+/* Digital Twin -> Physical Bench Comparison Pair (tutorials.html) */
+.tutorial-sim-to-real {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin: 2rem 0;
+}
+
+.tutorial-sim-to-real .tutorial-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.tutorial-sim-to-real .tutorial-figure picture,
+.tutorial-sim-to-real .tutorial-figure img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+}
+
+.tutorial-sim-to-real .figure-caption {
+  flex: 1;
+  align-items: flex-start;
+  line-height: 1.5;
+}
+
+.sim-real-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.16rem 0.55rem;
+  border-radius: 999px;
+  font-family: var(--font-header);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.sim-real-pill.pill-sim {
+  background: var(--physics-light);
+  color: var(--physics-color);
+  border: 1px solid rgba(2, 132, 199, 0.25);
+}
+
+.sim-real-pill.pill-real {
+  background: var(--etch-light);
+  color: var(--etch-dark);
+  border: 1px solid rgba(217, 119, 6, 0.3);
+}
+
+@media (max-width: 900px) {
+  .tutorial-sim-to-real {
+    grid-template-columns: 1fr;
+  }
+}
+
 .steps-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));

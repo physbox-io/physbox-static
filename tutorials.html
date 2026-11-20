@@ -23,7 +23,7 @@
   <meta property="og:image" content="assets/etch_raw.png">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="styles.css?v=20260905">
+  <link rel="stylesheet" href="styles.css?v=20261119d">
 
   <!-- FontAwesome for Premium Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -80,7 +80,6 @@
           <li><a href="#article-1" class="mobile-nav-link" data-close-drawer><i class="fas fa-microchip" style="color: var(--circuit-color);"></i> 1. Designing & Simulating Circuits</a></li>
           <li><a href="#article-2" class="mobile-nav-link" data-close-drawer><i class="fas fa-cube" style="color: var(--physics-color);"></i> 2. Rigid Body Dynamics & 3D Print</a></li>
           <li><a href="#article-3" class="mobile-nav-link" data-close-drawer><i class="fas fa-scissors" style="color: var(--etch-color);"></i> 3. Generative Enclosures for Laser Cut</a></li>
-          <li><a href="#article-4" class="mobile-nav-link" data-close-drawer><i class="fas fa-network-wired" style="color: var(--process-color);"></i> 4. Fluid, Pneumatic & Heat Control</a></li>
 
           <li class="mobile-nav-section-title">Documentation & Guides</li>
           <li><a href="index.html#suite" class="mobile-nav-link"><i class="fas fa-layer-group"></i> All Simulators</a></li>
@@ -117,16 +116,18 @@
         PhysBox <span class="gradient-text">Tutorials & Guides.</span>
       </h1>
       <p class="hero-subtitle reveal delay-200">
-        Practical shop floor wisdom, deep technical walkthroughs, and zero-nonsense fabrication guides for PhysBox Etch, Volt, Mesh, and Flux.
+        Practical shop floor wisdom, deep technical walkthroughs, and zero-nonsense fabrication guides for PhysBox Etch, Volt, and Mesh.
       </p>
 
       <!-- Category Filter Pills -->
       <div class="filter-bar reveal delay-300">
-        <button class="filter-pill active" id="filter-all"><i class="fas fa-layer-group"></i> All Guides</button>
-        <button class="filter-pill" id="filter-cnc"><i class="fas fa-scissors"></i> CNC & Laser (Etch)</button>
-        <button class="filter-pill" id="filter-circuit"><i class="fas fa-microchip"></i> Electronics & HIL (Volt)</button>
-        <button class="filter-pill" id="filter-physics"><i class="fas fa-cubes"></i> 3D CAD & Printing (Mesh)</button>
-        <button class="filter-pill" id="filter-process"><i class="fas fa-network-wired"></i> Hybrid Systems (Flux)</button>
+        <button class="filter-pill active" id="filter-all" data-article="article-etch"><i class="fas fa-scissors"></i> CNC &amp; Laser (Etch)</button>
+        <button class="filter-pill" id="filter-sand" data-article="article-sand-casting"><i class="fas fa-hammer"></i> Sand Casting</button>
+        <button class="filter-pill" id="filter-lost-pla" data-article="article-lost-pla"><i class="fas fa-fire-flame-curved"></i> Lost PLA Casting</button>
+        <button class="filter-pill" id="filter-slip" data-article="article-slip-casting"><i class="fas fa-mug-hot"></i> Slip Casting</button>
+        <button class="filter-pill" id="filter-candle" data-article="article-candle-making"><i class="fas fa-candle-holder fa-fire"></i> Candle Making</button>
+        <button class="filter-pill" id="filter-circuit" data-article="article-volt"><i class="fas fa-microchip"></i> Electronics &amp; HIL (Volt)</button>
+        <button class="filter-pill" id="filter-physics" data-article="article-mesh"><i class="fas fa-cubes"></i> 3D CAD &amp; Physics (Mesh)</button>
       </div>
     </div>
   </section>
@@ -139,19 +140,19 @@
         <!-- Sticky Table of Contents Sidebar -->
         <aside class="tutorial-toc reveal">
           <div class="toc-title"><i class="fas fa-list-ol"></i> Guide Contents</div>
-          <ul class="toc-list">
+          <ul class="toc-list" id="dynamic-toc-list">
             <li><a href="#section-subtractive" class="toc-link active">1. The Subtractive Mindset</a></li>
-            <li><a href="#section-grid-origin" class="toc-link">2. Grid, Stock & Coordinates</a></li>
-            <li><a href="#section-tooling-feeds" class="toc-link">3. Tooling & Derived Feeds</a></li>
-            <li><a href="#section-depths-tabs" class="toc-link">4. Depths, Passes & Tabs</a></li>
-            <li><a href="#section-z-heightmaps" class="toc-link">5. Z Probing & Heightmaps</a></li>
-            <li><a href="#section-preview-webserial" class="toc-link">6. Preview & WebSerial</a></li>
+            <li><a href="#section-grid-origin" class="toc-link">2. Grid, Stock &amp; Coordinates</a></li>
+            <li><a href="#section-tooling-feeds" class="toc-link">3. Tooling &amp; Derived Feeds</a></li>
+            <li><a href="#section-depths-tabs" class="toc-link">4. Depths, Passes &amp; Tabs</a></li>
+            <li><a href="#section-z-heightmaps" class="toc-link">5. Z Probing &amp; Heightmaps</a></li>
+            <li><a href="#section-preview-webserial" class="toc-link">6. Preview &amp; WebSerial</a></li>
             <li><a href="#section-postmortem" class="toc-link">7. The Post-Mortem Guide</a></li>
           </ul>
         </aside>
 
         <!-- Tutorial Main Article Content -->
-        <article class="article-main reveal delay-100">
+        <article class="article-main reveal delay-100" id="article-etch">
 
           <!-- Header Banner -->
           <header class="article-header">
@@ -184,9 +185,9 @@
             </p>
 
             <figure class="tutorial-figure">
-              <img src="assets/etch_mockup.png" alt="PhysBox Etch Vector Studio Interface">
+              <img src="assets/etch_showcase.png?v=20261119c" alt="PhysBox Etch Multi-Sheet Vector Studio Interface">
               <figcaption class="figure-caption">
-                <i class="fas fa-info-circle"></i> <strong>PhysBox Etch Vector Canvas:</strong> Bed-accurate grid, vector drawing tools, text outline vectorization, and multi-layer operation panel.
+                <i class="fas fa-info-circle"></i> <strong>PhysBox Etch Multi-Sheet Canvas:</strong> Tabbed sheet strip, bed-accurate millimeter grid, 3D V-carved typography &amp; guilloch&eacute; dial rosettes, and derived layer feeds.
               </figcaption>
             </figure>
           </section>
@@ -244,9 +245,9 @@
             </div>
 
             <figure class="tutorial-figure">
-              <img src="assets/etch_raw.png" alt="PhysBox Etch Operation Layers & Feeds Speeds Warnings">
+              <img src="assets/etch_raw.png?v=20261119c" alt="PhysBox Etch Shaded Relief &amp; Derived Feeds Panel">
               <figcaption class="figure-caption">
-                <i class="fas fa-info-circle"></i> <strong>PhysBox Etch Operations Panel:</strong> Material preset selection, automated feeds & speeds derivation, and safety warnings.
+                <i class="fas fa-info-circle"></i> <strong>PhysBox Etch Operations &amp; Relief Panel:</strong> Shaded depth-map lotus carving, ball-nose rough/finish passes, and automatic chip-load feed derivation.
               </figcaption>
             </figure>
           </section>
@@ -337,53 +338,97 @@
 
         </article>
 
-        <!-- TUTORIAL 2: PHYSBOX VOLT (ELECTRONICS & HIL) -->
+          <!-- TUTORIAL 2: PHYSBOX VOLT (ELECTRONICS, BODE, PCB & HIL) -->
         <article class="article-main category-article article-circuit reveal delay-100" id="article-volt" style="display: none;">
           <header class="article-header">
             <div class="article-meta">
               <span class="article-badge circuit-badge"><i class="fas fa-microchip"></i> PhysBox Volt Studio</span>
-              <span class="article-badge circuit-badge"><i class="fas fa-diagram-project"></i> Browser EDA</span>
-              <span class="article-badge badge-hil"><i class="fas fa-clock"></i> 15 Min Read</span>
+              <span class="article-badge circuit-badge"><i class="fas fa-diagram-project"></i> Browser EDA &amp; PCB CAM</span>
+              <span class="article-badge badge-hil"><i class="fas fa-clock"></i> 18 Min Read</span>
               <span class="article-badge" style="background: #f1f5f9; color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Intermediate</span>
             </div>
-            <h1 class="article-title">HIL Testing an ESP32 Microcontroller with Ngspice WebAssembly</h1>
-            <p class="article-subtitle">How to bridge physical silicon over WebSerial at 460,800 baud directly into an in-browser SPICE engine with sub-millisecond digital logic derivation and real-time audio synthesis.</p>
+            <h1 class="article-title">Bode Sweeps, 2-Layer PCB Milling &amp; Realtime ESP32 HIL</h1>
+            <p class="article-subtitle">How to design mixed-signal schematics, sweep small-signal Bode plots, link live 3D MuJoCo motors, probe copper-clad FR4 for 2-layer PCB milling, and stream real silicon over WebSerial.</p>
           </header>
 
           <section id="section-volt-hil" class="tutorial-section-block">
-            <h2><i class="fas fa-bolt"></i> 1. The Hardware-In-The-Loop (HIL) Paradigm</h2>
+            <h2><i class="fas fa-bolt"></i> 1. Hardware-In-The-Loop (HIL) Silicon Meets SPICE</h2>
             <p>
-              Traditional circuit simulators run purely in software isolation. If you want to test how your physical ESP32, Cheap Yellow Display (CYD), or MicroPython firmware responds to real-world analog circuit dynamics—such as inductive kickback, capacitor charge curves, or active audio filters—you usually have to choose between full hardware breadboarding or pure software mocks.
+              Traditional circuit simulators run purely in software isolation. Testing how physical ESP32 or CYD firmware responds to inductive motor kickback, active filters, or mechanical stall loads usually forces you to choose between breadboarding blind or writing synthetic mocks.
             </p>
             <p>
-              <strong>PhysBox Volt bridges this gap.</strong> By running a custom-compiled <strong>Ngspice WebAssembly engine</strong> directly inside your browser tab, Volt communicates bi-directionally over WebSerial at <strong>460,800 baud</strong> with connected microcontroller hardware.
+              <strong>PhysBox Volt bridges both worlds.</strong> Its synchronous <strong>XSPICE/Ngspice WebAssembly engine</strong> streams bi-directionally in <strong>realtime</strong> over WebSerial with physical microcontrollers &mdash; exchanging ADC samples, DAC rail levels, and GPIO transitions without leaving the schematic canvas.
             </p>
+            <figure class="tutorial-figure">
+              <picture>
+                <source srcset="assets/tutorials/volt_hil_diagram.webp" type="image/webp">
+                <img src="assets/tutorials/volt_hil_diagram.png" alt="Technical copperplate illustration of microcontroller HIL, active filter oscilloscope, milled copper PCB, and stepper motor" loading="lazy">
+              </picture>
+              <figcaption class="figure-caption">
+                <i class="fas fa-bolt"></i> <strong>Coupled Mixed-Signal Bench:</strong> Physical MCU I/O, small-signal Bode frequency response, 2-layer isolation-milled FR4 copper, and electromechanical motor loads operating in one loop.
+              </figcaption>
+            </figure>
           </section>
 
-          <section id="section-volt-uart" class="tutorial-section-block">
-            <h2><i class="fas fa-plug"></i> 2. WebSerial UART Streaming & Buffer Management</h2>
+          <section id="section-volt-bode" class="tutorial-section-block">
+            <h2><i class="fas fa-chart-line"></i> 2. Quiescent DC Voltage Chips, Bode Sweeps &amp; Power Ratings</h2>
             <p>
-              To maintain smooth hardware communication over the browser's asynchronous event loop, Volt synchronizes I/O using a lookahead buffer:
+              Before committing a schematic to copper, Volt gives you three complementary inspection modes along the bottom status bar:
             </p>
             <ul>
-              <li><strong>Integration Steps:</strong> Computes circuit matrix states in regular discrete time intervals.</li>
-              <li><strong>Queue Buffering:</strong> Maintains lookahead buffer steps in worker memory to absorb serial jitter.</li>
-              <li><strong>Serial Protocol:</strong> Streams packed binary frames (`hil_batch`) over WebSerial at 460,800 baud.</li>
+              <li><strong>Quiescent DC Operating Point (<code>DC</code>):</strong> Stamps live quiescent voltage chips onto every wire net so biased op-amp rails, voltage dividers, and transistor base-emitter drops are readable at a glance.</li>
+              <li><strong>Small-Signal AC Bode Sweeps (<code>Bode</code>):</strong> Sweeps log frequency across decades to plot magnitude (dB) and phase (&deg;), automatically tagging the exact <strong>&minus;3&nbsp;dB cutoff frequency</strong> and supporting multi-value component parameter stepping (<code>Step</code>).</li>
+              <li><strong>Live ERC &amp; Component Rating Advisories:</strong> Flags shorted voltage rails, floating CMOS inputs, reverse-biased LEDs, and resistors exceeding their quarter-watt thermal envelope while the simulation runs.</li>
             </ul>
+            <figure class="tutorial-figure">
+              <img src="assets/volt_showcase.png?v=20261119c" alt="PhysBox Volt Sallen-Key Bode Sweep and DC Bias Chips" loading="lazy">
+              <figcaption class="figure-caption">
+                <i class="fas fa-wave-square"></i> <strong>PhysBox Volt Analysis View:</strong> Sallen-Key second-order active low-pass filter showing live DC net chips, dual-channel transient scope, and swept AC Bode curve (&minus;3&nbsp;dB at 1.12&nbsp;kHz).
+              </figcaption>
+            </figure>
           </section>
 
-          <section id="section-volt-audio" class="tutorial-section-block">
-            <h2><i class="fas fa-wave-square"></i> 3. Audio Node Synthesis & Live Microphone I/O</h2>
+          <section id="section-volt-pcb" class="tutorial-section-block">
+            <h2><i class="fas fa-microchip"></i> 3. Single &amp; 2-Layer Conductive PCB Milling, Stencils &amp; Gerbers</h2>
             <p>
-              Volt connects directly to the browser's WebAudio API:
+              Click <strong>Make</strong> in Volt's header to turn your schematic into a physical board on a desktop CNC mill (or export standard RS-274X Gerbers for a board house):
             </p>
-            <ol>
-              <li><strong>Audio Input Nodes:</strong> Bind your hardware microphone input or WebAudio oscillator as an analog AC voltage source inside the schematic.</li>
-              <li><strong>Audio Output Nodes:</strong> Direct raw node voltage outputs into system speaker DACs to hear active RC/RLC bandpass filter effects live as parameters adjust.</li>
-            </ol>
+            <div class="steps-grid">
+              <div class="step-card">
+                <div class="step-number">1</div>
+                <h4>Copper Flood &amp; DRC Routing</h4>
+                <p>Auto-place footprints or drag/rotate (<code>R</code>) parts interactively. Volt routes top (<code>F.Cu</code>) and bottom (<code>B.Cu</code>) traces with generous pad clearance rings and optional copper flood so V-bits spend minutes, not hours, clearing copper.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">2</div>
+                <h4>4&times;4 Conductive FR4 Auto-Level</h4>
+                <p>Copper-clad fiberglass always bows by <code>0.05&ndash;0.20&nbsp;mm</code>, which ruins shallow V-bit isolation passes. Clip probe leads to the V-bit and blank to sample a 16-point heightmap over WebSerial and warp Z toolpaths automatically.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">3</div>
+                <h4>Flip Pins &amp; Etch Paste Stencils</h4>
+                <p>For 2-layer boards, Volt drills <code>0.8&nbsp;mm</code> symmetric alignment pin holes into the spoilboard so the flipped board registers to sub-tenth accuracy &mdash; and sends SMD solder-paste apertures straight to <strong>PhysBox Etch</strong> for Mylar laser cutting.</p>
+              </div>
+            </div>
+            <figure class="tutorial-figure">
+              <img src="assets/circuit_raw.png?v=20261119c" alt="PhysBox Volt 2-Layer PCB CAM & Isolation Routing Modal" loading="lazy">
+              <figcaption class="figure-caption">
+                <i class="fas fa-layer-group"></i> <strong>2-Layer PCB Milling &amp; CAM Engine:</strong> Interactive footprint placement, spoilboard registration pin depth, copper flood clearances, and one-click handoffs to Mesh (3D enclosure CAD) or Etch (paste stencil).
+              </figcaption>
+            </figure>
+          </section>
+
+          <section id="section-volt-cosim" class="tutorial-section-block">
+            <h2><i class="fas fa-link"></i> 4. Live Mesh Electromechanical Co-Simulation &amp; WebAudio I/O</h2>
+            <p>
+              Circuits rarely stop at a load resistor. Click <strong>Link Mesh</strong> in Volt's status bar to bind H-bridges, step drivers, NEMA&nbsp;17 steppers, DC gearmotors, and <strong>Thiele-Small speaker drivers</strong> directly to a running 3D MuJoCo scene &mdash; Volt integrates coil currents and back-EMF while Mesh solves mechanical inertia, gear stall loads, and 3D enclosure acoustics.
+            </p>
+            <p>
+              For pure analog audio work (guitar pedals, synth VCFs, active crossovers), drop <strong>Microphone</strong> and <strong>Speaker</strong> nodes onto the canvas to stream live WebAudio straight through your SPICE components as you turn potentiometer sliders.
+            </p>
             <div class="callout-box callout-tip">
-              <div class="callout-title"><i class="fas fa-lightbulb"></i> Pro Tip: AI Agent Optimization</div>
-              <p>Because Volt exposes 21 Model Context Protocol (MCP) tools, you can instruct AI agents like Claude Code to run automated parameter optimization loops (`circuit_run_sim`) to tune filter cutoff frequencies automatically!</p>
+              <div class="callout-title"><i class="fas fa-lightbulb"></i> Pro Tip: Natural-Language Agent Workflows</div>
+              <p>With <code>physbox-mcp</code> connected, you don't need to memorize SPICE directives or tool names &mdash; just ask your AI agent to tune a filter corner, verify resistor power dissipation, and lay out a two-layer board.</p>
             </div>
           </section>
 
@@ -393,49 +438,84 @@
           </div>
         </article>
 
-        <!-- TUTORIAL 3: PHYSBOX MESH (3D CAD & MUJOCO PHYSICS) -->
+        <!-- TUTORIAL 3: PHYSBOX MESH (3D CAD, VIBRO-ACOUSTICS, HYDROSTATICS & CAM) -->
         <article class="article-main category-article article-physics reveal delay-100" id="article-mesh" style="display: none;">
           <header class="article-header">
             <div class="article-meta">
               <span class="article-badge physics-badge"><i class="fas fa-cubes"></i> PhysBox Mesh Studio</span>
-              <span class="article-badge badge-scad"><i class="fas fa-clock"></i> 18 Min Read</span>
+              <span class="article-badge badge-scad"><i class="fas fa-clock"></i> 20 Min Read</span>
               <span class="article-badge" style="background: #f1f5f9; color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Beginner to Advanced</span>
             </div>
-            <h1 class="article-title">Parametric Procedural CAD & MuJoCo Joint Physics in 10 Minutes</h1>
-            <p class="article-subtitle">Write constructive solid geometry (CSG) in WASM OpenSCAD, auto-generate interactive UI sliders, solve rigid body dynamics in MuJoCo, and export 1-click Z-up STLs for 3D printing.</p>
+            <h1 class="article-title">Lattice &amp; Sculpt CAD, Hydrostatics, 3D Vibro-Acoustics &amp; Fabrication</h1>
+            <p class="article-subtitle">Model hard-surface cages, clay sculpts, and OpenSCAD assemblies; simulate concave collisions, Archimedes buoyancy, internal hex-nut ballast, and zero-sample 3D instrument acoustics; then build the real part.</p>
           </header>
 
           <section id="section-mesh-scad" class="tutorial-section-block">
-            <h2><i class="fas fa-code"></i> 1. Live Constructive Solid Geometry (CSG) in WASM</h2>
+            <h2><i class="fas fa-code"></i> 1. Choosing Your CAD Mode: Lattice Cages, Clay Sculpting &amp; OpenSCAD</h2>
             <p>
-              Unlike traditional click-and-drag CAD programs, <strong>PhysBox Mesh</strong> treats geometry as code. Powered by an embedded <strong>WASM OpenSCAD compiler</strong>, you can define parametric shapes using code directly inside the browser node inspector.
-            </p>
-            <p>
-              By adding inline parameter comments (e.g. <code>wall_thickness = 3; // [1:0.5:10]</code>), Mesh automatically generates interactive UI sliders right next to your 3D viewport.
-            </p>
-          </section>
-
-          <section id="section-mesh-mujoco" class="tutorial-section-block">
-            <h2><i class="fas fa-atom"></i> 2. Rigid Body Dynamics & 6-DOF Joint Constraints</h2>
-            <p>
-              Once your 3D model is compiled, Mesh hands the spatial bodies over to the <strong>MuJoCo WebAssembly physics engine</strong>:
+              Different physical parts ask for different modelling tools, so <strong>PhysBox Mesh</strong> puts all three in the same scene tree:
             </p>
             <ul>
-              <li><strong>Proximity Coupling:</strong> Pinions, gears, and linkage arms solve automatically via joint math constraints.</li>
-              <li><strong>6-DOF Collision Testing:</strong> Test physical gear tooth friction, drop impact, and center-of-gravity balance before sending designs to your slicer.</li>
+              <li><strong>Lattice Cage Modelling:</strong> Snap vertices on a clean decade grid (<code>0.1&ndash;100&nbsp;mm</code>) for brackets, enclosures, and turned lathe revolves; press <code>E</code> on any edge loop for live parametric fillets/chamfers, or toggle Catmull&ndash;Clark subdivision.</li>
+              <li><strong>Clay Sculpting &amp; Silhouette Scissors:</strong> Brush organic forms from spheres, heads, or imported STLs and slice clean planar cuts straight across the viewport with the <strong>Scissors</strong> tool.</li>
+              <li><strong>Parametric WASM OpenSCAD &amp; Surface Generators:</strong> Write exact CSG scripts with inline Customizer sliders, and press <code>T</code> on any face to flood procedural architectural textures (<em>Fluted</em>, <em>Kumiko</em>, <em>Guilloch&eacute;</em>, <em>Lotus Mandala</em>, <em>Parquet</em>, or curved Google Font lettering) onto printable geometry without slowing down physics.</li>
             </ul>
           </section>
 
-          <section id="section-mesh-stl" class="tutorial-section-block">
-            <h2><i class="fas fa-print"></i> 3. 1-Click Z-Up STL Export for 3D Printers</h2>
+          <section id="section-mesh-hydro" class="tutorial-section-block">
+            <h2><i class="fas fa-water"></i> 2. Concave Collisions, Container Water &amp; Hex-Nut Ballast</h2>
             <p>
-              When your mechanical assembly passes physics validation, click <strong>Export STL</strong>. Mesh formats the file in true Z-up coordinate space, ready for PrusaSlicer, Bambu Studio, or Cura without needing manual alignment or rotation.
+              Every hollow body in Mesh undergoes automatic background V-HACD concave decomposition so bowls hold marbles, funnels guide parts, and open skiffs displace water until water spills over their gunwales.
+            </p>
+            <p>
+              Set <code>waterFill</code> on any open tank to enable 3D <strong>Archimedes hydrostatics</strong> (integrating submerged surface pressure and righting moments every MuJoCo step). If a top-heavy sculpture tips over on a shelf or capsizes in water, open the <strong>Balance</strong> card in the Inspector (<code>Stand</code>, <code>Spin</code>, or <code>Float</code>) &mdash; Mesh hollows internal cavities sized for standard <code>M4&ndash;M16</code> steel hex nuts so you can pause your 3D print, drop in hardware-store ballast, and hit the exact target center of gravity.
+            </p>
+            <figure class="tutorial-figure">
+              <img src="assets/mesh_showcase.png?v=20261119c" alt="3DBenchy floating in a hydrostatic aquarium tank beside M16-ballasted and unballasted buoys" loading="lazy">
+              <figcaption class="figure-caption">
+                <i class="fas fa-anchor"></i> <strong>3D Archimedes Hydrostatics &amp; Auto-Ballast:</strong> An unballasted buoy capsizes on the left while six internal M16 steel hex nuts keep the center spar buoy upright beside a floating #3DBenchy.
+              </figcaption>
+            </figure>
+          </section>
+
+          <section id="section-mesh-acoustics" class="tutorial-section-block">
+            <h2><i class="fas fa-music"></i> 3. Zero-Sample 3D Vibro-Acoustics &amp; Luthier Soundboards</h2>
+            <p>
+              Every collision, plucked string, struck marimba bar, and blown bore in Mesh is synthesized live in a WebAudio Worklet from your part's actual 3D mesh and material constants (Young's modulus, density, loss tangent) &mdash; with <strong>zero pre-recorded audio samples</strong>.
+            </p>
+            <p>
+              Hollow wooden bodies couple Kirchhoff&ndash;Love bending-plate modes to a 3D FDTD air-chamber Helmholtz solver: widen a soundhole or thin a Sitka spruce top by <code>0.5&nbsp;mm</code> and hear the body resonance shift immediately before milling the real hardwood instrument.
             </p>
 
-            <div class="callout-box callout-tech">
-              <div class="callout-title"><i class="fas fa-robot"></i> World Model AI Workflows</div>
-              <p>AI agents connect directly to Mesh via MCP (`physics_set_environment`, `physics_check_collisions`) to act as automated generative CAD co-designers!</p>
+            <div class="tutorial-sim-to-real">
+              <figure class="tutorial-figure">
+                <picture>
+                  <source srcset="assets/tutorials/mesh_lyre_acoustics_ui.webp" type="image/webp">
+                  <img src="assets/tutorials/mesh_lyre_acoustics_ui.png" alt="PhysBox Mesh Acoustic Soundbox Lyre simulation with Helmholtz soundhole resonance" loading="lazy">
+                </picture>
+                <figcaption class="figure-caption">
+                  <span class="sim-real-pill pill-sim"><i class="fas fa-cube"></i> In Mesh</span>
+                  <span><strong>Coupled String + Soundbox Solver:</strong> Five 80/20 bronze strings over a 2.5&nbsp;L hollowed spruce cavity (&empty;52&nbsp;mm soundhole, <em>f<sub>H</sub></em> &approx; 122&nbsp;Hz).</span>
+                </figcaption>
+              </figure>
+              <figure class="tutorial-figure">
+                <picture>
+                  <source srcset="assets/tutorials/real_spruce_lyre_mesh.webp" type="image/webp">
+                  <img src="assets/tutorials/real_spruce_lyre_mesh.jpg" alt="Real handcrafted Sitka spruce and walnut acoustic soundbox lyre on a luthier workbench" loading="lazy">
+                </picture>
+                <figcaption class="figure-caption">
+                  <span class="sim-real-pill pill-real"><i class="fas fa-hammer"></i> Built in Shop</span>
+                  <span><strong>Physical CNC-Milled Instrument:</strong> Sitka spruce soundboard &amp; walnut frame machined from the simulated dimensions, beside a printed flexure jig.</span>
+                </figcaption>
+              </figure>
             </div>
+          </section>
+
+          <section id="section-mesh-stl" class="tutorial-section-block">
+            <h2><i class="fas fa-print"></i> 4. DFM Checks, Multi-Material 3MF, Timber Joinery &amp; Add Simulation</h2>
+            <p>
+              Toggle <strong>DFM</strong> in the viewport bar to paint steep overhangs and thin walls directly on the model. When ready to build, export assembly-aligned multi-material <strong>3MF</strong> plates, split oversized prints with alignment dowels, break frames into CNC-mortised <strong>Timber</strong> cut-lists, lay bonded <strong>Brickwork</strong> courses, or unfold finger-jointed sheets straight into <strong>Etch</strong>. Every fabrication dialog includes <strong>Add Simulation</strong> so you can drop the machined, laser-cut, or cast result back into MuJoCo to verify fit and strength before cutting real stock.
+            </p>
           </section>
 
           <div class="sim-footer" style="margin-top: 3rem; justify-content: center;">
@@ -444,24 +524,471 @@
           </div>
         </article>
 
-        <!-- TUTORIAL 4: PHYSBOX FLUX (COMING SOON) -->
-        <article class="article-main category-article article-process reveal delay-100" id="article-flux" style="display: none;">
-          <header class="article-header" style="text-align: center;">
-            <div class="article-meta" style="justify-content: center;">
-              <span class="article-badge process-badge"><i class="fas fa-network-wired"></i> PhysBox Flux Studio</span>
-              <span class="article-badge badge-soon"><i class="fas fa-tools"></i> Coming Soon</span>
+        <!-- TUTORIAL 4: SAND CASTING WITH PRINTED PATTERNS (PHYSBOX MESH) -->
+        <article class="article-main category-article article-physics reveal delay-100" id="article-sand-casting" style="display: none;">
+          <header class="article-header">
+            <div class="article-meta">
+              <span class="article-badge physics-badge"><i class="fas fa-hammer"></i> PhysBox Mesh &middot; Foundry</span>
+              <span class="article-badge badge-cnc"><i class="fas fa-clock"></i> 18 Min Read</span>
+              <span class="article-badge" style="background: #f1f5f9; color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Beginner to Intermediate</span>
             </div>
-            <h1 class="article-title">Hybrid Systems, Cellular Automata & Differential Loops</h1>
-            <p class="article-subtitle">Flux is currently under active development as part of the PhysBox 2.1 release. Check back soon for guides on Runge-Kutta solvers, wildfire CA grids, and stochastic system cycles!</p>
+            <h1 class="article-title">Backyard Sand Casting from 3D-Printed Patterns in PhysBox Mesh</h1>
+            <p class="article-subtitle">Turn any 3D model into a drafted, shrinkage-compensated foundry pattern for Petrobond or green sand &mdash; complete with cope-and-drag anatomy, undercut checks, sprue/riser sizing, and exact pour weights.</p>
           </header>
 
-          <div class="callout-box callout-warning" style="margin-top: 2rem; text-align: center;">
-            <div class="callout-title"><i class="fas fa-hourglass-half"></i> Active Engine Build</div>
-            <p>Our hybrid Runge-Kutta and cellular automata solvers are currently undergoing calibration. Explore Volt, Mesh, and Etch in the meantime!</p>
-          </div>
+          <section id="section-sand-anatomy" class="tutorial-section-block">
+            <h2><i class="fas fa-diagram-project"></i> 1. Anatomy of a Two-Part Sand Mold (Cope, Drag, Sprue &amp; Riser)</h2>
+            <p>
+              In green-sand or oil-bonded (Petrobond) foundry work, your 3D print is not burned away &mdash; it is a <strong>reusable positive pattern</strong>. You pack sand firmly around it inside a two-half alignment box (the <em>drag</em> on the bottom and the <em>cope</em> on top), separate the halves along the parting plane, and lift the plastic pattern cleanly out to leave a negative cavity ready for molten metal.
+            </p>
+            <figure class="tutorial-figure">
+              <picture>
+                <source srcset="assets/tutorials/sand_casting_diagram.webp" type="image/webp">
+                <img src="assets/tutorials/sand_casting_diagram.png" alt="Copperplate cross-section diagram of a two-part cope and drag sand casting flask with pouring basin, sprue, runner, mold cavity, and blind riser" loading="lazy">
+              </picture>
+              <figcaption class="figure-caption">
+                <i class="fas fa-compass-drafting"></i> <strong>Cope &amp; Drag Sand-Mold Cutaway:</strong> Registration pins align the upper cope and lower drag while molten metal flows down the tapered sprue, through the bottom runner/ingate, into the cavity, and up into an insulated blind riser that feeds solidification shrinkage.
+              </figcaption>
+            </figure>
+          </section>
+
+          <section id="section-sand-draft" class="tutorial-section-block">
+            <h2><i class="fas fa-drafting-compass"></i> 2. Draft Angles, Fillets &amp; Alloy Solidification Shrinkage</h2>
+            <p>
+              Printing a raw CAD STL and ramming sand around it usually fails on the bench for three physical reasons:
+            </p>
+            <ul>
+              <li><strong>Vertical 90&deg; Walls Tear the Sand:</strong> Without taper, every millimetre of vertical pull drags against packed sand. Adding <strong>2&deg;&ndash;3&deg; of draft</strong> lets the pattern break contact across its entire wall height the instant it lifts.</li>
+              <li><strong>Sharp Inside Corners Wash Loose:</strong> Crisp 90&deg; sand corners fracture under turbulent metal flow and float into the casting as sand inclusions; rounding inside edges with <code>1.5&ndash;2.0&nbsp;mm</code> fillets keeps the sand ridge strong.</li>
+              <li><strong>Metals Shrink as They Freeze:</strong> Molten alloys contract substantially between liquidus and room temperature &mdash; <strong>Aluminium (+1.3%)</strong>, <strong>Brass (+1.5%)</strong>, <strong>Bronze (+1.5%)</strong>, and <strong>Silver (+1.6%)</strong>.</li>
+            </ul>
+            <p>
+              Open <strong>Mold &rarr; Sand</strong> in PhysBox Mesh to inspect all three at once: Mesh scales your pattern for the selected alloy, applies pull-direction draft, attaches a printed sprue &amp; riser rig, and warns you immediately if an overhang traps sand!
+            </p>
+
+            <div class="tutorial-sim-to-real">
+              <figure class="tutorial-figure">
+                <picture>
+                  <source srcset="assets/tutorials/mesh_sand_casting_ui.webp" type="image/webp">
+                  <img src="assets/tutorials/mesh_sand_casting_ui.png" alt="PhysBox Mesh Sand Casting planner showing 3DBenchy pattern, +1.3% aluminium shrink, pour weight, and 37% cabin overhang warning" loading="lazy">
+                </picture>
+                <figcaption class="figure-caption">
+                  <span class="sim-real-pill pill-sim"><i class="fas fa-cube"></i> In Mesh</span>
+                  <span><strong>Sand Pattern Planner:</strong> Scales #3DBenchy <code>+1.3%</code> (<code>56 g</code> cast / <code>77 g</code> pour) and flags the wheelhouse arches (<code>37%</code> overhang) before you waste sand.</span>
+                </figcaption>
+              </figure>
+              <figure class="tutorial-figure">
+                <picture>
+                  <source srcset="assets/tutorials/real_sand_cast_benchy.webp" type="image/webp">
+                  <img src="assets/tutorials/real_sand_cast_benchy.jpg" alt="Real sand-cast solid aluminium 3DBenchy beside an open wooden Petrobond sand flask and cut-off sprue" loading="lazy">
+                </picture>
+                <figcaption class="figure-caption">
+                  <span class="sim-real-pill pill-real"><i class="fas fa-fire"></i> Cast in Shop</span>
+                  <span><strong>Finished Aluminium Sand Casting:</strong> Solid A356 aluminium Benchy shaken out of oil-bonded Petrobond sand (with cabin cores/cheeks) beside its sawn sprue button.</span>
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section id="section-sand-prep" class="tutorial-section-block">
+            <h2><i class="fas fa-spray-can-sparkles"></i> 3. Slicing &amp; Surface-Prepping Your 3D-Printed Pattern</h2>
+            <p>
+              Even with 3&deg; of geometric draft, raw <code>0.20&nbsp;mm</code> FDM layer stair-steps act like microscopic saw teeth in tightly rammed Petrobond. Spend ten minutes prepping the print and it will pull like polished brass for dozens of molds:
+            </p>
+            <ol>
+              <li><strong>Print Rigid, Not Spongy:</strong> Use <strong>3&ndash;4 perimeters, 4 top/bottom layers, and 20% grid/gyroid infill</strong> in PLA or PETG so bench ramming pressure doesn't flex the pattern walls.</li>
+              <li><strong>High-Build Primer + 400-Grit Wet Sand:</strong> Mist two light coats of automotive filler primer over the print and wet-sand with 400-grit paper until horizontal layer ridges vanish.</li>
+              <li><strong>Split Patterns at Wide Equators:</strong> If your part is widest in the middle (like a sphere, gear hub, or valve body), use Mesh's <strong>Split / Knife</strong> tool along the equator and print two flat-backed halves pinned with short <code>3&nbsp;mm</code> alignment dowels &mdash; one half stays in the drag, one lifts in the cope.</li>
+            </ol>
+          </section>
+
+          <section id="section-sand-flask" class="tutorial-section-block">
+            <h2><i class="fas fa-box-open"></i> 4. Ramming the Drag &amp; Cope on the Bench</h2>
+            <div class="steps-grid">
+              <div class="step-card">
+                <div class="step-number">1</div>
+                <h4>Dust &amp; Face the Drag</h4>
+                <p>Lay the pattern parting-face down on a flat molding board inside the inverted <strong>drag</strong>. Dust lightly with non-silica parting powder (talc or calcium carbonate) and riddle (sieve) <code>15&nbsp;mm</code> of fine facing sand directly over every detail.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">2</div>
+                <h4>Peen, Butt-Ram &amp; Flip</h4>
+                <p>Pack around the flask perimeter with the wedge end of your rammer, fill high with backing sand, butt-ram firm, strike off dead flat with a steel bar, and flip the drag right-side up.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">3</div>
+                <h4>Seat the Cope &amp; Riser</h4>
+                <p>Set the <strong>cope</strong> on its registration pins, dust the parting face thoroughly so the halves won't stick together, stand your tapered sprue and riser pins beside the thickest section, and ram the cope full.</p>
+              </div>
+            </div>
+          </section>
+
+          <section id="section-sand-gates" class="tutorial-section-block">
+            <h2><i class="fas fa-water"></i> 5. Cutting Smooth Runners, Risers &amp; Vent Channels</h2>
+            <p>
+              Twist and withdraw the sprue/riser pins, chamfer the top of the sprue into a wide funnel basin so nothing Loose falls down the hole, and lift the cope straight up onto its back. Rap the pattern lightly on all sides with a wooden dowel to break static friction, then lift it straight out.
+            </p>
+            <ul>
+              <li><strong> Sprue Well &amp; Runner Ratio:</strong> Scoop a small rounded well at the bottom of the sprue in the drag to cushion the falling metal stream, then cut a smooth runner channel leading into a wide, thin ingate at the casting's heavy section.</li>
+              <li><strong>Feed Heavy Sections with a Riser:</strong> Liquid metal shrinks from thin walls toward thick bosses. Place your riser right next to the heaviest boss so the riser freezes <em>last</em> and feeds molten metal into the part instead of leaving a sunken shrinkage pipe.</li>
+              <li><strong>Vent High Points:</strong> Pierce <code>1.5&nbsp;mm</code> wire vent holes from the highest points of the cope cavity out through the top sand so expanding air and oil vapor escape without bubbling back through the metal.</li>
+            </ul>
+          </section>
+
+          <section id="section-sand-pour" class="tutorial-section-block">
+            <h2><i class="fas fa-fire"></i> 6. Pouring, Shakeout &amp; Foundry Safety</h2>
+            <p>
+              Re-close the cope onto the drag, place a steel weight or C-clamp across the flask (molten bronze and aluminium exert enough upward hydrostatic buoyancy to float an unweighted cope right off the parting line!), and pour the melt weight reported by Mesh:
+            </p>
+            <ul>
+              <li><strong>Keep the Pouring Basin Full (“Choked”):</strong> Hold the crucible lip close to the sprue funnel and pour fast enough that the basin stays brim-full from start to finish &mdash; dross floats on top of the full pool while clean metal feeds smoothly from the bottom without sucking air vortices.</li>
+              <li><strong>Let Solidify Fully Before Shakeout:</strong> Give aluminium 10&ndash;15 minutes (bronze 15&ndash;20 minutes) so hot-short alloys regain strength before breaking open the sand and sawing off the sprue/riser.</li>
+            </ul>
+            <div class="callout-box callout-danger">
+              <div class="callout-title"><i class="fas fa-shield-halved"></i> Non-Negotiable Foundry Safety</div>
+              <p>Pre-heat every ingot, skimmer, and crucible tong over the furnace exhaust before touching liquid metal &mdash; one drop of condensation expands <strong>1,600&times;</strong> into steam instantaneously, ejecting molten metal. Always wear leather boots/spats, welding/aluminized gauntlets, a full polycarbonate face shield, and pour over a bed of dry sand &mdash; never bare concrete (which spalls explosively under spilled metal).</p>
+            </div>
+          </section>
 
           <div class="sim-footer" style="margin-top: 3rem; justify-content: center;">
-            <a href="index.html#suite" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Explore Active Sandbox Suite</a>
+            <a href="https://mesh.physbox.io" class="btn btn-primary"><i class="fas fa-cubes"></i> Open Sand Casting in Mesh</a>
+            <a href="index.html#suite" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return to Main Suite</a>
+          </div>
+        </article>
+
+        <!-- TUTORIAL 5: LOST PLA INVESTMENT CASTING (PHYSBOX MESH) -->
+        <article class="article-main category-article article-physics reveal delay-100" id="article-lost-pla" style="display: none;">
+          <header class="article-header">
+            <div class="article-meta">
+              <span class="article-badge physics-badge"><i class="fas fa-fire-flame-curved"></i> PhysBox Mesh &middot; Investment</span>
+              <span class="article-badge badge-cnc"><i class="fas fa-clock"></i> 20 Min Read</span>
+              <span class="article-badge" style="background: #f1f5f9; color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Intermediate</span>
+            </div>
+            <h1 class="article-title">Lost-PLA Investment Casting: Undercuts, Burnout Schedules &amp; Metal Pours</h1>
+            <p class="article-subtitle">Cast intricate bronze, brass, silver, and aluminium parts with zero draft limits &mdash; Mesh fuses the sprue/cup/vents onto your STL and calculates flask dimensions, investment powder/water grams, and kiln burnout ramps.</p>
+          </header>
+
+          <section id="section-lostpla-why" class="tutorial-section-block">
+            <h2><i class="fas fa-gem"></i> 1. Sand vs. Lost PLA: Why Undercuts Cost Nothing Here</h2>
+            <p>
+              Remember how Sand Casting flagged <code>37%</code> of #3DBenchy's cabin arches as un-drawable overhangs? <strong>Lost-PLA investment casting</strong> turns that limitation on its head: you bury a sacrificial 3D print inside liquid gypsum-silica refractory investment, let it set rock-hard, and melt/vaporize the plastic out in a burnout kiln. Because the pattern leaves as liquid and gas rather than pulling mechanically, <strong>cabins, portholes, internal passages, lattices, and organic sculptures cast in one piece with 0&deg; draft</strong>.
+            </p>
+            <figure class="tutorial-figure">
+              <picture>
+                <source srcset="assets/tutorials/lost_pla_diagram.webp" type="image/webp">
+                <img src="assets/tutorials/lost_pla_diagram.png" alt="Copperplate diptych diagram showing an inverted sprue tree with air vents inside an investment flask on the left, and molten bronze pouring into the burned-out flask on kiln stilts on the right" loading="lazy">
+              </picture>
+              <figcaption class="figure-caption">
+                <i class="fas fa-fire-flame-curved"></i> <strong>Two-Stage Investment Process:</strong> (Left) Sacrificial PLA tree mounted cup-down on a rubber sprue base inside an invested flask; (Right) After inverted kiln burnout, the hot refractory cavity is flipped upright to receive molten bronze.
+              </figcaption>
+            </figure>
+          </section>
+
+          <section id="section-lostpla-rig" class="tutorial-section-block">
+            <h2><i class="fas fa-code-branch"></i> 2. Auto-Fused Sprues, Vents &amp; Flask Sizing in Mesh</h2>
+            <p>
+              In <strong>PhysBox Mesh &rarr; Mold &rarr; Lost PLA</strong>, pick your alloy (<strong>Silver 1.0&nbsp;mm min wall</strong>, <strong>Brass/Bronze 2.5&nbsp;mm</strong>, or <strong>Aluminium 3.0&nbsp;mm</strong>). Mesh analyzes your geometry and builds a single manifold burnout STL with:
+            </p>
+            <ul>
+              <li><strong>Shrinkage Compensation:</strong> Scales the entire model up (<code>+1.3%</code> aluminium, <code>+1.5%</code> brass/bronze, <code>+1.6%</code> silver) before fusing the gating rig.</li>
+              <li><strong>Fused Pouring Cup, Main Sprue &amp; Air-Pocket Vents:</strong> Automatically detects ceiling pockets where rising metal would trap air (such as Benchy's cabin roof and bow deck) and fuses slender vertical vent rods up to the pouring plane, sized above the metal's Bretherton capillary rise limit.</li>
+              <li><strong>Exact Flask &amp; Investment Recipe:</strong> Outputs steel flask diameter &times; height (with ~12&nbsp;mm wall margin), PLA filament weight, and exact grams of investment powder + water.</li>
+            </ul>
+
+            <div class="tutorial-sim-to-real">
+              <figure class="tutorial-figure">
+                <picture>
+                  <source srcset="assets/tutorials/mesh_lost_pla_ui.webp" type="image/webp">
+                  <img src="assets/tutorials/mesh_lost_pla_ui.png" alt="PhysBox Mesh Lost-PLA planner showing Bronze 3DBenchy with fused pouring cup and 3 air vents, Ø93x81mm flask, and 656g powder / 262g water recipe" loading="lazy">
+                </picture>
+                <figcaption class="figure-caption">
+                  <span class="sim-real-pill pill-sim"><i class="fas fa-cube"></i> In Mesh</span>
+                  <span><strong>Lost-PLA Burnout Planner:</strong> Bronze #3DBenchy (<code>+1.5%</code> shrink, <code>137 g</code> cast / <code>174 g</code> pour) with fused cup + 3 vents, <code>&empty;93&times;81 mm</code> flask, and <code>656 g</code> powder + <code>262 g</code> water.</span>
+                </figcaption>
+              </figure>
+              <figure class="tutorial-figure">
+                <picture>
+                  <source srcset="assets/tutorials/real_lost_pla_bronze_benchy.webp" type="image/webp">
+                  <img src="assets/tutorials/real_lost_pla_bronze_benchy.jpg" alt="Real investment-cast solid silicon bronze 3DBenchy on a workbench beside a perforated steel investment flask and broken white gypsum chunks" loading="lazy">
+                </picture>
+                <figcaption class="figure-caption">
+                  <span class="sim-real-pill pill-real"><i class="fas fa-gem"></i> Cast in Shop</span>
+                  <span><strong>Finished Solid Silicon Bronze Benchy:</strong> Quenched from the perforated flask with crisp cabin arches, porthole rings, and warm brushed bronze highlights.</span>
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section id="section-lostpla-print" class="tutorial-section-block">
+            <h2><i class="fas fa-layer-group"></i> 3. Slicer Settings That Prevent Cracked Investment Shells</h2>
+            <p>
+              Solid plastic expands thermally long before it melts! A 100%-infill PLA print acts like a hydraulic wedge between <code>80&ndash;130&nbsp;&deg;C</code> and splits your plaster mold wide open. Follow these three slicer rules every time:
+            </p>
+            <div class="callout-box callout-warning">
+              <div class="callout-title"><i class="fas fa-exclamation-triangle"></i> The Hollow Collapse Rule</div>
+              <p>Print in <strong>unpigmented / natural PLA</strong> (or dedicated PolyCast filament &mdash; avoid matte white <code>TiO₂</code>, carbon fiber, or wood-fill, which leave stubborn ash!) with <strong>2 thin walls (<code>0.8 mm</code>) and <code>8–10%</code> gyroid infill</strong>. As the kiln crosses glass transition, thin walls soften and buckle harmlessly <em>inward</em> into the hollow interior. Drill a <code>2 mm</code> drain hole connecting the hollow print cavity into the printed sprue throat so melted PLA runs straight out!</p>
+            </div>
+            <p>
+              <em>Optional surface trick:</em> Brush a thin <code>0.3 mm</code> coat of low-ash jeweller's microcrystalline/beeswax over your PLA print and smooth with a warm air gun &mdash; it erases FDM layer lines AND melts out first at <code>70 °C</code>, leaving an expansion buffer gap between the PLA and the investment wall!
+            </p>
+          </section>
+
+          <section id="section-lostpla-invest" class="tutorial-section-block">
+            <h2><i class="fas fa-vial"></i> 4. Mixing, Vacuum Degassing &amp; Investing the Flask</h2>
+            <ol>
+              <li><strong>Seal to the Rubber Sprue Base:</strong> Wax the lip of your printed pouring cup dead-center onto a rubber flask base and seat the steel flask sleeve firmly (tape perforations securely if using a perforated vacuum flask).</li>
+              <li><strong>Weigh &amp; Sift Powder into Water:</strong> Use a jewellery investment formulated for high burnout (<code>Ransom & Randolph Plasticast</code>, <code>Prestige Optima</code>, or <code>SRS Classic</code> &mdash; never hardware-store Plaster of Paris, which cracks at <code>730 °C</code>!). Always sift powder into room-temperature water (<code>~21 °C</code>), never water into powder.</li>
+              <li><strong>Two-Stage Vacuum Degas:</strong> Mix for 3.5 minutes, pull vacuum in a bell jar until the slurry foams up to 3&times; volume and collapses (“breaks”), then pour slowly down the inside steel wall of the flask so rising slurry fills undercuts from below. Pull vacuum a second time for 60&ndash;90 seconds to lift micro-bubbles off the PLA, then let cure undisturbed on a vibration-free bench for <strong>2&ndash;3 hours</strong>.</li>
+            </ol>
+          </section>
+
+          <section id="section-lostpla-burnout" class="tutorial-section-block">
+            <h2><i class="fas fa-temperature-high"></i> 5. The 4-Stage Kiln Burnout Schedule &amp; Flask Stabilization</h2>
+            <p>
+              Peel off the rubber sprue base, stand the flask <strong>cup-down</strong> on ceramic kiln stilts over a stainless catch tray (for initial melt-out), ensure active workshop exhaust ventilation, and run a controlled ramp:
+            </p>
+            <div class="steps-grid">
+              <div class="step-card">
+                <div class="step-number">1</div>
+                <h4>150&nbsp;&deg;C &middot; Steam Dry (2&nbsp;h)</h4>
+                <p>Evaporates free moisture gently. Ramping straight past 200&nbsp;&deg;C boils trapped water into steam pockets that spall investment faces into the cavity.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">2</div>
+                <h4>300&nbsp;&deg;C &middot; Bulk Melt-Out (2&nbsp;h)</h4>
+                <p>Liquid PLA drains cleanly down the inverted sprue cup before heavy pyrolysis begins. Remove the drip tray carefully if your kiln design requires it.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">3</div>
+                <h4>730&nbsp;&deg;C &middot; Ash Burnout (3&ndash;4&nbsp;h)</h4>
+                <p>Crack the kiln peephole slightly for oxygen! Carbon residue oxidizes completely to <code>CO₂</code> gas until the sprue throat glows clean chalk-white with zero grey soot.</p>
+              </div>
+            </div>
+            <p>
+              <strong>Crucial Final Step &mdash; Drop to Pouring Flask Temp:</strong> Do <em>not</em> pour bronze into a <code>730 °C</code> flask (calcium sulfate decomposes above <code>750 °C</code>, causing rough “christmas-tree” sulfur gas porosity!). Ramp the kiln <em>down</em> and let the flask stabilize for 1 hour at Mesh's recommended flask temperature (~<code>450&ndash;525&nbsp;&deg;C</code> for bronze/silver, ~<code>350&ndash;400&nbsp;&deg;C</code> for aluminium).
+            </p>
+          </section>
+
+          <section id="section-lostpla-pour" class="tutorial-section-block">
+            <h2><i class="fas fa-hammer"></i> 6. Vacuum-Assisted Pouring, Quenching &amp; Pickling</h2>
+            <p>
+              Transfer the hot flask with foundry tongs onto your vacuum casting pad (or dry sand bed for gravity pouring), switch on vacuum suction so air pulls right through the porous investment walls, and pour your fluxed/degassed melt in one decisive stream. Let the button freeze from bright orange down to dull cherry red (~8&ndash;12 minutes for bronze; let aluminium cool longer so it doesn't fracture), then plunge the hot flask with tongs into a deep steel bucket of water &mdash; thermal shock shatters the gypsum investment right off your metal casting!
+            </p>
+          </section>
+
+          <div class="sim-footer" style="margin-top: 3rem; justify-content: center;">
+            <a href="https://mesh.physbox.io" class="btn btn-primary"><i class="fas fa-fire-flame-curved"></i> Design a Lost-PLA Pattern in Mesh</a>
+            <a href="index.html#suite" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return to Main Suite</a>
+          </div>
+        </article>
+
+        <!-- TUTORIAL 6: CERAMIC SLIP CASTING (PHYSBOX MESH) -->
+        <article class="article-main category-article article-physics reveal delay-100" id="article-slip-casting" style="display: none;">
+          <header class="article-header">
+            <div class="article-meta">
+              <span class="article-badge physics-badge"><i class="fas fa-mug-hot"></i> PhysBox Mesh &middot; Ceramics</span>
+              <span class="article-badge badge-scad"><i class="fas fa-clock"></i> 18 Min Read</span>
+              <span class="article-badge" style="background: #f1f5f9; color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Beginner to Intermediate</span>
+            </div>
+            <h1 class="article-title">Ceramic Slip Casting: Multi-Part Plaster Molds from 3D-Printed Cases</h1>
+            <p class="article-subtitle">Turn sculpted or revolved vessels in Mesh into 2-to-6 piece natched Potter's #1 plaster molds &mdash; complete with firing-shrinkage scaling, separable C-clip mother cases, slip spares, and wall-build simulation.</p>
+          </header>
+
+          <section id="section-slip-how" class="tutorial-section-block">
+            <h2><i class="fas fa-droplet"></i> 1. Capillary Suction: How Liquid Clay Builds a Hollow Vessel</h2>
+            <p>
+              Ceramic <em>casting slip</em> (porcelain, stoneware, or earthenware clay deflocculated with sodium silicate/Darvan so it pours like heavy cream at low water content) does not set chemically. Instead, you pour slip into a dry, microporous <strong>Potter's #1 plaster mold</strong>. Capillary suction in the dry gypsum draws water out of the outer layer of slip, compacting clay platelets into a leather-firm shell (<code>3–5 mm</code> thick in 15–25 minutes). Tip the mold upside down to pour out the still-liquid interior, and a hollow vase remains!
+            </p>
+            <figure class="tutorial-figure">
+              <picture>
+                <source srcset="assets/tutorials/slip_casting_diagram.webp" type="image/webp">
+                <img src="assets/tutorials/slip_casting_diagram.png" alt="Copperplate workshop cutaway of a strapped 3-piece plaster slip-cast mold showing conical natches, tapered base plug, upper slip spare collar, and clay wall building along the interior" loading="lazy">
+              </picture>
+              <figcaption class="figure-caption">
+                <i class="fas fa-mug-hot"></i> <strong>3-Piece Slip-Casting Mold Cutaway:</strong> Two natched plaster side halves and a self-centering tapered base plug strapped together while liquid slip fills the upper spare reservoir and builds an even ceramic wall.
+              </figcaption>
+            </figure>
+          </section>
+
+          <section id="section-slip-design" class="tutorial-section-block">
+            <h2><i class="fas fa-compass-drafting"></i> 2. Firing Shrinkage, Auto Radial Splits, Natches &amp; the Spare</h2>
+            <p>
+              Because non-porous 3D-printed PLA cannot absorb water from clay, <strong>PhysBox Mesh &rarr; Mold &rarr; Slip Cast</strong> designs the <strong>printed outer mother-cases</strong> that cast each plaster block &mdash; solving four classic pottery moldmaker calculations automatically:
+            </p>
+            <ul>
+              <li><strong>Wet-to-Fired Shrinkage (<code>+7%</code> to <code>+14.9%</code> Scale):</strong> Clay shrinks once as it dries to bone-dry greenware and a second time as it vitrifies in the kiln. Pick <strong>Porcelain (<code>13%</code>)</strong>, <strong>Stoneware (<code>12%</code>)</strong>, or <strong>Earthenware (<code>7%</code>)</strong> (or type your own test-bar %) and Mesh scales the mold cavity by <code>1 / (1 - shrink)</code> so your fired piece hits exact CAD dimensions.</li>
+              <li><strong>Automatic <code>2–6</code> Side Parting + Tapered Base Plug:</strong> Mesh searches every parting angle around the pour axis to find the minimum number of radial wedges (<code>2–6</code>) with zero undercuts &mdash; splitting a mug cleanly down the middle of its handle &mdash; and adds a downward-tapered plaster base plug so footed bottoms release cleanly.</li>
+              <li><strong>Conical Alignment Natches &amp; Slip Spare Collar:</strong> Sinks self-locking conical keys (<code>natches</code>) into every parting face and adds a <code>25 mm</code> <strong>spare collar</strong> above the vessel lip so the dropping slip level never leaves a tide-ring inside your rim.</li>
+            </ul>
+
+            <div class="tutorial-sim-to-real">
+              <figure class="tutorial-figure">
+                <picture>
+                  <source srcset="assets/tutorials/mesh_slip_casting_ui.webp" type="image/webp">
+                  <img src="assets/tutorials/mesh_slip_casting_ui.png" alt="PhysBox Mesh 3-Piece Porcelain Slip-Cast Plaster Mold with conical natches, base plug, and 3,714g plaster / 2,600g water recipe" loading="lazy">
+                </picture>
+                <figcaption class="figure-caption">
+                  <span class="sim-real-pill pill-sim"><i class="fas fa-cube"></i> In Mesh</span>
+                  <span><strong>Generated 3-Piece Plaster Mold:</strong> Bellied porcelain vase grown <code>+14.9%</code> inside two 6-natch plaster side halves + tapered base plug (<code>3,714 g</code> plaster : <code>2,600 g</code> water).</span>
+                </figcaption>
+              </figure>
+              <figure class="tutorial-figure">
+                <picture>
+                  <source srcset="assets/tutorials/real_slip_cast_porcelain_vase.webp" type="image/webp">
+                  <img src="assets/tutorials/real_slip_cast_porcelain_vase.jpg" alt="Real glazed white porcelain bellied vase beside its 3-piece natched Potter's plaster slip-cast mold and rubber strap on a pottery table" loading="lazy">
+                </picture>
+                <figcaption class="figure-caption">
+                  <span class="sim-real-pill pill-real"><i class="fas fa-fire-burner"></i> Fired in Studio</span>
+                  <span><strong>Glaze-Fired Porcelain Vase &amp; Plaster Mold:</strong> The three cured Potter's #1 plaster pieces unstrapped beside the finished cone-6 translucent porcelain vase.</span>
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section id="section-slip-cases" class="tutorial-section-block">
+            <h2><i class="fas fa-cubes"></i> 3. Printing Separable C-Clip Cases &amp; Mixing Potter's #1 Plaster</h2>
+            <p>
+              Set gypsum expands slightly (<code>~0.15%</code>) and heats up (<code>~42 °C</code> exotherm) as it crystallizes, which locks rigid one-piece plastic boxes tightly onto cured plaster. Leave <strong>Separable Cases (<code>splitCase = true</code>)</strong> enabled in Mesh: each printed case arrives as a seamless pattern floor, two U-shaped side walls, and sliding dovetail C-clips that unclip and slide sideways off the warm plaster block with zero prying!
+            </p>
+            <ol>
+              <li><strong>Soap the Printed Cases:</strong> Brush two thin coats of potter's mold soap (or Murphy's oil soap wiped nearly dry) onto the printed PLA pattern face and walls so plaster releases satin-smooth.</li>
+              <li><strong>Weigh <code>100 : 70</code> Potter's Plaster:</strong> Use ceramic <strong>USG No. 1 Pottery Plaster</strong> (never hardware patching plaster!). Weigh out the exact grams of powder and water reported by Mesh (<code>100 parts plaster : 70 parts water</code> by weight), sift plaster steadily into water, let slake undisturbed for 2 minutes, then stir gently from the bottom for 3 minutes without whipping air in.</li>
+              <li><strong>Tap Bubbles &amp; Cure Dry Below <code>45 °C</code>:</strong> Pour slowly into the lowest corner of each printed case, rap the bench for 60 seconds to float air pearls off the vase face, demold once cool after the warm exotherm peaks (~45 min), and let the plaster pieces dry in moving room air for several days (never bake above <code>48 °C</code>, which calcines plaster soft and chalky!).</li>
+            </ol>
+          </section>
+
+          <section id="section-slip-cast-fire" class="tutorial-section-block">
+            <h2><i class="fas fa-hourglass-half"></i> 4. Pouring Slip, Draining, Fettling the Spare &amp; Firing</h2>
+            <div class="steps-grid">
+              <div class="step-card">
+                <div class="step-number">1</div>
+                <h4>Strap &amp; Sieve-Pour</h4>
+                <p>Wipe dust off the dry plaster faces, seat the two natched halves round the tapered base plug, cinch tight with heavy rubber mold bands, and pour 80-mesh-sieved slip steadily to the top of the spare collar.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">2</div>
+                <h4>Top Up, Time &amp; Drain</h4>
+                <p>Top up the spare once or twice as plaster drinks water. Use Mesh's <strong>Simulate Cast</strong> preview to check narrow necks first; after 15&ndash;22 minutes (<code>~3.5 mm</code> wall), tip smoothly to drain excess slip at a 45&deg; angle for 15 minutes.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">3</div>
+                <h4>Trim Spare &amp; Demold</h4>
+                <p>Once the clay sheen turns matte and pulls <code>0.5 mm</code> away from the plaster collar (~45 min), slice cleanly around the top of the spare with a fettling knife at a shallow inward angle, unstrap the sides, sponge seam lines softly, and bisque/glaze fire!</p>
+              </div>
+            </div>
+          </section>
+
+          <div class="sim-footer" style="margin-top: 3rem; justify-content: center;">
+            <a href="https://mesh.physbox.io" class="btn btn-primary"><i class="fas fa-mug-hot"></i> Design a Slip-Cast Mold in Mesh</a>
+            <a href="index.html#suite" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return to Main Suite</a>
+          </div>
+        </article>
+
+        <!-- TUTORIAL 7: ARTISAN CANDLE MAKING WITH SILICONE POUR BOXES (PHYSBOX MESH) -->
+        <article class="article-main category-article article-physics reveal delay-100" id="article-candle-making" style="display: none;">
+          <header class="article-header">
+            <div class="article-meta">
+              <span class="article-badge etch-badge"><i class="fas fa-fire"></i> PhysBox Mesh &middot; Silicone &amp; Wax</span>
+              <span class="article-badge badge-scad"><i class="fas fa-clock"></i> 15 Min Read</span>
+              <span class="article-badge" style="background: #f1f5f9; color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Beginner</span>
+            </div>
+            <h1 class="article-title">Artisan Pillar Candle Making: Printed Silicone Pour Boxes &amp; Wick Pins</h1>
+            <p class="article-subtitle">Sculpt twisted-fluted, geometric, or botanical pillar candles in Mesh and generate a leak-proof C-clip pour box with an integrated center wick pin &mdash; plus exact Part A/B silicone and beeswax gram weights.</p>
+          </header>
+
+          <section id="section-candle-why" class="tutorial-section-block">
+            <h2><i class="fas fa-flame"></i> 1. Why Flexible Silicone Pour Boxes Beat Rigid Wax Molds</h2>
+            <p>
+              Pouring molten wax (<code>~68–72 °C</code>) straight into a rigid 3D-printed PLA mold invites two frustrations: PLA begins glass-transition softening around <code>60 °C</code>, and sculptural textures (helical flutes, botanical reliefs, kumiko facets) lock mechanically inside rigid walls.
+            </p>
+            <p>
+              Making a reusable <strong>platinum-cure silicone rubber mold</strong> inside a <strong>3D-printed Mesh Pour Box</strong> gives you the best of both worlds: zero hot-glue foamboard leaks on the bench, up to 40% less silicone wasted thanks to a silhouette-hugging sleeve, and a satin-flexible rubber interior that peels cleanly off deep helical undercuts for hundreds of candles.
+            </p>
+            <figure class="tutorial-figure">
+              <picture>
+                <source srcset="assets/tutorials/candle_mold_diagram.webp" type="image/webp">
+                <img src="assets/tutorials/candle_mold_diagram.png" alt="Copperplate diptych diagram showing a C-clipped two-half printed sleeve around a fluted candle master on the left, and golden wax pouring into the inverted silicone mold with a tensioned center wick on the right" loading="lazy">
+              </picture>
+              <figcaption class="figure-caption">
+                <i class="fas fa-fire"></i> <strong>From Master to Inverted Wax Pour:</strong> (Left) The candle master stands upright on a grooved printed base inside a C-clipped split sleeve while silicone cures over it; (Right) Flipped upside down, the silicone mold threads a braided wick straight through its molded center pin hole to receive golden beeswax.
+              </figcaption>
+            </figure>
+          </section>
+
+          <section id="section-candle-wick" class="tutorial-section-block">
+            <h2><i class="fas fa-bullseye"></i> 2. Designing Fluted Masters, Wick Pins &amp; Fitted Sleeves in Mesh</h2>
+            <p>
+              Build your candle master in Mesh using <strong>Lattice</strong>, <strong>Clay Sculpt</strong>, or <strong>Surface Patterns</strong> (<code>T</code> key &rarr; <em>Fluted</em>, <em>Wave Slats</em>, <em>Guilloch&eacute;</em>, or <em>Foliage</em>), then open <strong>Mold &rarr; Silicone</strong>:
+            </p>
+            <ul>
+              <li><strong>Automatic Inverted Orientation:</strong> Keep your candle standing right-side up in Mesh! The silicone mold cures over the top of your master (<code>8 mm</code> cover) and flips upside down for wax pouring &mdash; so your candle's flat bottom automatically becomes the wide open pour face, and its sculpted crown forms cleanly at the bottom of the mold.</li>
+              <li><strong>Self-Centering Wick Pin (<code>hole = 'wick'</code>):</strong> Switch <strong>Hole</strong> to <strong>Wick (<code>Ø2.5 mm</code>)</strong>. Mesh generates a small vertical pin at the top center of your master that pierces through the silicone cap &mdash; molding a clean, dead-center wick tunnel with zero hand-drilling!</li>
+              <li><strong>Silhouette-Fitted Split Sleeve + Sliding C-Clips:</strong> Setting <code>shape = 'fit'</code> contours the printed sleeve <code>8 mm</code> around your candle (<code>284 g</code> of silicone instead of <code>460 g</code> in a square box) with a <code>3 mm</code> leak-sealing base groove and sliding C-clips.</li>
+            </ul>
+
+            <div class="tutorial-sim-to-real">
+              <figure class="tutorial-figure">
+                <picture>
+                  <source srcset="assets/tutorials/mesh_candle_pourbox_ui.webp" type="image/webp">
+                  <img src="assets/tutorials/mesh_candle_pourbox_ui.png" alt="PhysBox Mesh Twisted Beeswax Pillar Candle inside a fitted two-half C-clip pour box with Ø2.5mm center wick pin and 284g silicone recipe" loading="lazy">
+                </picture>
+                <figcaption class="figure-caption">
+                  <span class="sim-real-pill pill-sim"><i class="fas fa-cube"></i> In Mesh</span>
+                  <span><strong>Fitted Pour-Box Planner:</strong> 14-flute helical pillar (<code>&empty;61 &times; 105 mm</code>) with <code>&empty;2.5 mm</code> center wick pin, split C-clip sleeve, and <code>142 g Part A + 142 g Part B</code> silicone recipe.</span>
+                </figcaption>
+              </figure>
+              <figure class="tutorial-figure">
+                <picture>
+                  <source srcset="assets/tutorials/real_beeswax_fluted_candle.webp" type="image/webp">
+                  <img src="assets/tutorials/real_beeswax_fluted_candle.jpg" alt="Real lit golden beeswax twisted-fluted pillar candle beside its split translucent silicone mold and 3D-printed charcoal PLA outer sleeve with C-clips" loading="lazy">
+                </picture>
+                <figcaption class="figure-caption">
+                  <span class="sim-real-pill pill-real"><i class="fas fa-fire"></i> Poured on Bench</span>
+                  <span><strong>Finished Pure Beeswax Pillar:</strong> Demolded from the translucent Shore 15A platinum silicone sleeve and C-clipped printed PLA mother shell.</span>
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section id="section-candle-silicone" class="tutorial-section-block">
+            <h2><i class="fas fa-flask"></i> 3. Mixing &amp; Pouring Bubble-Free Silicone (No Vacuum Chamber Needed)</h2>
+            <p>
+              Choose a soft, stretchy <strong>Shore 10A&ndash;20A platinum-cure (<code>1:1</code>) silicone</strong> so tall candles peel out effortlessly without tearing delicate wax flutes:
+            </p>
+            <ol>
+              <li><strong>Anchor the Master Down:</strong> Hollow plastic prints float in dense liquid silicone (<code>1.08 g/cm³</code>)! Run a thin bead of hot glue (or double-sided tape) under the bottom rim of your sanded/primed PLA candle master so it stays seated firmly on the pour-box base plate, and press the sleeve firmly into its <code>3 mm</code> base groove with the C-clips slid home.</li>
+              <li><strong>Pour an “Angel-Hair” Stream from <code>25 cm</code> High:</strong> Weigh equal grams of Part A and Part B from Mesh's card, scrape the mixing cup walls thoroughly, and pour in a thin, thread-like stream aimed at the <em>lowest floor corner</em> beside the master (never directly on top of the candle). Stretching the stream into a thin ribbon pops trapped air bubbles on the way down while silicone rises smoothly from the bottom up to the molded fill line!</li>
+            </ol>
+            <div class="callout-box callout-tip">
+              <div class="callout-title"><i class="fas fa-lightbulb"></i> FDM PLA vs. UV Resin Cure-Inhibition Tip</div>
+              <p>Standard FDM <strong>PLA, PETG, and ABS</strong> masters cure cleanly against <code>1:1</code> platinum silicone every time. Do <em>not</em> pour platinum silicone onto fresh SLA/MSLA UV resin prints without specialized barrier primer &mdash; photoinitiators inhibit platinum catalyst and leave uncured sticky film! (Use <code>10:1</code> tin-cure silicone if molding unsealed UV resin.)</p>
+            </div>
+          </section>
+
+          <section id="section-candle-wax" class="tutorial-section-block">
+            <h2><i class="fas fa-scale-balanced"></i> 4. Choosing Pillar Wax, Sizing the Wick &amp; Eliminating Sinkholes</h2>
+            <div class="steps-grid">
+              <div class="step-card">
+                <div class="step-number">1</div>
+                <h4>Use Pillar Wax (Never Container Soy)</h4>
+                <p>Pick <strong>100% pure filtered beeswax</strong>, <strong>pillar soy/paraffin blend</strong>, or <strong>rapeseed pillar wax</strong> &mdash; they contract ~2% as they cool so they release cleanly from silicone and stand tall without slumping.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">2</div>
+                <h4>Match Square-Braided Wick to Diameter</h4>
+                <p>Beeswax is viscous and prefers <strong>square-braided cotton wick</strong> (<code>#1/0</code> or <code>#2/0</code> for a <code>55–65 mm</code> pillar). Thread it through the molded bottom wick hole, seal outside with Reusable wick putty, and pull taut into a slotted centering bar across the top.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">3</div>
+                <h4>Pour at <code>68–72 °C</code> + Top-Up Well</h4>
+                <p>Warm the silicone mold gently with a hairdryer to prevent cold jump-lines, pour slowly, and reserve <code>15 ml</code> of wax in your pouring pot. Once a slight cooling dimple forms around the wick (~45 min), re-melt and top it flush so the candle base stands dead flat!</p>
+              </div>
+            </div>
+          </section>
+
+          <div class="sim-footer" style="margin-top: 3rem; justify-content: center;">
+            <a href="https://mesh.physbox.io" class="btn btn-primary"><i class="fas fa-fire"></i> Build a Candle Pour Box in Mesh</a>
+            <a href="index.html#suite" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return to Main Suite</a>
           </div>
         </article>
 
@@ -475,56 +1002,104 @@
       <div class="section-header reveal">
         <span class="section-tag">Expand Your Knowledge</span>
         <h2 class="section-title">Explore Other PhysBox Guides</h2>
-        <p class="section-subtitle">Deepen your mastery across electronics, HIL hardware, 3D parametric physics, and cellular automata.</p>
+        <p class="section-subtitle">Deepen your mastery across mixed-signal electronics, realtime HIL silicon, 3D parametric physics, and multi-sheet CNC/laser fabrication.</p>
       </div>
 
       <div class="tutorials-grid reveal">
 
-        <!-- Card 1: Volt -->
+        <!-- Card 1: Sand Casting -->
+        <div class="tutorial-card">
+          <div>
+            <div class="tutorial-card-meta">
+              <span class="sim-badge physics-badge">Foundry &middot; Sand</span>
+              <span style="font-size: 0.85rem; color: var(--text-muted);">14 Min</span>
+            </div>
+            <h3 class="tutorial-card-title">Backyard Sand Casting from 3D-Printed Patterns</h3>
+            <p class="tutorial-card-desc">Add draft, fillets &amp; alloy shrinkage in Mesh, ram Petrobond cope-and-drag flasks, and pour clean aluminium or bronze.</p>
+          </div>
+          <div class="tutorial-card-footer">
+            <span style="font-size: 0.85rem; color: #0284c7;"><i class="fas fa-check-circle"></i> Complete Guide</span>
+            <a href="#article-sand-casting" data-open-article="article-sand-casting" style="color: var(--physics-color); font-weight: 600;">Read Guide <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Card 2: Lost PLA Casting -->
+        <div class="tutorial-card">
+          <div>
+            <div class="tutorial-card-meta">
+              <span class="sim-badge physics-badge">Foundry &middot; Investment</span>
+              <span style="font-size: 0.85rem; color: var(--text-muted);">16 Min</span>
+            </div>
+            <h3 class="tutorial-card-title">Lost-PLA Investment Casting &amp; Kiln Burnout</h3>
+            <p class="tutorial-card-desc">Cast zero-draft organic sculptures with fused sprues/vents, hollow burnout slicer settings, and weighed investment flasks.</p>
+          </div>
+          <div class="tutorial-card-footer">
+            <span style="font-size: 0.85rem; color: #0284c7;"><i class="fas fa-check-circle"></i> Complete Guide</span>
+            <a href="#article-lost-pla" data-open-article="article-lost-pla" style="color: var(--physics-color); font-weight: 600;">Read Guide <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Card 3: Ceramic Slip Casting -->
+        <div class="tutorial-card">
+          <div>
+            <div class="tutorial-card-meta">
+              <span class="sim-badge physics-badge">Ceramics &middot; Plaster</span>
+              <span style="font-size: 0.85rem; color: var(--text-muted);">15 Min</span>
+            </div>
+            <h3 class="tutorial-card-title">Ceramic Slip Casting with Multi-Part Plaster Cases</h3>
+            <p class="tutorial-card-desc">Generate 2–6 piece natched plaster mother-cases with porcelain/stoneware firing shrinkage, slip spares &amp; wall simulation.</p>
+          </div>
+          <div class="tutorial-card-footer">
+            <span style="font-size: 0.85rem; color: #0284c7;"><i class="fas fa-check-circle"></i> Complete Guide</span>
+            <a href="#article-slip-casting" data-open-article="article-slip-casting" style="color: var(--physics-color); font-weight: 600;">Read Guide <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Card 4: Candle Making -->
+        <div class="tutorial-card">
+          <div>
+            <div class="tutorial-card-meta">
+              <span class="sim-badge etch-badge">Craft &middot; Silicone &amp; Wax</span>
+              <span style="font-size: 0.85rem; color: var(--text-muted);">12 Min</span>
+            </div>
+            <h3 class="tutorial-card-title">Artisan Pillar Candle Making with Pour Boxes</h3>
+            <p class="tutorial-card-desc">Build leak-proof split C-clip silicone pour boxes with self-centering wick pins and exact Part A/B &amp; beeswax weights.</p>
+          </div>
+          <div class="tutorial-card-footer">
+            <span style="font-size: 0.85rem; color: #b45309;"><i class="fas fa-check-circle"></i> Complete Guide</span>
+            <a href="#article-candle-making" data-open-article="article-candle-making" style="color: var(--etch-color); font-weight: 600;">Read Guide <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Card 5: Volt -->
         <div class="tutorial-card">
           <div>
             <div class="tutorial-card-meta">
               <span class="sim-badge circuit-badge">Volt</span>
               <span style="font-size: 0.85rem; color: var(--text-muted);">15 Min</span>
             </div>
-            <h3 class="tutorial-card-title">HIL Oscilloscopes & ESP32 MicroPython Bridges</h3>
-            <p class="tutorial-card-desc">Wire physical ESP32 and CYD microcontrollers directly into the Ngspice WASM engine via 460800 baud UART.</p>
+            <h3 class="tutorial-card-title">Bode Sweeps, 2-Layer PCB Milling &amp; ESP32 HIL</h3>
+            <p class="tutorial-card-desc">Sweep small-signal filters, probe 4&times;4 conductive PCB heightmaps, and wire ESP32/CYD silicon into WASM SPICE in realtime.</p>
           </div>
           <div class="tutorial-card-footer">
             <span style="font-size: 0.85rem; color: #059669;"><i class="fas fa-check-circle"></i> Complete Guide</span>
-            <a href="hardware.html#hil-deep-dive" style="color: var(--circuit-color); font-weight: 600;">Read Guide <i class="fas fa-arrow-right"></i></a>
+            <a href="#article-volt" data-open-article="article-volt" style="color: var(--circuit-color); font-weight: 600;">Read Guide <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
-        <!-- Card 2: Mesh -->
+        <!-- Card 6: Mesh CAD & Acoustics -->
         <div class="tutorial-card">
           <div>
             <div class="tutorial-card-meta">
               <span class="sim-badge physics-badge">Mesh</span>
               <span style="font-size: 0.85rem; color: var(--text-muted);">18 Min</span>
             </div>
-            <h3 class="tutorial-card-title">Parametric OpenSCAD & 3D Print Slicer Export</h3>
-            <p class="tutorial-card-desc">Write live CSG geometry in WASM, bind UI sliders, solve rigid joint physics, and export 1-click Z-up STLs.</p>
+            <h3 class="tutorial-card-title">Lattice CAD, 3D Vibro-Acoustics &amp; MuJoCo Physics</h3>
+            <p class="tutorial-card-desc">Model in Lattice, Sculpt, or OpenSCAD; test buoyancy, flexures &amp; 3D acoustics; and export multi-material 3MF prints.</p>
           </div>
           <div class="tutorial-card-footer">
             <span style="font-size: 0.85rem; color: #0284c7;"><i class="fas fa-check-circle"></i> Complete Guide</span>
-            <a href="hardware.html#print-deep-dive" style="color: var(--physics-color); font-weight: 600;">Read Guide <i class="fas fa-arrow-right"></i></a>
-          </div>
-        </div>
-
-        <!-- Card 3: Flux -->
-        <div class="tutorial-card">
-          <div>
-            <div class="tutorial-card-meta">
-              <span class="sim-badge process-badge">Flux</span>
-              <span style="font-size: 0.85rem; color: var(--text-muted);">10 Min</span>
-            </div>
-            <h3 class="tutorial-card-title">Cellular Automata & Runge-Kutta Differential Systems</h3>
-            <p class="tutorial-card-desc">Model ecological predator-prey loops, wildfire vector fronts, and state-gated AI smart nodes.</p>
-          </div>
-          <div class="tutorial-card-footer">
-            <span style="font-size: 0.85rem; color: #db2777;"><i class="fas fa-hourglass-half"></i> Preview Guide</span>
-            <a href="index.html#suite" style="color: var(--process-color); font-weight: 600;">Explore Flux <i class="fas fa-arrow-right"></i></a>
+            <a href="#article-mesh" data-open-article="article-mesh" style="color: var(--physics-color); font-weight: 600;">Read Guide <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
@@ -546,7 +1121,6 @@
             <li><a href="https://volt.physbox.io">PhysBox: Volt</a></li>
             <li><a href="https://mesh.physbox.io">PhysBox: Mesh</a></li>
             <li><a href="https://etch.physbox.io">PhysBox: Etch</a></li>
-            <li><a href="https://flux.physbox.io">PhysBox: Flux</a></li>
           </ul>
         </div>
         <div class="footer-links">
@@ -575,6 +1149,14 @@
         </div>
       </div>
 
+      <!-- Quiet Architectural Sketch Colophon Above the Footer Rule -->
+      <div class="footer-colophon-vignette" aria-hidden="true">
+        <picture>
+          <source srcset="assets/tigers/footer-tiger-sketch.webp" type="image/webp">
+          <img src="assets/tigers/footer-tiger-sketch.png" alt="" class="footer-colophon-img" loading="lazy">
+        </picture>
+      </div>
+
       <div class="footer-bottom">
         <p class="footer-copy">&copy; 2026 physbox.io. Licensed under <a href="license.html" style="color: inherit; text-decoration: underline;">PPPL-1.0</a> &middot; <a href="privacy.html" style="color: inherit; text-decoration: underline;">Privacy</a> &middot; <a href="terms.html" style="color: inherit; text-decoration: underline;">Terms</a></p>
         <div class="footer-social">
@@ -585,28 +1167,26 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="app.js?v=20260905"></script>
-  <script src="auth.js?v=20260909"></script>
+  <script src="app.js?v=20261119d"></script>
+  <script src="auth.js?v=20261119d"></script>
   <script>
     // Smooth Scrolling & Active Table of Contents highlighting
     document.addEventListener('DOMContentLoaded', () => {
-      const tocLinks = document.querySelectorAll('.toc-link');
-      const sections = document.querySelectorAll('.tutorial-section-block');
-
       window.addEventListener('scroll', () => {
+        const tocLinks = document.querySelectorAll('.toc-link');
+        const visibleArticle = [...document.querySelectorAll('.article-main')].find(a => a.style.display !== 'none');
+        if (!visibleArticle) return;
+        const sections = visibleArticle.querySelectorAll('.tutorial-section-block');
         let current = '';
         sections.forEach(section => {
-          const sectionTop = section.offsetTop - 140;
+          const sectionTop = section.offsetTop - 160;
           if (window.scrollY >= sectionTop) {
             current = section.getAttribute('id');
           }
         });
 
         tocLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === '#' + current) {
-            link.classList.add('active');
-          }
+          link.classList.toggle('active', link.getAttribute('href') === '#' + current);
         });
       });
     });
