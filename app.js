@@ -1089,6 +1089,13 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
+    window.addEventListener('hashchange', () => {
+      const nextHash = window.location.hash.replace('#', '');
+      if (nextHash && document.getElementById(nextHash)?.classList.contains('article-main')) {
+        openTutorialArticle(nextHash, true);
+      }
+    });
+
     const hashId = window.location.hash.replace('#', '');
     if (hashId && document.getElementById(hashId)?.classList.contains('article-main')) {
       openTutorialArticle(hashId, false);

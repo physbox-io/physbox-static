@@ -23,7 +23,7 @@
   <meta property="og:image" content="assets/etch_raw.png">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="styles.css?v=20261119d">
+  <link rel="stylesheet" href="styles.css?v=20261120b">
 
   <!-- FontAwesome for Premium Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -77,9 +77,16 @@
       <div class="mobile-nav-scroll">
         <ul class="mobile-nav-list">
           <li class="mobile-nav-section-title">Tutorial Guides</li>
-          <li><a href="#article-1" class="mobile-nav-link" data-close-drawer><i class="fas fa-microchip" style="color: var(--circuit-color);"></i> 1. Designing & Simulating Circuits</a></li>
-          <li><a href="#article-2" class="mobile-nav-link" data-close-drawer><i class="fas fa-cube" style="color: var(--physics-color);"></i> 2. Rigid Body Dynamics & 3D Print</a></li>
-          <li><a href="#article-3" class="mobile-nav-link" data-close-drawer><i class="fas fa-scissors" style="color: var(--etch-color);"></i> 3. Generative Enclosures for Laser Cut</a></li>
+          <li><a href="#article-etch" class="mobile-nav-link" data-open-article="article-etch" data-close-drawer><i class="fas fa-scissors" style="color: var(--etch-color);"></i> CNC &amp; Laser Cutting (Etch)</a></li>
+          <li><a href="#article-sand-casting" class="mobile-nav-link" data-open-article="article-sand-casting" data-close-drawer><i class="fas fa-hammer" style="color: var(--physics-color);"></i> Backyard Sand Casting</a></li>
+          <li><a href="#article-lost-pla" class="mobile-nav-link" data-open-article="article-lost-pla" data-close-drawer><i class="fas fa-fire-flame-curved" style="color: var(--physics-color);"></i> Lost-PLA Investment Casting</a></li>
+          <li><a href="#article-slip-casting" class="mobile-nav-link" data-open-article="article-slip-casting" data-close-drawer><i class="fas fa-mug-hot" style="color: var(--physics-color);"></i> Ceramic Slip Casting</a></li>
+          <li><a href="#article-candle-making" class="mobile-nav-link" data-open-article="article-candle-making" data-close-drawer><i class="fas fa-fire" style="color: var(--etch-color);"></i> Artisan Candle Making</a></li>
+          <li><a href="#article-garments" class="mobile-nav-link" data-open-article="article-garments" data-close-drawer><i class="fas fa-shirt" style="color: var(--physics-color);"></i> Garment Drafting &amp; Sewing</a></li>
+          <li><a href="#article-instruments" class="mobile-nav-link" data-open-article="article-instruments" data-close-drawer><i class="fas fa-guitar" style="color: var(--physics-color);"></i> Acoustic Instrument Lutherie</a></li>
+          <li><a href="#article-rendering" class="mobile-nav-link" data-open-article="article-rendering" data-close-drawer><i class="fas fa-camera-retro" style="color: var(--primary);"></i> Photorealistic Rendering</a></li>
+          <li><a href="#article-volt" class="mobile-nav-link" data-open-article="article-volt" data-close-drawer><i class="fas fa-microchip" style="color: var(--circuit-color);"></i> Electronics &amp; HIL (Volt)</a></li>
+          <li><a href="#article-mesh" class="mobile-nav-link" data-open-article="article-mesh" data-close-drawer><i class="fas fa-cubes" style="color: var(--physics-color);"></i> 3D CAD &amp; Physics (Mesh)</a></li>
 
           <li class="mobile-nav-section-title">Documentation & Guides</li>
           <li><a href="index.html#suite" class="mobile-nav-link"><i class="fas fa-layer-group"></i> All Simulators</a></li>
@@ -125,7 +132,10 @@
         <button class="filter-pill" id="filter-sand" data-article="article-sand-casting"><i class="fas fa-hammer"></i> Sand Casting</button>
         <button class="filter-pill" id="filter-lost-pla" data-article="article-lost-pla"><i class="fas fa-fire-flame-curved"></i> Lost PLA Casting</button>
         <button class="filter-pill" id="filter-slip" data-article="article-slip-casting"><i class="fas fa-mug-hot"></i> Slip Casting</button>
-        <button class="filter-pill" id="filter-candle" data-article="article-candle-making"><i class="fas fa-candle-holder fa-fire"></i> Candle Making</button>
+        <button class="filter-pill" id="filter-candle" data-article="article-candle-making"><i class="fas fa-fire"></i> Candle Making</button>
+        <button class="filter-pill" id="filter-garments" data-article="article-garments"><i class="fas fa-shirt"></i> Garments &amp; Cloth</button>
+        <button class="filter-pill" id="filter-instruments" data-article="article-instruments"><i class="fas fa-guitar"></i> Musical Instruments</button>
+        <button class="filter-pill" id="filter-rendering" data-article="article-rendering"><i class="fas fa-camera-retro"></i> Photorealistic Render</button>
         <button class="filter-pill" id="filter-circuit" data-article="article-volt"><i class="fas fa-microchip"></i> Electronics &amp; HIL (Volt)</button>
         <button class="filter-pill" id="filter-physics" data-article="article-mesh"><i class="fas fa-cubes"></i> 3D CAD &amp; Physics (Mesh)</button>
       </div>
@@ -185,7 +195,7 @@
             </p>
 
             <figure class="tutorial-figure">
-              <img src="assets/etch_showcase.png?v=20261119c" alt="PhysBox Etch Multi-Sheet Vector Studio Interface">
+              <img src="assets/etch_showcase.png?v=20261120b" alt="PhysBox Etch Multi-Sheet Vector Studio Interface">
               <figcaption class="figure-caption">
                 <i class="fas fa-info-circle"></i> <strong>PhysBox Etch Multi-Sheet Canvas:</strong> Tabbed sheet strip, bed-accurate millimeter grid, 3D V-carved typography &amp; guilloch&eacute; dial rosettes, and derived layer feeds.
               </figcaption>
@@ -245,7 +255,7 @@
             </div>
 
             <figure class="tutorial-figure">
-              <img src="assets/etch_raw.png?v=20261119c" alt="PhysBox Etch Shaded Relief &amp; Derived Feeds Panel">
+              <img src="assets/etch_raw.png?v=20261120b" alt="PhysBox Etch Shaded Relief &amp; Derived Feeds Panel">
               <figcaption class="figure-caption">
                 <i class="fas fa-info-circle"></i> <strong>PhysBox Etch Operations &amp; Relief Panel:</strong> Shaded depth-map lotus carving, ball-nose rough/finish passes, and automatic chip-load feed derivation.
               </figcaption>
@@ -381,7 +391,7 @@
               <li><strong>Live ERC &amp; Component Rating Advisories:</strong> Flags shorted voltage rails, floating CMOS inputs, reverse-biased LEDs, and resistors exceeding their quarter-watt thermal envelope while the simulation runs.</li>
             </ul>
             <figure class="tutorial-figure">
-              <img src="assets/volt_showcase.png?v=20261119c" alt="PhysBox Volt Sallen-Key Bode Sweep and DC Bias Chips" loading="lazy">
+              <img src="assets/volt_showcase.png?v=20261120b" alt="PhysBox Volt Sallen-Key Bode Sweep and DC Bias Chips" loading="lazy">
               <figcaption class="figure-caption">
                 <i class="fas fa-wave-square"></i> <strong>PhysBox Volt Analysis View:</strong> Sallen-Key second-order active low-pass filter showing live DC net chips, dual-channel transient scope, and swept AC Bode curve (&minus;3&nbsp;dB at 1.12&nbsp;kHz).
               </figcaption>
@@ -411,7 +421,7 @@
               </div>
             </div>
             <figure class="tutorial-figure">
-              <img src="assets/circuit_raw.png?v=20261119c" alt="PhysBox Volt 2-Layer PCB CAM & Isolation Routing Modal" loading="lazy">
+              <img src="assets/circuit_raw.png?v=20261120b" alt="PhysBox Volt 2-Layer PCB CAM & Isolation Routing Modal" loading="lazy">
               <figcaption class="figure-caption">
                 <i class="fas fa-layer-group"></i> <strong>2-Layer PCB Milling &amp; CAM Engine:</strong> Interactive footprint placement, spoilboard registration pin depth, copper flood clearances, and one-click handoffs to Mesh (3D enclosure CAD) or Etch (paste stencil).
               </figcaption>
@@ -471,7 +481,7 @@
               Fill any open tank with water in the Inspector to enable 3D <strong>Archimedes hydrostatics</strong> (integrating submerged surface pressure and righting moments every MuJoCo step). If a top-heavy sculpture tips over on a shelf or capsizes in water, open the <strong>Balance</strong> card (<strong>Stand</strong>, <strong>Spin</strong>, or <strong>Float</strong>) &mdash; Mesh hollows internal cavities sized for standard M4&ndash;M16 steel hex nuts so you can pause your 3D print, drop in hardware-store ballast, and hit the exact target center of gravity.
             </p>
             <figure class="tutorial-figure">
-              <img src="assets/mesh_showcase.png?v=20261119c" alt="3DBenchy floating in a hydrostatic aquarium tank beside M16-ballasted and unballasted buoys" loading="lazy">
+              <img src="assets/mesh_showcase.png?v=20261120b" alt="3DBenchy floating in a hydrostatic aquarium tank beside M16-ballasted and unballasted buoys" loading="lazy">
               <figcaption class="figure-caption">
                 <i class="fas fa-anchor"></i> <strong>3D Archimedes Hydrostatics &amp; Auto-Ballast:</strong> An unballasted buoy capsizes on the left while six internal M16 steel hex nuts keep the center spar buoy upright beside a floating #3DBenchy.
               </figcaption>
@@ -546,6 +556,7 @@
             </p>
             <ul>
               <li><strong>One-Piece Printed Gating Rig:</strong> Automatically sizes the down-sprue choke for smooth fill rate, places a Chvorinov-sized side riser beside the heaviest (last-freezing) section by thermal modulus, and fuses the sprue well, runner bar, and ingate directly onto the pattern at the parting plane. Ramming sand around the print molds clean, compacted channels with zero hand-scooping!</li>
+              <li><strong>Flask-Matched Cope + Drag Height:</strong> Set <strong>Cope + Drag height (mm)</strong> to match your physical sand flask (defaulting to <strong>100&nbsp;mm</strong> for a pair of <strong>50&nbsp;mm</strong> cope and drag halves). Mesh extends the printed sprue right up to the top face of your cope so you can strike the sand off dead-flat across the box, caps open risers cleanly at the flask rim, and warns immediately if a tall casting leaves thin sand cover in either half.</li>
               <li><strong>Automatic Parting-Plane Search &amp; Overhang Check:</strong> Scans heights up the part to find the parting plane that traps the least sand, and reports the exact percentage of undrawable overhangs before you print.</li>
               <li><strong>Non-Destructive Prepare for Casting:</strong> Tapers vertical walls with pull draft, chamfers outside corners (preventing crumbly sand knife-edges), and fillets sharp inside corners (preventing sand wash-out and hot-tear cracks) while keeping your original CAD geometry one toggle away.</li>
               <li><strong>One-Click Simulate Cast:</strong> Virtually packs the flask, pulls the pattern, pours metal down the sprue, and checks that 100% of the cavity is reached &mdash; reporting exact cast weight, remelted gating weight, and surface deviation against your master.</li>
@@ -562,20 +573,20 @@
           </section>
 
           <section id="section-sand-draft" class="tutorial-section-block">
-            <h2><i class="fas fa-drafting-compass"></i> 2. Alloy Shrinkage, Draft, Edge Fillets &amp; Undercut Warnings</h2>
+            <h2><i class="fas fa-drafting-compass"></i> 2. Alloy Shrinkage, Cope + Drag Flask Height &amp; Undercut Checks</h2>
             <p>
-              Open <strong>Mold &rarr; Sand</strong> in Mesh and select your alloy &mdash; <strong>Aluminium (+1.3%)</strong>, <strong>Brass (+1.5%)</strong>, <strong>Bronze (+1.5%)</strong>, or <strong>Silver (+1.6%)</strong>. Mesh scales the pattern up automatically so the cooled metal shrinks back to your exact modelled dimensions, adds <strong>1&deg;&ndash;3&deg; of pull draft</strong> so vertical walls break contact cleanly the instant you lift, and previews the complete one-piece STL (part + runner + sprue + riser) live in 3D:
+              Open <strong>Mold &rarr; Sand</strong> in Mesh, pick your alloy &mdash; <strong>Aluminium (+1.3%)</strong>, <strong>Brass (+1.5%)</strong>, <strong>Bronze (+1.5%)</strong>, or <strong>Silver (+1.6%)</strong> &mdash; and enter your <strong>Cope + Drag height (mm)</strong> (assuming equal-height halves, so two 50&nbsp;mm frames = <strong>100&nbsp;mm</strong>). Mesh scales the pattern up automatically for thermal shrinkage, adds <strong>1&deg;&ndash;3&deg; of pull draft</strong> so vertical walls break contact cleanly the instant you lift, sizes the down-sprue to reach flush with the top of your cope, and previews the complete one-piece STL live in 3D:
             </p>
 
             <div class="tutorial-sim-to-real">
               <figure class="tutorial-figure">
                 <picture>
                   <source srcset="assets/tutorials/mesh_sand_casting_ui.webp" type="image/webp">
-                  <img src="assets/tutorials/mesh_sand_casting_ui.png" alt="PhysBox Mesh Sand Casting planner showing 3DBenchy with attached sprue, runner, and riser in the 3D Pattern Preview plus 37% cabin overhang warning" loading="lazy">
+                  <img src="assets/tutorials/mesh_sand_casting_ui.png" alt="PhysBox Mesh Sand Casting planner showing Cope + Drag height set to 100 mm (50 + 50 mm flask) and 3DBenchy with attached sprue, runner, and riser in the 3D Pattern Preview" loading="lazy">
                 </picture>
                 <figcaption class="figure-caption">
                   <span class="sim-real-pill pill-sim"><i class="fas fa-cube"></i> In Mesh</span>
-                  <span><strong>One-Piece Sand Pattern Planner:</strong> Scales #3DBenchy +1.3% (56&nbsp;g cast / 77&nbsp;g pour), fuses the sprue, runner, and side riser onto the hull, and flags the cabin roof arches (37% overhang) before you waste sand.</span>
+                  <span><strong>One-Piece Sand Pattern Planner:</strong> Sets a 100&nbsp;mm flask (50 + 50&nbsp;mm halves), scales #3DBenchy +1.3%, fuses the flush 50&nbsp;mm sprue, runner, and side riser onto the hull, and flags the 37% cabin overhang up front.</span>
                 </figcaption>
               </figure>
               <figure class="tutorial-figure">
@@ -629,6 +640,10 @@
                 <h4>Bell the Mouth &amp; Draw</h4>
                 <p>Thumb a smooth funnel flare into the sand around the top of the printed sprue, lift the cope off, tap the pattern lightly to break static friction, and lift the entire printed pattern + gating rig straight out in one piece!</p>
               </div>
+            </div>
+            <div class="callout-box callout-info" style="margin-top: 1.15rem;">
+              <div class="callout-title"><i class="fas fa-wind"></i> Shop-Floor Note: When Should You Poke Wire Vents?</div>
+              <p>On flat or gently contoured parts, gas-permeable sand and an open top riser let air escape between the grains without extra venting. However, if your casting has <strong>tall blind bosses or deep closed pockets high in the cope</strong> (especially in oil-bonded Petrobond, which generates oil smoke on contact with molten metal), push a stiff 1.5&nbsp;mm wire straight up from the highest roof of each pocket through the top of the cope <em>before</em> lifting the cope off the pattern &mdash; giving trapped air and smoke an instant chimney so thin upper features fill razor-sharp.</p>
             </div>
           </section>
 
@@ -989,6 +1004,305 @@
           </div>
         </article>
 
+        <!-- TUTORIAL 8: BESPOKE GARMENT DRAFTING, MULTI-LAYER DRAPING & SVG PATTERNS (PHYSBOX MESH) -->
+        <article class="article-main category-article article-physics reveal delay-100" id="article-garments" style="display: none;">
+          <header class="article-header">
+            <div class="article-meta">
+              <span class="article-badge physics-badge"><i class="fas fa-shirt"></i> PhysBox Mesh &middot; Soft Goods &amp; Tailoring</span>
+              <span class="article-badge badge-scad"><i class="fas fa-clock"></i> 18 Min Read</span>
+              <span class="article-badge" style="background: #f1f5f9; color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Beginner to Intermediate</span>
+            </div>
+            <h1 class="article-title">Bespoke Garment Drafting, Multi-Layer Cloth Draping &amp; True-Scale SVG Patterns</h1>
+            <p class="article-subtitle">Draft tailored shirts, dresses, trousers, jackets, and boned gowns onto measured dress forms in Mesh; sculpt silhouettes and style lines directly on the cloth; test multi-layer drape and fabric acoustics; and export millimetre-accurate SVG cutting patterns.</p>
+          </header>
+
+          <section id="section-garment-why" class="tutorial-section-block">
+            <h2><i class="fas fa-ruler-vertical"></i> 1. Why What Drapes in 3D Is Exactly What You Cut &amp; Sew</h2>
+            <p>
+              Most 3D cloth tools force you to choose between decorative visual draping (shrinking an arbitrary 3D mesh that could never be cut from a flat bolt of cloth) or tedious 2D CAD drafting where you cannot see how armhole drop, dart intake, or rib-knit cuff elastic actually hangs until you sew a physical muslin toile.
+            </p>
+            <p>
+              <strong>PhysBox Mesh unites patternmaking and MuJoCo soft-body cloth physics in one loop.</strong> Every garment starts from a measured dress form, cuts a true developable shell along real tailoring seams, flattens each panel while reporting its exact <strong>flattening strain (%)</strong>, and sews those very same 2D panels back onto the form in simulation:
+            </p>
+            <ul>
+              <li><strong>Worn vs. Pieces Toggle:</strong> In the Inspector's <strong>Pattern</strong> card, switch between <strong>Worn</strong> (sewn and settled on the form) and <strong>Pieces</strong> (every cut panel laid flat in space around the mannequin &mdash; press <strong>Play</strong> to watch the seams draw together and stitch themselves onto the body live!).</li>
+              <li><strong>9 Garment Blocks &amp; Multi-Layer Outfits:</strong> Start from a <strong>T-shirt</strong>, <strong>Dress</strong>, <strong>Skirt</strong>, <strong>Gown</strong>, <strong>Jacket</strong>, <strong>Trousers</strong>, <strong>Tube</strong> (sleeves/leg warmers), <strong>Sock</strong>, or <strong>Hat</strong>, and stack outfits cleanly using the <strong>Layer</strong> number (layer&nbsp;0 next to skin, layer&nbsp;1 shirt over trousers, layer&nbsp;2 cardigan or lapel jacket on top).</li>
+              <li><strong>11 Physical Fabrics + Aero-Acoustic Rustle:</strong> Switch between <strong>Jersey</strong>, <strong>Rib knit</strong>, <strong>Spandex</strong>, <strong>Woven</strong>, <strong>Denim</strong>, <strong>Canvas</strong>, <strong>Ripstop nylon</strong>, <strong>Leather</strong>, <strong>Taffeta</strong>, <strong>Velvet</strong>, and <strong>Shade cloth</strong> &mdash; each carrying real areal weight (g/m&sup2;), stretch/bending stiffness, sheen, and trailing-edge whip-snap &amp; weave-rustle sound in wind!</li>
+            </ul>
+            <figure class="tutorial-figure">
+              <picture>
+                <source srcset="assets/tutorials/garment_drafting_diagram.webp" type="image/webp">
+                <img src="assets/tutorials/garment_drafting_diagram.png" alt="Copperplate tailoring diagram showing flat 2D bodice, sleeve, and collar pattern pieces with darts and grainlines on the left assembling onto a draped mannequin jacket on the right" loading="lazy">
+              </picture>
+              <figcaption class="figure-caption">
+                <i class="fas fa-scissors"></i> <strong>From Flat Pattern Panels to 3D Drape:</strong> Every panel shown in Mesh's Pattern card (complete with waist darts, grainline arrows, boning channels, and button/zipper marks) is the exact flat piece sewn together in the 3D cloth solver.
+              </figcaption>
+            </figure>
+          </section>
+
+          <section id="section-garment-tailor" class="tutorial-section-block">
+            <h2><i class="fas fa-pen-ruler"></i> 2. Ease, Darts, Collars, Fastenings &amp; Direct Viewport Sculpting</h2>
+            <p>
+              Select any garment in the scene tree to open the <strong>Garment</strong> and <strong>Pattern</strong> cards in the right-hand Inspector. Instead of wrestling with raw UV vertices, you shape the fit with real dressmaker controls and direct 3D brushes:
+            </p>
+            <ul>
+              <li><strong>Proportions, Negative Ease &amp; Darts:</strong> Dial <strong>Length</strong>, <strong>Flare</strong>, <strong>Train</strong>, <strong>Sleeve</strong>, <strong>Cuff</strong>, and <strong>Armhole drop</strong> (from crisp set-in sleeves to deep batwings). Set positive <strong>Ease</strong> for woven room, negative ease for form-fitting <strong>Spandex</strong>, or check <strong>Fitted</strong> to shape woven bodices and bent-elbow sleeves with darts so panels flatten under ~3&ndash;4% strain.</li>
+              <li><strong>Details, Trims, Belts &amp; Boning:</strong> Pick <strong>Neckline</strong>, <strong>Hem</strong>, <strong>Collar</strong> (separate collar stand + folded fall, or notched jacket lapels), and <strong>Fastening</strong> (button stands or centre-back zippers, with a 0&ndash;100% <strong>done up</strong> slider under <strong>Arrange</strong>!), plus front/back patch <strong>Pockets</strong>, cinched leather <strong>Belts</strong> through belt loops, and spiral-steel seam boning or crinoline hoops.</li>
+              <li><strong>Sculpt &amp; Draw Directly on the Cloth:</strong> Click <strong>Sculpt on the garment</strong> under <strong>Silhouette</strong> and drag directly on the 3D cloth (with <strong>Both sides</strong> symmetry on) to push volume out or draw waistlines in, or click <strong>Draw on the garment</strong> under <strong>Lines</strong> to sketch custom princess <strong>Seams</strong>, slits/<strong>Openings</strong>, <strong>Cut-aways</strong>, or style marks &mdash; Mesh re-cuts the flat pattern pieces after every stroke!</li>
+              <li><strong>Custom Fabric Prints (SVG):</strong> Click <strong>Import fabric SVG</strong> in the Pattern card to tile any vector motif across your cloth at true centimetre repeat scale before cutting or rendering.</li>
+            </ul>
+
+            <div class="tutorial-sim-to-real">
+              <figure class="tutorial-figure">
+                <picture>
+                  <source srcset="assets/tutorials/mesh_garment_studio_ui.webp" type="image/webp">
+                  <img src="assets/tutorials/mesh_garment_studio_ui.png" alt="PhysBox Mesh 3-layer tailored outfit preset showing belted denim jeans, floral SVG-printed spandex top, and buttoned rib-knit cardigan with live 2D SVG pattern pieces in the Inspector" loading="lazy">
+                </picture>
+                <figcaption class="figure-caption">
+                  <span class="sim-real-pill pill-sim"><i class="fas fa-cube"></i> In Mesh</span>
+                  <span><strong>3-Layer Tailored Outfit &amp; Pattern Inspector:</strong> Belted denim jeans (layer&nbsp;0), custom SVG-printed stretch top (layer&nbsp;1), and buttoned rib-knit cardigan (layer&nbsp;2) alongside live millimetre pattern pieces and flattening strain readouts.</span>
+                </figcaption>
+              </figure>
+              <figure class="tutorial-figure">
+                <picture>
+                  <source srcset="assets/tutorials/real_sewn_tailored_outfit.webp" type="image/webp">
+                  <img src="assets/tutorials/real_sewn_tailored_outfit.jpg" alt="Real sewn burgundy rib-knit buttoned cardigan, navy floral-print top, and belted indigo denim trousers on a linen dressmaker mannequin beside kraft paper pattern pieces and brass shears" loading="lazy">
+                </picture>
+                <figcaption class="figure-caption">
+                  <span class="sim-real-pill pill-real"><i class="fas fa-scissors"></i> Sewn in Atelier</span>
+                  <span><strong>Physical Cut &amp; Sewn Outfit:</strong> Assembled on the cutting table from the exported millimetre pattern panels, matching the simulated cardigan drape, pocket placement, and print scale.</span>
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section id="section-garment-export" class="tutorial-section-block">
+            <h2><i class="fas fa-file-export"></i> 3. Reading Strain %, Exporting SVG Patterns &amp; Cutting on Laser or Table</h2>
+            <p>
+              Below the 2D pattern preview in the Inspector, Mesh lists every piece's bounding dimensions in millimetres and its <strong>95th-percentile flattening strain</strong> (for example, <code>frontL: 268&times;540 mm, 2%</code>):
+            </p>
+            <div class="steps-grid">
+              <div class="step-card">
+                <div class="step-number">1</div>
+                <h4>Check Strain vs. Fabric</h4>
+                <p>Under <strong>3&ndash;4%</strong> cuts cleanly in non-stretch woven cotton, linen, denim, or taffeta. Higher percentages tell you at a glance either to add a dart/princess seam or switch to a knit/stretch fabric.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">2</div>
+                <h4>Download True-Scale SVG</h4>
+                <p>Click <strong>Download pattern (SVG)</strong>. Mesh exports 1:1 millimetre net sewing lines (zero guesswork scaling!), labelled with piece names, straight-grain arrows, boning channels, and button/zipper marks.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">3</div>
+                <h4>Add Seam Allowance &amp; Cut</h4>
+                <p>Offset your preferred seam allowance (typically 10&ndash;15&nbsp;mm for wovens, 6&nbsp;mm for overlocked knits), then print tiled A4/AO paper templates or drop the SVG straight into <strong>PhysBox Etch</strong> for single-ply CO&#8322;/diode laser fabric cutting!</p>
+              </div>
+            </div>
+          </section>
+
+          <div class="sim-footer" style="margin-top: 3rem; justify-content: center;">
+            <a href="https://mesh.physbox.io" class="btn btn-primary"><i class="fas fa-shirt"></i> Draft a Garment in Mesh</a>
+            <a href="index.html#suite" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return to Main Suite</a>
+          </div>
+        </article>
+
+        <!-- TUTORIAL 9: DESIGNING & TUNING ACOUSTIC MUSICAL INSTRUMENTS (PHYSBOX MESH) -->
+        <article class="article-main category-article article-physics reveal delay-100" id="article-instruments" style="display: none;">
+          <header class="article-header">
+            <div class="article-meta">
+              <span class="article-badge physics-badge"><i class="fas fa-guitar"></i> PhysBox Mesh &middot; Acoustics &amp; Lutherie</span>
+              <span class="article-badge badge-scad"><i class="fas fa-clock"></i> 20 Min Read</span>
+              <span class="article-badge" style="background: #f1f5f9; color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Beginner to Advanced</span>
+            </div>
+            <h1 class="article-title">Designing &amp; Tuning Acoustic Musical Instruments in PhysBox Mesh</h1>
+            <p class="article-subtitle">Build bowed cellos, plucked soundbox lyres, undercut-tuned rosewood marimbas, keyed woodwinds, brass horns, and kettle drums &mdash; synthesized 100% from 3D geometry and material physics with zero pre-recorded audio samples.</p>
+          </header>
+
+          <section id="section-inst-physics" class="tutorial-section-block">
+            <h2><i class="fas fa-wave-square"></i> 1. Zero Audio Samples: How 3D Geometry Becomes Concert Sound</h2>
+            <p>
+              Turn on <strong>Sound</strong> in Mesh's top header (or inside the <strong>Environment</strong> gear menu) and tap or collide any body in the scene: you are not hearing an MP3 sample library. Mesh computes acoustic vibrations directly from your actual 3D CAD geometry, cavity air volume, and physical material constants (density, Young's modulus, quality factor <em>Q</em>) inside a realtime WebAudio Worklet:
+            </p>
+            <ul>
+              <li><strong>Hollow Luthier Soundboxes (Plate + 3D FDTD Air Cavity):</strong> Carve a hollow spruce-and-maple body with boolean soundholes or twin f-holes and Mesh automatically measures the internal air volume in litres, solves the <strong>Helmholtz air-pumping resonance</strong> and top-plate bending modes, and convolves string bridge forces through a 3D vibro-acoustic impulse response &mdash; including internal <strong>bass bars</strong> and asymmetric <strong>spruce soundposts</strong>!</li>
+              <li><strong>Bowed &amp; Plucked Taut Strings:</strong> Models Mersenne tension, wire gauge, and breaking-stress % across gut, bronze, steel, and nylon strings, complete with live <strong>Schelleng bow-force window</strong> readouts (<em>flautando</em>, clean <em>Helmholtz stick-slip</em>, or pressed <em>raucous</em> crunch) and left-hand fingerboard stopping.</li>
+              <li><strong>Struck Bars, Resonator Tubes &amp; Nonlinear Crash Plates:</strong> Solves flexural modes and harmonic overtone ratios (<em>f</em><sub>2</sub>/<em>f</em><sub>1</sub>) on marimba/glockenspiel bars, couples suspended bars to <strong>&lambda;/4 closed</strong> or <strong>&lambda;/2 open</strong> resonator tubes (even motorized vibraphone tremolo fans!), and captures dramatic <strong>von K&aacute;rm&aacute;n pitch-glide &amp; shimmer bloom</strong> on crash cymbals and gongs.</li>
+              <li><strong>Woodwind &amp; Brass Bore Waveguides + Drum Membranes:</strong> Extracts internal 3D airways for single-reed clarinets, regenerative lip-reed brass cornets, air-jet flutes, and flap-valve horns &mdash; where MuJoCo hinge keys and piston slide valves open real acoustic toneholes &mdash; alongside circular/rectangular drum heads coupled to vented snare shells or sealed timpani kettles.</li>
+            </ul>
+            <figure class="tutorial-figure">
+              <picture>
+                <source srcset="assets/tutorials/instrument_acoustics_diagram.webp" type="image/webp">
+                <img src="assets/tutorials/instrument_acoustics_diagram.png" alt="Copperplate cutaway diagram of three acoustic instrument families: a bowed cello soundbox with bass bar and soundpost on the left, an arch-undercut marimba bar over a standing-wave resonator tube in the center, and a keyed reed/brass horn waveguide on the right" loading="lazy">
+              </picture>
+              <figcaption class="figure-caption">
+                <i class="fas fa-music"></i> <strong>Three Coupled Acoustic Engines in One Studio:</strong> (Left) Bowed Helmholtz string + braced soundbox cavity; (Center) Parabolic undercut-tuned marimba bar + &lambda;/4 standing-wave resonator tube; (Right) Keyed woodwind &amp; flared brass bore waveguide.
+              </figcaption>
+            </figure>
+          </section>
+
+          <section id="section-inst-tuning" class="tutorial-section-block">
+            <h2><i class="fas fa-sliders"></i> 2. The Inverse Luthier Tuner: One-Click Concert Pitch &amp; Live Auditions</h2>
+            <p>
+              Select any solid body, string, pipe, or drum head in Mesh to open the <strong>Concert Pitch</strong> card in the Inspector. It shows the part's current musical note, cents deviation (e.g. <code>A3 (in tune) &middot; 220.0 Hz</code>), and overtone ratio &mdash; and lets you switch its <strong>Sound role</strong> and tune physical dimensions automatically:
+            </p>
+            <ul>
+              <li><strong>Instant Inspector Auditions (Tap, Pluck, Bow, Blow, Ring, Strike):</strong> Audition any part without even starting MuJoCo! Hold down <strong>Bow</strong> on a cello string while dragging <strong>Bow position &beta;</strong> (<em>sul ponticello</em> &harr; <em>sul tasto</em>), <strong>Bow speed</strong>, and <strong>Bow force</strong> (or click <strong>Centre force in the wedge</strong>) to hear the timbre morph live; click <strong>Blow</strong> on a wind bore, <strong>Ring</strong> on a resonator tube, or <strong>Tap / Hard / Crash</strong> on a drum or gong.</li>
+              <li><strong>Inverse Geometry &amp; Tension Tuning:</strong> Pick a target concert note (from <code>C1</code> to <code>C7</code>) and click <strong>Tune</strong>. On a solid marimba bar or chime, Mesh physically carves an underside parabolic arch or scales bar length to hit the exact Hz (with an optional checkbox to drill <strong>&empty;2.2&nbsp;mm cord holes at the 0.224&middot;L nodal points</strong> where mounting pins won't deaden sustain!). On strings and drum heads it solves exact tension; on wind instruments and tubes it scales the bore air column.</li>
+              <li><strong>One-Click 5-Note Pentatonic Sets:</strong> Select any tuned wooden or metal bar and click <strong>5-Note Set</strong> &mdash; Mesh automatically clones and dimensionally tunes a complete 5-bar pentatonic scale beside it, ready for CNC routing or laser-cut frame mounting.</li>
+            </ul>
+
+            <div class="tutorial-sim-to-real">
+              <figure class="tutorial-figure">
+                <picture>
+                  <source srcset="assets/tutorials/mesh_cello_acoustics_ui.webp" type="image/webp">
+                  <img src="assets/tutorials/mesh_cello_acoustics_ui.png" alt="PhysBox Mesh 4/4 Bowed Cello Automaton preset showing Stradivarius spruce soundbox, f-holes, Pernambuco bow, and Taut String Pitch Inspector card with Helmholtz bow-force window" loading="lazy">
+                </picture>
+                <figcaption class="figure-caption">
+                  <span class="sim-real-pill pill-sim"><i class="fas fa-cube"></i> In Mesh</span>
+                  <span><strong>4/4 Bowed Cello Automaton:</strong> 26.5&nbsp;L spruce-and-maple corpus (<em>f</em><sub>H</sub> &approx; 98&nbsp;Hz at G2) with internal bass bar &amp; soundpost, left-hand B3 stopping finger, and Schelleng bow-wedge readout.</span>
+                </figcaption>
+              </figure>
+              <figure class="tutorial-figure">
+                <picture>
+                  <source srcset="assets/tutorials/real_cello_luthier_bench.webp" type="image/webp">
+                  <img src="assets/tutorials/real_cello_luthier_bench.jpg" alt="Real handcrafted spruce and maple violoncello on a luthier workbench cradle with Pernambuco bow, brass finger plane, tuning fork, and tuned rosewood marimba bars over brass resonator tubes" loading="lazy">
+                </picture>
+                <figcaption class="figure-caption">
+                  <span class="sim-real-pill pill-real"><i class="fas fa-hammer"></i> Built on Bench</span>
+                  <span><strong>Physical Luthier &amp; Percussion Build:</strong> Graduated spruce soundbox plates, f-hole ports, and nodal-drilled rosewood marimba bars over brass &lambda;/4 resonator tubes built from the tuned CAD dimensions.</span>
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section id="section-inst-fab" class="tutorial-section-block">
+            <h2><i class="fas fa-hammer"></i> 3. From Acoustic Simulation to Real Hardwood, Brass &amp; 3D Prints</h2>
+            <div class="steps-grid">
+              <div class="step-card">
+                <div class="step-number">1</div>
+                <h4>Tune Soundholes &amp; Plates First</h4>
+                <p>Widen an f-hole or thin a Sitka spruce top plate by 0.5&nbsp;mm in Mesh and watch the <strong>Soundbox cavity</strong> Helmholtz &amp; top-plate Hz badges update live before touching expensive tonewood.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">2</div>
+                <h4>Export Undercut Bars &amp; Bores</h4>
+                <p>Send tuned marimba bars (with their 0.224&middot;L nodal pin holes) to <strong>Carve / Relief CNC</strong>, unfold plywood soundbox frames into <strong>PhysBox Etch</strong>, or 3D-print custom microtonal wind bores in airtight PETG/SLA.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">3</div>
+                <h4>Drive Speakers from Volt</h4>
+                <p>Building an electro-acoustic amp or active crossover? Click <strong>Link Mesh</strong> in <strong>PhysBox Volt</strong> to drive a Thiele-Small speaker cone inside your 3D ported Mesh cabinet directly from live SPICE amplifier currents!</p>
+              </div>
+            </div>
+          </section>
+
+          <div class="sim-footer" style="margin-top: 3rem; justify-content: center;">
+            <a href="https://mesh.physbox.io" class="btn btn-primary"><i class="fas fa-guitar"></i> Design &amp; Tune an Instrument in Mesh</a>
+            <a href="index.html#suite" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return to Main Suite</a>
+          </div>
+        </article>
+
+        <!-- TUTORIAL 10: PHOTOREALISTIC GPU PATH-TRACED RENDERING & 3D BACKGROUNDS (PHYSBOX MESH) -->
+        <article class="article-main category-article article-physics reveal delay-100" id="article-rendering" style="display: none;">
+          <header class="article-header">
+            <div class="article-meta">
+              <span class="article-badge" style="background: var(--primary-light); color: var(--primary); border: 1px solid rgba(79,70,229,0.25);"><i class="fas fa-camera-retro"></i> PhysBox Mesh &middot; Visualization</span>
+              <span class="article-badge badge-scad"><i class="fas fa-clock"></i> 12 Min Read</span>
+              <span class="article-badge" style="background: #f1f5f9; color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Beginner</span>
+            </div>
+            <h1 class="article-title">Photorealistic GPU Rendering &amp; True-Scale 3D Backgrounds in Mesh</h1>
+            <p class="article-subtitle">Turn any CAD assembly, draped garment, or simulated mechanism into a studio-lit product photograph in seconds using the viewport <strong>Render</strong> button and the six 3D <strong>Background</strong> worlds in the <strong>Environment</strong> settings menu &mdash; zero Blender export required.</p>
+          </header>
+
+          <section id="section-render-how" class="tutorial-section-block">
+            <h2><i class="fas fa-sun"></i> 1. Real-Time Viewport vs. Progressive 5-Bounce GPU Path Tracing</h2>
+            <p>
+              While you model Lattice cages, drag mechanisms, or run 60&nbsp;fps MuJoCo simulations, Mesh draws with a fast rasterizer so every orbit and slider feels instantaneous. When you want to inspect real surface finish, glass refraction, brushed metal reflections, or showcase a finished design, click the <strong>Render</strong> button (aperture icon) in the floating toolbar at the <strong>bottom-right corner of the viewport</strong>:
+            </p>
+            <ul>
+              <li><strong>Automatic Settle-and-Trace Workflow:</strong> You can leave <strong>Render</strong> switched on while framing your shot! Whenever you orbit the camera, move a part, or press <strong>Play</strong>, Mesh smoothly drops back to the crisp real-time view; the moment the view holds still (for ~0.35&nbsp;s while paused), a background worker builds a BVH acceleration structure and progressively accumulates up to <strong>512 multi-bounce path-traced samples</strong> right over the viewport before idling your GPU automatically.</li>
+              <li><strong>True 5-Bounce Global Illumination, Glass &amp; Glow:</strong> Light bounces five times across surfaces &mdash; bleeding warm wood tones onto undersides, refracting cleanly through translucent acrylic/glass parts, reflecting off turned brass and copper, casting realistic soft-edged area-light penumbras, and illuminating nearby objects from glowing emissive parts.</li>
+              <li><strong>Outlier Despeckle + Edge-Preserving Denoiser:</strong> Each sample pass filters out single-pixel glossy fireflies and applies an edge-preserving bilateral denoiser with Neutral tone mapping, delivering clean photographic gradients in seconds without blurring crisp CAD chamfers.</li>
+            </ul>
+            <figure class="tutorial-figure">
+              <picture>
+                <source srcset="assets/tutorials/pathtraced_rendering_diagram.webp" type="image/webp">
+                <img src="assets/tutorials/pathtraced_rendering_diagram.png" alt="Copperplate optics diagram showing camera lens rays tracing 5-bounce global illumination, glass prism refraction, metallic gear reflection, and soft area-light penumbras beneath a 360-degree skybox dome" loading="lazy">
+              </picture>
+              <figcaption class="figure-caption">
+                <i class="fas fa-eye"></i> <strong>Inside Mesh's WebGL Path Tracer:</strong> An overhead disc area light and 360&deg; HDR environment dome cast soft distance-accurate penumbras, 5-bounce indirect colour bleed, clear dielectric refraction, and metallic reflections into the viewport camera.
+              </figcaption>
+            </figure>
+          </section>
+
+          <section id="section-render-backgrounds" class="tutorial-section-block">
+            <h2><i class="fas fa-image"></i> 2. Choosing a 3D World: Settings (Gear Icon) &rarr; Background</h2>
+            <p>
+              Click the <strong>Settings gear icon</strong> in the top-right header to open the <strong>Environment</strong> menu, then pick from six curated presets under <strong>Background</strong>. Unlike flat 2D wallpaper images, Mesh's backgrounds are <strong>true-to-scale 3D worlds</strong> with matched equirectangular skyboxes, PBR normal-mapped surfaces, and physically tuned key-light softness:
+            </p>
+            <ul>
+              <li><strong>Studio:</strong> Clean, distraction-free photo cyclorama floor with subtle contact shadows and sun-tight penumbras &mdash; ideal for technical documentation and white-background catalogue shots.</li>
+              <li><strong>Lab / Workbench:</strong> Oiled butcher-block oak maker bench topped with a true-millimetre self-healing green ESD cutting mat, tool pegboard, and soft overhead LED shop-strip lighting &mdash; made for electronics enclosures, molds, and Benchy prints.</li>
+              <li><strong>Cozy Coffee Table:</strong> Clear-coated mid-century American walnut coffee table over a woven rug and oak floorboards in a warm, sunlit living room &mdash; ideal for candles, porcelain slip-cast vases, and acoustic instruments.</li>
+              <li><strong>Meadow &amp; Mountains:</strong> Sunlit wildflower clearing or high-altitude granite outcrop overlooking snow-capped alpine peaks &mdash; great for drones, wind turbines, PVC structures, and outdoor gear.</li>
+              <li><strong>Urban / Graffiti Wall:</strong> Textured concrete sidewalk in front of a painted brick alley wall with dramatic street-level lighting &mdash; built for skate carts, streetwear garments, and robotics.</li>
+            </ul>
+            <div class="callout-box callout-tip">
+              <div class="callout-title"><i class="fas fa-circle-check"></i> Zero Interference with Physics, Clicks, or STL/3MF Exports</div>
+              <p>Every 3D background prop (the cutting mat, walnut tabletop, stones, walls) is <strong>purely visual and raycast-transparent</strong>: clicking the background still clears your selection cleanly, MuJoCo physics uses your exact floor settings, and exporting STLs, 3MFs, or molds ignores the scenery completely &mdash; while saving your scene preserves your chosen background automatically!</p>
+            </div>
+
+            <div class="tutorial-sim-to-real">
+              <figure class="tutorial-figure">
+                <picture>
+                  <source srcset="assets/tutorials/mesh_render_studio_ui.webp" type="image/webp">
+                  <img src="assets/tutorials/mesh_render_studio_ui.png" alt="PhysBox Mesh interface with the Environment Settings menu open to Background: Lab / Workbench and the bottom-right Render path-tracing button active" loading="lazy">
+                </picture>
+                <figcaption class="figure-caption">
+                  <span class="sim-real-pill pill-sim"><i class="fas fa-sliders"></i> Setup in Mesh</span>
+                  <span><strong>Environment Menu + Render Toggle:</strong> Selecting <strong>Lab / Workbench</strong> under <strong>Settings &rarr; Background</strong> and clicking <strong>Render</strong> in the bottom-right bar to trace #3DBenchy, copper, brass, and clear glass on the ESD mat.</span>
+                </figcaption>
+              </figure>
+              <figure class="tutorial-figure">
+                <picture>
+                  <source srcset="assets/tutorials/real_pathtraced_coffee_table.webp" type="image/webp">
+                  <img src="assets/tutorials/real_pathtraced_coffee_table.png" alt="Clean GPU path-traced photorealistic output from PhysBox Mesh on the Cozy Coffee Table walnut backdrop showing soft window shadows, glass refraction, and metallic reflections" loading="lazy">
+                </picture>
+                <figcaption class="figure-caption">
+                  <span class="sim-real-pill pill-real"><i class="fas fa-camera"></i> Path-Traced Output</span>
+                  <span><strong>Finished Render on Cozy Coffee Table:</strong> Switched to <strong>Cozy Coffee Table</strong> and converged in-browser &mdash; natural window penumbras, walnut clearcoat reflections, and refractive glass orb with zero external DCC tools.</span>
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section id="section-render-tips" class="tutorial-section-block">
+            <h2><i class="fas fa-camera"></i> 3. Four Quick Composition &amp; Material Tips for Hero Shots</h2>
+            <div class="steps-grid">
+              <div class="step-card">
+                <div class="step-number">1</div>
+                <h4>Pause at the Best Action Frame</h4>
+                <p>Press <strong>Play</strong> to let cloth drape, water splash, or mechanisms settle into a natural pose, hit <strong>Pause</strong>, and click <strong>Render</strong> to path-trace that exact physical instant.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">2</div>
+                <h4>Turn Off Wireframe &amp; Overlays</h4>
+                <p>Uncheck <strong>DFM</strong>, <strong>Colliders</strong>, and <strong>Edges</strong> in the bottom-right bar and click empty space to clear any selection highlight so surfaces trace with pure physical materials.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">3</div>
+                <h4>Mix Metals, Woods &amp; Clear Glass</h4>
+                <p>Lower a part's opacity slider to turn it into refractive clear glass/acrylic in Render mode, pair brushed metals with hardwood, or add subtle <strong>glow</strong> to LEDs so they cast real light onto the bench!</p>
+              </div>
+            </div>
+          </section>
+
+          <div class="sim-footer" style="margin-top: 3rem; justify-content: center;">
+            <a href="https://mesh.physbox.io" class="btn btn-primary"><i class="fas fa-camera-retro"></i> Try Path-Traced Rendering in Mesh</a>
+            <a href="index.html#suite" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return to Main Suite</a>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
@@ -1065,6 +1379,54 @@
           <div class="tutorial-card-footer">
             <span style="font-size: 0.85rem; color: #b45309;"><i class="fas fa-check-circle"></i> Complete Guide</span>
             <a href="#article-candle-making" data-open-article="article-candle-making" style="color: var(--etch-color); font-weight: 600;">Read Guide <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Card 5: Garment Drafting & Cloth -->
+        <div class="tutorial-card">
+          <div>
+            <div class="tutorial-card-meta">
+              <span class="sim-badge physics-badge">Tailoring &middot; Cloth</span>
+              <span style="font-size: 0.85rem; color: var(--text-muted);">18 Min</span>
+            </div>
+            <h3 class="tutorial-card-title">Bespoke Garment Drafting &amp; SVG Sewing Patterns</h3>
+            <p class="tutorial-card-desc">Draft multi-layer outfits on measured dress forms, sculpt silhouettes &amp; seams live, and export 1:1 millimetre SVG patterns.</p>
+          </div>
+          <div class="tutorial-card-footer">
+            <span style="font-size: 0.85rem; color: #0284c7;"><i class="fas fa-check-circle"></i> Complete Guide</span>
+            <a href="#article-garments" data-open-article="article-garments" style="color: var(--physics-color); font-weight: 600;">Read Guide <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Card 6: Musical Instruments & Lutherie -->
+        <div class="tutorial-card">
+          <div>
+            <div class="tutorial-card-meta">
+              <span class="sim-badge physics-badge">Acoustics &middot; Lutherie</span>
+              <span style="font-size: 0.85rem; color: var(--text-muted);">20 Min</span>
+            </div>
+            <h3 class="tutorial-card-title">Designing &amp; Tuning Acoustic Musical Instruments</h3>
+            <p class="tutorial-card-desc">Build bowed cellos, soundbox lyres, undercut marimbas, and keyed wind bores &mdash; synthesized live with zero audio samples.</p>
+          </div>
+          <div class="tutorial-card-footer">
+            <span style="font-size: 0.85rem; color: #0284c7;"><i class="fas fa-check-circle"></i> Complete Guide</span>
+            <a href="#article-instruments" data-open-article="article-instruments" style="color: var(--physics-color); font-weight: 600;">Read Guide <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Card 7: Photorealistic Rendering -->
+        <div class="tutorial-card">
+          <div>
+            <div class="tutorial-card-meta">
+              <span class="sim-badge" style="background: var(--primary-light); color: var(--primary); border: 1px solid rgba(79,70,229,0.25);">Visualization &middot; Render</span>
+              <span style="font-size: 0.85rem; color: var(--text-muted);">12 Min</span>
+            </div>
+            <h3 class="tutorial-card-title">Photorealistic GPU Rendering &amp; 3D Backgrounds</h3>
+            <p class="tutorial-card-desc">Use the Render button and Settings &rarr; Background worlds for 5-bounce global illumination, glass refraction &amp; studio shots.</p>
+          </div>
+          <div class="tutorial-card-footer">
+            <span style="font-size: 0.85rem; color: var(--primary);"><i class="fas fa-check-circle"></i> Complete Guide</span>
+            <a href="#article-rendering" data-open-article="article-rendering" style="color: var(--primary); font-weight: 600;">Read Guide <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
@@ -1164,8 +1526,8 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="app.js?v=20261119d"></script>
-  <script src="auth.js?v=20261119d"></script>
+  <script src="app.js?v=20261120b"></script>
+  <script src="auth.js?v=20261120b"></script>
   <script>
     // Smooth Scrolling & Active Table of Contents highlighting
     document.addEventListener('DOMContentLoaded', () => {
