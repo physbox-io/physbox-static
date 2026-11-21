@@ -243,14 +243,14 @@ while True:
             PhysBox Mesh combines three complementary modelling engines &mdash; decade-grid <strong>Lattice cages</strong> with subdivision and live edge rounding, <strong>clay sculpting</strong> with silhouette scissors, and an embedded <strong>WASM OpenSCAD compiler</strong> &mdash; backed by exact Manifold booleans and automatic V-HACD concave collision.
           </p>
           <p class="content-paragraph">
-            Run <strong>DFM checks</strong> to spot thin walls and steep overhangs, balance top-heavy or floating parts internally with <code>M4&ndash;M16</code> steel hex-nut ballast cavities, split oversized parts with registration pegs to fit your build plate, or generate separable <strong>silicone/rigid pour molds</strong> (with sliding C-clips and PVA dissolvable liners) and <strong>plaster slip-cast molds</strong> &mdash; exported as multi-material <strong>3MF</strong> or Z-up <strong>STL</strong>.
+            Run <strong>DFM checks</strong> to spot thin walls and steep overhangs, balance top-heavy or floating parts internally with M4&ndash;M16 steel hex-nut ballast cavities, split oversized parts with registration pegs to fit your build plate, or generate separable <strong>silicone/rigid pour molds</strong> (with sliding C-clips and PVA dissolvable liners), <strong>one-piece gated sand &amp; lost-PLA patterns</strong>, and <strong>plaster slip-cast molds</strong> &mdash; exported as multi-material <strong>3MF</strong> or Z-up <strong>STL</strong>.
           </p>
 
           <div class="spec-cards-grid">
             <div class="spec-card">
               <span class="spec-icon"><i class="fas fa-border-all"></i></span>
               <h4>Lattice, Sculpt &amp; OpenSCAD</h4>
-              <p>Hard-surface grid cages (<code>0.1&ndash;100 mm</code>), edge fillets/chamfers (<code>E</code>), clay brushes/scissors, and parametric OpenSCAD sliders.</p>
+              <p>Hard-surface grid cages (0.1&ndash;100&nbsp;mm), edge fillets/chamfers (<code>E</code>), clay brushes/scissors, and parametric OpenSCAD sliders.</p>
             </div>
             <div class="spec-card">
               <span class="spec-icon"><i class="fas fa-print"></i></span>
@@ -259,13 +259,13 @@ while True:
             </div>
             <div class="spec-card">
               <span class="spec-icon"><i class="fas fa-fill-drip"></i></span>
-              <h4>Pour Boxes &amp; Slip-Cast Molds</h4>
-              <p>Adds draft angles, builds separable split cases/sleeves with C-clips, sprues, vents, PVA liners, and plaster slip-cast spares.</p>
+              <h4>Pour Boxes, Foundry &amp; Slip-Cast</h4>
+              <p>Builds separable C-clip silicone sleeves, one-piece gated sand &amp; burnout patterns, PVA liners, and natched plaster slip-cast cases.</p>
             </div>
             <div class="spec-card">
               <span class="spec-icon"><i class="fas fa-scale-balanced"></i></span>
               <h4>DFM, Ballast &amp; Cast Simulation</h4>
-              <p>Inspect wall/overhang DFM heatmaps, tune <code>Stand</code>/<code>Spin</code>/<code>Float</code> ballast, and simulate the cast or printed result right in the scene.</p>
+              <p>Inspect wall/overhang DFM heatmaps, tune <strong>Stand</strong>/<strong>Spin</strong>/<strong>Float</strong> ballast, and simulate the cast or printed result right in the scene.</p>
             </div>
           </div>
         </div>
@@ -428,25 +428,25 @@ G0 Z10.00 (Job Complete - WebSerial Stream Ended)</code></pre>
         <div class="workflow-card">
           <div class="step-num">1</div>
           <h4>Model &amp; Check DFM</h4>
-          <p>Agents build Lattice cages or OpenSCAD parts and call <code>physics_check_dfm</code> to verify wall thicknesses, draft angles, and print overhangs.</p>
+          <p>Agents build Lattice cages or OpenSCAD parts and run automated DFM checks to verify wall thicknesses, draft angles, and print overhangs.</p>
         </div>
 
         <div class="workflow-card">
           <div class="step-num">2</div>
           <h4>Simulate Multi-Physics</h4>
-          <p>Agents call <code>physics_build_scene</code> and <code>physics_run_headless</code> to test MuJoCo linkages, water buoyancy, flexures, and coupled Volt motors.</p>
+          <p>Agents step headless MuJoCo rollouts to test mechanical linkages, water buoyancy, compliant flexures, and coupled Volt motor loads.</p>
         </div>
 
         <div class="workflow-card">
           <div class="step-num">3</div>
           <h4>Molds, Timber &amp; Sheets</h4>
-          <p>Agents generate C-clip pour boxes (<code>physics_make_pour_box</code>), slip-cast shells, timber joinery, or hand multi-sheet layouts directly to Etch.</p>
+          <p>Agents generate C-clip pour boxes, one-piece gated casting patterns, slip-cast shells, timber joinery, or hand multi-sheet layouts directly to Etch.</p>
         </div>
 
         <div class="workflow-card">
           <div class="step-num">4</div>
           <h4>Stream G-Code &amp; Sweep</h4>
-          <p>Agents generate toolpaths via <code>etch_generate_gcode</code>, verify simulated stock via <code>physics_add_simulation</code>, and sweep Bode/transient traces in Volt.</p>
+          <p>Agents derive safe CNC/laser toolpaths, verify simulated stock back in MuJoCo, and sweep Bode/transient traces in Volt.</p>
         </div>
       </div>
 

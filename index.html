@@ -434,9 +434,9 @@
               A multi-domain mechanical, acoustic, and digital fabrication studio combining <strong>MuJoCo WebAssembly</strong> with <strong>Lattice cage modelling</strong>, <strong>clay sculpting</strong>, <strong>WASM OpenSCAD</strong>, and path-traced rendering. Build assemblies that collide concavely, float upright, ring at concert pitch, and export to printers, mills, lasers, and casting benches.
             </p>
             <ul class="sim-features">
-              <li><strong>True Concave Collision, Hydrostatics, Flexures &amp; Fracture:</strong> Automatic background V-HACD decomposition means cups hold balls and funnels feed parts with zero proxy setup. Simulate container-bounded water with 3D Archimedes righting torques, compliant leaf flexures, shearable welds, Hertzian denting/shattering, and internal <code>M4&ndash;M16</code> hex-nut ballast (<code>Stand</code>, <code>Spin</code>, <code>Float</code>).</li>
+              <li><strong>True Concave Collision, Hydrostatics, Flexures &amp; Fracture:</strong> Automatic background V-HACD decomposition means cups hold balls and funnels feed parts with zero proxy setup. Simulate container-bounded water with 3D Archimedes righting torques, compliant leaf flexures, shearable welds, Hertzian denting/shattering, and internal M4&ndash;M16 hex-nut ballast (<strong>Stand</strong>, <strong>Spin</strong>, <strong>Float</strong>).</li>
               <li><strong>Zero-Sample 3D Vibro-Acoustics &amp; Luthier Tuning:</strong> Coupled Kirchhoff&ndash;Love shell + 3D FDTD cavity FIR convolution, Rayleigh&ndash;Ritz modal bars, Schelleng bowed/plucked strings (4/4 cello, lyre), and 3D TMM wind/brass waveguides &mdash; carve an f-hole or thin a spruce top and hear the resonance change live.</li>
-              <li><strong>Lattice CAD, Clay Sculpting, Surface Patterns &amp; OpenSCAD:</strong> Model dimensioned hard-surface cages on a decade grid (<code>0.1&ndash;100 mm</code>) with live edge rounding (<code>E</code>), slice sculpted clay with viewport scissors, apply 7 procedural architectural patterns (kumiko, guilloch&eacute;, fluted, parquet), or write parametric OpenSCAD with auto-generated UI sliders.</li>
+              <li><strong>Lattice CAD, Clay Sculpting, Surface Patterns &amp; OpenSCAD:</strong> Model dimensioned hard-surface cages on a decade grid (0.1&ndash;100&nbsp;mm) with live edge rounding (<code>E</code>), slice sculpted clay with viewport scissors, apply 7 procedural architectural patterns (kumiko, guilloch&eacute;, fluted, parquet), or write parametric OpenSCAD with auto-generated UI sliders.</li>
               <li><strong>Molds, Slip-Casting, Timber Joinery &amp; Multi-Setup CAM:</strong> Generate separable silicone/rigid pour molds with sliding C-clips, plaster slip-cast molds, PVA dissolvable liners, multi-material 3MF slicer plates, mortise-and-tenon timber breakdowns, bonded brickwork, and multi-setup CNC/relief/sheet-unfold jobs &mdash; then click <strong>Add Simulation</strong> to test the machined or cast part back in physics.</li>
             </ul>
             <div class="sim-footer">
@@ -652,7 +652,7 @@
             Built entirely on client-side WebAssembly, our simulators enable AI agents to bridge the gap between abstract reasoning and concrete physical execution. Every engine ships a first-class agent interface over the Model Context Protocol:
           </p>
           <ul class="ai-bullets">
-            <li><strong>Native MCP Server, Not Brittle Scraping:</strong> <code>physbox-mcp</code> exposes the simulators as <strong>259 typed Model Context Protocol tools</strong> over a local WebSocket relay. Agents call <code>physics_build_scene</code> or <code>circuit_run_sim</code> directly.</li>
+            <li><strong>Native MCP Server, Not Brittle Scraping:</strong> <code>physbox-mcp</code> exposes the simulators as <strong>259 typed Model Context Protocol tools</strong> over a local WebSocket relay so agents build scenes, run SPICE sweeps, and inspect physical state directly.</li>
             <li><strong>Procedural CAD & 3D Printing Generation:</strong> AI agents write and refactor OpenSCAD code to create custom brackets, gears, and enclosures, test structural stability in MuJoCo, and output 3D-printable STL files.</li>
             <li><strong>Real-World Hardware & Telemetry (HIL):</strong> Using WebSocket telemetry, serial HIL bridges, and general IoT webhooks, agents stream hardware pin states, read sensor values, and drive physical microcontrollers directly.</li>
             <li><strong>Iterative Design Self-Correction:</strong> Agents observe physical bounds and signal waveforms at 60fps, self-correcting schematic nets and CAD parameters until physical and functional requirements are met.</li>
@@ -748,20 +748,20 @@
 
           <ol class="mcp-loop-list">
             <li>
-              <code>physics_create_lattice</code> <span class="loop-or">/</span> <code>physics_validate_scad</code>
-              <span>Build dimensioned cage geometry or compile OpenSCAD, inspect real-world bounding boxes, and run <code>physics_check_dfm</code> to catch thin walls or steep overhangs early.</span>
+              <strong>Model &amp; Check Printability</strong>
+              <span>Build dimensioned Lattice cages or compile OpenSCAD, inspect real-world bounding boxes, and run DFM checks to catch thin walls or steep overhangs early.</span>
             </li>
             <li>
-              <code>physics_build_scene</code> <span class="loop-or">&amp;</span> <code>physics_run_headless</code>
-              <span>Drop the assembly into MuJoCo with joints, flexures, water buoyancy, or coupled Volt motors, and step N ticks to verify nothing binds or tips.</span>
+              <strong>Simulate Multi-Physics</strong>
+              <span>Drop the assembly into MuJoCo with joints, flexures, water buoyancy, or coupled Volt motors, and step headless ticks to verify nothing binds or tips.</span>
             </li>
             <li>
-              <code>physics_make_pour_box</code> <span class="loop-or">/</span> <code>physics_export_cut</code>
-              <span>Generate separable C-clip molds, slip-cast plaster shells, timber mortise-and-tenon setups, or hand unfolded finger-joint sheets straight to Etch.</span>
+              <strong>Generate Molds, Timber &amp; Sheets</strong>
+              <span>Build separable C-clip molds, one-piece gated casting patterns, slip-cast plaster shells, timber mortises, or hand unfolded finger-joint sheets straight to Etch.</span>
             </li>
             <li>
-              <code>physics_get_telemetry</code> <span class="loop-or">/</span> <code>physics_get_screenshot</code>
-              <span>Read exact joint/contact numbers or capture a clean, overlay-free viewport frame (<code>clean: true</code>) for visual inspection.</span>
+              <strong>Read Telemetry &amp; Inspect Frames</strong>
+              <span>Read exact joint/contact forces, Bode cutoffs, or capture a clean, overlay-free viewport frame for visual inspection.</span>
             </li>
             <li class="loop-final">
               <i class="fas fa-arrow-rotate-left"></i>

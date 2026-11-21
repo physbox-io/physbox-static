@@ -200,12 +200,12 @@
             </p>
             <ul>
               <li><strong>Machine Coordinates (MPos):</strong> Set when you home your machine (<code>$H</code>) against physical limit switches. Machine (0,0,0) is usually the back-right corner with the spindle pulled all the way up.</li>
-              <li><strong>Work Coordinates (WPos / G54):</strong> The temporary local coordinate frame tied to your physical wooden stock. The bottom-left surface corner of your plywood is Work Zero (0,0,0).</li>
+              <li><strong>Work Coordinates (WPos / <code>G54</code>):</strong> The temporary local coordinate frame tied to your physical wooden stock. The bottom-left surface corner of your plywood is Work Zero (0,0,0).</li>
             </ul>
 
             <h3>Setting Up Your Bed Bounds in Etch</h3>
             <p>
-              At the bottom bar of PhysBox Etch, set your exact physical stock size (e.g. <code>300mm x 200mm</code>). The canvas updates immediately, displaying red and blue origin marker arrows at (0,0). Always align your physical stock on the CNC bed so the front-left corner matches the (0,0) origin on the Etch screen.
+              At the bottom bar of PhysBox Etch, set your exact physical stock size (e.g. 300&nbsp;&times;&nbsp;200&nbsp;mm). The canvas updates immediately, displaying red and blue origin marker arrows at (0,0). Always align your physical stock on the CNC bed so the front-left corner matches the (0,0) origin on the Etch screen.
             </p>
 
             <div class="callout-box callout-warning">
@@ -259,8 +259,8 @@
               Never cut through 12mm plywood in a single heroic pass! Doing so creates massive tool deflection and will likely snap your carbide end mill. Instead, use <strong>multi-pass stepdowns</strong>:
             </p>
             <ul>
-              <li><strong>Stepdown Depth:</strong> Cut in layers of 1.5mm to 3.0mm per pass depending on bit diameter (rule of thumb: maximum pass depth = 50% to 100% of bit diameter).</li>
-              <li><strong>Holding Tabs:</strong> When cutting out a closed perimeter part, leave 2 to 4 small tabs (e.g. <code>4mm wide x 1.5mm thick</code>) so the finished part stays anchored to the waste stock until the job finishes.</li>
+              <li><strong>Stepdown Depth:</strong> Cut in layers of 1.5&nbsp;mm to 3.0&nbsp;mm per pass depending on bit diameter (rule of thumb: maximum pass depth = 50% to 100% of bit diameter).</li>
+              <li><strong>Holding Tabs:</strong> When cutting out a closed perimeter part, leave 2 to 4 small tabs (e.g. 4&nbsp;mm wide &times; 1.5&nbsp;mm thick) so the finished part stays anchored to the waste stock until the job finishes.</li>
             </ul>
           </section>
 
@@ -272,7 +272,7 @@
             </p>
             <ol>
               <li>Attach the ground alligator clip to your metal CNC collet/cutter and place the aluminum touch plate flat on top of your material.</li>
-              <li>Open the <strong>Run / Machine Control Panel</strong> in Etch, enter touch plate thickness (e.g. <code>13.00 mm</code>), and click <strong>Probe Z Zero</strong>.</li>
+              <li>Open the <strong>Run / Machine Control Panel</strong> in Etch, enter touch plate thickness (e.g. 13.00&nbsp;mm), and click <strong>Probe Z Zero</strong>.</li>
               <li>The spindle slowly descends until electrical continuity is triggered, immediately zeroing your Z work coordinate with sub-millimeter precision.</li>
             </ol>
 
@@ -376,8 +376,8 @@
               Before committing a schematic to copper, Volt gives you three complementary inspection modes along the bottom status bar:
             </p>
             <ul>
-              <li><strong>Quiescent DC Operating Point (<code>DC</code>):</strong> Stamps live quiescent voltage chips onto every wire net so biased op-amp rails, voltage dividers, and transistor base-emitter drops are readable at a glance.</li>
-              <li><strong>Small-Signal AC Bode Sweeps (<code>Bode</code>):</strong> Sweeps log frequency across decades to plot magnitude (dB) and phase (&deg;), automatically tagging the exact <strong>&minus;3&nbsp;dB cutoff frequency</strong> and supporting multi-value component parameter stepping (<code>Step</code>).</li>
+              <li><strong>Quiescent DC Operating Point (DC):</strong> Stamps live quiescent voltage chips onto every wire net so biased op-amp rails, voltage dividers, and transistor base-emitter drops are readable at a glance.</li>
+              <li><strong>Small-Signal AC Bode Sweeps (Bode):</strong> Sweeps log frequency across decades to plot magnitude (dB) and phase (&deg;), automatically tagging the exact <strong>&minus;3&nbsp;dB cutoff frequency</strong> and supporting multi-value component parameter stepping (<strong>Step</strong>).</li>
               <li><strong>Live ERC &amp; Component Rating Advisories:</strong> Flags shorted voltage rails, floating CMOS inputs, reverse-biased LEDs, and resistors exceeding their quarter-watt thermal envelope while the simulation runs.</li>
             </ul>
             <figure class="tutorial-figure">
@@ -397,17 +397,17 @@
               <div class="step-card">
                 <div class="step-number">1</div>
                 <h4>Copper Flood &amp; DRC Routing</h4>
-                <p>Auto-place footprints or drag/rotate (<code>R</code>) parts interactively. Volt routes top (<code>F.Cu</code>) and bottom (<code>B.Cu</code>) traces with generous pad clearance rings and optional copper flood so V-bits spend minutes, not hours, clearing copper.</p>
+                <p>Auto-place footprints or drag/rotate (<code>R</code>) parts interactively. Volt routes top and bottom copper layers with generous pad clearance rings and optional copper flood so V-bits spend minutes, not hours, clearing copper.</p>
               </div>
               <div class="step-card">
                 <div class="step-number">2</div>
                 <h4>4&times;4 Conductive FR4 Auto-Level</h4>
-                <p>Copper-clad fiberglass always bows by <code>0.05&ndash;0.20&nbsp;mm</code>, which ruins shallow V-bit isolation passes. Clip probe leads to the V-bit and blank to sample a 16-point heightmap over WebSerial and warp Z toolpaths automatically.</p>
+                <p>Copper-clad fiberglass always bows by 0.05&ndash;0.20&nbsp;mm, which ruins shallow V-bit isolation passes. Clip probe leads to the V-bit and blank to sample a 16-point heightmap over WebSerial and warp Z toolpaths automatically.</p>
               </div>
               <div class="step-card">
                 <div class="step-number">3</div>
                 <h4>Flip Pins &amp; Etch Paste Stencils</h4>
-                <p>For 2-layer boards, Volt drills <code>0.8&nbsp;mm</code> symmetric alignment pin holes into the spoilboard so the flipped board registers to sub-tenth accuracy &mdash; and sends SMD solder-paste apertures straight to <strong>PhysBox Etch</strong> for Mylar laser cutting.</p>
+                <p>For 2-layer boards, Volt drills 0.8&nbsp;mm symmetric alignment pin holes into the spoilboard so the flipped board registers to sub-tenth accuracy &mdash; and sends SMD solder-paste apertures straight to <strong>PhysBox Etch</strong> for Mylar laser cutting.</p>
               </div>
             </div>
             <figure class="tutorial-figure">
@@ -456,7 +456,7 @@
               Different physical parts ask for different modelling tools, so <strong>PhysBox Mesh</strong> puts all three in the same scene tree:
             </p>
             <ul>
-              <li><strong>Lattice Cage Modelling:</strong> Snap vertices on a clean decade grid (<code>0.1&ndash;100&nbsp;mm</code>) for brackets, enclosures, and turned lathe revolves; press <code>E</code> on any edge loop for live parametric fillets/chamfers, or toggle Catmull&ndash;Clark subdivision.</li>
+              <li><strong>Lattice Cage Modelling:</strong> Snap vertices on a clean decade grid (0.1&ndash;100&nbsp;mm) for brackets, enclosures, and turned lathe revolves; press <code>E</code> on any edge loop for live parametric fillets/chamfers, or toggle Catmull&ndash;Clark subdivision.</li>
               <li><strong>Clay Sculpting &amp; Silhouette Scissors:</strong> Brush organic forms from spheres, heads, or imported STLs and slice clean planar cuts straight across the viewport with the <strong>Scissors</strong> tool.</li>
               <li><strong>Parametric WASM OpenSCAD &amp; Surface Generators:</strong> Write exact CSG scripts with inline Customizer sliders, and press <code>T</code> on any face to flood procedural architectural textures (<em>Fluted</em>, <em>Kumiko</em>, <em>Guilloch&eacute;</em>, <em>Lotus Mandala</em>, <em>Parquet</em>, or curved Google Font lettering) onto printable geometry without slowing down physics.</li>
             </ul>
@@ -468,7 +468,7 @@
               Every hollow body in Mesh undergoes automatic background V-HACD concave decomposition so bowls hold marbles, funnels guide parts, and open skiffs displace water until water spills over their gunwales.
             </p>
             <p>
-              Set <code>waterFill</code> on any open tank to enable 3D <strong>Archimedes hydrostatics</strong> (integrating submerged surface pressure and righting moments every MuJoCo step). If a top-heavy sculpture tips over on a shelf or capsizes in water, open the <strong>Balance</strong> card in the Inspector (<code>Stand</code>, <code>Spin</code>, or <code>Float</code>) &mdash; Mesh hollows internal cavities sized for standard <code>M4&ndash;M16</code> steel hex nuts so you can pause your 3D print, drop in hardware-store ballast, and hit the exact target center of gravity.
+              Fill any open tank with water in the Inspector to enable 3D <strong>Archimedes hydrostatics</strong> (integrating submerged surface pressure and righting moments every MuJoCo step). If a top-heavy sculpture tips over on a shelf or capsizes in water, open the <strong>Balance</strong> card (<strong>Stand</strong>, <strong>Spin</strong>, or <strong>Float</strong>) &mdash; Mesh hollows internal cavities sized for standard M4&ndash;M16 steel hex nuts so you can pause your 3D print, drop in hardware-store ballast, and hit the exact target center of gravity.
             </p>
             <figure class="tutorial-figure">
               <img src="assets/mesh_showcase.png?v=20261119c" alt="3DBenchy floating in a hydrostatic aquarium tank beside M16-ballasted and unballasted buoys" loading="lazy">
@@ -484,7 +484,7 @@
               Every collision, plucked string, struck marimba bar, and blown bore in Mesh is synthesized live in a WebAudio Worklet from your part's actual 3D mesh and material constants (Young's modulus, density, loss tangent) &mdash; with <strong>zero pre-recorded audio samples</strong>.
             </p>
             <p>
-              Hollow wooden bodies couple Kirchhoff&ndash;Love bending-plate modes to a 3D FDTD air-chamber Helmholtz solver: widen a soundhole or thin a Sitka spruce top by <code>0.5&nbsp;mm</code> and hear the body resonance shift immediately before milling the real hardwood instrument.
+              Hollow wooden bodies couple Kirchhoff&ndash;Love bending-plate modes to a 3D FDTD air-chamber Helmholtz solver: widen a soundhole or thin a Sitka spruce top by 0.5&nbsp;mm and hear the body resonance shift immediately before milling the real hardwood instrument.
             </p>
 
             <div class="tutorial-sim-to-real">
@@ -532,49 +532,50 @@
               <span class="article-badge badge-cnc"><i class="fas fa-clock"></i> 18 Min Read</span>
               <span class="article-badge" style="background: #f1f5f9; color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Beginner to Intermediate</span>
             </div>
-            <h1 class="article-title">Backyard Sand Casting from 3D-Printed Patterns in PhysBox Mesh</h1>
-            <p class="article-subtitle">Turn any 3D model into a drafted, shrinkage-compensated foundry pattern for Petrobond or green sand &mdash; complete with cope-and-drag anatomy, undercut checks, sprue/riser sizing, and exact pour weights.</p>
+            <h1 class="article-title">Backyard Sand Casting from One-Piece 3D-Printed Patterns in Mesh</h1>
+            <p class="article-subtitle">Export a single ready-to-ram STL with alloy shrinkage, pull draft, edge fillets, sprue, runner, ingate, and Chvorinov riser already fused on &mdash; then verify cavity fill with Simulate Cast before touching sand.</p>
           </header>
 
           <section id="section-sand-anatomy" class="tutorial-section-block">
-            <h2><i class="fas fa-diagram-project"></i> 1. Anatomy of a Two-Part Sand Mold (Cope, Drag, Sprue &amp; Riser)</h2>
+            <h2><i class="fas fa-diagram-project"></i> 1. Why Export Your Sand Pattern from Mesh Instead of Hand-Carving Gates?</h2>
             <p>
-              In green-sand or oil-bonded (Petrobond) foundry work, your 3D print is not burned away &mdash; it is a <strong>reusable positive pattern</strong>. You pack sand firmly around it inside a two-half alignment box (the <em>drag</em> on the bottom and the <em>cope</em> on top), separate the halves along the parting plane, and lift the plastic pattern cleanly out to leave a negative cavity ready for molten metal.
+              In green-sand or oil-bonded (Petrobond) foundry work, your 3D print is a <strong>reusable positive pattern</strong>: you pack sand firmly around it inside a two-half alignment box (the <em>drag</em> on the bottom and the <em>cope</em> on top), separate the halves along the parting plane, and lift the plastic print out to leave a cavity ready for molten metal.
             </p>
+            <p>
+              Traditionally, printing a raw CAD STL leaves all the hardest foundry math to guesswork on the bench &mdash; hand-cutting runners with a slick spoon (which sends loose sand grains straight into the mold), guessing riser diameter, and discovering stuck walls only after tearing up your mold. <strong>PhysBox Mesh &rarr; Mold &rarr; Sand</strong> builds the entire pattern and feed rig for you as <strong>one 3D-printable STL</strong>:
+            </p>
+            <ul>
+              <li><strong>One-Piece Printed Gating Rig:</strong> Automatically sizes the down-sprue choke for smooth fill rate, places a Chvorinov-sized side riser beside the heaviest (last-freezing) section by thermal modulus, and fuses the sprue well, runner bar, and ingate directly onto the pattern at the parting plane. Ramming sand around the print molds clean, compacted channels with zero hand-scooping!</li>
+              <li><strong>Automatic Parting-Plane Search &amp; Overhang Check:</strong> Scans heights up the part to find the parting plane that traps the least sand, and reports the exact percentage of undrawable overhangs before you print.</li>
+              <li><strong>Non-Destructive Prepare for Casting:</strong> Tapers vertical walls with pull draft, chamfers outside corners (preventing crumbly sand knife-edges), and fillets sharp inside corners (preventing sand wash-out and hot-tear cracks) while keeping your original CAD geometry one toggle away.</li>
+              <li><strong>One-Click Simulate Cast:</strong> Virtually packs the flask, pulls the pattern, pours metal down the sprue, and checks that 100% of the cavity is reached &mdash; reporting exact cast weight, remelted gating weight, and surface deviation against your master.</li>
+            </ul>
             <figure class="tutorial-figure">
               <picture>
                 <source srcset="assets/tutorials/sand_casting_diagram.webp" type="image/webp">
                 <img src="assets/tutorials/sand_casting_diagram.png" alt="Copperplate cross-section diagram of a two-part cope and drag sand casting flask with pouring basin, sprue, runner, mold cavity, and blind riser" loading="lazy">
               </picture>
               <figcaption class="figure-caption">
-                <i class="fas fa-compass-drafting"></i> <strong>Cope &amp; Drag Sand-Mold Cutaway:</strong> Registration pins align the upper cope and lower drag while molten metal flows down the tapered sprue, through the bottom runner/ingate, into the cavity, and up into an insulated blind riser that feeds solidification shrinkage.
+                <i class="fas fa-compass-drafting"></i> <strong>Cope &amp; Drag Sand-Mold Cutaway:</strong> Registration pins align the upper cope and lower drag while molten metal flows down the sprue, along the runner/ingate, into the cavity, and up into the side riser that feeds solidification shrinkage.
               </figcaption>
             </figure>
           </section>
 
           <section id="section-sand-draft" class="tutorial-section-block">
-            <h2><i class="fas fa-drafting-compass"></i> 2. Draft Angles, Fillets &amp; Alloy Solidification Shrinkage</h2>
+            <h2><i class="fas fa-drafting-compass"></i> 2. Alloy Shrinkage, Draft, Edge Fillets &amp; Undercut Warnings</h2>
             <p>
-              Printing a raw CAD STL and ramming sand around it usually fails on the bench for three physical reasons:
-            </p>
-            <ul>
-              <li><strong>Vertical 90&deg; Walls Tear the Sand:</strong> Without taper, every millimetre of vertical pull drags against packed sand. Adding <strong>2&deg;&ndash;3&deg; of draft</strong> lets the pattern break contact across its entire wall height the instant it lifts.</li>
-              <li><strong>Sharp Inside Corners Wash Loose:</strong> Crisp 90&deg; sand corners fracture under turbulent metal flow and float into the casting as sand inclusions; rounding inside edges with <code>1.5&ndash;2.0&nbsp;mm</code> fillets keeps the sand ridge strong.</li>
-              <li><strong>Metals Shrink as They Freeze:</strong> Molten alloys contract substantially between liquidus and room temperature &mdash; <strong>Aluminium (+1.3%)</strong>, <strong>Brass (+1.5%)</strong>, <strong>Bronze (+1.5%)</strong>, and <strong>Silver (+1.6%)</strong>.</li>
-            </ul>
-            <p>
-              Open <strong>Mold &rarr; Sand</strong> in PhysBox Mesh to inspect all three at once: Mesh scales your pattern for the selected alloy, applies pull-direction draft, attaches a printed sprue &amp; riser rig, and warns you immediately if an overhang traps sand!
+              Open <strong>Mold &rarr; Sand</strong> in Mesh and select your alloy &mdash; <strong>Aluminium (+1.3%)</strong>, <strong>Brass (+1.5%)</strong>, <strong>Bronze (+1.5%)</strong>, or <strong>Silver (+1.6%)</strong>. Mesh scales the pattern up automatically so the cooled metal shrinks back to your exact modelled dimensions, adds <strong>1&deg;&ndash;3&deg; of pull draft</strong> so vertical walls break contact cleanly the instant you lift, and previews the complete one-piece STL (part + runner + sprue + riser) live in 3D:
             </p>
 
             <div class="tutorial-sim-to-real">
               <figure class="tutorial-figure">
                 <picture>
                   <source srcset="assets/tutorials/mesh_sand_casting_ui.webp" type="image/webp">
-                  <img src="assets/tutorials/mesh_sand_casting_ui.png" alt="PhysBox Mesh Sand Casting planner showing 3DBenchy pattern, +1.3% aluminium shrink, pour weight, and 37% cabin overhang warning" loading="lazy">
+                  <img src="assets/tutorials/mesh_sand_casting_ui.png" alt="PhysBox Mesh Sand Casting planner showing 3DBenchy with attached sprue, runner, and riser in the 3D Pattern Preview plus 37% cabin overhang warning" loading="lazy">
                 </picture>
                 <figcaption class="figure-caption">
                   <span class="sim-real-pill pill-sim"><i class="fas fa-cube"></i> In Mesh</span>
-                  <span><strong>Sand Pattern Planner:</strong> Scales #3DBenchy <code>+1.3%</code> (<code>56 g</code> cast / <code>77 g</code> pour) and flags the wheelhouse arches (<code>37%</code> overhang) before you waste sand.</span>
+                  <span><strong>One-Piece Sand Pattern Planner:</strong> Scales #3DBenchy +1.3% (56&nbsp;g cast / 77&nbsp;g pour), fuses the sprue, runner, and side riser onto the hull, and flags the cabin roof arches (37% overhang) before you waste sand.</span>
                 </figcaption>
               </figure>
               <figure class="tutorial-figure">
@@ -588,61 +589,57 @@
                 </figcaption>
               </figure>
             </div>
+
+            <div class="callout-box callout-tip">
+              <div class="callout-title"><i class="fas fa-wand-magic-sparkles"></i> Pro Tip: Toggle “Prepare for Casting” Under Advanced</div>
+              <p>Expand <strong>Advanced &rarr; Prepare for Casting</strong> and switch it <strong>On</strong> before exporting. Mesh rounds sharp internal corners into smooth fillets and chamfers outside edges across every body in the scene while leaving the parting face crisp &mdash; and you can switch it back <strong>Off</strong> anytime to edit your original sharp CAD model.</p>
+            </div>
           </section>
 
           <section id="section-sand-prep" class="tutorial-section-block">
-            <h2><i class="fas fa-spray-can-sparkles"></i> 3. Slicing &amp; Surface-Prepping Your 3D-Printed Pattern</h2>
+            <h2><i class="fas fa-spray-can-sparkles"></i> 3. Printing &amp; Smoothing the One-Piece Pattern + Gating Rig</h2>
             <p>
-              Even with 3&deg; of geometric draft, raw <code>0.20&nbsp;mm</code> FDM layer stair-steps act like microscopic saw teeth in tightly rammed Petrobond. Spend ten minutes prepping the print and it will pull like polished brass for dozens of molds:
+              Click <strong>Download Pattern (STL)</strong> to export the pattern with its sprue, runner, gate, and riser already standing flat on the build plate (or click <strong>Simulate Cast</strong> first to drop the virtual poured casting beside your master and inspect its fill). Even with 2&deg;&ndash;3&deg; of draft, raw 0.20&nbsp;mm FDM layer ridges grip tightly rammed Petrobond like microscopic saw teeth &mdash; ten minutes of surface prep makes the whole rig draw like polished brass:
             </p>
             <ol>
-              <li><strong>Print Rigid, Not Spongy:</strong> Use <strong>3&ndash;4 perimeters, 4 top/bottom layers, and 20% grid/gyroid infill</strong> in PLA or PETG so bench ramming pressure doesn't flex the pattern walls.</li>
-              <li><strong>High-Build Primer + 400-Grit Wet Sand:</strong> Mist two light coats of automotive filler primer over the print and wet-sand with 400-grit paper until horizontal layer ridges vanish.</li>
-              <li><strong>Split Patterns at Wide Equators:</strong> If your part is widest in the middle (like a sphere, gear hub, or valve body), use Mesh's <strong>Split / Knife</strong> tool along the equator and print two flat-backed halves pinned with short <code>3&nbsp;mm</code> alignment dowels &mdash; one half stays in the drag, one lifts in the cope.</li>
+              <li><strong>Print Rigid, Not Spongy:</strong> Slice in PLA or PETG with <strong>3&ndash;4 perimeters, 4 top/bottom layers, and 20% infill</strong> so firm bench ramming won't flex the walls or snap the runner neck.</li>
+              <li><strong>Filler Primer + 400-Grit Wet Sand:</strong> Mist two light coats of automotive high-build filler primer over the pattern and printed sprue/riser columns, then wet-sand smooth so not a single horizontal layer step catches the sand.</li>
+              <li><strong>Mid-Height Parting or Split Patterns:</strong> When Mesh places the optimal parting plane partway up a symmetrical part (like a gear hub, pulley, or sphere), its printed runner and tapered riser post still stand cleanly on the print bed &mdash; or use Mesh's <strong>Scissors / Split</strong> tool to print flat-backed drag and cope halves for tall two-sided work.</li>
             </ol>
           </section>
 
           <section id="section-sand-flask" class="tutorial-section-block">
-            <h2><i class="fas fa-box-open"></i> 4. Ramming the Drag &amp; Cope on the Bench</h2>
+            <h2><i class="fas fa-box-open"></i> 4. Ramming Around the Printed Rig &amp; Drawing Cleanly</h2>
+            <p>
+              Because Petrobond and green sand are naturally gas-permeable (steam and air breathe right out between the sand grains) and Mesh's printed rig already forms the sprue well, runner, gate, and riser, bench molding needs no hand-carved channels or wire-poked vents on ordinary parts:
+            </p>
             <div class="steps-grid">
               <div class="step-card">
                 <div class="step-number">1</div>
-                <h4>Dust &amp; Face the Drag</h4>
-                <p>Lay the pattern parting-face down on a flat molding board inside the inverted <strong>drag</strong>. Dust lightly with non-silica parting powder (talc or calcium carbonate) and riddle (sieve) <code>15&nbsp;mm</code> of fine facing sand directly over every detail.</p>
+                <h4>Dust &amp; Ram the Drag</h4>
+                <p>Set the one-piece printed pattern on a molding board inside the inverted <strong>drag</strong>, dust lightly with talc/parting powder, sieve fine facing sand over the detail, ram firm, strike off flat, and flip the drag over.</p>
               </div>
               <div class="step-card">
                 <div class="step-number">2</div>
-                <h4>Peen, Butt-Ram &amp; Flip</h4>
-                <p>Pack around the flask perimeter with the wedge end of your rammer, fill high with backing sand, butt-ram firm, strike off dead flat with a steel bar, and flip the drag right-side up.</p>
+                <h4>Ram the Cope Over the Sprue</h4>
+                <p>Seat the <strong>cope</strong> on its alignment pins, dust the parting plane thoroughly, and ram sand straight around Mesh's printed down-sprue and riser columns until flush with the top of the sprue.</p>
               </div>
               <div class="step-card">
                 <div class="step-number">3</div>
-                <h4>Seat the Cope &amp; Riser</h4>
-                <p>Set the <strong>cope</strong> on its registration pins, dust the parting face thoroughly so the halves won't stick together, stand your tapered sprue and riser pins beside the thickest section, and ram the cope full.</p>
+                <h4>Bell the Mouth &amp; Draw</h4>
+                <p>Thumb a smooth funnel flare into the sand around the top of the printed sprue, lift the cope off, tap the pattern lightly to break static friction, and lift the entire printed pattern + gating rig straight out in one piece!</p>
               </div>
             </div>
           </section>
 
-          <section id="section-sand-gates" class="tutorial-section-block">
-            <h2><i class="fas fa-water"></i> 5. Cutting Smooth Runners, Risers &amp; Vent Channels</h2>
-            <p>
-              Twist and withdraw the sprue/riser pins, chamfer the top of the sprue into a wide funnel basin so nothing Loose falls down the hole, and lift the cope straight up onto its back. Rap the pattern lightly on all sides with a wooden dowel to break static friction, then lift it straight out.
-            </p>
-            <ul>
-              <li><strong> Sprue Well &amp; Runner Ratio:</strong> Scoop a small rounded well at the bottom of the sprue in the drag to cushion the falling metal stream, then cut a smooth runner channel leading into a wide, thin ingate at the casting's heavy section.</li>
-              <li><strong>Feed Heavy Sections with a Riser:</strong> Liquid metal shrinks from thin walls toward thick bosses. Place your riser right next to the heaviest boss so the riser freezes <em>last</em> and feeds molten metal into the part instead of leaving a sunken shrinkage pipe.</li>
-              <li><strong>Vent High Points:</strong> Pierce <code>1.5&nbsp;mm</code> wire vent holes from the highest points of the cope cavity out through the top sand so expanding air and oil vapor escape without bubbling back through the metal.</li>
-            </ul>
-          </section>
-
           <section id="section-sand-pour" class="tutorial-section-block">
-            <h2><i class="fas fa-fire"></i> 6. Pouring, Shakeout &amp; Foundry Safety</h2>
+            <h2><i class="fas fa-fire"></i> 5. Clamping, Pouring Choked &amp; Foundry Safety</h2>
             <p>
-              Re-close the cope onto the drag, place a steel weight or C-clamp across the flask (molten bronze and aluminium exert enough upward hydrostatic buoyancy to float an unweighted cope right off the parting line!), and pour the melt weight reported by Mesh:
+              Blow out any stray grains, re-close the cope onto the drag, set a weight or C-clamp across the flask (molten metal exerts enough hydrostatic lift to float an unweighted cope right off the parting line!), and melt the exact pour gram weight shown in Mesh's summary card:
             </p>
             <ul>
-              <li><strong>Keep the Pouring Basin Full (“Choked”):</strong> Hold the crucible lip close to the sprue funnel and pour fast enough that the basin stays brim-full from start to finish &mdash; dross floats on top of the full pool while clean metal feeds smoothly from the bottom without sucking air vortices.</li>
-              <li><strong>Let Solidify Fully Before Shakeout:</strong> Give aluminium 10&ndash;15 minutes (bronze 15&ndash;20 minutes) so hot-short alloys regain strength before breaking open the sand and sawing off the sprue/riser.</li>
+              <li><strong>Keep the Sprue Mouth Full (“Choked”):</strong> Hold the crucible lip close to the flared sprue mouth and pour steadily so it stays brim-full from start to finish &mdash; slag floats harmlessly on top while clean metal feeds smoothly along Mesh's runner into the cavity and up into the side riser.</li>
+              <li><strong>Let Cool Before Shakeout:</strong> Give aluminium 10&ndash;15 minutes (bronze 15&ndash;20 minutes) so hot-short alloys regain full strength before breaking open the sand, sawing off the runner and riser stubs, and brushing your reusable 3D-printed pattern clean for the next pour.</li>
             </ul>
             <div class="callout-box callout-danger">
               <div class="callout-title"><i class="fas fa-shield-halved"></i> Non-Negotiable Foundry Safety</div>
@@ -664,14 +661,14 @@
               <span class="article-badge badge-cnc"><i class="fas fa-clock"></i> 20 Min Read</span>
               <span class="article-badge" style="background: #f1f5f9; color: var(--text-secondary);"><i class="fas fa-signal"></i> Level: Intermediate</span>
             </div>
-            <h1 class="article-title">Lost-PLA Investment Casting: Undercuts, Burnout Schedules &amp; Metal Pours</h1>
-            <p class="article-subtitle">Cast intricate bronze, brass, silver, and aluminium parts with zero draft limits &mdash; Mesh fuses the sprue/cup/vents onto your STL and calculates flask dimensions, investment powder/water grams, and kiln burnout ramps.</p>
+            <h1 class="article-title">Lost-PLA Investment Casting: One-Piece Burnout Trees, Vents &amp; Pours</h1>
+            <p class="article-subtitle">Cast intricate bronze, brass, silver, and aluminium parts with zero draft limits &mdash; Mesh fuses the pouring cup, modulus-sized sprue, and air-pocket vents onto your STL as one printable burnout tree, then computes flask dimensions and investment grams.</p>
           </header>
 
           <section id="section-lostpla-why" class="tutorial-section-block">
             <h2><i class="fas fa-gem"></i> 1. Sand vs. Lost PLA: Why Undercuts Cost Nothing Here</h2>
             <p>
-              Remember how Sand Casting flagged <code>37%</code> of #3DBenchy's cabin arches as un-drawable overhangs? <strong>Lost-PLA investment casting</strong> turns that limitation on its head: you bury a sacrificial 3D print inside liquid gypsum-silica refractory investment, let it set rock-hard, and melt/vaporize the plastic out in a burnout kiln. Because the pattern leaves as liquid and gas rather than pulling mechanically, <strong>cabins, portholes, internal passages, lattices, and organic sculptures cast in one piece with 0&deg; draft</strong>.
+              Remember how Sand Casting flagged 37% of #3DBenchy's cabin arches as un-drawable overhangs? <strong>Lost-PLA investment casting</strong> turns that limitation on its head: you bury a sacrificial 3D print inside liquid gypsum-silica refractory investment, let it set rock-hard, and melt/vaporize the plastic out in a burnout kiln. Because the pattern leaves as liquid and gas rather than pulling mechanically, <strong>cabins, portholes, internal passages, lattices, and organic sculptures cast in one piece with 0&deg; draft</strong>.
             </p>
             <figure class="tutorial-figure">
               <picture>
@@ -685,14 +682,14 @@
           </section>
 
           <section id="section-lostpla-rig" class="tutorial-section-block">
-            <h2><i class="fas fa-code-branch"></i> 2. Auto-Fused Sprues, Vents &amp; Flask Sizing in Mesh</h2>
+            <h2><i class="fas fa-code-branch"></i> 2. One-Piece Burnout STL: Auto-Fused Cup, Sprue, Vents &amp; Simulate Cast</h2>
             <p>
-              In <strong>PhysBox Mesh &rarr; Mold &rarr; Lost PLA</strong>, pick your alloy (<strong>Silver 1.0&nbsp;mm min wall</strong>, <strong>Brass/Bronze 2.5&nbsp;mm</strong>, or <strong>Aluminium 3.0&nbsp;mm</strong>). Mesh analyzes your geometry and builds a single manifold burnout STL with:
+              Hand-waxing sprues and guessing which pockets will trap air inside an opaque plaster flask is the #1 cause of short-pours in home investment casting. In <strong>PhysBox Mesh &rarr; Mold &rarr; Lost PLA</strong>, pick your alloy (<strong>Silver</strong>, <strong>Brass</strong>, <strong>Bronze</strong>, or <strong>Aluminium</strong>) and Mesh generates the entire burnout tree as <strong>one ready-to-slice STL</strong>:
             </p>
             <ul>
-              <li><strong>Shrinkage Compensation:</strong> Scales the entire model up (<code>+1.3%</code> aluminium, <code>+1.5%</code> brass/bronze, <code>+1.6%</code> silver) before fusing the gating rig.</li>
-              <li><strong>Fused Pouring Cup, Main Sprue &amp; Air-Pocket Vents:</strong> Automatically detects ceiling pockets where rising metal would trap air (such as Benchy's cabin roof and bow deck) and fuses slender vertical vent rods up to the pouring plane, sized above the metal's Bretherton capillary rise limit.</li>
-              <li><strong>Exact Flask &amp; Investment Recipe:</strong> Outputs steel flask diameter &times; height (with ~12&nbsp;mm wall margin), PLA filament weight, and exact grams of investment powder + water.</li>
+              <li><strong>Shrinkage + Thermal-Modulus Sprue:</strong> Scales the model up (+1.3% aluminium, +1.5% brass/bronze, +1.6% silver) and roots a flared pouring cup and sprue directly onto the <em>heaviest, last-freezing section</em> so the cup stays molten longest and feeds solidification shrinkage without a separate side riser.</li>
+              <li><strong>Automatic Trapped-Air Pocket Vents:</strong> Scans the 3D cavity for blind ceiling pockets where rising metal or burnout gas would stall (such as Benchy's cabin roof and bow deck) and fuses slender vertical vent rods up to the flask rim &mdash; angling them out at 45&deg; under the pouring cup whenever needed so metal splashes cannot choke them.</li>
+              <li><strong>Exact Flask, Investment &amp; Simulate Cast Check:</strong> Outputs the minimum steel flask diameter &times; height (with 12&nbsp;mm refractory wall margin), PLA print weight, and exact grams of investment powder and water &mdash; plus <strong>Simulate Cast</strong> to verify that metal from the sprue reaches 100% of every part in the scene.</li>
             </ul>
 
             <div class="tutorial-sim-to-real">
@@ -703,7 +700,7 @@
                 </picture>
                 <figcaption class="figure-caption">
                   <span class="sim-real-pill pill-sim"><i class="fas fa-cube"></i> In Mesh</span>
-                  <span><strong>Lost-PLA Burnout Planner:</strong> Bronze #3DBenchy (<code>+1.5%</code> shrink, <code>137 g</code> cast / <code>174 g</code> pour) with fused cup + 3 vents, <code>&empty;93&times;81 mm</code> flask, and <code>656 g</code> powder + <code>262 g</code> water.</span>
+                  <span><strong>Lost-PLA Burnout Planner:</strong> Bronze #3DBenchy (+1.5% shrink, 137&nbsp;g cast / 174&nbsp;g pour) with fused cup + 3 vents, &empty;93&times;81&nbsp;mm flask, and 656&nbsp;g powder + 262&nbsp;g water.</span>
                 </figcaption>
               </figure>
               <figure class="tutorial-figure">
@@ -722,14 +719,14 @@
           <section id="section-lostpla-print" class="tutorial-section-block">
             <h2><i class="fas fa-layer-group"></i> 3. Slicer Settings That Prevent Cracked Investment Shells</h2>
             <p>
-              Solid plastic expands thermally long before it melts! A 100%-infill PLA print acts like a hydraulic wedge between <code>80&ndash;130&nbsp;&deg;C</code> and splits your plaster mold wide open. Follow these three slicer rules every time:
+              Solid plastic expands thermally long before it melts! A 100%-infill PLA print acts like a hydraulic wedge between 80&ndash;130&nbsp;&deg;C and splits your plaster mold wide open. Follow these three slicer rules every time:
             </p>
             <div class="callout-box callout-warning">
               <div class="callout-title"><i class="fas fa-exclamation-triangle"></i> The Hollow Collapse Rule</div>
-              <p>Print in <strong>unpigmented / natural PLA</strong> (or dedicated PolyCast filament &mdash; avoid matte white <code>TiO₂</code>, carbon fiber, or wood-fill, which leave stubborn ash!) with <strong>2 thin walls (<code>0.8 mm</code>) and <code>8–10%</code> gyroid infill</strong>. As the kiln crosses glass transition, thin walls soften and buckle harmlessly <em>inward</em> into the hollow interior. Drill a <code>2 mm</code> drain hole connecting the hollow print cavity into the printed sprue throat so melted PLA runs straight out!</p>
+              <p>Print in <strong>unpigmented / natural PLA</strong> (or dedicated PolyCast filament &mdash; avoid matte white TiO&#8322;, carbon fiber, or wood-fill, which leave stubborn ash!) with <strong>2 thin walls (0.8&nbsp;mm) and 8&ndash;10% gyroid infill</strong>. As the kiln crosses glass transition, thin walls soften and buckle harmlessly <em>inward</em> into the hollow interior. Drill a 2&nbsp;mm drain hole connecting the hollow print cavity into the printed sprue throat so melted PLA runs straight out!</p>
             </div>
             <p>
-              <em>Optional surface trick:</em> Brush a thin <code>0.3 mm</code> coat of low-ash jeweller's microcrystalline/beeswax over your PLA print and smooth with a warm air gun &mdash; it erases FDM layer lines AND melts out first at <code>70 °C</code>, leaving an expansion buffer gap between the PLA and the investment wall!
+              <em>Optional surface trick:</em> Brush a thin 0.3&nbsp;mm coat of low-ash jeweller's microcrystalline/beeswax over your PLA print and smooth with a warm air gun &mdash; it erases FDM layer lines AND melts out first at 70&nbsp;&deg;C, leaving an expansion buffer gap between the PLA and the investment wall!
             </p>
           </section>
 
@@ -737,7 +734,7 @@
             <h2><i class="fas fa-vial"></i> 4. Mixing, Vacuum Degassing &amp; Investing the Flask</h2>
             <ol>
               <li><strong>Seal to the Rubber Sprue Base:</strong> Wax the lip of your printed pouring cup dead-center onto a rubber flask base and seat the steel flask sleeve firmly (tape perforations securely if using a perforated vacuum flask).</li>
-              <li><strong>Weigh &amp; Sift Powder into Water:</strong> Use a jewellery investment formulated for high burnout (<code>Ransom & Randolph Plasticast</code>, <code>Prestige Optima</code>, or <code>SRS Classic</code> &mdash; never hardware-store Plaster of Paris, which cracks at <code>730 °C</code>!). Always sift powder into room-temperature water (<code>~21 °C</code>), never water into powder.</li>
+              <li><strong>Weigh &amp; Sift Powder into Water:</strong> Use a jewellery investment formulated for high burnout (such as Ransom &amp; Randolph Plasticast, Prestige Optima, or SRS Classic &mdash; never hardware-store Plaster of Paris, which cracks at 730&nbsp;&deg;C!). Weigh the exact powder and water grams from Mesh's summary card, and always sift powder into room-temperature water (~21&nbsp;&deg;C), never water into powder.</li>
               <li><strong>Two-Stage Vacuum Degas:</strong> Mix for 3.5 minutes, pull vacuum in a bell jar until the slurry foams up to 3&times; volume and collapses (“breaks”), then pour slowly down the inside steel wall of the flask so rising slurry fills undercuts from below. Pull vacuum a second time for 60&ndash;90 seconds to lift micro-bubbles off the PLA, then let cure undisturbed on a vibration-free bench for <strong>2&ndash;3 hours</strong>.</li>
             </ol>
           </section>
@@ -761,11 +758,11 @@
               <div class="step-card">
                 <div class="step-number">3</div>
                 <h4>730&nbsp;&deg;C &middot; Ash Burnout (3&ndash;4&nbsp;h)</h4>
-                <p>Crack the kiln peephole slightly for oxygen! Carbon residue oxidizes completely to <code>CO₂</code> gas until the sprue throat glows clean chalk-white with zero grey soot.</p>
+                <p>Crack the kiln peephole slightly for oxygen! Carbon residue oxidizes completely to CO&#8322; gas until the sprue throat glows clean chalk-white with zero grey soot.</p>
               </div>
             </div>
             <p>
-              <strong>Crucial Final Step &mdash; Drop to Pouring Flask Temp:</strong> Do <em>not</em> pour bronze into a <code>730 °C</code> flask (calcium sulfate decomposes above <code>750 °C</code>, causing rough “christmas-tree” sulfur gas porosity!). Ramp the kiln <em>down</em> and let the flask stabilize for 1 hour at Mesh's recommended flask temperature (~<code>450&ndash;525&nbsp;&deg;C</code> for bronze/silver, ~<code>350&ndash;400&nbsp;&deg;C</code> for aluminium).
+              <strong>Crucial Final Step &mdash; Drop to Pouring Flask Temp:</strong> Do <em>not</em> pour bronze into a 730&nbsp;&deg;C flask (calcium sulfate decomposes above 750&nbsp;&deg;C, causing rough “christmas-tree” sulfur gas porosity!). Ramp the kiln <em>down</em> and let the flask stabilize for 1 hour at Mesh's recommended flask temperature (~450&ndash;525&nbsp;&deg;C for bronze/silver, ~350&ndash;400&nbsp;&deg;C for aluminium).
             </p>
           </section>
 
@@ -797,7 +794,7 @@
           <section id="section-slip-how" class="tutorial-section-block">
             <h2><i class="fas fa-droplet"></i> 1. Capillary Suction: How Liquid Clay Builds a Hollow Vessel</h2>
             <p>
-              Ceramic <em>casting slip</em> (porcelain, stoneware, or earthenware clay deflocculated with sodium silicate/Darvan so it pours like heavy cream at low water content) does not set chemically. Instead, you pour slip into a dry, microporous <strong>Potter's #1 plaster mold</strong>. Capillary suction in the dry gypsum draws water out of the outer layer of slip, compacting clay platelets into a leather-firm shell (<code>3–5 mm</code> thick in 15–25 minutes). Tip the mold upside down to pour out the still-liquid interior, and a hollow vase remains!
+              Ceramic <em>casting slip</em> (porcelain, stoneware, or earthenware clay deflocculated with sodium silicate/Darvan so it pours like heavy cream at low water content) does not set chemically. Instead, you pour slip into a dry, microporous <strong>Potter's #1 plaster mold</strong>. Capillary suction in the dry gypsum draws water out of the outer layer of slip, compacting clay platelets into a leather-firm shell (3&ndash;5&nbsp;mm thick in 15&ndash;25 minutes). Tip the mold upside down to pour out the still-liquid interior, and a hollow vase remains!
             </p>
             <figure class="tutorial-figure">
               <picture>
@@ -811,14 +808,14 @@
           </section>
 
           <section id="section-slip-design" class="tutorial-section-block">
-            <h2><i class="fas fa-compass-drafting"></i> 2. Firing Shrinkage, Auto Radial Splits, Natches &amp; the Spare</h2>
+            <h2><i class="fas fa-compass-drafting"></i> 2. Firing Shrinkage, Auto Radial Splits, Natches &amp; Wall Simulation</h2>
             <p>
-              Because non-porous 3D-printed PLA cannot absorb water from clay, <strong>PhysBox Mesh &rarr; Mold &rarr; Slip Cast</strong> designs the <strong>printed outer mother-cases</strong> that cast each plaster block &mdash; solving four classic pottery moldmaker calculations automatically:
+              Making traditional plaster mother-molds by hand with clay cottle boards, hand-carved keys, and slide-rule shrinkage tables takes days of studio work. Because non-porous 3D-printed PLA cannot absorb water from clay directly, <strong>PhysBox Mesh &rarr; Mold &rarr; Slip Cast</strong> generates the complete set of <strong>3D-printed mother-cases</strong> that cast your plaster blocks &mdash; and lets you step through <strong>1 &middot; Print these</strong>, <strong>2 &middot; Fill with plaster</strong>, and <strong>3 &middot; Strap and pour slip</strong> right in the viewport:
             </p>
             <ul>
-              <li><strong>Wet-to-Fired Shrinkage (<code>+7%</code> to <code>+14.9%</code> Scale):</strong> Clay shrinks once as it dries to bone-dry greenware and a second time as it vitrifies in the kiln. Pick <strong>Porcelain (<code>13%</code>)</strong>, <strong>Stoneware (<code>12%</code>)</strong>, or <strong>Earthenware (<code>7%</code>)</strong> (or type your own test-bar %) and Mesh scales the mold cavity by <code>1 / (1 - shrink)</code> so your fired piece hits exact CAD dimensions.</li>
-              <li><strong>Automatic <code>2–6</code> Side Parting + Tapered Base Plug:</strong> Mesh searches every parting angle around the pour axis to find the minimum number of radial wedges (<code>2–6</code>) with zero undercuts &mdash; splitting a mug cleanly down the middle of its handle &mdash; and adds a downward-tapered plaster base plug so footed bottoms release cleanly.</li>
-              <li><strong>Conical Alignment Natches &amp; Slip Spare Collar:</strong> Sinks self-locking conical keys (<code>natches</code>) into every parting face and adds a <code>25 mm</code> <strong>spare collar</strong> above the vessel lip so the dropping slip level never leaves a tide-ring inside your rim.</li>
+              <li><strong>Wet-to-Fired Shrinkage Scaling (+7% to +14.9%):</strong> Clay shrinks once as it dries to bone-dry greenware and a second time as it vitrifies in the kiln. Pick <strong>Porcelain (13%)</strong>, <strong>Stoneware (12%)</strong>, or <strong>Earthenware (7%)</strong> (or enter your own test-bar percentage) and Mesh grows the mold cavity automatically so your fired piece hits exact modelled dimensions.</li>
+              <li><strong>Automatic 2&ndash;6 Side Parting + Tapered Base Plug:</strong> Mesh searches every parting angle around the pour axis to find the fewest radial side pieces (2 to 6) that pull away with zero undercuts &mdash; splitting a mug cleanly down the middle of its handle &mdash; and adds a self-seating tapered base plug whenever your vessel has a foot ring.</li>
+              <li><strong>Conical Alignment Natches, Slip Spare &amp; Plaster Budget:</strong> Sinks self-locking conical keys (<em>natches</em>) into every parting face, adds a 25&nbsp;mm <strong>spare collar</strong> above the rim so the dropping slip level never leaves a tide mark, and calculates exact grams of plaster powder, mixing water, and millilitres of slip (or fits wall thickness to whatever plaster weight you have on hand!).</li>
             </ul>
 
             <div class="tutorial-sim-to-real">
@@ -829,7 +826,7 @@
                 </picture>
                 <figcaption class="figure-caption">
                   <span class="sim-real-pill pill-sim"><i class="fas fa-cube"></i> In Mesh</span>
-                  <span><strong>Generated 3-Piece Plaster Mold:</strong> Bellied porcelain vase grown <code>+14.9%</code> inside two 6-natch plaster side halves + tapered base plug (<code>3,714 g</code> plaster : <code>2,600 g</code> water).</span>
+                  <span><strong>Generated 3-Piece Plaster Mold:</strong> Bellied porcelain vase grown +14.9% inside two 6-natch plaster side halves + tapered base plug (3,714&nbsp;g plaster : 2,600&nbsp;g water).</span>
                 </figcaption>
               </figure>
               <figure class="tutorial-figure">
@@ -848,32 +845,32 @@
           <section id="section-slip-cases" class="tutorial-section-block">
             <h2><i class="fas fa-cubes"></i> 3. Printing Separable C-Clip Cases &amp; Mixing Potter's #1 Plaster</h2>
             <p>
-              Set gypsum expands slightly (<code>~0.15%</code>) and heats up (<code>~42 °C</code> exotherm) as it crystallizes, which locks rigid one-piece plastic boxes tightly onto cured plaster. Leave <strong>Separable Cases (<code>splitCase = true</code>)</strong> enabled in Mesh: each printed case arrives as a seamless pattern floor, two U-shaped side walls, and sliding dovetail C-clips that unclip and slide sideways off the warm plaster block with zero prying!
+              Set gypsum expands slightly (~0.15%) and warms up (~42&nbsp;&deg;C exotherm) as it crystallizes, which locks rigid one-piece plastic boxes tightly onto cured plaster. Leave <strong>Printed cases</strong> set to <strong>Separable</strong> in Mesh: each case exports flat-on-bed as a seamless pattern base, two U-shaped wall halves, and two sliding dovetail C-clips. Once the plaster sets, you simply tap the clips upward and slide the walls sideways off the warm plaster block with zero prying!
             </p>
             <ol>
               <li><strong>Soap the Printed Cases:</strong> Brush two thin coats of potter's mold soap (or Murphy's oil soap wiped nearly dry) onto the printed PLA pattern face and walls so plaster releases satin-smooth.</li>
-              <li><strong>Weigh <code>100 : 70</code> Potter's Plaster:</strong> Use ceramic <strong>USG No. 1 Pottery Plaster</strong> (never hardware patching plaster!). Weigh out the exact grams of powder and water reported by Mesh (<code>100 parts plaster : 70 parts water</code> by weight), sift plaster steadily into water, let slake undisturbed for 2 minutes, then stir gently from the bottom for 3 minutes without whipping air in.</li>
-              <li><strong>Tap Bubbles &amp; Cure Dry Below <code>45 °C</code>:</strong> Pour slowly into the lowest corner of each printed case, rap the bench for 60 seconds to float air pearls off the vase face, demold once cool after the warm exotherm peaks (~45 min), and let the plaster pieces dry in moving room air for several days (never bake above <code>48 °C</code>, which calcines plaster soft and chalky!).</li>
+              <li><strong>Weigh 100&nbsp;:&nbsp;70 Potter's Plaster:</strong> Use ceramic <strong>USG No.&nbsp;1 Pottery Plaster</strong> (never hardware patching plaster!). Weigh out the exact grams of powder and water reported by Mesh (100 parts plaster to 70 parts water by weight), sift plaster steadily into water, let slake undisturbed for 2 minutes, then stir gently from the bottom for 3 minutes without whipping air in.</li>
+              <li><strong>Tap Bubbles &amp; Cure Dry Below 45&nbsp;&deg;C:</strong> Pour slowly into the lowest corner of each printed case, rap the bench for 60 seconds to float air pearls off the vase face, slide the walls off once cool after the warm exotherm peaks (~45 min), and let the plaster pieces dry in moving room air for several days (never bake above 48&nbsp;&deg;C, which calcines plaster soft and chalky!).</li>
             </ol>
           </section>
 
           <section id="section-slip-cast-fire" class="tutorial-section-block">
-            <h2><i class="fas fa-hourglass-half"></i> 4. Pouring Slip, Draining, Fettling the Spare &amp; Firing</h2>
+            <h2><i class="fas fa-hourglass-half"></i> 4. Simulating Wall Build, Pouring Slip, Draining &amp; Firing</h2>
             <div class="steps-grid">
               <div class="step-card">
                 <div class="step-number">1</div>
-                <h4>Strap &amp; Sieve-Pour</h4>
-                <p>Wipe dust off the dry plaster faces, seat the two natched halves round the tapered base plug, cinch tight with heavy rubber mold bands, and pour 80-mesh-sieved slip steadily to the top of the spare collar.</p>
+                <h4>Preview with Simulate Cast</h4>
+                <p>Click <strong>Simulate Cast</strong> in Mesh before printing to build the virtual 3.5&nbsp;mm clay shell, verify narrow necks won't choke off draining, and check fired weight.</p>
               </div>
               <div class="step-card">
                 <div class="step-number">2</div>
-                <h4>Top Up, Time &amp; Drain</h4>
-                <p>Top up the spare once or twice as plaster drinks water. Use Mesh's <strong>Simulate Cast</strong> preview to check narrow necks first; after 15&ndash;22 minutes (<code>~3.5 mm</code> wall), tip smoothly to drain excess slip at a 45&deg; angle for 15 minutes.</p>
+                <h4>Strap, Pour &amp; Drain</h4>
+                <p>Seat the dry natched plaster halves round the base plug, cinch with rubber mold bands, sieve-pour slip to the top of the spare, top up as plaster drinks water, and drain after 15&ndash;22 minutes.</p>
               </div>
               <div class="step-card">
                 <div class="step-number">3</div>
                 <h4>Trim Spare &amp; Demold</h4>
-                <p>Once the clay sheen turns matte and pulls <code>0.5 mm</code> away from the plaster collar (~45 min), slice cleanly around the top of the spare with a fettling knife at a shallow inward angle, unstrap the sides, sponge seam lines softly, and bisque/glaze fire!</p>
+                <p>Once the clay sheen turns matte and pulls 0.5&nbsp;mm away from the plaster collar (~45 min), trim cleanly around the top of the spare with a fettling knife, unstrap the sides, sponge seam lines softly, and bisque/glaze fire!</p>
               </div>
             </div>
           </section>
@@ -899,7 +896,7 @@
           <section id="section-candle-why" class="tutorial-section-block">
             <h2><i class="fas fa-flame"></i> 1. Why Flexible Silicone Pour Boxes Beat Rigid Wax Molds</h2>
             <p>
-              Pouring molten wax (<code>~68–72 °C</code>) straight into a rigid 3D-printed PLA mold invites two frustrations: PLA begins glass-transition softening around <code>60 °C</code>, and sculptural textures (helical flutes, botanical reliefs, kumiko facets) lock mechanically inside rigid walls.
+              Pouring molten wax (~68&ndash;72&nbsp;&deg;C) straight into a rigid 3D-printed PLA mold invites two frustrations: PLA begins glass-transition softening around 60&nbsp;&deg;C, and sculptural textures (helical flutes, botanical reliefs, kumiko facets) lock mechanically inside rigid walls.
             </p>
             <p>
               Making a reusable <strong>platinum-cure silicone rubber mold</strong> inside a <strong>3D-printed Mesh Pour Box</strong> gives you the best of both worlds: zero hot-glue foamboard leaks on the bench, up to 40% less silicone wasted thanks to a silhouette-hugging sleeve, and a satin-flexible rubber interior that peels cleanly off deep helical undercuts for hundreds of candles.
@@ -918,12 +915,12 @@
           <section id="section-candle-wick" class="tutorial-section-block">
             <h2><i class="fas fa-bullseye"></i> 2. Designing Fluted Masters, Wick Pins &amp; Fitted Sleeves in Mesh</h2>
             <p>
-              Build your candle master in Mesh using <strong>Lattice</strong>, <strong>Clay Sculpt</strong>, or <strong>Surface Patterns</strong> (<code>T</code> key &rarr; <em>Fluted</em>, <em>Wave Slats</em>, <em>Guilloch&eacute;</em>, or <em>Foliage</em>), then open <strong>Mold &rarr; Silicone</strong>:
+              Build your candle master in Mesh using <strong>Lattice</strong>, <strong>Clay Sculpt</strong>, or <strong>Surface Patterns</strong> (press <code>T</code> &rarr; <em>Fluted</em>, <em>Wave Slats</em>, <em>Guilloch&eacute;</em>, or <em>Foliage</em>), then open <strong>Mold &rarr; Silicone</strong>:
             </p>
             <ul>
-              <li><strong>Automatic Inverted Orientation:</strong> Keep your candle standing right-side up in Mesh! The silicone mold cures over the top of your master (<code>8 mm</code> cover) and flips upside down for wax pouring &mdash; so your candle's flat bottom automatically becomes the wide open pour face, and its sculpted crown forms cleanly at the bottom of the mold.</li>
-              <li><strong>Self-Centering Wick Pin (<code>hole = 'wick'</code>):</strong> Switch <strong>Hole</strong> to <strong>Wick (<code>Ø2.5 mm</code>)</strong>. Mesh generates a small vertical pin at the top center of your master that pierces through the silicone cap &mdash; molding a clean, dead-center wick tunnel with zero hand-drilling!</li>
-              <li><strong>Silhouette-Fitted Split Sleeve + Sliding C-Clips:</strong> Setting <code>shape = 'fit'</code> contours the printed sleeve <code>8 mm</code> around your candle (<code>284 g</code> of silicone instead of <code>460 g</code> in a square box) with a <code>3 mm</code> leak-sealing base groove and sliding C-clips.</li>
+              <li><strong>Automatic Inverted Orientation:</strong> Keep your candle standing right-side up in Mesh! The silicone mold cures over the top of your master (8&nbsp;mm cover) and flips upside down for wax pouring &mdash; so your candle's flat bottom automatically becomes the wide open pour face, and its sculpted crown forms cleanly at the bottom of the mold.</li>
+              <li><strong>Self-Centering Wick Pin:</strong> Under <strong>Advanced &rarr; Hole through the mold</strong>, choose <strong>For a wick</strong> (&empty;2.5&nbsp;mm). Mesh generates a vertical printed pin at the top center of your master that pierces through the silicone cap &mdash; molding a clean, dead-center wick tunnel with zero hand-drilling!</li>
+              <li><strong>Silhouette-Fitted Split Sleeve + Sliding C-Clips:</strong> Setting <strong>Sleeve shape</strong> to <strong>Fit to master</strong> with a <strong>Separable</strong> printed sleeve contours the wall 8&nbsp;mm around your candle (284&nbsp;g of silicone instead of 460&nbsp;g in a square box) with a labyrinth seam seal, a 3&nbsp;mm base groove, and two sliding dovetail C-clips &mdash; plus <strong>Simulate Cast</strong> to preview the inverted silicone mold, auto-cut vents, and finished wax weight in one click.</li>
             </ul>
 
             <div class="tutorial-sim-to-real">
@@ -934,7 +931,7 @@
                 </picture>
                 <figcaption class="figure-caption">
                   <span class="sim-real-pill pill-sim"><i class="fas fa-cube"></i> In Mesh</span>
-                  <span><strong>Fitted Pour-Box Planner:</strong> 14-flute helical pillar (<code>&empty;61 &times; 105 mm</code>) with <code>&empty;2.5 mm</code> center wick pin, split C-clip sleeve, and <code>142 g Part A + 142 g Part B</code> silicone recipe.</span>
+                  <span><strong>Fitted Pour-Box Planner:</strong> 14-flute helical pillar (&empty;61&nbsp;&times;&nbsp;105&nbsp;mm) with &empty;2.5&nbsp;mm center wick pin, split C-clip sleeve, and 142&nbsp;g Part A + 142&nbsp;g Part B silicone recipe.</span>
                 </figcaption>
               </figure>
               <figure class="tutorial-figure">
@@ -953,15 +950,15 @@
           <section id="section-candle-silicone" class="tutorial-section-block">
             <h2><i class="fas fa-flask"></i> 3. Mixing &amp; Pouring Bubble-Free Silicone (No Vacuum Chamber Needed)</h2>
             <p>
-              Choose a soft, stretchy <strong>Shore 10A&ndash;20A platinum-cure (<code>1:1</code>) silicone</strong> so tall candles peel out effortlessly without tearing delicate wax flutes:
+              Choose a soft, stretchy <strong>Shore 10A&ndash;20A platinum-cure (1:1) silicone</strong> so tall candles peel out effortlessly without tearing delicate wax flutes:
             </p>
             <ol>
-              <li><strong>Anchor the Master Down:</strong> Hollow plastic prints float in dense liquid silicone (<code>1.08 g/cm³</code>)! Run a thin bead of hot glue (or double-sided tape) under the bottom rim of your sanded/primed PLA candle master so it stays seated firmly on the pour-box base plate, and press the sleeve firmly into its <code>3 mm</code> base groove with the C-clips slid home.</li>
-              <li><strong>Pour an “Angel-Hair” Stream from <code>25 cm</code> High:</strong> Weigh equal grams of Part A and Part B from Mesh's card, scrape the mixing cup walls thoroughly, and pour in a thin, thread-like stream aimed at the <em>lowest floor corner</em> beside the master (never directly on top of the candle). Stretching the stream into a thin ribbon pops trapped air bubbles on the way down while silicone rises smoothly from the bottom up to the molded fill line!</li>
+              <li><strong>Anchor the Master Down:</strong> Hollow plastic prints float in dense liquid silicone (1.08&nbsp;g/cm&sup3;)! Run a thin bead of hot glue (or double-sided tape) under the bottom rim of your sanded/primed PLA candle master so it stays seated firmly on the pour-box base plate, and press the split sleeve firmly into its 3&nbsp;mm base groove with both C-clips slid home.</li>
+              <li><strong>Pour an “Angel-Hair” Stream from 25&nbsp;cm High:</strong> Weigh equal grams of Part A and Part B from Mesh's card (or enter whatever silicone weight you have left under <strong>Silicone to hand</strong> and let Mesh size the cover to match!), scrape the mixing cup walls thoroughly, and pour in a thin, thread-like stream aimed at the <em>lowest floor corner</em> beside the master &mdash; never directly onto the candle. Stretching the stream pops trapped air bubbles on the way down while silicone rises smoothly from the bottom up!</li>
             </ol>
             <div class="callout-box callout-tip">
               <div class="callout-title"><i class="fas fa-lightbulb"></i> FDM PLA vs. UV Resin Cure-Inhibition Tip</div>
-              <p>Standard FDM <strong>PLA, PETG, and ABS</strong> masters cure cleanly against <code>1:1</code> platinum silicone every time. Do <em>not</em> pour platinum silicone onto fresh SLA/MSLA UV resin prints without specialized barrier primer &mdash; photoinitiators inhibit platinum catalyst and leave uncured sticky film! (Use <code>10:1</code> tin-cure silicone if molding unsealed UV resin.)</p>
+              <p>Standard FDM <strong>PLA, PETG, and ABS</strong> masters cure cleanly against 1:1 platinum silicone every time. Do <em>not</em> pour platinum silicone onto fresh SLA/MSLA UV resin prints without specialized barrier primer &mdash; photoinitiators inhibit platinum catalyst and leave uncured sticky film! (Use 10:1 tin-cure silicone if molding unsealed UV resin.)</p>
             </div>
           </section>
 
@@ -976,12 +973,12 @@
               <div class="step-card">
                 <div class="step-number">2</div>
                 <h4>Match Square-Braided Wick to Diameter</h4>
-                <p>Beeswax is viscous and prefers <strong>square-braided cotton wick</strong> (<code>#1/0</code> or <code>#2/0</code> for a <code>55–65 mm</code> pillar). Thread it through the molded bottom wick hole, seal outside with Reusable wick putty, and pull taut into a slotted centering bar across the top.</p>
+                <p>Beeswax is viscous and prefers <strong>square-braided cotton wick</strong> (#1/0 or #2/0 for a 55&ndash;65&nbsp;mm pillar). Thread it through the molded bottom wick hole, seal outside with reusable wick putty, and pull taut into a slotted centering bar across the top.</p>
               </div>
               <div class="step-card">
                 <div class="step-number">3</div>
-                <h4>Pour at <code>68–72 °C</code> + Top-Up Well</h4>
-                <p>Warm the silicone mold gently with a hairdryer to prevent cold jump-lines, pour slowly, and reserve <code>15 ml</code> of wax in your pouring pot. Once a slight cooling dimple forms around the wick (~45 min), re-melt and top it flush so the candle base stands dead flat!</p>
+                <h4>Pour at 68&ndash;72&nbsp;&deg;C + Top-Up Well</h4>
+                <p>Warm the silicone mold gently with a hairdryer to prevent cold jump-lines, pour slowly, and reserve 15&nbsp;ml of wax in your pouring pot. Once a slight cooling dimple forms around the wick (~45 min), re-melt and top it flush so the candle base stands dead flat!</p>
               </div>
             </div>
           </section>
@@ -1014,8 +1011,8 @@
               <span class="sim-badge physics-badge">Foundry &middot; Sand</span>
               <span style="font-size: 0.85rem; color: var(--text-muted);">14 Min</span>
             </div>
-            <h3 class="tutorial-card-title">Backyard Sand Casting from 3D-Printed Patterns</h3>
-            <p class="tutorial-card-desc">Add draft, fillets &amp; alloy shrinkage in Mesh, ram Petrobond cope-and-drag flasks, and pour clean aluminium or bronze.</p>
+            <h3 class="tutorial-card-title">Backyard Sand Casting from One-Piece Printed Patterns</h3>
+            <p class="tutorial-card-desc">Export a single STL with draft, alloy shrink, sprue, runner &amp; Chvorinov riser already fused on, then ram Petrobond and pour.</p>
           </div>
           <div class="tutorial-card-footer">
             <span style="font-size: 0.85rem; color: #0284c7;"><i class="fas fa-check-circle"></i> Complete Guide</span>
